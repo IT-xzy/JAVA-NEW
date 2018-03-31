@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Spring中的IOC是什么意思，为什么要用IOC而不是New来创建实例？</h2>
+            <p></p>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p></p>
+            <p></p>
+            <p>分享人：杨聪聪</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+         <section>
+
+            <P>spring是一种多层的J2EE应用程序框架，是以Rod Johson编写的《Expert one to one J2EE design and development》一书的代码为基础发展而来的。它是为了解决企业应用开发的复杂性而创建的。Spring使用基本的JavaBean来完成以前只可能由EJB完成的事情。从简单性、可测试性和松耦合的角度而言，任何Java应用都可以从Spring中受益。spring的两个核心思想就是IOC和AOP。</P>
+
+        </section>
+        <section>
+            <P>为了方便解耦，简化开发，spring提供了一种新的设计思想来管理业务对象及其依赖关系，即控制反转IOC。</P>
+<p>
+在传统的程序设计中，调用者直接使用new关键字创建对象，是程序主动去创建依赖对象，调用者和被调用者之间的耦合度很高，不利于程序的复用和维护。
+</p>
+<p>而IoC是有专门一个容器来创建这些对象，即由Ioc容器来控制对象的创建，这样本来是由程序来创建对象，转变成由IOC容器来创建，总之就是依赖对象的获取被反转了。
+ </P>
+ <p>至于依赖注入（DI）则是一种实现IOC的技术手段。</p>
+        </section>
+         <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>1.spring容器</p>
+            <p>2.bean的定义</p>
+            <p> 3,bean实例化的三种方式</p>
+            <p>4.bean的作用域</p>
+            <p>5.bean生命周期</p>
+            <P>6.依赖注入</P>
+            
+            <P></P>
+            <p></p>
+        </section>
+        <section>
+           
+               <p>1，spring容器是 Spring 框架的核心。容器将创建对象，把它们连接在一起，配置它们，并管理他们的整个生命周期从创建到销毁。 Spring 提供了以下两种不同类型的容器；</p>
+              <p> Spring BeanFactory 容器：它是最简单的容器，给 DI 提供了基本的支持。在 Spring 中，有大量对 BeanFactory 接口的实现。其中，最常被使用的是 XmlBeanFactory 类。</p>
+               <p>Spring ApplicationContext 容器：该容器包括 BeanFactory 容器的所有功能，并且该添加了更多的企业特定的功能，例如从一个属性文件中解析文本信息的能力，发布应用程序事件给事件监听器的能力。所以通常建议使用ApplicationContext。 </p>
+
+        </section>
+        <section>
+            <p>最常被使用的 ApplicationContext 接口实现：</p>
+    <p>• FileSystemXmlApplicationContext：该容器从 XML 文件中加载已被定义的 bean。在这里，你需要提供给构造器 XML 文件的完整路径</p>
+   <p> • ClassPathXmlApplicationContext：该容器从 XML 文件中加载已被定义的 bean。在这里，你不需要提供 XML 文件的完整路径，只需正确配置 CLASSPATH 环境变量即可，因为，容器会从 CLASSPATH 中搜索 bean 配置文件。</p>
+   <p> • WebXmlApplicationContext：该容器会在一个 web 应用程序的范围内加载在 XML 文件中已被定义的 bean。</p>
+        </section>
+        <section>
+            <p>2，bean的定义</p>
+            <P>bean 是一个被实例化，组装，并通过 Spring IoC 容器所管理的对象。</P>
+            <p>bean的属性：<br>
+            class，是必须的，用来指定创建bean的类。</br>
+                name/id:用来指定唯一bean的标识符。</br>
+            scope:指定bean的作用域为单例或多例等等，默认为单例。</br>
+        constructor-arg、properties、autowire：注入依赖关系。</br>
+    lazy-init：延迟初始化bean告诉IoC容器在它第一次被请求时，而不是在启动时去创建一个bean实例。</br>
+    initialization和destruction 方法：在bean的所有必需的属性被容器设置之后，调用的回调方法；当包含该bean的容器被销毁时，调用的回调方法。
+            </p>
+         </section>
+         <section>
+             <p>
+                 3,bean实例化的三种方式<br>
+                 (1)无参构造函数<br>
+                 (2)静态工厂 <br>
+                 (3)实例工厂<br>
+
+             </p>
+         </section>
+         <section>
+            <p>4,bean的作用域<br>
+         singleton:该作用域将 bean 的定义的限制在每一个Spring IoC容器中的一个单一实例(默认)。<br>
+         prototype:限制在任意数量的对象实例。<br>
+         request、session、global-session:分别为HTTP请求、会话、全局会话。<br>
+         </p>
+        </section>
+        <section>
+            <p>5，bean的生命周期<br>
+                <p><img src="F:\SmallClass\first-springIOC\bean生命周期图.jpg"></p>
+            </p>
+        </section>
+         <section>
+            <p>
+                6，依赖注入<br>
+                有以下几种方式：
+                (1）设值函数（setter）注入。分为普通属性和域属性<br>
+                (2)构造方法注入：需要调用带有一组参数的类构造函数。构造器注入有俩种形式 ,一个是根据参数类型 ,一个是根据参数位置的下标<br>
+                (3)接口注入（不推荐）<br>
+                (4)注解注入: <br>
+                常用注解：
+1、自动注入：@Resources，@Autowired （spring还有一种基于XML文件的自动装配）<br>
+
+2、Bean定义：@Component、@Repository、@Service 和 @Constroller <br>
+            </p>
+         </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+        
+            <p>@Autowired和@Resources之间的区别？</p>
+        </section>
+        
+        
+        <section>
+            <h3>4.解决方案</h3>
+        
+        </section>
+         <section>
+                <p>@Autowired默认按类型装配（这个注解是属业spring的），默认情况下必须要求依赖对象必须存在，如果要允许null值，可以设置它的required属性为false<br>
+                    @Resource 默认按照名称进行装配，名称可以通过name属性进行指定，如果没有指定name属性，当注解写在字段上时，默认取字段名，按照名称查找，如果注解写在setter方法上默认取属性名进行装配。当找不到与名称匹配的bean时才按照类型进行装配。但是需要注意的是，如果name属性一旦指定，就只会按照名称进行装配。<br>
+            </p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>@Autowired放在setter方法和构造函数上的情况。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+         
+        </section>
+        <section>
+            <p>链接：https://www.zhihu.com/question/38597960/answer/77600561</p>
+            <p>作者：MOBIN-F</p>
+            <p>链接：https://www.w3cschool.cn/</p>
+            <p>作者：w3cschool</p>
+            <p>链接：https://www.cnblogs.com/dannyyao/p/6644225.html</p>
+            <p>作者：寻坑者</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+          <section>
+            
+            <p>spring IOC 底层实现的原理</p>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+               BY : 深圳分院 杨聪聪
+            </p>
+        </section>
+    </div>
+</div>
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+
+ <dependency>
+            <groupId>net.sf.json-lib</groupId>
+             <artifactId>json-lib</artifactId>
+             <version>2.4</version>
+             <classifier>jdk15</classifier>
+         </dependency>
