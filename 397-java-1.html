@@ -1,0 +1,203 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>jdbc连接池原理及分析</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：段文凯</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+		<section>
+            <p style="text-align:left">普通的JDBC操作数据库的流程</p>
+　　        <p style="text-align:left">装载数据库驱动程序</p>
+            <p style="text-align:left">通过jdbc建立数据库连接</p>
+			<p style="text-align:left">访问数据库，执行sql语句</p>
+			<p style="text-align:left">断开数据库连接</p>
+        </section>
+		
+		<section>
+			<p style="text-align:left">数据库连接池是怎样产生的？</p>
+            <p style="text-align:left">普通JDBC操作数据库，每一次对数据库的请求都要创建一次连接。这有什么后果呢？</p>
+　　        <p style="text-align:left">“数据库连接”是一种稀缺的资源，为了保障网站的正常使用，应该对其进行妥善管理。</p>
+        </section>
+		
+		<section>
+			<p style="text-align:left">数据库连接池的基本思想就是为数据库连接 建立一个“缓冲池”。</p>
+            <p style="text-align:left">预先在缓冲池中放入一定数量的连接，当需要建立数据库连接时，只需从“缓冲池”中取出一个，使用完毕之后再放回去。</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">数据库连接池的工作原理</p>
+            <p style="text-align:left">连接池的核心思想是连接的复用，通过建立一个数据库连接池以及一套连接使用、分配和管理策略，使得该连接池中的连接可以得到高效，安全的复用，避免了数据库连接频繁建立和关闭的开销。</p>
+        </section>
+		
+		
+		<section>
+            <p style="text-align:left">一：连接池的建立</p>
+            <p style="text-align:left">一般在系统初始化时，连接池会根据系统配置建立，并在池中创建了几个初始连接对象，以便使用时能从连接池中获取。</p>
+            <p style="text-align:left">初始的容量要根据实际情况来选择。开发时初始化较少的连接，可以加快启动速度。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">二：连接池的管理</p>
+            <p style="text-align:left">连接池管理策略是连接池机制的核心，连接池内连接的分配和释放对系统的性能有很大的影响。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">当客户请求数据库连接时，首先查看连接池中是否有空闲连接，如果存在空闲连接，则将连接分配给客户使用</p>
+            <p style="text-align:left">如果没有空闲连接，则查看当前所开的连接数是否已经达到最大连接数，如果没达到就重新创建一个连接给请求的客户</p>
+			<p style="text-align:left">如果达到就按设定的最大等待时间进行等待，如果超出最大等待时间，则抛出异常给客户</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">当客户释放数据库连接时，先判断该连接的引用次数是否超过了规定值，如果超过就从连接池中删除该连接，否则保留为其他客户服务。</p>
+            <p style="text-align:left">该策略保证了数据库连接的有效复用，避免频繁的建立、释放连接所带来的系统资源开销。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">三：连接池的关闭</p>
+            <p style="text-align:left">当应用程序退出时，关闭连接池中所有的连接，释放连接池相关的资源</p>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+		
+		<section>
+            <p style="text-align:left">连接池的分配与释放采用什么机制？</p>
+			 <p style="text-align:left">连接池的分配与释放，对系统的性能有很大的影响。合理的分配与释放，可以提高连接的复用度，从而降低建立新连接的开销，同时还可以加快用户的访问速度。</p>
+        </section>
+		
+        <section>
+            <p style="text-align:left">连接池的配置与维护</p>
+            <p style="text-align:left">连接池中到底应该放置多少连接，才能使系统的性能最佳?</p>
+			<p style="text-align:left">连接池初始化时放置多少连接比较好？</p>
+			<p style="text-align:left">最大连接数设置为多少比较好？</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">几种常见的数据库连接池的比较</p>
+        </section>
+
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>https://blog.csdn.net/frightingforambition/article/details/25464129</p>
+            <p>https://blog.csdn.net/shuaihj/article/details/14223015</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 段文凯</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
