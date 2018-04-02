@@ -1,0 +1,268 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是ajax</h2>
+            <p></p>
+            <h3>java分享会</h3>
+            <p>分享人：袁磊</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+
+            <h3>Ajax</h3>
+            <p> Ajax的全称是Asynchronous JavaScript and XML（异步的 JavaScript 和 XML).</p>
+            <p> Ajax 不是一种新的编程语言，而是一种用于创建更好更快以及交互性更强的Web应用程序的技术.使用JavaScript向服务器提出请求并处理响应而不阻塞用 户！核心对象XMLHTTPRequest。通过这个对象，您的JavaScript 可在不重载页面的情况与Web服务器交换数据,即在不需要刷新页面的情况下，就可以产生局部刷新 的效果。Ajax 在浏览器与 Web 服务器之间使用异步数据传输（HTTP 请求），这样就可使网页从服务器请求少量的信息，而不是整个页面。
+            </p>
+            
+        </section>
+       
+        <section>
+            <p>Ajax有机地包含了以下几种技术： 基于web标准（standards-based presentation）XHTML+CSS的表示； 使用 DOM（Document Object Model）进行动态显示及交互； 使用 XML 和 XSLT 进行数据交换及相关操作； 使用 XMLHttpRequest 进行异步数据查询、检索； 使用 JavaScript 将所有的东西绑定在一起。
+            类似于DHTML或LAMP，AJAX不是指一种单一的技术，而是有机地利用了一系列相关的技术。</p> 
+        </section>
+
+		<section>
+
+            <h3>Ajax的优点</h3>
+            <p>1、最大的一点是页面无刷新，用户的体验非常好。</p>
+            <p>2、使用异步方式与服务器通信，具有更加迅速的响应能力。</p>
+            <p>3、可以把以前一些服务器负担的工作转嫁到客户端，利用客户端闲置的能力来处理，减轻服务器和带宽的负担，节约空间和宽带租用成本。并且减轻服务器的负担，
+            Ajax的原则是“按需取数据”，可以最大程度的减少冗余请求，和响应对服务器造成的负担。</p>
+            <p>4、基于标准化的并被广泛支持的技术，不需要下载插件或者小程序。</p>
+            <p>5、ajax可使因特网应用程序更小、更快，更友好。</p>
+        </section>
+       
+
+         <section>
+             <h3>Ajax的缺点</h3>
+             <p>1、ajax不支持浏览器back按钮。</p>
+             <p>2、安全问题 AJAX暴露了与服务器交互的细节。</p>
+             <p>3、对搜索引擎的支持比较弱。</p>
+             <p>4、破坏了程序的异常机制。</p>
+             <p>5、不容易调试。</p>
+         </section> 
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+
+
+            <h3>什么是异步的JavaScript</h3>
+            <p>在了解javaScipt的异步机制之前,首先要了解什么是同步?什么是异步?</p>
+            <p>同步:如果在函数返回的时候，调用者就能够得到预期结果(即拿到了预期的返回值或者看到了预期的效果) 那 么这个函数就是同步的。如果函数是同步的，即使调用函数执行的任务比较耗时，也会一直等待直到得到预期结果。 </p>
+            <p>异步:如果在函数返回的时候，调用者还不能够得到预期结果，而是需要在将来通过一定的手段得到，那么这个函数就是异步的。如果函数是异步的，发出调用之后，马上返回，但是不会马上返回预期结果。调用者不必主动等待，当被调用者得到结果之后会通过回调函数主动通知调用者。</p>
+            
+        </section>
+            
+         <section>
+               <p> 在了解了什么异步之后,懂javaScipt的人就会有个疑问,既然JavaScript是单线程，怎么还存在异步，那些耗时操作到底交给谁去执行了？</p> 
+               <p>JavaScript其实就是一门语言，说是单线程还是多线程得结合具体运行环境。JS的运行通常是在浏览器中进行的，具体由JS引擎去解析和运行。</p>
+               <p>而浏览器的内核是多线程的.一个浏览器通常有一下几个常驻的线程:
+                  渲染引擎线程：顾名思义，该线程负责页面的渲染
+                  JS引擎线程：负责JS的解析和执行
+                  定时触发器线程：处理定时事件，比如setTimeout, setInterval
+                  事件触发线程：处理DOM事件
+                  异步http请求线程：处理http请求</p>
+                <p>所以，虽然JavaScript是单线程的，可是浏览器内部不是单线程的。一些I/O操作、定时器的计时和事件监听
+                （click,  keydown…）等都是由浏览器提供的其他线程来完成的。</p>
+        </section>
+
+        <section>
+            <p>上图以AJAX异步请求为例，发起异步任务后，由AJAX线程执行耗时的异步操作，而JS引擎线程继续执行堆中的其他同步任务，直到堆中的所有同步任务执行完毕。然后，从消息队列中依次按照顺序取出消息作为一个同步任务在JS引擎线程中执行，那么AJAX的回调函数就会在某一时刻被调用执行。</p>
+        </section>
+        
+        <section>
+            <h3>Ajax的运行的流程</h3>
+            <p>1,创建XMLHttpRequest</p>
+            <p>2,设置响应函数</p>
+            <p>3,设置访问页面</p>
+            <p>4,发出请求</p>
+            <p>5,当服务端的响应返回,响应函数被调用.</p>
+            <p>6,在响应函数中,判断响应是否成功,如果成功则获取服务端返回的文本,并显示在span中.</p>
+         </section>
+
+        <section>
+
+
+            <h3>XMLHttpRequest</h3>
+            <p> XMLHttpRequest对象是一个javaScipt对象,它可以在用户没有感觉的情况下,悄悄的和服务器进行数据交互.</p>
+            <p>Ajax就是通过它做到无刷新效果的</p>
+        </section>
+
+        <section>
+            <h3>设置响应函数</h3>
+            <p>XMLHttpRequest对象的作用是和服务器进行交互,所以既会发信息给服务器,也能接受服务器返回的响应.</P>
+             <p>当服务器响应回来的时候,调用怎么处理呢?</p>   
+             <p>通过xmlhttp.onreadystatechange=checkResult就可以指定用
+             checkResult函数进行处理.</p>
+        </section>
+
+        <section>
+
+            <h3>设置并发出请求</h3>
+            <p>通过open函数设置背后的这个小线程，将要访问的页面url 
+ 
+            xmlhttp.open("GET",url,true);</p>
+ 
+
+             <p>通过send函数进行实际的访问
+               xmlhttp.send(null);
+             null表示没有参数，因为参数已经通过“GET" 方式，放在url里了。
+             只有在用"POST"，并且需要发送参数的时候，才会使用到send。
+             类似这样：
+             xmlhttp.send("user="+username+"&password="+password)</p>
+         </section>
+
+           <section>
+            <h3>处理响应信息</h3>
+            <p>
+                在checkResult 函数中处理响应
+            </p>
+            <p>  function checkResult(){
+                 if (xmlhttp.readyState==4 && xmlhttp.status==200)  
+                 document.getElementById('checkResult').innerHTML=xmlhttp.responseText;}</p>
+             <p> xmlhttp.readyState 4 表示请求已完成
+                 xmlhttp.status 200 表示响应成功
+                 xmlhttp.responseText; 用于获取服务端传回来的文本
+                 document.getElementById('checkResult').innerHTML 设置span的内容为服务端传递回来的文本</p>
+        </section>
+
+       
+
+
+        <section>
+            <h3>3.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>4.常见问题</h3>
+        </section>
+
+
+        <section>
+            <p>1，最经典的就是ie下的缓存问题了。 如果使用的是get，那么在ie下出现缓存问题。导致代码只执行一次。解决办法就是加时间戳或者随机数，使url变为唯一，这样就不会出现ie下的缓存问题了或者改为post提交。</p>
+
+         <p>xhr.open("get","xxxx.aspx?_dc="+new Date().getTime(),true);</p>
+        </section>
+
+        <section>
+            <p>2,乱码问题</p>
+
+            <p>1）meta声明的charset要和请求的页面返回的charset一致。最好在请求的页面中再设置下输出编码。 
+            asp: response.charset="gb2312或者utf-8" 
+            asp.net: response.charset="gb2312或者utf-8" 
+            php: header("charset=gb2312或者utf-8") 
+            2）文件物理存储编码要和meta声明的编码要一致。如meta指定为gb2312，则物理存储编码为ansi。如果为utf-8，则要存储为utf-8编码。 </p>
+         
+        </section>
+
+      
+       
+        <section>
+            <h3>5.参考文献</h3>
+            <p>
+                https://www.cnblogs.com/blsong/archive/2009/12/30/1636101.html
+            </p>
+            <p>
+                https://www.cnblogs.com/wuyanliang/p/5840057.html
+            </p>
+            <p>
+                http://www.cnblogs.com/wangfupeng1988/p/6513070.html
+            </p>
+            <p>
+                https://blog.csdn.net/lrh0211/article/details/79172822
+            </p>
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
