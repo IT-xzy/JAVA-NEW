@@ -1,0 +1,240 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Mybatis常用标签和动态查询</h2>
+            <p></p>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p></p>
+            <p></p>
+            <p>分享人：杨聪聪</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+         <section>
+
+            <P>MyBatis是支持普通SQL查询，存储过程和高级映射的优秀持久层框架。MyBatis消除了几乎所有的JDBC代码如参数的手工设置以及结果集的检索。MyBatis 使用简单的 XML或注解用于配置和原始映射，将接口和JavaBean映射成数据库中的记录。</P>
+            <p>每个MyBatis应用程序主要都是使用SqlSessionFactory实例的，一个SqlSessionFactory实例可以通过SqlSessionFactoryBuilder获得。SqlSessionFactoryBuilder可以从一个xml配置文件或者一个预定义的配置类的实例获得。</p>
+
+        </section>
+        <section>
+            <p>Mybatis的特点：</p>
+            <p>简单易学：本身就很小且简单。没有任何第三方依赖，最简单的安装只要两个jar文件+配置几个sql映射文件。</p>
+            <p>灵活：mybatis不会对应用程序或者数据库的现有设计强加任何影响。 sql写在xml里，便于统一管理和优化。</p>
+            <p>解除sql与程序代码的耦合：通过提供DAL层，将业务逻辑和数据访问逻辑分离，使系统的设计更清晰，更易维护，更易单元测试。sql和代码的分离，提高了可维护性。</p>
+            <p>半自动映射框架：其被称为半自动是因为需要手工配置POJO，sql和映射关系，所有的功能通过编写SQL来实现。</p>
+            <p>提供了对底层JDBC数据访问的封装</p>
+            <p>提供强大的数据映射功能（传入参数映射和结果数据映射）</p>
+
+        </section>
+        <section>
+        	<p>Mybtais运行的总体流程</p>
+        	<p>(1)加载配置并初始化<br>
+触发条件：加载配置文件<br>
+处理过程：将SQL的配置信息加载成为一个个MappedStatement对象（包括了传入参数映射配置、执行的SQL语句、结果映射配置），存储在内存中。</p>
+<p>这里说下，一个MappedStatement对象对应Mapper配置文件中的一个select/update/insert/delete节点，主要描述的是一条SQL语句。</p>
+        	<p>(2)接收调用请求<br>
+触发条件：调用Mybatis提供的API<br>
+传入参数：SQL的ID和传入参数对象<br>
+处理过程：将请求传递给下层的请求处理层进行处理。</p>
+	</section>
+	<section>
+	<p>(3)处理操作请求<br>
+触发条件：API接口层传递请求过来<br>
+传入参数：SQL的ID和传入参数对象<br>
+处理过程：
+(A)根据SQL的ID查找对应的MappedStatement对象。
+(B)根据传入参数对象解析MappedStatement对象，得到最终要执行的SQL和执行传入参数。
+(C)获取数据库连接，根据得到的最终SQL语句和执行传入参数到数据库执行，并得到执行结果。
+(D)根据MappedStatement对象中的结果映射配置对得到的执行结果进行转换处理，并得到最终的处理结果。
+(E)释放连接资源。</p>
+        	<p>(4)返回处理结果：<br>
+        	将操作数据库的结果按照映射的配置进行转换，可以转换成HashMap、JavaBean或者基本数据类型，并将最终结果返回。</p>
+	</section>
+
+
+         <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>1.mybatis配置文件</p>
+            <p>2.动态SQL语句</p>
+            <P></P>
+            <p></p>
+        </section>
+       <section>
+       	<h4>配置文件标签</h4>
+       	<p>1、Properties属性：用来加载属性配置文件。</p>
+       	<p>Mybatis将按照下面的顺序来加载属性：<br>
+   (1) 首先会读取在property标签中定义的属性。
+   (2) 然后会读取在properties标签中通过resource或url加载时的属性，它会覆盖已读取得同名属性。
+   (3) 最后会读取sql中parameterType传递过来的属性，它会覆盖已读取的同名属性。</p>
+<p>因此，通过方法参数传递的属性具有最高优先级，resource/url 属性中指定的配置文件次之，最低优先级的是 properties 属性中指定的属性。</p>
+
+        <p>2、settings全局参数配置:Mybatis框架在运行时可以调整一些运行参数，比如：开启二级缓存、开启延迟加载等。</p>
+
+       </section>
+       <section>
+       	<p>3、typeAliases类型别名：类型别名是为 Java 类型设置一个短的名字。它只和 XML 配置有关，存在的意义仅在于用来减少类完全限定名的冗余。</p>
+       	<p>4、配置环境（environments）：MyBatis 可以配置成适应多种环境，这种机制有助于将 SQL 映射应用于多种数据库之中，例如，开发、测试和生产环境需要有不同的配置；<br>
+       	不过：尽管可以配置多个环境，每个 SqlSessionFactory 实例只能选择其一。所以，如果我们想连接两个数据库，就需要创建两个 SqlSessionFactory 实例，每个数据库对应一个。</p>
+        </section>
+       <section>
+       	<p>为了指定创建哪种环境，只要将它作为可选的参数传递给 SqlSessionFactoryBuilder 即可。可以接受环境配置的两个方法签名是：	<br>
+SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader, environment);<br>
+SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader, environment, properties);</p>
+<p>如果忽略了环境参数，那么默认环境将会被加载。</p>
+       </section>
+       <section>
+       	<p>5、事务管理器（transactionManager）<br>
+
+在 MyBatis 中有两种类型的事务管理器（也就是 type=”[JDBC|MANAGED]”）：<br>
+
+JDBC – 这个配置就是直接使用了 JDBC 的提交和回滚设置，它依赖于从数据源得到的连接来管理事务作用域。
+MANAGED – 这个配置几乎没做什么。它从来不提交或回滚一个连接，而是让容器来管理事务的整个生命周期（比如 JEE 应用服务器的上下文）。 默认情况下它会关闭连接，然而一些容器并不希望这样，因此需要将 closeConnection 属性设置为 false 来阻止它默认的关闭行为。</p>
+       </section>
+       <section>
+       	<p>6、typeHandlers类型处理器</p>
+       	<p>无论是 MyBatis 在预处理语句（PreparedStatement）中设置一个参数时，还是从结果集中取出一个值时， 都会用类型处理器将获取的值以合适的方式转换成 Java 类型。即专门用来解决数据库中的数据类型和Java中的数据类型之间的转化问题。</p>
+       	<p>mybatis有一系列的默认的类型处理器，所以在平时开发的时候我们不用去关心java到数据库的类型转化关系，mybatis都帮我们把这些工作完成了。当然我们也可以重写类型处理器或创建你自己的类型处理器来处理不支持的或非标准的类型。</p>
+       </section>
+       <section>
+       	<h4>动态SQL语句</h4>
+       <p>MyBatis 的强大特性之一便是它的动态 SQL。mybatis 的动态sql语句是基于OGNL表达式的。可以方便的在 sql 语句中实现某些逻辑. 总体说来mybatis 动态SQL 语句主要有以下几类:</p>
+       	<p>1. if 语句 (简单的条件判断)</p>
+       	<p>2. choose (when,otherwize) ,相当于java 语言中的 switch </p>
+       	<p>3. trim ：<br>
+       		(1)只有prefix，suffix 表示在trim标签包裹的部分的前面或者后面添加内容<br>
+       		(2)只有prefixOverrides，suffixOverrides 表示删除<br></p>
+       	<p>4. where (主要是用来简化sql语句中where条件判断的，能智能的处理 and /or ,不必担心多余导致语法错误)</p>
+       </section>
+       <section>
+       	<p>5. set (主要用于更新时)：<br>
+       		1)、程序执行时，将生成set关键字<br>
+2)、会过滤掉最后一个update语句的","</p>
+       	<p>6. foreach (在实现 mybatis in 语句查询时特别有用)</p>
+       	<p>1)、collection表示如何来得到这个集合，如果传入的直接为一个List，那么collection值就为list。<br>
+  2)、item表示集合中每一个元素进行迭代时的别名，比如item为value，那么，每次获取的都使用#{value}即可<br>
+  3)、index指定一个名字，用于表示在迭代过程中，每次迭代到的位置<br>
+  4)、open表示该语句以什么开始<br>
+  5)、separator表示在每次进行迭代之间以什么符号作为分隔符<br>
+  6)、close表示以什么结束</p>
+       </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+
+            <p></p>
+        </section>
+
+
+        <section>
+            <h3>4.解决方案</h3>
+
+        </section>
+         <section>
+                <p></p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p></p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+
+        </section>
+        <section>
+            <p>链接：https://baike.baidu.com/item/MyBatis/2824918?fr=aladdin</p>
+            <p>作者：百度百科</p>
+            <p>链接：https://www.w3cschool.cn/</p>
+            <p>作者：w3cschool</p>
+            <p>链接：http://www.mybatis.org/mybatis-3/zh/configuration.html#typeHandlers</p>
+            <p>作者：Mybatis</p>
+           <p>链接： https://blog.csdn.net/happyheng/article/details/70232136</p>
+            <p>作者：HappyHeng</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+          <section>
+
+            <p></p>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+               BY : 深圳分院 杨聪聪
+            </p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+
+ <dependency>
+            <groupId>net.sf.json-lib</groupId>
+             <artifactId>json-lib</artifactId>
+             <version>2.4</version>
+             <classifier>jdk15</classifier>
+         </dependency>
