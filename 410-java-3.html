@@ -1,0 +1,258 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>正则表达式</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：闵仕宇</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+         <section>
+            <p style="text-align:left">正则表达式(Regular Expression)是一种匹配模式，描述的是一串文本的特征。</p>
+　　        <p style="text-align:left">正如自然语言中“高大”、“坚固”等词语抽象出来描述事物特征一样，正则表达式就是字符的高度抽象，用来描述字符串的特征。</p>
+            <p style="text-align:left">正则表达式（简称正则，Regex）通常不独立存在，各种编程语言和工具作为宿主语言提供对正则的支持，
+					并根据自身语言的特点，进行一定的剪裁或扩展。</p>
+			<p style="text-align:left">正则入门很容易，有限的语法规则很容易掌握，但是目前正则的普及率并不高，主要是因为正则的流派众多，
+					各种宿主语言提供的文档都过多的关注于自身的一些细节，而这些细节通常是初学者并不需要关注的。</p>
+        </section>
+		
+		<section>    
+			<p style="text-align:left">基本概念</p>
+            <p style="text-align:left">1.字符串组成</p>
+            <p style="text-align:left">对于字符串“a5”，是由两个字符“a”、“5”以及三个位置组成的，这一点对于正则表达式的匹配原理理解很重要。</p>            
+            <p style="text-align:left">即“a”之前为位置0，“a”与“5”之间为位置2，“5”之后为位置3</p>
+            <p style="text-align:left">2.占有字符和零宽度</p>            
+            <p style="text-align:left">表达式匹配到的是字符内容，而非位置，并被保存到最终的匹配结果中，那么这个子表达式是占有字符的</p>
+            <p style="text-align:left">子表达式匹配的仅仅是位置，或者匹配的内容并不保存到最终的匹配结果中，那么就认为这个子表达式是零宽度的</p>            
+        </section>  
+		
+		<section>
+			<p style="text-align:left">3.正则表达式构成</p>
+            <p style="text-align:left">正则表达式由两种字符构成。</p>           
+            <p style="text-align:left">一种是在正则表达式中具体特殊意义的“元字符”，另一种是普通的“文本字符”。</p>
+            <p style="text-align:left">元字符可以是一个字符，如“^”，也可以是一个字符序列，如“\w”。</p>  
+		</section>	
+		
+		<section>
+            <p style="text-align:left">元字符（Meta Character）</p>
+            <p style="text-align:left">1.[…] 字符组(Character Classes)</p>            
+            <p style="text-align:left">字符组可以匹配[ ]中包含的任意一个字符。虽然可以是任意一个，但只能是一个。</p>
+            <p style="text-align:left">2.常见字符范围缩写</p>            
+            <p style="text-align:left">\d数字	\w字母或下划线	\s空白字符 \D非数字	\W"\w"取反	\s非空白字符</p>
+            <p style="text-align:left">3.小数点</p>
+            <p style="text-align:left">匹配除“\n”以外的任意一个字符。</p>
+		</section>	
+			
+		<section>	
+            <p style="text-align:left">4.其它元字符</p>
+            <p style="text-align:left">^:	匹配字符串开始的位置，不匹配任何字符</p>
+            <p style="text-align:left">$:	匹配字符串结束的位置，不匹配任何字符</p>
+            <p style="text-align:left">\b	匹配单词边界，不匹配任何字符</p>
+            <p style="text-align:left">5.转义字符</p>
+            <p style="text-align:left">一些不可见字符，或是在正则中具有特殊意义的元字符，如想匹配字符本身，需要用“\”对其进行转义。</p>
+            <p style="text-align:left">\r，\n，\\，\$</p>
+		</section>	
+			
+		<section>	
+            <p style="text-align:left">6.量词（限定词）（Quantifier）</p>
+            <p style="text-align:left">{m},{m,},{m,n},*,+,?</p>
+            <p style="text-align:left">7.分支结构（Alternation）</p>
+            <p style="text-align:left">当一个字符串的某一子串具有多种可能时，采用分支结构来匹配，“|”表示多个子表达式之间“或”的关系，
+					“|”是以()限定范围的，如果在“|”的左右两侧没有()来限定范围，那么它的作用范围即为“|”左右两侧整体。</p>
+            <p style="text-align:left">dog|cat [\d]</p>
+            <p style="text-align:left">(dog|cat) [\d]</p>
+		</section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+		<section>
+            <p style="text-align:left">捕获组（Capture Group）</p>
+            <p style="text-align:left">捕获组就是把正则表达式中子表达式匹配的内容，保存到内存中以数字编号或手动命名的组里，以供后面引用。</p>
+            <p style="text-align:left">(Expression)普通捕获组</p>
+            <p style="text-align:left">(?&lt;name> Expression)命名捕获组</p>
+		    <p style="text-align:left">非捕获组</p>
+			<p style="text-align:left">一些表达式中，不得不使用( )，但又不需要保存( )中子表达式匹配的内容，这时可以用非捕获组来抵消使用( )带来的副作用。</p>
+            <p style="text-align:left">(?:Expression)</p>
+        </section>
+
+        <section>
+		    <p style="text-align:left">反向引用</p>
+            <p style="text-align:left">捕获组匹配的内容，可以在正则表达式的外部程序中进行引用，也可以在表达式中进行引用，
+					表达式中引用的方式就是反向引用。反向引用通常用来查找重复的子串，或是限定某一子串成对出现。</p>
+            <p style="text-align:left">\1，\2	对序号为1和2的捕获组的反向引用</p>
+            <p style="text-align:left">\k&lt;name>	对命名为name的捕获组的反向引用</p>
+        </section>
+
+        <section>
+		    <p style="text-align:left">环视（Look Around）</p>
+            <p style="text-align:left">环视只进行子表达式的匹配，匹配内容不计入最终的匹配结果，是零宽度的。</p>
+            <p style="text-align:left">(?<=Expression),(?&lt;!Expression)z,(?=Expression),(?!Expression)</p>
+        </section>
+		
+        <section>
+		    <p style="text-align:left">忽略优先和匹配优先</p>
+            <p style="text-align:left">或者叫做正则表达式匹配的贪婪与非贪婪模式。</p>
+            <p style="text-align:left">标准量词修饰的子表达式，在可匹配可不匹配的情况下，总会先尝试进行匹配，称这种方式为匹配优先，或者贪婪模式。</p>
+            <p style="text-align:left">一些NFA正则引擎支持忽略优先量词，也就是在标准量词后加一个“?”，此时，在可匹配可不匹配的情况下，总会先忽略匹配，
+					只有在由忽略优先量词修饰的子表达式，必须进行匹配才能使整个表达式匹配成功时，才会进行匹配，称这种方式为忽略优先，或者非贪婪模式。</p>
+
+        </section>	
+		
+        <section>
+            3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">普通捕获组和命名捕获组同时存在时，命名捕获组的数字序列？</p>
+            <p style="text-align:left">贪婪与非贪婪的区别？</p>
+            <p style="text-align:left">反向引用是什么？</p>
+        </section>
+
+		<section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+			<p style="text-align:left">普通捕获组和命名捕获组同时存在时，命名捕获组的数字序列？</p>　　　
+            <p style="text-align:left">普通捕获组或命名捕获组单独存在时，group id按从左到右的“（”顺序</p>
+            <p style="text-align:left">同时存在时，优先将普通捕获组按从左到右排group id，再将命名捕获组按从左到右排序。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">贪婪与非贪婪的区别？</p>　　　
+            <p style="text-align:left">例如：Xzy is a "non-teach" mode institution created by a man called "Lao Da" who is handsome.</p>　　　
+            <p style="text-align:left">我们要获取引号里的内容</p>　　　
+            <p style="text-align:left">贪婪：".*"获取"non-teach" mode institution created by a man called "Lao Da"</p>　　　
+            <p style="text-align:left">非贪婪："non-teach" "Lao Da"</p>　　　
+        </section>
+		
+		<section>
+            <p style="text-align:left">反向引用</p>　　　
+            <p style="text-align:left">捕获组捕获到的内容，不仅可以在正则表达式外部通过程序进行引用，也可以在正则表达式内部进行引用，这种引用方式就是反向引用。</p>　　　
+            <p style="text-align:left">源字符串：abcdebbcde</p>　　　
+            <p style="text-align:left">正则表达式：([ab])\1</p>　　　
+            <p style="text-align:left">匹配结果为“bb”，匹配开始位置为5，结束位置为7。</p>　　　
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+		
+        <section>
+            <p style="text-align:left">java对正则的支持</p>　　　
+            <p style="text-align:left">Pattern 类：pattern 对象是一个正则表达式的编译表示。</p>　　　
+            <p style="text-align:left">Matcher 类：Matcher 对象是对输入字符串进行解释和匹配操作的引擎。</p>　　　
+            <p style="text-align:left">PatternSyntaxException：PatternSyntaxException 是一个非强制异常类，它表示一个正则表达式模式中的语法错误。</p>　　　
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>https://blog.csdn.net/lxcnn/article/category/538256</p>
+            <p>http://www.runoob.com/regexp/regexp-tutorial.html</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 闵仕宇</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
