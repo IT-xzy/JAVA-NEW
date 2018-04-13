@@ -1,0 +1,185 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>Map、Set、List、Queue、Stack的特点与用法</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：卢炳伸</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+
+        <section>
+             <p>集合的由来</p>
+			 <p>通常，我们的程序需要根据程序运行时才知道创建多少个对象。但若非程序运行，
+			 程序开发阶段，我们根本不知道到底需要多少个数量的对象，甚至不知道它的准确类型。
+			 为了满足这些常规的编程需要，我们要求能在任何时候，
+			 任何地点创建任意数量的对象，而这些对象用什么来容纳呢？我
+			 们首先想到了数组，但是数组只能放统一类型的数据，而且其长度是固定的，那怎么办呢？集合便应运而生了！</p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+            </section>
+
+        <section>
+             <p>集合是什么</p>
+			 <p>Java集合类存放于 java.util 包中，是一个用来存放对象的容器。
+
+注意：①、集合只能存放对象。比如你存一个 int 型数据 1放入集合中，其实它是自动转换成 Integer 类后存入的，Java中每一种基本类型都有对应的引用类型。
+
+　　　②、集合存放的是多个对象的引用，对象本身还是放在堆内存中。
+
+　　　③、集合可以存放不同类型，不限数量的数据类型。</p>
+        </section>
+
+         <section>
+             <h3>3.常见问题</h3>
+         </section>
+
+         <section>
+             <p>什么是MAP</p>
+         </section>
+		 
+		 <section>
+             <p>什么是Set</p>
+         </section>
+		 
+		 <section>
+             <p>什么是LIST</p>
+         </section>
+		 
+		 <section>
+             <p>什么是Queue</p>
+			 队列是一种特殊的线性表，它只允许在表的前端（front）进行删除操作，而在表的后端（rear）进行插入操作。进行插入操作的端称为队尾，进行删除操作的端称为队头。队列中没有元素时，称为空队列。
+
+在队列这种数据结构中，最先插入的元素将是最先被删除的元素；反之最后插入的元素将是最后被删除的元素，因此队列又称为“先进先出”（FIFO—first in first out）的线性表。
+         </section>
+
+         <section>
+             <p>什么是Stack</p>
+			 Stack 类表示后进先出(LIFO)的对象堆栈。它通过五个操作对类 Vector 进行了扩展 ，允许将向量视为堆栈。它提供了通常的 push 和 pop 操作，以及取堆栈顶点的 peek 方法、测试堆栈是否为空的 empty 方法、在堆栈中查找项并确定到堆栈顶距离的 search 方法。
+         </section>
+		 
+		 <section>
+             <h3>5.编码实战</h3>
+         </section>
+
+         <section>
+             <h3>6.扩展</h3>
+         </section>
+
+         <section>
+             <p>阿里巴巴规范手册</p>
+         </section>
+
+         <section>
+             <h3>7.参考文献</h3>
+		
+<p>
+
+  https://www.cnblogs.com/ysocean/p/6555373.html
+  https://blog.csdn.net/HHcoco/article/details/53117525
+  《阿里巴巴Java开发手册》
+  
+</p>
+
+
+
+         </section>
+
+         <section>
+            <h3>8.更多讨论</h3>
+         </section>
+
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : lbs</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
