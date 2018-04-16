@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>单元测试JUnit</h2>
+            <p></p>
+            <h3>java分享会</h3>
+            <p>分享人：常雷雷</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <P>JUnit 是一个 Java 编程语言的单元测试框架。JUnit 在测试驱动的开发方面有很重要的发展，是起源于 JUnit 的一个统称为 xUnit 的单元测试框架之一。
+                JUnit 促进了“先测试后编码”的理念，强调建立测试数据的一段代码，可以先测试，然后再应用。
+                这个方法就好比“测试一点，编码一点，测试一点，编码一点……”，增加了程序员的产量和程序的稳定性，可以减少程序员的压力和花费在排错上的时间。
+                单元测试是一个对单一实体（类或方法）的测试。单元测试是每个软件公司提高产品质量、满足客户需求的重要环节。</P>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>一：JUnit的特点：</p>
+            <p>JUnit 是一个开放的资源框架，用于编写和运行测试。</p>
+            <p>提供注释来识别测试方法。</p>
+            <p>提供断言来测试预期结果。</p>
+            <p>提供测试运行来运行测试。</p>
+            <p>JUnit 测试允许你编写代码更快，并能提高质量。</p>
+            <p>JUnit 优雅简洁。没那么复杂，花费时间较少。</p>
+            <p>JUnit 测试可以自动运行并且检查自身结果并提供即时反馈。所以也没有必要人工梳理测试结果的报告。</p>
+            <p>JUnit 测试可以被组织为测试套件，包含测试用例，甚至其他的测试套件。</p>
+            <p>JUnit 在一个条中显示进度。如果运行良好则是绿色；如果运行失败，则变成红色。</p>
+        </section>
+        <section>
+            <p>二：断言</p>
+            <p>在JUnit中为我们提供了一些辅助函数，他们用来帮助我们确定被测试的方法是否按照预期的效果正常工作，通常，这些辅助函数被称为断言。</p>
+            <p>断言的关键词是assert。断言是编写测试用例的核心实现方式，即期望值是多少，测试的结果是多少，以此来判断测试是否通过。</p>
+        </section>
+        <section>
+            <p>我们来看看断言的核心方法：</p>
+            <p><img src="C:\Users\lucifer\Desktop\Image.png"/></p>
+        </section>
+        <section>
+            <p>三：执行过程</p>
+            <p>有时候，我们在运行某个方法之前，可能需要先执行另一个方法，而在测试类中看，每一个方法之间都是独立的，手动去运行总有些不方便。</p>
+            <p>Junit为我们准备了一套注解，来方便我们决定JUnit 中的方法执行过程，即哪一个方法首先被调用，哪一个方法在一个方法之后调用。</p>
+        </section>
+        <section>
+            <p>下面是关于决定执行顺序的注解</p>
+            <p><img src="C:\Users\lucifer\Desktop\Image2.png"/></p>
+        </section>
+        <section>
+            <p>1，@BeforeClass修饰的方法</p>
+            <p>会在所有方法被调用前被执行；而且该方法是静态的，</p>
+            <p>所以当测试类被加载后接着就会运行它，</p>
+            <p>而且在内存中它只会存在一份实例，</p>
+            <p>它比较适合加载配置文件；</p>
+            <p>比如数据的连接文件等；</p>
+        </section>
+        <section>
+            <p>2，@AfterClass所修饰的方法通常用来对资源的清理，</p>
+            <p>如数据库的关闭；</p>
+        </section>
+        <section>
+            <p>3，@Before和@After会在每个测试方法前后执行；</p>
+            <p>通常被称为固定代码(fixure)，就是一定会执行的代码.</p>
+        </section>
+        <section>
+            <p>4.忽略测试</p>
+            <p>有时可能会发生我们的代码还没有准备好的情况，这时测试用例去测试这个方法或代码的时候会造成失败。@Ignore 注释会在这种情况时帮助我们。</p>
+            <p>* 一个含有 @Ignore 注释的测试方法将不会被执行。</p>
+            <p>* 如果一个测试类有 @Ignore 注释，则它的测试方法将不会执行。</p>
+        </section>
+        <section>
+            <p>四：套件测试</p>
+            <p>随着开发规模的深入和扩大，项目或越来越大，相应的我们的测试类也会越来越多；那么就带来一个问题，假如测试类很多，就需要多次运行，造成测试的成本增加；</p>
+            <p>此时就可以使用junit批量运行测试类的功能，junit test suite，测试套件；每次运行测试类，只需要执行一次测试套件类就可以运行所有的测试类；</p>
+        </section>
+        <section>
+            <p>五：时间测试</p>
+            <p>Junit 中还为我们提供了一个暂停的方便选项。</p>
+            <p>如果一个测试用例比起指定的毫秒数花费了更多的时间，那么 Junit 将自动将它标记为失败。</p>
+        </section>
+        <section>
+            <p>六：异常测试</p>
+            <p>Junit 用代码处理提供了一个追踪异常的选项。你可以测试代码是否它抛出了想要得到的异常。</p>
+            <p>expected 参数和 @Test 注释一起使用。现在让我们看看活动中的 @Test(expected)。</p>
+            <p>可以说，异常测试是一个很方便的东西，可以让我们去检测抛出的异常是否能够完成其功能。</p>
+            <p>Junit中准备了几种异常测试的注解：</p>
+            <p>1.@Test(expected…)</p>
+            <p> 2.ExpectedException</p>
+            <p>3.Try/catch with assert/fail</p>
+        </section>
+        <section>
+            <p>七：参数化测试</p>
+            <p>有时候会对相同的代码结构做同样的操作，不同的时对参数的设置数据和预期结果； </p>
+            <p>有没有好的办法提取出来相同的代码，提高代码的可重用度， </p>
+            <p>junit4中使用参数化设置，来处理此种场景 </p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3>1.为什么需要单元测试？</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>单元测试使得我们可以放心修改、重构业务代码，而不用担心修改某处代码后带来的副作用。单元测试可以帮助我们反思模块划分的合理性，如果一个单元测试写得逻辑非常复杂、或者说一个函数复杂到无法写单测，那就说明模块的抽象有问题。单元测试使得系统具备更好的可维护性、具备更好的可读性；对于团队的新人来说，阅读系统代码可以从单元测试入手，一点点开始后熟悉系统的逻辑。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p></p>
+        </section>
+        <section>
+            <h3>6.更多讨论</h3>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>文章链接：https://www.cnblogs.com/august-shi/p/6720426.html</p>
+            <p>文章作者：DominicaT</p>
+            <p>文章链接：https://www.w3cschool.cn/junit/</p>
+            <p>文章作者： w3cschool</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            1.为什么系统默认打包之前要运行一遍测试类？而打包又不打包测试类呢？
+            打包程序在打包的时候，会将测试类进行编译。
+            2.使用断言测试  和平时我们不用断言  它的优点是什么
+            在简单的逻辑上看起来断言用处和我们平常使用的输出判断语句差不多，但是在面对稍微多一点代码或者复杂一点的逻辑的时候，断言可以让我们不需要经过人的判断就得出正确的答案，这一点上可以让开发人员拥有更高的效率。而且，面对复杂逻辑，人并不一定能够知道正确的结果是什么，而交给自动测试，就可以让程序的结果清晰明朗。
+            3.哪些地方需要写单元测试？
+            在日常开发中，不要认为写单元测试带来了额外的工作。看似降低了开发效率。实际上，单元测试能够带给后期维护极大地的便利。 大部分的bug也都能通过单元测试测试出来，提前消灭在萌芽中。
+            在重要的算法中，核心业务逻辑必须单元测试通过。
+            在单元测试中：我们应尽量保持测试方法的原子性。也就是说，单元测试粒度越小越好。
+
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p>
+                <small>BY : 常雷雷</small>
+            </p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //controls: true, // 是否在右下角展示控制条
+    //progress: true, // 是否显示演示的进度条
+    //slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //keyboard: true, // 是否启用键盘快捷键来导航
+    //overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //center: true, // 是否将幻灯片垂直居中
+    //touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //loop: false, // 是否循环演示
+    //rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //fragments: true, // 全局开启和关闭碎片。
+    //autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
