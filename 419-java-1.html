@@ -1,0 +1,224 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>clean,install,package,deploy分别代表什么含义</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：补俊</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+            <p>要理解clean,install,package,deploy的含义，我们必须先认识maven。因为他们是maven中的命令。</p>
+            <p>Maven是什么？</p>
+            <p>Maven有什么用？</p>
+            <p>Maven怎么用？</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>maven是什么？</p>
+            <p>基于项目对象模型，可以通过一小段描述信息（配置）来管理项目的构建</p>
+            <p>报告和文档的软件项目管理工具</p>
+            <p>是一个项目构建和项目管理工具</p>
+        </section>
+
+        <section>
+				<p>maven有什么用？</p>
+				<p>能够帮助使用者完成从清理，编译，测试，生成报告，打包和部署的一系列操作过程</p>
+				<p>maven标准化了项目的构建过程，有利于团队之间的协作。</p>
+				<p>maven可以有效的解决java项目中jar包依赖问题，解决由此带来的版本不一致等问题。</p>
+		</section>
+			<section>
+                <p>maven怎么用？</p>
+                <p>我们在开发项目的时候，不断地在进行编译、测试、打包、部署等过程，maven的生命周期就是对所有构建过程抽象与统一。</p>
+                <p>生命周期包含项目的清理、初始化、编译、测试、打包、集成测试、验证、部署、站点生成等几乎所有的过程。</p>
+                <p>clean,install,package,deploy 属于maven项目的生命周期中的一部分。</p>
+        </section>
+        <section>
+            <p>Maven有三套相互独立的生命周期：</p>
+            <p>1.CleanLifecycle 在进行真正的构建之前进行一些清理工作。</p>
+            <p>2.DefaultLifecycle 构建的核心部分，编译，测试，打包，部署等等。</p>
+            <p>3.SiteLifecycle 生成项目报告，站点，发布站点。如下图：</p>
+        </section>
+        <section>
+            <img src="C:\Users\XH\Desktop\notes-bj\picture\maven1.png"" width="800" height="600" border="100">
+        </section>
+        <section>
+            <P>clean   清理项目生产的临时文件,一般是模块下的target目录</P>
+            <P>install 将打包的jar/war文件复制到你的本地仓库中,供其他模块使用</P>
+            <P>package 项目打包工具,会在模块下的target目录生成jar或war等文件</P>
+            <P>deploy  将打包的文件发布到远程参考,提供其他人员进行下载依赖</P>
+        </section>
+
+            <section>
+                <p>maven常见指令</p>
+            <img src="C:\Users\XH\Desktop\notes-bj\picture\maven2.png"" width="800" height="600" border="100">
+        </section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>3.1如何增加删除一个依赖关系？</p>
+            <p>3.2出现如如下报错：
+-Dmaven.multiModuleProjectDirectory system propery is not set. Check $M2_HOME environment variable and mvn script match.[ERROR] Maven execution terminated abnormally (exit code 1)   即环境变量出现问题。
+</p>
+            <p>3.3 IDEA中进行maven install报：系统资源不足的问题</p>
+            <p>3.4 IDEA使用maven慢的问题</p>
+        </section>
+
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+			<p> 4.1如何增加删除一个依赖关系？</p>
+            <p>解决方案：直接在pom文件中加入一个dependency节点，如果要删除依赖，把对应的dependency节点删除即可。
+            </p>
+            <p>4.2出现如3.2的报错：</p>
+            <p>解决方案：在runner下的run in backqround中加-Dmaven.multiModuleProjectDirectory=$M2_HOME</p>
+            <p>如下图：</p>
+        </section>
+         <section>
+            <img src="C:\Users\XH\Desktop\notes-bj\picture\maven3.png"" width="800" height="600" border="100">
+        </section>
+        <section>
+            <p>4.3  IDEA中进行maven install报：系统资源不足的问题</p>
+            <p>解决方案：将maven install的jvm内存调的大一点，具体如下：在idea中选择File->Settings，接着将maven runner的jvm内存根据自己系统内存大小进行调大</p>
+            <p>如下图：</p>
+        </section>
+        <section>
+            <img src="C:\Users\XH\Desktop\notes-bj\picture\maven4.png"" width="800" height="600" border="100">
+        </section>
+        <section>
+            <p>4.4  IDEA使用maven慢的问题</p>
+            <p>解决方案：</p>
+            <p>1.maven每次进行创建的时候会去网上下载artheType-catalog.xml，可以将artheType-catalog.xml文件下载到本地。</p>
+            <p>2.maven自带的仓库是国外的，访问起来比较慢，可以修改到国内仓库。</p>
+
+		</section>
+
+        <section>
+            <h3>5.编码实战</h3>
+
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+			<p>maven使用命令操作</p>
+        </section>
+
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>https://blog.csdn.net/yhj19920417/article/details/72627227</p>
+            <p>https://blog.csdn.net/moshenglv/article/details/52027106</p>
+            <p>CSDN上 冰河winner  的博客</p>
+            <p>http://www.iteye.com/topic/973166</p>
+            <p>http://www.bubuko.com/infodetail-1415329.html</p>
+            <p>http://gqsunrise.iteye.com/blog/2401026</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>maven默认的文件存放结构</p>
+        </section>
+        <section>
+            <p>•    pom.xml 用于maven的配置文件</p>
+            <p>•    /src 源代码目录</p>
+            <p>o    /src/main 工程源代码目录</p>
+            <p>    /src/main/java 工程java源代码目录</p>
+            <p>o    /src/main/resource 工程的资源目录</p>
+            <p>o    /src/test 单元测试目录</p>
+            <p>    /src/test/java</p>
+            <p>•    /target 输出目录，所有的输出物都存放在这个目录下</p>
+            <p>o    /target/classes 编译之后的class文件</p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 补俊</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

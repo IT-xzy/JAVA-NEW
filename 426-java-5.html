@@ -1,0 +1,248 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>JWT简单介绍</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：段文凯</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+		<section>
+            <p style="text-align:left">JWT是什么？</p>
+            <p style="text-align:left">​JWT(Json Web Token)定义了一种使用Json形式在网络间安全地传递信息的简洁开放的标准(RFC 7519)。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">JWT用来做什么？​</p>
+			<p style="text-align:left">JWT的声明一般被用来在身份提供者和服务提供者间传递被认证的用户身份信息，以便于从资源服务器获取资源，也可以增加一些额外的其它业务逻辑所必须的声明信息，该token也可直接被用于认证，也可被加密。​</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">为什么要使用JWT？</p>
+        </section>
+		
+		<section>
+			<p style="text-align:left">传统的session认证方案：</p>
+            <p style="text-align:left">第一次用户认证请求通过时，服务器端存储用户的登录信息，然后在响应时传递给浏览器，浏览器保存为cookie，下次请求时把cookie发送给服务器，服务器根据cookie信息来识别是哪个用户。</p>
+		</section>
+		
+		<section>
+            <p style="text-align:left">传统的session认证弊端：</p>
+			<p style="text-align:left">如果用户增多，Session认证就会暴露问题。因为每个用户在认证后，服务器都会记录Session，一般保存在内存中，随着认证用户增多，服务器开销也会增大。</p>
+			<p style="text-align:left">将用户信息保存在服务器上，认证用户的后续请求都需要到这台保存了自己Session的服务器上验证Cookie。对负载均衡，应用扩展产生限制。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">基于Token验证机制</p>
+            <p style="text-align:left">基于token的鉴权机制类似于http协议也是无状态的，它不需要在服务端去保留用户的认证信息或者会话信息。这就意味着基于token认证机制的应用不需要去考虑用户在哪一台服务器登录了，这就为应用的扩展提供了便利。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">Token验证流程</p>
+            <p style="text-align:left">1、用户Login</p>
+			<p style="text-align:left">2、服务端验证</p>
+			<p style="text-align:left">3、将用户信息保存在Token中，发送给用户</p>
+			<p style="text-align:left">4、客户端存储Token，并在以后的请求中带上这个Token</p>
+			<p style="text-align:left">5、服务端解析、验证token值</p>
+			<p style="text-align:left">6、服务端将请求数据返回客户端</p>
+		</section>
+		
+		<section>
+            <p style="text-align:left">JWT长什么样？</p>
+            <p style="text-align:left">JWT由头部（Header）、载荷（Payload）、签名（签名）三部分组成。</p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+		</section>
+		
+		<section>
+            <p style="text-align:left">jwt的头部（Header）承载两部分信息：</p>
+			<p style="text-align:left">{ "typ": "JWT", "alg": "HS256" }</p>
+            <p style="text-align:left">typ：声明类型，这里是jwt</p>
+			<p style="text-align:left">alg：声明加密算法，这里是SHA256</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">载荷（Payload）就是存放有效信息的地方。这些有效信息包含三个部分：标准中注册的声明、公共的声明和私有的声明</p>
+		</section>
+		
+		<section>
+            <p style="text-align:left">标准中注册的声明 (建议但不强制使用) ：</p>
+			<p style="text-align:left">iss: jwt签发者</p>
+			<p style="text-align:left">sub: jwt所面向的用户</p>
+			<p style="text-align:left">aud: 接收jwt的一方</p>
+			<p style="text-align:left">exp: jwt的过期时间，这个过期时间必须要大于签发时间</p>
+			<p style="text-align:left">nbf: 定义在什么时间之前，该jwt都是不可用的.</p>
+			<p style="text-align:left">iat: jwt的签发时间</p>
+			<p style="text-align:left">jti: jwt的唯一身份标识，主要用来作为一次性token,从而回避重放攻击。</p>
+		</section>
+		
+		<section>
+            <p style="text-align:left">公共的声明 ：</p>
+			<p style="text-align:left">公共的声明可以添加任何的信息，一般添加用户的相关信息或其他业务需要的必要信息.但不建议添加敏感信息，因为该部分在客户端可解密.</p>
+		</section>
+		
+		<section>
+            <p style="text-align:left">私有的声明 ：</p>
+			<p style="text-align:left">私有声明是提供者和消费者所共同定义的声明，一般不建议存放敏感信息，因为base64是对称解密的，意味着该部分信息可以归类为明文信息。</p>
+		</section>
+		
+		<section>
+            <p style="text-align:left">签名（Signature）</p>
+			<p style="text-align:left">将上面的两个编码后的字符串用句号.连接在一起（头部在前）拼接成新的字符串，然后通过header中声明的加密方式进行加盐secret组合加密，就生成了JWT签名</p>	
+		</section>
+		
+		<section>
+            <p style="text-align:left">注意：secret是保存在服务器端的，jwt的签发生成也是在服务器端的，secret就是用来进行jwt的签发和jwt的验证，所以，它就是你服务端的私钥，在任何场景都不应该流露出去。一旦客户端得知这个secret, 那就意味着客户端是可以自我签发jwt了。</p>
+		</section>
+		
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+		
+		<section>
+            <p style="text-align:left">和Session方式存储id的差异</p>
+			<p style="text-align:left">Session方式存储用户id的最大弊病在于要占用大量服务器内存，对于较大型应用而言可能还要保存许多的状态。一般而言，大型应用还需要借助一些KV数据库和一系列缓存机制来实现Session的存储。</p>
+			<p style="text-align:left">而JWT方式将用户状态分散到了客户端中，可以明显减轻服务端的内存压力。除了用户id之外，还可以存储其他的和用户相关的信息，例如该用户是否是管理员、用户所在的分桶</p>
+			<p style="text-align:left">虽说JWT方式让服务器有一些计算压力（例如加密、编码和解码），但是这些压力相比磁盘I/O而言或许是半斤八两。</p>
+        </section>
+		
+        <section>
+            <p style="text-align:left">单点登录</p>
+            <p style="text-align:left">Session方式来存储用户id，一开始用户的Session只会存储在一台服务器上。对于有多个子域名的站点，每个子域名至少会对应一台不同的服务器。</p>
+			<p style="text-align:left">所以如果要实现在某个子域登录后，在其他的子域名下依然可以取到Session，这要求我们在多台服务器上同步Session。</p>
+			<p style="text-align:left">使用JWT的方式则没有这个问题的存在，因为用户的状态已经被传送到了客户端。因此，我们只需要将含有JWT的Cookie的domain设置为顶级域名即可。</p>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">JWT应该保存什么信息？</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">1、用于辨别用户的信息，如id，username</p>
+			<p style="text-align:left">2、过期时间</p>
+			<p style="text-align:left">2、用户的其余辨识信息：客户端的UA、IP等</p>
+        </section>
+
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>https://www.jianshu.com/p/576dbf44b2ae</p>
+            <p>http://blog.leapoahead.com/2015/09/07/user-authentication-with-jwt/</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>By : 上海分院 段文凯</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

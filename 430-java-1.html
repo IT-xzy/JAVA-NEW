@@ -1,0 +1,194 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3><p>Spring中的IOC是什么意思？</p>
+                <p>为什么要用IOC而不是New来创建实例？</p></h3>
+                <br> <br> <br>
+            <p>分享人：娄文彬</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+         <section>
+　　        <p style="text-align:left">Spring Framework是一个开源的Java／Java EE全功能栈（full-stack）的应用程序框架，以Apache License 2.0开源许可协议的形式发布，也有.NET平台上的移植版本。最初由Rod Johnson和Juergen Hoeller等开发。</p>
+            <p style="text-align:left">Spring Framework提供了一个简易的开发方式，这种开发方式，将避免那些可能致使底层代码变得繁杂混乱的大量的属性文件和帮助类。</p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">IOC是什么</p>
+            <p style="text-align:left">IOC—Inversion of Control，即“控制反转”，不是什么技术，而是一种设计思想。</p>
+             <p style="text-align:left">在Java开发中，Ioc意味着将你设计好的对象交给容器控制，而不是传统的在你的对象内部直接控制。</p>
+        </section>
+
+        <section>
+        <img src=" 1.jpg"  alt="" />
+
+        </section>
+                <section>
+            <img src="2.jpg"  alt="" />
+        </section>
+
+      
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:margin">(1)IOC和DI的区别</p>
+            <p style="text-align:margin">(2)xml配置注入方式</p>
+       </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+            <h3>IOC和DI的区别</h3>
+            <p style="text-align:left">理解好IoC的关键是：</p>
+            <p style="text-align:left">谁控制谁，控制了什么，为何是反转，在哪些方面反转了。</p>
+            <p style="text-align:left">理解DI的关键：</p>
+            <p style="text-align:left">谁依赖谁，为什么需要依赖，谁注入谁，注入了什么</p>
+                       
+          
+        </section>
+        <section>
+            <p style="text-align:left">谁控制谁，控制了什么</p>
+            <p style="text-align:left">传统JavaSE程序设计，我们在对象内部直接通过new进行创建对象，是程序主动去创建依赖对象，而IoC有一个专门的容器来创建这些对象，即由IoC容器来创建这些对象的创建。谁控制谁？由IoC容器控制了对象；控制了什么？控制了外部资源获取（包括对象、文件等）。</p>
+           </section>
+
+        </section>
+        <section>
+            <p style="text-align:left">为何是反转，在哪些方面反转了</p>
+            <p style="text-align:left">有反转就有正转。传统应用程序是由我们自己在对象中主动控制去直接获取依赖对象，也就是正转。而反转则是由容器来帮忙创建及注入依赖对象。为何是反转？因为容器帮我们查找和注入依赖对象，对象只是被动的接受依赖对象，所以是反转。哪些方面反转了？依赖对象的获取反转了。</p>
+        </section>
+ 
+        <section>
+            <p style="text-align:left">1.谁依赖谁？应用程序依赖于IoC容器。 </p>
+            <p style="text-align:left">2.为什么需要依赖？应用程序需要IoC容器来提供对象需要的外部资源（包括对象，文件等）。</p>
+            <p style="text-align:left">3.谁注入谁？IoC容器注入应用程序某个对象，应用程序依赖的对象。 </p>
+            <p style="text-align:left">4.注入了什么？注入某个对象所需要的外部资源（包括对象、资源、变量数据）</p>
+        </section>
+
+        <section>
+            <h3>xml配置注入方式</h3>
+            <p style="text-align:left"> •   Set注入 </p>
+            <p style="text-align:left"> •   构造器注入 </p>
+            <p style="text-align:left"> •   静态工厂的方法注入 </p>
+            <p style="text-align:left"> •   实例工厂的方法注入 </p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">链接：https://www.cnblogs.com/xdp-gacl/p/4249939.html</p>
+            <p style="text-align:left">链接：https://blog.csdn.net/c513063286/article/details/71516886</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>欢迎大家讨论</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
