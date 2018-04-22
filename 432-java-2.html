@@ -551,10 +551,10 @@
     Reveal.initialize({
         history: true,
         dependencies: [
-            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
-            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
-            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
-            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
         ]
     });
 </script>
