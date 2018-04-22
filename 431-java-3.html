@@ -1,0 +1,236 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>nginx服务器和反向代理、负载均衡</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：闵仕宇</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+         <section>
+            <p style="text-align:left"> Nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP代理服务器。</p>
+　　        <p style="text-align:left">其特点是占有内存少，并发能力强，事实上nginx的并发能力确实在同类型的网页服务器中表现较好。</p>
+            <p style="text-align:left"></p>
+
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">代理服务器</p>
+            <p style="text-align:left">一般是指局域网内部的机器通过代理服务器发送请求到互联网上的服务器，代理服务器一般作用在客户端。</p>
+            <p style="text-align:left">反向代理</p>
+            <p style="text-align:left">客户端（用户A）向反向代理的命名空间（name-space）中的内容发送普通请求，接着反向代理将判断向何处（原始服务器）转交请求，
+			并将获得的内容返回给客户端。而客户端始终任务它访问的事原始服务器B而不是服务器Z。由于防火墙作用，只允许服务器Z进出，
+			防火墙和反向代理共同作用保护了院子资源服务器B。</p>
+            <p style="text-align:left">用途：将防火墙后面的服务器提供给Internet用户访问。反向代理还可以为后端的多台服务器提供负载平衡或为后端较慢的服务器提供缓冲服务。</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">正向代理</p>
+
+			<p style="text-align:left">正向代理是一个位于客户端A和原始服务器（服务器B）之间的服务器（代理服务器Z），为了从原始服务器取得内容，
+			用户A向代理服务器Z发送一个请求并指定目标（服务器B），然后代理服务器Z向服务器B转交请求并将获得的内容返回给客户端。
+			客户端必须要进行一些特别的设置才能使用正向代理。</p>
+            <p style="text-align:left">用途：在防火墙内的局域网客户端提供访问Internet的途径。还可以使用缓冲特性减少网络使用率。</p>
+			
+			        </section>
+
+        <section>
+            <p style="text-align:left">从安全性来讲：</p>
+            <p style="text-align:left">正向代理允许客户端通过它访问任意网站并且隐藏客户端自身，因此你必须采取安全措施以确保仅为经过授权的客户端提供服务。</p>
+            <p style="text-align:left">反向代理对外都是透明的，访问者并不知道自己访问的是一个代理。</p>
+
+            <p style="text-align:left">负载均衡也是Nginx常用的一个功能，负载均衡其意思就是分摊到多个操作单元上进行执行，
+			例如Web服务器、FTP服务器、企业关键应用服务器和其它关键任务服务器等，从而共同完成工作任务。
+			简单而言就是当有2台或以上服务器时，根据规则随机的将请求分发到指定的服务器上处理，负载均衡配置一般都需要同时配置反向代理，
+			通过反向代理跳转到负载均衡。而Nginx目前支持自带3种负载均衡策略，还有2种常用的第三方策略。</p>
+		</section>
+			
+		<section>	
+            <p style="text-align:left">1、RR（默认）</p>
+            <p style="text-align:left">每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除。</p>
+			<p style="text-align:left">2、权重</p>
+            <p style="text-align:left">指定轮询几率，weight和访问比率成正比，用于后端服务器性能不均的情况。 </p>
+		</section>
+
+        <section>
+            <p style="text-align:left">3、ip_hash</p>
+            <p style="text-align:left">上面的2种方式都有一个问题，那就是下一个请求来的时候请求可能分发到另外一个服务器，
+			当我们的程序不是无状态的时候（采用了session保存数据），这时候就有一个很大的很问题了，比如把登录信息保存到了session中，
+			那么跳转到另外一台服务器的时候就需要重新登录了，所以很多时候我们需要一个客户只访问一个服务器，那么就需要用iphash了，
+			iphash的每个请求按访问ip的hash结果分配，这样每个访客固定访问一个后端服务器，可以解决session的问题。</p>
+		</section>
+		
+		<section>
+            <p style="text-align:left">4、fair（第三方）</p>
+            <p style="text-align:left">按后端服务器的响应时间来分配请求，响应时间短的优先分配。</p>
+            <p style="text-align:left">5、url_hash（第三方）</p>
+            <p style="text-align:left">按访问url的hash结果来分配请求，使每个url定向到同一个后端服务器，后端服务器为缓存时比较有效。 </p>
+        </section>
+		
+		<section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+		    <p style="text-align:left">为什么要反向代理?</p>
+            <p style="text-align:left">负载均衡是什么？</p>
+            <p style="text-align:left">为什么要进行负载均衡？</p>
+        </section>
+		
+		<section>
+            <h3>4.解决方案</h3>
+        </section>
+		
+        <section>
+            <p style="text-align:left">对于一个服务器，实际生产过程中由于service需要消耗时间，如果采用同步请求到后端，并发量往往远远达不到预期</p>
+            <p style="text-align:left">反向代理是在服务器内部采用集群的方式，通过master nginx服务器将请求分发至下属worker 的tomcat或者其他服务器。</p>
+            <p style="text-align:left">就是说nginx只是起到了分发请求的作用，后面还有动静分离，不过总是需要处理动态资源的服务器。</p>
+            <p style="text-align:left">利用这种异步非阻塞模型，能最大程度提高服务器的效率以及并发量。</p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <p>负载均衡（Load Balance），意思是将负载（工作任务，访问请求）进行平衡、分摊到多个操作单元（服务器，组件）上进行执行。是解决高性能，
+			单点故障（高可用），扩展性（水平伸缩）的解决方案。</p>　　　
+　　　　    <p>前面提到的反向代理请求分发给worker服务器，其实就是负载均衡，worker的而数量也就是负载均衡的数量</p>
+　　　　    <p>根据不同的算法和worker服务器的性能、ip、响应时间来分配请求给worker</p>
+　　　　    <p>所以说反向代理也是负载均衡的一种实现方式</p>
+　　　　    <p></p>
+        </section>
+
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+			<p style="text-align:left">location的请求分发规则？</p>
+        </section>
+
+        <section>		
+            <p style="text-align:left">语法规则</p>
+			<p style="text-align:left">location [=|~|~*|^~] /uri/ { … }</p>
+			<p style="text-align:left">多个 location 配置的情况下匹配顺序为（参考资料而来，还未实际验证，试试就知道了，仅供参考）:</p>
+			<p style="text-align:left">首先精确匹配 =</p>
+			<p style="text-align:left">其次前缀匹配 ^~</p>
+            <p style="text-align:left">其次是按文件中顺序的正则匹配</p>
+            <p style="text-align:left">然后匹配不带任何修饰的前缀匹配。</p>
+            <p style="text-align:left">最后是交给 / 通用匹配</p>
+			<p style="text-align:left">当有匹配成功时候，停止匹配，按当前匹配规则处理请求</p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>https://juejin.im/entry/58afa0975c497d006778502b</p>
+            <p>http://blog.jobbole.com/97957/</p>
+            <p></p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 闵仕宇</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
