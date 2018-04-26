@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是restful？rest的请求方法有哪些，有什么区别？</h2>
+            <p>分享人：韩亚博</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+        
+		<section>
+			<h3>1.背景介绍</h3>
+		</section>		
+		<section>
+			<p>什么是REST?</p>
+			<p>REST 表述性状态传递（英文：Representational State Transfer，简称REST）</p>
+			<p>是Roy Fielding博士在2000年他的博士论文中提出来的一种软件架构风格。</p>
+			<p>它是一种针对网络应用的设计和开发方式，可以降低开发的复杂性，提高系统的可伸缩性。</p>
+			<p>REST 指的是一组架构约束条件和原则。满足这些约束条件和原则的应用程序或设计就是 RESTful</p>			
+		</section>
+
+		<section>
+			<h3>2.知识剖析</h3>		
+		</section>		
+		<section>
+			<p>RESTful要点</p>								
+			<p>1.在REST中的一切都被认为是一种资源。</p>
+			<p>2.每个资源由URI标识。</p>	
+			<p>3.使用统一的接口。处理资源使用POST，GET，PUT，DELETE操作类似创建，读取，更新和删除（CRUD）操作。</p>
+			<p>4.无状态。每个请求是一个独立的请求。从客户端到服务器的每个请求都必须包含所有必要的信息，以便于理解。</p>
+			<!--<p>通信都是通过展现。例如XML，JSON</p>-->
+			<p>REST的核心在于，当你设计一个系统的时候，资源是第一位的考虑，你首先从资源的角度进行系统的拆分、设计，而不是像以往一样以操作为角度来进行设计</p>
+		</section>
+		<section>
+			<p>REST请求方法</p>								
+			<p>1.POST, GET, PUT, DELETE </p>
+			<p>POST:新建资源，不安全。每次请求都会创建资源，多次发出POST请求，会创建多个资源。</p>	
+			<p>GET:获取资源，安全性。不管进行多少次操作，资源的状态都不会改变，GET只是访问和查看资源</p>
+			<p>PUT:更新资源，用来修改数据内容，但是不会增加数据种类，也就是说无论进行多少次PUT操作，资源不会增加</p>
+			<p>DELETE:删除资源</p>						
+		</section>
+		<section>			
+			<p>通信过程的安全性</p>			
+			<p>GET请求将数据附在url上</p>
+			<p>POST请求将数据放在http的包体中</p>			
+		</section>
+		
+		<section>
+			<h3>3.常见问题</h3>
+		</section>
+		<section>
+			<p>URI不够RESTful</p>
+			<p>使用错误的请求方法</p>			
+			<!--<p>打破幂等性</p>-->
+		</section>		
+
+		<section>
+			<h3>4.编码实战</h3>			
+			<p>form表单的请求方法，如何使用delete、put</p>		   			
+		</section>
+	
+		<section>
+			<h3>5.扩展思考</h3>				
+		</section>
+		<section>
+			<p>REST缺点或者不适用的场景</p>
+			<p>存疑：rest更贴近于以资源来定义应用的架构。更加轻便和高效是rest的特点，而soap在面对更多的业务逻辑复杂的接口设计中更加有优势。如果一味的追逐rest风格，只会本末倒置、适得其反。</p>
+		</section>
+       
+		<section>
+			<h3>6.参考文献</h3>
+			<p>https://baike.baidu.com/item/rest/6330506?fr=aladdin</p>
+			<p>https://blog.csdn.net/beagreatprogrammer/article/details/52535128</p>
+			<p>https://www.zhihu.com/question/33959971</p>
+			<p>https://blog.csdn.net/ruangong1203/article/details/51050586</p>
+		</section>
+        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>欢迎大家讨论</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
