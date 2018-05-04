@@ -1,0 +1,186 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>springcloud RestTemplate + ribbon</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：段文凯</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+		<section>
+            <p style="text-align:left">Spring Cloud简介</p>
+　　        <p style="text-align:left">Spring Cloud是一个基于Spring Boot实现的云应用开发工具，它为基于JVM的云应用开发中涉及的配置管理、服务发现、断路器、智能路由、微代理、控制总线、全局锁、决策竞选、分布式会话和集群状态管理等操作提供了一种简单的开发方式。</p>
+            <p style="text-align:left">另外说明spring cloud是基于springboot的，所以需要开发中对springboot有一定的了解。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">微服务简介</p>
+　　        <p style="text-align:left">什么是“微服务架构”呢？简单的说，微服务架构就是将一个完整的应用从数据存储开始垂直拆分成多个不同的服务，每个服务都能独立部署、独立维护、独立扩展，服务与服务间通过诸如RESTful API的方式互相调用。</p>
+			<p style="text-align:left">今天我希望通过一个简单的案例带小伙伴们来了解下如何使用Spring Cloud来实现服务治理。</p>
+		</section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">服务治理</p>
+            <p style="text-align:left">Spring Cloud应用中可以支持多种不同的服务治理框架，比如：Netflix Eureka、Consul、Zookeeper。在Spring Cloud服务治理抽象层的作用下，我们可以无缝地切换服务治理实现，并且不影响任何其他的服务注册、服务发现、服务调用等逻辑。</p>
+        </section>
+		
+		
+		<section>
+            <p style="text-align:left">Spring Cloud Eureka</p>
+            <p style="text-align:left">Spring Cloud Eureka是Spring Cloud Netflix项目下的服务治理模块。</p>
+			<p style="text-align:left">使用Eureka创建“服务注册中心”</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">创建“服务提供方”</p>
+            <p style="text-align:left">下面我们创建提供服务的客户端，并向服务注册中心注册自己。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">创建“服务消费者”</p>
+            <p style="text-align:left">Spring cloud有两种服务调用（消费）方式，一种是ribbon+restTemplate，另一种是feign。</p>
+        </section>
+		
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+		<section>
+            <p style="text-align:left">feign和ribbon + RestTemplate的区别</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">Feign是Spring Cloud Netflix库，用于在基于REST的服务调用上提供更高级别的抽象。</p>
+			<p style="text-align:left">使用Feign时，我们在客户端编写声明式REST服务接口，并使用这些接口来编写客户端程序。开发人员不用担心这个接口的实现。这将在运行时由Spring动态配置。通过这种声明性的方法，开发人员不需要深入了解由HTTP提供的HTTP级别API的细节的RestTemplate。</p>
+			<p style="text-align:left">也就是说FeignClient简化了请求的编写，且通过动态负载进行选择要使用哪个服务进行消费，而这一切都由Spring动态配置实现，我们不用关心这些，只管使用方法即可。</p>
+		</section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+		
+		<section>
+            <p style="text-align:left">dubbo和springcloud的区别？</p>
+			<p style="text-align:left">dubbo由于是二进制的传输，占用带宽会更少springCloud是http协议传输，带宽会比较多，同时使用http协议一般会使用JSON报文，消耗会更大。</p>
+			<p style="text-align:left">dubbo的开发难度较大，原因是dubbo的jar包依赖问题很多大型工程无法解决springcloud的接口协议约定比较自由且松散，需要有强有力的行政措施来限制接口无序升级。</p>
+			<p style="text-align:left">dubbo的改进是通过dubbofilter，很多东西没有，需要自己继承，如监控，如日志，如限流，如追踪。springcloud自己带了很多监控、限流措施。</p>
+			<p style="text-align:left">两者从开发、维护、改进等等方面还有很多区别，大家有兴趣可以自己搜索一下。</p>
+	   </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>https://blog.csdn.net/forezp/article/details/70148833</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 段文凯</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
