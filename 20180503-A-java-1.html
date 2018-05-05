@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>SpringAOP</h2>
+            <p style="text-align:left"></p>
+            <p>分享人：娄文彬</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">什么是AOP</p>
+            <p style="text-align:left">AOP为Aspect Oriented Programming的缩写，意为：面向切面编程，通过预编译方式和运行期动态代理实现程序功能的统一维护的一种技术。</p>
+        </section>
+        <section> 
+            <p style="text-align:left">AOP和OOP</p>            
+            <p style="text-align:left">OOP针对业务处理过程的实体及其属性和行为进行抽象封装，以获得更加清晰高效的逻辑单元划分</p>
+            <p style="text-align:left">AOP则是针对业务处理过程中的切面进行提取，它所面对的是处理过程中的某个步骤或阶段，以获得逻辑过程中各部分之间低耦合性的隔离效果</p>
+            <p style="text-align:left">这两种设计思想在目标上有着本质的差异</p>
+            <p style="text-align:left"></p>
+
+        </section>
+        <section>
+            <p style="text-align:left">AOP的作用</p>
+            <p style="text-align:left">减少系统的重复代码，降低模块间的耦合度，并有利于未来的可操作性和可维护性</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+       
+        <section>
+        <p>AOP术语</p>
+            <p style="text-align:left">切面（Aspect）</p>
+            <p style="text-align:left">增强（Advice）</p>
+            <p style="text-align:left">连接点（Joinpoint）</p>
+            <p style="text-align:left">切入点（Pointcut）</p>
+            <p style="text-align:left">引入（introduction）</p>
+            <p style="text-align:left">织入（weaving）</p>
+            <p style="text-align:left">目标（target）</p>
+            <p style="text-align:left">代理 (proxy) </p>
+        </section>
+        <section>
+            <p style="text-align:left">切面（Aspect） </p>
+            <p style="text-align:left">表示从业务逻辑中分离出来的横切逻辑， 比如有性能监控， 日志记录，权限控制等
+            <p style="text-align:left">增强（Advice）</p>
+            <p style="text-align:left">指的是拦截到Joinpoint后想要增强的功能</p>
+        </section>
+        <section>
+            <p style="text-align:left">连接点（JoinPoint）</p>  
+            <p style="text-align:left">能够应用增强的点 ，是在应用执行过程中能够插入切面的一个点</p>            
+            <p style="text-align:left">切点（Pointcut）<p/>
+            <p style="text-align:left">实际被我们增强的方法称为切点</p>        
+        </section>
+
+        <section>
+            <p style="text-align:left">目标（target）</p>          
+            <p style="text-align:left">织入 advice 的目标对象. 目标对象也被称为 advised object</p>  
+            <p style="text-align:left">因为 Spring AOP 使用运行时代理的方式来实现 aspect, 因此 adviced object 总是一个代理对象(proxied object)</p>   
+            <p style="text-align:left">注意, adviced object 指的不是原来的类, 而是织入 advice 后所产生的代理类</p>   
+        </section>
+
+        <section>
+            <p style="text-align:left">代理 (proxy) </p>
+            <p style="text-align:left">通过代理实现整套aop机制的</p>   
+            <p style="text-align:left">Spring AOP 默认使用标准的JDK动态代理(dynamic proxy)技术来实现 AOP 代理</p>
+        </section>  
+
+        <section>
+            <p style="text-align:left">引入（introduction）</p>  
+            <p style="text-align:left">引入允许我们向现有的类添加新方法或属性，从而可以在无需修改现有类的情况下，让它们具有新的行为和状态</p>  
+            <p style="text-align:left">织入（weaving）</p>        
+            <p style="text-align:left">将 aspect 和其他对象连接起来, 并创建 adviced object 的过程</p>                          
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:left">关于join point 和 point cut 的区别</p> 
+            <p style="text-align:left">五个增强类型</p>
+            <p style="text-align:left">AOP织入方式</p>
+            <p style="text-align:left"></p>
+
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>关于join point 和 point cut 的区别</p>  
+            <p style="text-align:left">在spring中，这些点指的是方法，spring只支持方法级别的连接点，一个类里有多少方法就有多少Jointpoint</p>
+            <p style="text-align:left">而point cut是一个描述信息, 它修饰的是join point, 通过point cut, 我们就可以确定哪些join point可以被织入Advice</p>
+            <p style="text-align:left">因此 join point 和 point cut 本质上就是两个不同纬度上的东西</p>
+            <p style="text-align:left"></p>
+        </section>
+        <section>
+            <p>五个增强类型</p>
+            <p style="text-align:left">Before（前置增强）：在方法被调用之前调用；</p>  
+            <p style="text-align:left">After（后置增强）：在方法调用之后调用；（不管该方法是否执行成功）</p>
+            <p style="text-align:left">After-returning（返回结果增强）：在方法返回结果后；</p>
+            <p style="text-align:left">After-throwing（异常增强）：在方法抛出异常后；</p>
+            <p style="text-align:left">Around（环绕增强）：在方法调用之前和之后都会调用；</p>
+        </section>
+
+        <section>
+            <p>根据不同的实现技术, AOP织入有三种方式</p>
+            <p style="text-align:left">编译器织入, 这要求有特殊的Java编译器</p>
+            <p style="text-align:left">类装载期织入, 这需要有特殊的类装载器</p>
+            <p style="text-align:left">动态代理织入, 在运行期为目标类添加增强(Advice)生成子类的方式</p>
+            <p style="text-align:left">Spring 采用动态代理织入, 而AspectJ采用编译器织入和类装载期织入</p>
+
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p style="text-align:left"></p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p style="text-align:left"></p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p style="text-align:left">文章链接：https://segmentfault.com/a/1190000007469968#articleHeader5</p>
+            <p style="text-align:left">文章作者：永顺</p>
+            <p style="text-align:left">文章链接：https://blog.csdn.net/javazejian/article/details/56267036</p>
+            <p style="text-align:left">文章作者：zejian_</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p style="text-align:left">感谢观看,如有出错,恳请指正</p>
+            <p style="text-align:left">BY : 娄文彬</p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
