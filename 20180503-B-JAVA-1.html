@@ -1,0 +1,161 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>java的反射机制</h2>
+			<p></p>
+            <h3></h3>
+            <p>晋良金</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+            <p>反射机制是如何定义的？</p>
+            <p>JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；</p>
+            <p>对于任意一个对象，都能够调用它的任意一个方法和属性；</p>
+            <p>这种动态获取的信息以及动态调用对象的方法的功能称为java的反射机制。</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>为何使用反射</p>
+            <p>Bootstrap ClassLoader 最顶层的加载类，主要加载核心类库，%JRE_HOME%\lib下的jar包；</p>
+            <p>Extention ClassLoader 扩展的类加载器，加载目录%JRE_HOME%\lib\ext目录下的jar包和class文件；</p>
+            <p>Appclass Loader也称为SystemAppClass 加载当前应用的classpath的所有类（编译后的.class文件）。</p>
+            <p>如果运行时需要用到没有被编译的类，就需要使用java的反射机制。</p>
+        </section>
+
+        <section>
+			<p>如何使用反射</p>
+            <p>（1）获得你想操作的类的 java.lang.Class 对象</p>
+			<p>（2）获取类中的方法、属性等</p>
+            <p>（3）使用反射API来操作这些信息</p>
+		</section> 
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>三种获得class对象的方法有什么特点，哪种常用？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+			<p>三种获得class对象的方法有什么特点，哪种常用？</p>
+                <p>获得Class 对象有如下三种方法：</p>
+                <p>Class c = 对象名.getClass();</p>
+                <p>类名.class;</p>
+                <p> Class.forName(strg);</p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+			<p>获取私有属性、方法时用getDeclaredXxx，如何使用获取到的私有属性和方法呢？</p>
+            <p></p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <p>获取私有属性、方法时用getDeclaredXxx，如何使用获取到的私有属性和方法呢？</p>
+            <p>通过“暴力反射”的方式</p>
+            <p>反射里的Constructor，Field，Method三个类都有一个getDeclaredXxx方法，可以不受权限控制的获取类的构造函数，字段，方法，如果想要私有构造函数创建对象，字段赋值，方法调用的话，会自动的访问类的isAccessable,默认的是false，所以，你要想访问类中的私有成员的时候，就要调用setAccessable方法，将其改为true，这样，你就可以对类中的私有成员进行操作了。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>https://blog.csdn.net/yangyuscript/article/details/79257055</p>
+            <p>https://blog.csdn.net/briblue/article/details/54973413</p>
+            <p>https://blog.csdn.net/misswwg/article/details/51659812</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p></p>
+            <p>谢谢大家</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://blog.csdn.net/USTC_Zn/article/details/54912367' },
+            { src: 'https://blog.csdn.net/luomingkui1109/article/details/72820232' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

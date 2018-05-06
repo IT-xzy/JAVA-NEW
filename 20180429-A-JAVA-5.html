@@ -1,0 +1,242 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>拦截器，过滤器，监听器各有什么作用？</h2>
+            <p></p>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p></p>
+            <p></p>
+            <p>分享人：杨聪聪</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+         <section>
+           <p>拦截器</p>
+           <p>Interceptor是动态拦截Action调用的对象。它提供了一种机制可以使开发者可以定义在一个Action执行的前后执行的代码，也可以在一个Action执行前阻止其执行 。同时也提供了一种可以提取Action中可重用的部分的方式。</p>
+           <p>过滤器</p>
+           <p>Filter是实现了javax.servlet.Filter接口的服务器端程序,主要的用途是过滤字符编码,做一些业务逻辑判断,过滤器随web应用启动而启动,只初始化一次,只有当web应用停止或重新部署才销毁</p>
+        </section>
+        <section>
+          <p>监听器</p>
+          <P>Listener是实现了javax.servlet.ServletContextListener接口的服务器端程序,它也是随web应用的启动而启动,只初始化了一次,随web应用的停止而销毁。主要作用是：做一些初始化的内容添加工作、设置一些基本的内容、比如一些参数或者是一些固定的对象等等。
+          </P>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+       <section>
+            <P>拦截器的实现方法：
+            主要通过两种途径，第一种是实现HandlerInterceptor接口，第二种是实现WebRequestInterceptor接口。</P>
+            
+       </section>
+       <section>
+           <p>(1)HandlerInterceptor 接口</p>
+            <p>
+                在该接口中，定义了 3 个方法，分别为preHandle()、postHandle()和afterCompletion()，通过复写这 3 个方法来对用户的请求进行拦截处理。
+            </p>
+            <p>而且在 Spring 框架中，还提供了另外一个接口和一个抽象类，实现了对HandlerInterceptor接口的功能扩展，分别为：AsyncHandlerInterceptor和HandlerInterceptorAdapter.</p>
+            <p>在实际应用中，一般都是通过实现HandlerInterceptor接口或者继承HandlerInterceptorAdapter抽象类</p>
+       </section>
+
+       <section>
+           <P> 1）preHandle方法，该方法在请求处理之前进行调用。</P>
+           <P>SpringMVC 中的 Interceptor 是链式调用的，在一个请求中可以同时存在多个 Interceptor 。每个 Interceptor 的调用会依据它的声明顺序依次执行，而且最先执行的都是preHandle fangfa 方法，因此可以在这个方法中进行一些前置初始化操作或者是对当前请求做一个预处理,也可以进行一些判断来决定请求是否要继续进行下去。</P>
+           <p>当它返回为 false 时，表示请求结束，后续的 Interceptor 和 Controller 都不会再执行；</p>
+           <p>当返回值为 true 时，就会继续调用下一个 Interceptor 的 preHandle 方法，如果已经是最后一个 Interceptor 的时候，就会调用当前请求的 Controller 中的方法。</p>
+        </section>
+
+       <section>
+            <p>2）postHandle方法在在当前所属的 Interceptor 的 preHandle 方法的返回值为 true 的时候，才能被调用。</p>
+           <P> 当前请求被处理之后，也就是在 Controller 中的方法调用之后执行，但是它会在 DispatcherServlet 进行视图返回渲染之前被调用，所以可以在这个方法中对 Controller 处理之后的 ModelAndView 对象进行操作。</p>
+            <p>postHandle 方法被调用的方向跟 preHandle 是相反的，先声明的 postHandle 方法反而会后执行。</p>
+       </section>
+       <section>
+            <p>3）afterCompletion方法，也是需要当前对应的 Interceptor 的 preHandle 方法的返回值为 true 时才会执行。因此，该方法将在整个请求结束之后，也就是在 DispatcherServlet 渲染了对应的视图之后执行，这个方法的主要作用是用于进行资源清理的工作。</p>
+       </section>
+
+       <section>
+            <p>(2)WebRequestInterceptor 接口</p>
+            <p>在此接口中也定义了 3 个方法，同HandlerInterceptor接口完全相同，也需要复写这 3 个方法来对用户的请求进行拦截处理。而且这 3 个方法都传递了同一个参数 WebRequest。</p>
+            <p>它里面的方法定义跟 HttpServletRequest 类似，在WebRequestInterceptor中对 WebRequest 进行的所有操作都将同步到 HttpServletRequest 中，然后在当前请求中依次传递。</p>
+       </section>
+      <section>
+          <p>
+          1）preHandle(WebRequest request)方法，该方法跟 HandlerInterceptor 中的 preHandle 不同，主要区别在于该方法无返回值。因此不能通过返回值决定是否终止请求。其主要作用是进行资源的准备工作。
+          </p>
+          <p>2）postHandle(WebRequest request, ModelMap model)方法，同样也是在controller之后，视图返回被渲染之前被调用。该方法有两个参数，WebRequest 对象是用于传递整个请求数据的，比如在 preHandle 中准备的数据都可以通过 WebRequest 来传递和访问；</p>
+          <p>3）afterCompletion(WebRequest request, Exception ex)方法，同样是在视图渲染之后调用，主要用来进行资源的释放。</p>
+      </section>
+
+      <section>
+        <p>过滤器</p>
+        <p>Servlet API中提供了一个Filter接口，开发web应用时，如果编写的Java类实现了这个接口，则把这个java类称之为过滤器Filter。通过Filter 技术，开发人员可以实现用户在访问某个目标资源之前，对访问的请求和响应进行拦截。  </p>
+        <p>Filter接口中有一个doFilter方法，当我们编写好Filter，并配置对哪个web资源进行拦截后，WEB服务器每次在调用web资源的service方法之前，都会先调用一下filter的doFilter方法，因此，在该方法内编写代码可达到如下目的：</p>
+        <p>
+                调用目标资源之前，让一段代码执行；<br>
+                是否调用目标资源（即是否让用户访问web资源）;<br>
+                调用目标资源之后，让一段代码执行。<br>
+        </p>
+      </section>
+      <section>
+            <p>web服务器在调用doFilter方法时，会传递一个filterChain对象进来，filterChain对象是filter接口中最重要的一个对 象，它也提供了一个doFilter方法，开发人员可以根据需求决定是否调用此方法，调用该方法，则web服务器就会调用web资源的service方 法，即web资源就会被访问，否则web资源不会被访问。</p>
+      </section>
+      <section>
+        <p>过滤器中的方法</p>
+          <P>init： 程序启动时，web服务器将创建Filter的实例对象，并调用其init方法，完成对象的初始化 功能；filter对象只会创建一次，init方法也只会执行一次。</P>
+          <p>
+          doFilter：当访问web服务器时对请求进行操作。
+      </p>
+          <p>
+            destroy：web容器调用destroy方法销毁Filter。destroy方法在Filter的生命周期中仅执行一次。在destroy方法中，可以释放过滤器使用的资源。
+          </p>
+      </section>
+      <section>
+          <p>监听器</p>
+          <p>监听web应用，监听许多信息的初始化，销毁，增加，修改，删除等 。</p>
+          <p>监听器对象可以在事情发生前、发生后可以做一些必要的处理。</p>
+      </section>
+      <section>
+      	<P>监听器的分类</P>
+      	<p>1、ServletContext监听</p>
+      	<p>ServletContextListener：用于对Servlet整个上下文进行监听（创建、销毁）。</p>
+      	<p>ServletContextAttributeListener：对Servlet上下文属性的监听（增删改属性）。</p>
+      	<p>2、Session监听</p>
+      	<p>HttpSessionListener接口：对Session的整体状态的监听。</p>
+      	<p>HttpSessionAttributeListener接口：对session的属性监听。</p>
+      	<p>3、Request监听</p>
+      	<p>ServletRequestListener：用于对Request请求进行监听（创建、销毁）。</p>
+      	<p>ServletRequestAttributeListener：对Request属性的监听（增删改属性）。</p>
+      </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>过滤器和拦截器的区别？</p>
+            <p>过滤器和拦截器的执行顺序？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+       <section>
+       ①拦截器是基于java的反射机制的，而过滤器是基于函数回调。<br>
+　　②拦截器不依赖与servlet容器，过滤器依赖与servlet容器。<br>
+　　③拦截器只能对action请求起作用，而过滤器则可以对几乎所有的请求起作用。<br>
+　　④拦截器可以访问action上下文、值栈里的对象，而过滤器不能访问。<br>
+　　⑤在action的生命周期中，拦截器可以多次被调用，而过滤器只能在容器初始化时被调用一次。<br>
+　　⑥拦截器可以获取IOC容器中的各个bean，而过滤器就不行，这点很重要，在拦截器里注入一个service，可以调用业务逻辑。
+       </section>
+       
+        <section>
+        	<p>过滤器和拦截器的执行顺序：过滤前 - 拦截前 - Action处理 - 拦截后 - 过滤后。拦截器是被包裹在过滤器之中的。</p>
+        </section>
+        	
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+        	<p>自定义注解实现interceptor的指定拦截</p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>链接：https://baike.baidu.com/item/MyBatis/2824918?fr=aladdin</p>
+            <p>作者：百度百科</p>
+            <p>链接：https://www.w3cschool.cn/</p>
+            <p>作者：w3cschool</p>
+            <p>链接：https://blog.csdn.net/wangyongxia921/article/details/46272813</p>
+            <p>作者：_Cassie</p>
+            <p>http://how2j.cn/k/spring/spring-aop/89.html#step5306</p>
+            <p>作者：how2j</p>
+            <p>链接：https://www.cnblogs.com/fenglie/articles/4097759.html</p>
+            <p>作者：fenglie</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+
+        </section>
+        <section>
+        
+        </section>
+      
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+               BY : 深圳分院 杨聪聪
+            </p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+
+ <dependency>
+            <groupId>net.sf.json-lib</groupId>
+             <artifactId>json-lib</artifactId>
+             <version>2.4</version>
+             <classifier>jdk15</classifier>
+         </dependency>

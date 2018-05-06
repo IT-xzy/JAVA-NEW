@@ -1,0 +1,241 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>JVM运行以及内存分配</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：王琦超</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+         <section>
+           
+　　        <p style="text-align:left">Java核心四要素：Java编程语言、Java类文件格式、Java虚拟机和Java应用程序接口(Java API)。</p>
+            <p style="text-align:left">JVM（Java Vitual Machine）Java虚拟机，用软件虚拟的一台计算机，可以把字节码文件翻译成机器指令。</p>
+            <p style="text-align:left">Java API（Application Programming Interface）：简单来说我们编程就是站在前人肩膀上，通过前人编写好的代码来实现自己程序的功能，API就是使用前人代码的途径，是程序的接口。</p>
+            
+        </section>
+        <section>
+            <p style="text-align:left">Java编译时环境：我们使用Java编程语言编写出java文件,使用Java编译器编译成class字节码文件，
+            字节码文件可以通过网络传给别人(打包）也可以自己使用。</p>
+            <p style="text-align:left">Java运行时环境：将其放在类装载器中，验证后就会通过其中的API来调用Java类库，通过java命令运行程序时就会启动JVM,然后就可以通过不同系统上的JVM将class文件转换为机器可以识别的二进制语言，起到调用其他程序的作用</p>
+            <p style="text-align:left"></p>
+             <p style="text-align:left"></p>
+        </section>
+        <section>
+            <p style="text-align:left">JVM在它的生存周期中有一个明确的任务，那就是运行Java程序，因此当Java程序启动的时候，就产生JVM的一个实例；当程序运行结束的时候，该实例也跟着消失了。</p>
+            <p style="text-align:left">在Java平台的结构中,Java虚拟机(JVM) 处在核心的位置，是程序与底层操作系统和硬件无关的关键。它的下方是移植接口，移植接口由两部分组成：适配器和Java操作系统, 其中依赖于平台的部分称为适配器；JVM 通过移植接口在具体的平台和操作系统上实现；</p>
+            <p style="text-align:left">在JVM 的上方是Java的基本类库和扩展类库以及它们的API， 利用Java API编写的应用程序(application) 和小程序(Java applet) 可以在任何Java平台上运行而无需考虑底层平台, 就是因为有Java虚拟机(JVM)实现了程序与操作系统的分离，从而实现了Java 的平台无关性。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">JVM的体系结构</p>
+            <p style="text-align:left">(1) Class Loader类加载器：负责加载 .class文件，class文件在文件开头有特定的文件标示，并且ClassLoader负责class文件的加载等，至于它是否可以运行，则由Execution Engine决定。</p>
+            <p style="text-align:left">① 定位和导入二进制class文件
+                                       ② 验证导入类的正确性
+                                       ③ 为类分配初始化内存
+                                        ④ 帮助解析符号引用.</p>
+            <p style="text-align:left">(2) Native Interface本地接口：本地接口的作用是融合不同的编程语言为Java所用，现在很少使用了</p>
+            <p style="text-align:left">(3) Execution Engine 执行引擎：执行包在装载类的方法中的指令，也就是方法。</p>
+			 <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <p style="text-align:left">(4) Runtime data area 运行数据区:
+      虚拟机内存或者Jvm内存，从整个计算机内存中开辟一块内存存储Jvm需要用到的对象，变量等，运行区数据有分很多小区，分别为：方法区，虚拟机(java)栈，本地方法栈，堆，程序计数器。</p>
+            <p style="text-align:left">①方法区是被所有线程共享，所有字段和方法字节码，以及一些特殊方法如构造函数，接口代码也在此定义。简单说，所有定义的方法的信息都保存在该区域，此区域属于共享区间。
+         <font color=red>静态变量+常量+类信息+运行时常量池存在方法区中，实例变量存在堆内存中。在jvm创建时就被加载进来</font></p>
+            <p style="text-align:left">②java堆也是线程共享的区域，我们的类的实例就放在这个区域，可以想象你的一个系统会产生很多实例，因此java堆的空间也是最大的。如果java堆空间不足了，程序会抛出OutOfMemoryError异常。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <p style="text-align:left">③java栈是每个线程私有的区域，它的生命周期与线程相同，一个线程对应一个java栈，
+			每执行一个方法就会往栈中压入一个元素，这个元素叫“栈帧”，而栈帧中包括了方法中的局部变量、用于存放中间状态值的操作栈，
+			这里面有很多细节，我们今天不讲。如果java栈空间不足了，程序会抛出StackOverflowError异常，想一想什么情况下会容易产生这个错误，
+			对，递归，递归如果深度很深，就会执行大量的方法，方法越多java栈的占用空间越大。<font color=red>基本类型的变量和对象的引用变量以及类文件方法等都是在函数的栈内存中分配。</font></p>
+            <p style="text-align:left">④本地方法栈角色和java栈类似，只不过它是用来表示执行本地方法的，本地方法栈存放的方法调用本地方法接口，
+			最终调用本地方法库，实现与操作系统、硬件交互的目的。</p>
+            <p style="text-align:left"></p>
+        </section>
+	 <section>
+	    <p style="text-align:left">⑤程序计数器
+         </p>
+            <p style="text-align:left">每个线程都有一个程序计算器，就是一个指针，指向方法区中的方法字节码（下一个将要执行的指令代码），
+			由执行引擎读取下一条指令，是一个非常小的内存空间，几乎可以忽略不记。</p>
+        </section>
+		
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">首先我们来看一个例子</p>
+            <p style="text-align:left">在此例子中，内存是怎么分配的？</p>
+            <p style="text-align:left">为什么最后p2输出的姓名会是wangwu？</p>
+            <p style="text-align:left">此例子中第一个输出的是什么？</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">Person p1=new Person()</p>
+            <p style="text-align:left">①在栈区中给p1变量分配存储空间</p>
+            <p style="text-align:left">②在堆中给对象分配一块内存，给对象的各成员变量进行默认的初始化，所以此时p1的年龄是0</p>
+            <p style="text-align:left">③把堆中对象的内存起始地址赋值给变量p1，这代表p1存储的实际上一个内存地址，也就是第一个sout输出的结果。
+			所以在堆中的才是真正的对象，p1准确的称为对象的引用，它只是对象名</p>
+          
+        </section>
+			<section>
+			<p style="text-align:left">p1.name="zhangsan"</p>
+            <p style="text-align:left">在方法区的常量区分配一块区域，将"zhangsan"存进去，再将其地址存在堆区的name变量中</p>
+            <p style="text-align:left">p1.age=18;</p>
+            <p style="text-align:left">直接将堆区中age的存储值从0变为18</p>
+			 <p style="text-align:left">p1.showInfo();</p>
+            <p style="text-align:left">在栈区中划分一块区域给此方法，方法结束则释放内存</p>
+        </section>
+
+      <section>
+            <p style="text-align:left">Person p2=new Person();</p>
+            <p style="text-align:left">在栈区内存中划分一块区域给p2，其余同上</p>
+            <p style="text-align:left">p1=p2</p>
+			<p style="text-align:left">①将p2的引用赋值给p1，此时两者指向同一个引用</p>
+			<p style="text-align:left">②p1原来在堆区中的内存地址已无变量引用，等到垃圾回收器发现它，就会被释放，
+			而原本name中储存的”zhangsan"也会因无变量引用而被清理</p>
+        </section>
+		<section>
+            <p style="text-align:left"> p1.name="wangwu";</p>
+            <p style="text-align:left">此时将"wangwu"在方法区储存，并将地址赋值给堆区中的name，name是p1,p2共同指向的，所以p1单方面改变name后，p2的name也改变了。
+			此时，方法区中的"lisi"因为没有变量引用就会被清理</p>
+            <p style="text-align:left">这就是为什么最后p2输出的姓名是wangwu而不是lisi了</p>
+			 <p style="text-align:left"> p1.age=25;</p>
+            <p style="text-align:left">原理同上，只是它是直接在堆区中改变，所以不存在垃圾清理的机制</p>
+        </section>
+
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+       
+
+
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>https://www.cnblogs.com/leefreeman/p/7344460.html</p>
+            <p>https://blog.csdn.net/luomingkui1109/article/details/72820232</p>
+            <p></p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 王琦超</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
