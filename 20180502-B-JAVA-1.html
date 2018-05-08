@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>反射的基本使用</h2>
+
+            <h3>java分享会</h3>
+            <p>分享人：吴艺强</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+
+        <section>
+            <h3>java里的class文件的加载</h3>
+            <p>1、类型是编译器已知的，这种.class文件在编译的时候，编译器会把.class文件打开检查（ps：不是加载）</p>
+        	<p>2、从别的地方获取到了一个引用，然后动态的把这个未知类型的引用的对象的.class文件加载进jvm虚拟机里</p>
+        </section>
+
+        <section>
+            <h3>java里的class文件的加载</h3>
+            <p>RTTI(Run-Time Type Identification)运行时类型识别</p>
+        	<p>反射（reflection）</p>
+        </section>
+
+
+		<section>
+			<p>RTTI(Run-Time Type Identification)运行时类型识别</p>
+            <p>如果不知道某个对象的确切类型，RTTI可以告诉你，但是有一个前提：这个类型在编译时必须已知，这样才能使用RTTI来识别它。</p>
+        </section>
+
+        <section>
+        	<p>反射（reflection）</p>
+        	<p>Class类与java.lang.reflect类库一起对反射进行了支持，该类库包含Field、Method和Constructor类，这些类的对象由JVM在启动时创建，用以表示未知类里对应的成员。这样的话就可以使用Contructor创建新的对象，用get()和set()方法获取和修改类中与Field对象关联的字段，用invoke()方法调用与Method对象关联的方法。另外，还可以调用getFields()、getMethods()和getConstructors()等许多便利的方法，以返回表示字段、方法、以及构造器对象的数组，这样，对象信息可以在运行时被完全确定下来，而在编译时不需要知道关于类的任何事情。</p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <h3>反射</h3>
+			<p>定义：能够分析类能力的程序被称为反射</p>
+			<p>反射库（reflection library）:提供了一个非常丰富且精心设计的工具集，以便编写能够动态操纵Java代码的程序</p>
+        </section>
+
+        <section>
+            <h3>Class类</h3>
+            <p>在程序运行期间，Java运行时系统始终为所有的对象维护一个被称为运行时的类型标识。这个信息保存着每个对象所属的类足迹。虚拟机利用运行时信息选择相应的方法执行。</p>
+            <p>Class类：专门用来保存上述信息的类，可以用来访问这些信息。</p> 
+            <p>Class 类的实例表示正在运行的 Java 应用程序中的类和接口。也就是jvm中有N多的实例每个类都有该Class对象。（包括基本数据类型）Class类没有公共构造方法。Class对象是在加载类时由 Java 虚拟机以及通过调用类加载器中的defineClass方法自动构造的。也就是这不需要我们自己去处理创建，JVM已经帮我们创建好了。</p>
+        </section>
+
+		<section>
+			<h3>获取Class对象的三种方式</h3>
+			<p>Object ——> getClass();
+			<p>任何数据类型（包括基本数据类型）都有一个“静态”的class属性</p>
+			<p>通过Class类的静态方法：forName（String  className）(常用)</p>
+		</section>
+
+		<section>
+            <h3>Class类获取未知类里对应的成员</h3>
+            <p>.getFields() .getMethods() .getConstructors()</p>
+
+        </section>
+
+        <section>
+            <h3>java.lang.reflect利用反射分析类的能力</h3>
+            <p>Field:描述类的域</p>
+            <p>Method:描述类的方法</p>
+			<P>Constructor:描述类的构造器</P>
+        </section>
+
+        <section>
+            <h3>Method.invoke(Object, Object[])</h3>
+            <p>调用对象所描述的方法，传递给定参数，并返回方法的返回值</p>
+
+        </section>
+
+        <section>
+        	<h3>反射机制的优缺点</h3>
+        	<p>优点:运行期类型的判断，动态类加载，动态代理使用反射。</p>
+
+        	<p>缺点:性能是一个问题，反射相当于一系列解释操作，通知jvm要做的事情，性能比直接的java代码要慢很多。</p>
+
+			<p>api:接口是应用程序和模块之间相互沟通的方式。提供某些功能的应用程序或者模块为了与其它程序相互沟通，对外公开了某些功能的调用方式方法，是应用程序和模块之间相互沟通的方式</p>
+        </section>
+
+
+
+        <section>
+            <h3>3.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>4.常见问题</h3>
+        </section>
+
+        <section>
+            <p>1、private修饰？</p>
+            <p>.setAccessible(true);  作用:在用反射时访问私有变量</p>
+        </section>
+
+         <section>
+            <p>2、父类？</p>
+            <p>继承Object类</p>
+        </section>
+
+        <section>
+            <p>3. 反射的作用?</p>
+            <p>调用一些私有方法，实现黑科技。比如双卡短信发送、设置状态栏颜色、自动挂电话等</p>
+            <p>实现序列化与反序列化，比如PO的ORM，Json解析等</p>
+            <p>实现跨平台兼容，比如JDK中的SocketImpl的实现</p>
+            <p>通过xml或注解，实现依赖注入(DI)，注解处理，动态代理，单元测试等功能。比如Retrofit、Spring或者Dagger</p>
+        </section>
+
+
+        <section>
+            <h3>5.参考文献</h3>
+            <p>https://blog.csdn.net/yuanzhou314/article/details/43032067</p>
+            <p>https://blog.csdn.net/sinat_38259539/article/details/71799078</p>
+            <p>Java核心技术 卷1</p>
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p>
+                <small>BY : sweetalin</small>
+            </p>
+        </section>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

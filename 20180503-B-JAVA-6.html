@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>nginx如何实现负载均衡</h2>
+            <p></p>
+            <h3>java分享会</h3>
+            <p>分享人：袁磊</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+
+ <h3>什么是Nginx</h3>
+ <p>Nginx (engine x) 是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambler.ru站点（俄文：Рамблер）开发的，第一个公开版本0.1.0发布于2004年10月4日。其将源代码以类BSD许可证的形式发布，因它的稳定性、丰富的功能集、示例配置文件和低系统资源的消耗而闻名。</p>
+ <p>2011年6月1日，nginx 1.0.4发布。Nginx是一款轻量级的Web 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器，并在一个BSD-like 协议下发行。其特点是占有内存少，并发能力强，事实上nginx的并发能力确实在同类型的网页服务器中表现较好，中国大陆使用nginx网站用户有：百度、京东、新浪、网易、腾讯、淘宝等</p>
+          
+        </section>
+       
+        <section>
+        <h3>负载均衡的目的</h3>
+  <p>  负载均衡的目的是为了解决单个节点压力过大，造成Web服务响应过慢，严重的情况下导致服务瘫痪，无法正常提供服务。春节期间在12306网站上买过火车票的朋友应该深有体会，有时查询一张火车票都会很慢，甚至整个网页都卡住不动了。通常一个访问量非常大的Web网站（比如：淘宝、京东、12306等），由于一个Web服务同时能处理的用户并发请求的数量有限，同时还有机器故障的情况，所以一个Web站点通常会在N台机器上各部署一套同样的程序。当某一个服务挂掉的时候，还有第二个、第三个、第N个服务。。。继续为用户提供服务，给用户的感觉，你的服务还在正常的运行！</p>
+        </section>
+        <section>
+     <p>在这些提供同样服务的机器当中，在硬件配置方面也各不一样，这样就会存在部份机器性能非常好，能快速计算并响应用户的请求，另外一部份机器可能配置差点，响应用户的请求的时间会长一些。这就需要我们思考一个问题？如果有一个服务正在同时处理1000个用户的请求，这个服务的上限可能最多能同时处理1000个用户的请求，这时它已经很忙了，如果此时又有一个新请求过来，我们仍然把这个请求分配给这台机器，这时候这个请求就只能在干等着，等这个服务处理完那些请求后，再继续处理它。</p>
+        </section>
+        
+        <section>
+   <p>这样在浏览器中的反应就像12306我们在春节买票一样，卡在那不动了，让用户眼巴巴的干着急。而能提供同样服务的其它机器，这时确很空闲。这样不仅是对服务器资源的浪费，也充分发挥不出弄多台服务器装同一个服务的最高价值。我们通常称对某一台机器的访问量称为负载量，如何将一个用户的请求，合理的分配到一台能快速响应用户请求的服务器上，我们就需要用到一些负载策略。</p>
+   
+        </section>
+        <section>
+        	<p>负载均衡，将用户的所有HTTP请求均衡的分配到每一台机器上，充分发挥所有机器的性能，提高服务的质量和用户体验。负载均衡可以通过负载均衡网络硬件设备和Web服务器软件来实现，前者设备成本较高，小公司通常负担不起，所以后者一般是我们的首选。实现负载均衡常用的Web服务器软件有Nginx、LVS、Apache等，本文主要介绍Nginx的如何实现负载均衡.</p>	
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+         <h3>Nginx的upstream模块</h3>
+         <p>Nginx负载均衡是通过upstream模块来实现的.upstream模块，使nginx跨越单机的限制，完成网络数据的接收、处理和转发。</p>
+         <p>数据转发功能，为nginx提供了跨越单机的横向处理能力，使nginx摆脱只能为终端节点提供单一功能的限制，而使它具备了网路应用级别的拆分、封装和整合的战略功能。</p>
+         <p>从本质上说，upstream属于handler，只是他不产生自己的内容，而是通过请求后端服务器得到内容，所以才称为upstream（上游）。请求并取得响应内容的整个过程已经被封装到nginx内部，所以upstream模块只需要开发若干回调函数，完成构造请求和解析响应等具体的工作。</p>
+         
+         </section>
+            
+         <section>
+          <h3>Nginx负载均衡模块</h3>
+          <p>负载均衡模块用于从”upstream”指令定义的后端主机列表中选取一台主机。nginx先使用负载均衡模块找到一台主机，再使用upstream模块实现与这台主机的交互。</p>
+          <p>负载均衡模块的配置区集中在upstream{}块中。负载均衡模块的回调函数体系是以init_upstream为起点，经历init_peer，最终到达peer.get和peer.free。其中init_peer负责建立每个请求使用的server列表，peer.get负责从server列表中选择某个server（一般是不重复选择），而peer.free负责server释放前的资源释放工作。</p>
+        </section>
+
+    
+        <section>
+        	<h3>Nginx的负载均衡策略</h3>
+        	<h4>一,内置负载策略:</h4>
+        	<p>轮循（默认）:Nginx根据请求次数，将每个请求均匀分配到每台服务器</p>
+        	<p>最少连接:将请求分配给连接数最少的服务器。Nginx会统计哪些服务器的连接数最少。</p>
+        	<p>IP Hash :绑定处理请求的服务器。第一次请求时，根据该客户端的IP算出一个HASH值，将请求分配到集群中的某一台服务器上。后面该客户端的所有请求，都将通过HASH算法，找到之前处理这台客户端请求的服务器，然后将请求交给它来处理。</p>
+        </section>
+        
+       <section>
+       	  <h4>二,第三方负载策略</h3>
+       	  <p>1>fair:</p>
+       	  <p>根据服务器的响应时间来分配请求，响应时间短的优先分配，即负载压力小的优先会分配。
+          由于fair模块是第三方提供的，所以在编译nginx源码的时候，需要将fair添加到nginx模块中。</p>
+          <p>2>url_hash</p>
+          <p>按请求url的hash结果来分配请求，使每个url定向到同一个后端服务器，服务器做缓存时比较有效。
+           1.7.2版本以后，url_hash模块已经集成到了nginx源码当中，不需要单独安装。之前的版本仍需要单独安装.</p>
+       </section>
+
+       <section>
+       	<h3>Nginx加权轮询算法</h3>
+       	<p> Nginx的加权轮询算法将保持选择的平滑性，即尽可能均匀的分摊节点，节点分配不再是连续的。</p>
+
+       	<p>1、概念解释，每个节点有三个权重变量，分别是：
+
+        (1) weight: 约定权重，即在配置文件或初始化时约定好的每个节点的权重。
+
+        (2) effectiveWeight: 有效权重，初始化为weight。
+
+         在通讯过程中发现节点异常，则-1；
+
+         之后再次选取本节点，调用成功一次则+1，直达恢复到weight；
+
+         此变量的作用主要是节点异常，降低其权重。
+
+        (3) currentWeight: 节点当前权重，初始化为0。</p>
+       	
+       </section>
+       <section>
+        <p>2、算法逻辑:
+
+        (1) 轮询所有节点，计算当前状态下所有节点的effectiveWeight之和totalWeight；
+
+        (2) currentWeight = currentWeight + effectiveWeight;  选出所有节点中currentWeight中最大的一个节点作为选中节点；
+
+        (3) 选中节点的currentWeight = currentWeight - totalWeight；
+
+        基于以上算法，我们看一个例子：
+
+        这时有三个节点{a, b, c}，权重分别是{a=4, b=2, c=1}，共7次请求，初始currentWeight值为{0, 0, 0}，每次分配后的结果如下： </p>
+        
+       </section>
+        <section>
+            <h3>3.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>4.常见问题</h3>
+        </section>
+
+
+        <section>
+           <h3>一,压力过大</h3>
+    <p>压力过大的例子:有一次，某技术哥为某金融机构部署负载均衡。在没部署之前，调试没有任何问题，也通过了压力测试，而且能达到3000/秒的用户数。但是就在技术哥上了负载产品后，一开始还能达到
+    4000/秒左右，转眼却如洪水倾泻，用户数急速降低，甚至还不如没上负载前。
+    “本来我们网络没有这么慢，现在加了负载均衡却变慢了，是不是你们负载产品有问题啊?”用户提出了尖锐的质 疑。经过仔细观察发现：压力下，负载工作很正常，CPU也很低。但没上负载前，后台数据库的CPU工作在85%左 右，加了负载均衡之后，数据库反而瞬间达到了百分之九十多，然后就居高不下了……
+      问题原因究竟在哪儿?</p>
+        </section>
+
+     <section>
+      <p>细究之下发现，原来这个机构的数据库平台在设计之初，没有考虑到以后需要在负载的情况下应用，现在经过负载，给数据库的压力增加了，数据库中某个表查询过慢，反而导致了整个数据库查询效率降低，进而影响了整个系统。所以，综上案例可以发现，负载设备和客户的应用业务是息息相关的，要想成功的部署负载均衡，并使其发挥预期的效果，除了要了解客户需求，更要应地制宜，知己知彼才能让负载均衡产品发挥出它该有的作用。</p>
+    </section>
+
+      <section>
+            <h3>5.参考文献</h3>
+            <p>
+               http://network.51cto.com/art/201507/485289.htm
+            </p>
+            <p>
+               https://blog.csdn.net/xyang81/article/details/51702900
+            </p>
+            <p>
+               https://blog.csdn.net/u014513883/article/details/48550709
+            </p>
+            <p>
+                http://tengine.taobao.org/book/chapter_05.html
+            </p>
+        </section>
+
+         <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+    <script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+       dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
