@@ -1,0 +1,262 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>几种内排序算法</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：李恪非</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.扩展思考</p>
+            <p>7.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+            <h3>内排序</h3>
+            <p>排序大的分类可以分为两种：内排序和外排序。在排序过程中，全部记录存放在内存，则称为内排序，如果排序过程中需要使用外存，则称为外排序。下面讲的排序都是属于内排序。</p>
+            <p>内排序又有插入排序、选择排序、交换排序（冒泡排序、快速排序）、归并排序、基数排序</p>
+        </section>
+       
+        <section>
+        <h3>时间复杂度</h3>
+        <p>以未知数n为基准来计算算法的规模，例如嵌套多个if循环的时候时间复杂度要取最里面的if循环消耗时间来计算</p>
+        </section>
+
+        <section>
+        <h3>空间复杂度</h3>
+        <p>空间复杂度即该算法需要为运算开辟新的空间来记录存储一些数据</p>
+        <p>如果有多次入栈操作那么取入栈最深的一次操作的存储空间作为空间复杂度</p>
+        </section>
+
+        <section>
+        <h3>算法稳定性</h3>
+        <p>这里举例说明比较方便，如果数组为{5，5，2}那么第一个5和第二个5在原数组中是有顺序的，如果排序永远不会交换二者位置那么为稳定排序</p>
+        </section>
+     
+        <section>
+        <h3>关于算法的时间复杂度的估计</h3>
+        <p>有一些算法的时间复杂度是不固定的，因为有最好情况和最坏情况，我们可以根据数据推算</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <h3>冒泡排序（Bubble Sort）</h3>
+            <p>算法流程</p>
+            <p>先对一个长度为N的数组从a[0]到a[N-1]遍历，每次都比较前后两个的大小，如果前者比后者大则两者交换顺序</p>
+            <p>再对a[0]到a[N-2]遍历，重复上述操作，直到对a[0]到a[1]遍历，一共N-1次遍历</p>
+        </section>
+
+        <section>
+            <h3>时间复杂度与空间复杂度</h3>
+            <p>最好情况：正序排序，需要进行n-1次比较，时间复杂度为O(n)</p>
+            <p>最坏情况：倒序排序，需要进行n(n-1)/2次比较，时间复杂度为O(n^2)</p>
+            <p>平均时间复杂度为O(n^2)</p>
+            <p>空间复杂度为O(1)</p>
+        </section>
+
+        <section>
+            <h3>算法稳定性</h3>
+            <p>冒泡排序是就地排序、是稳定的</p>
+        </section>
+
+         <section>
+            <h3>选择排序（Selection Sort)</h3>
+            <p>算法流程</p>
+            <p>指针指向a[0]，然后遍历数组比较，如果新的元素小于a[0]则将指针指向新的元素，继续遍历直到数组中最小元素取得指针</p>
+            <p>指针元素与a[0]交换，然后a[0]变为此数组最小元素，下次遍历从a[1]开始，重复上述步骤</p>
+        </section>
+
+        <section>
+            <h3>时间复杂度与空间复杂度</h3>
+            <p>因为要进行N-1次循环和N-1次比较，所以时间复杂度为N(N-1)/2,平均时间复杂度O(n^2)</p>
+            <p>虽然和冒泡排序时间复杂度相同但是在大部分情况下速度比冒泡排序要快</p>
+            <p>空间复杂度为O(1)</p>
+        </section>
+
+        <section>
+            <h3>算法稳定性</h3>
+            <p>在数组情况下是非稳定排序，算法一书上也指出是非稳定排序</p>
+            <p>eg.{1，1，0}进行选择排序，第一个1与0交换之后会直接变成第三位，改变了原来的相对顺序</p>
+        </section>
+
+        <section>
+            <h3>插入排序(Insertion Sort)</h3>
+            <p>算法流程</p>
+            <p>指针j从a[0]开始，一开始右侧元素完全未知，只需要将指针及其左侧元素排序即可</p>
+            <p>j+1，然后将j设置一个新的下标i，将i依次向左比较大小，如果小于则交换位置，不小于则break</p>
+        </section>
+
+        <section>
+            <h3>时间复杂度与空间复杂度</h3>
+            <p>平均需要1/4 n^2的比较和1/4 n^2的交换，平均时间复杂度仍然为O(n^2)</p>
+            <p>插入排序在数组部分有序的情况下比选择排序要快</p>
+            <p>空间复杂度为O(1)</p>
+        </section>
+
+        <section>
+            <h3>算法稳定性</h3>
+            <p>插入排序是稳定排序</p>
+        </section>
+
+        <section>
+            <h3>快速排序(Quick Sort)</h3>
+            <p>算法流程</p>
+            <p>指定一个数K，将K置为数组最左边，然后设置最右边的下标为J，最左边的下标为i，j--,i++,直到j的数小于K，i的数大于K，交换i、j指向的元素</p>
+            <p>交换之后继续上述步骤，直到i>=j，然后将K与J交换，这时在K的左边都是小于K的数，右边都是大于K的数</p>
+            <p>K位置已经确定，然后设置新的K为左边第一个数，进行上述步骤，直到完全排序，右边同理，递归过程</p>
+        </section>
+
+        <section>
+            <h3>时间复杂度与空间复杂度</h3>
+            <p>平均时间复杂度为O(nlogn)</p>
+            <p>空间复杂度由递归过程产生，最优的情况为O(logn),最差情况为O(n)</p>
+            <p>大部分情况下比归并排序速度要快</p>
+        </section>
+
+         <section>
+            <h3>算法稳定性</h3>
+            <p>快速是非稳定排序，不稳定排序发生在center元素交换的时刻</p>
+        </section>
+
+        <section>
+            <h3>归并排序（Merge Sort)</h3>
+            <p>算法流程</p>
+            <p>将数组分治处理，直到分成为单个数，然后做归并处理，分别对各个分治处理的块比较大小排序，最后归并完成</p>
+        </section>
+
+        <section>
+            <h3>时间复杂度与空间复杂度</h3>
+            <p>对长度为n的数组需要进行二路归并，每次归并的时间为O(n),时间复杂度为O(nlgn)</p>
+            <p>需要开辟一个空间来存储归并结果，空间复杂度为O(n)</p>
+        </section>
+
+         <section>
+            <h3>算法稳定性</h3>
+            <p>归并排序是稳定排序</p>
+        </section>
+
+        <section>
+            <h3>基数排序（Counting Sort)</h3>
+            <p>算法流程</p>
+            <p>创建一个0-9的空间来存放对应的数据，然后将数据从最高位数或者最低位数分类，在分类的同时实现排序</p>
+        </section>
+
+        <section>
+            <h3>时间复杂度与空间复杂度</h3>
+            <p>时间复杂度为O(d(n+r))</p>
+            <p>O(n+r)</p>
+        </section>
+
+          <section>
+            <h3>算法稳定性</h3>
+            <p>基数排序是稳定排序</p>
+        </section>
+    
+        <section>
+            <h3>3.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>4.常见问题</h3>
+            <p>算法的几大基本思想</p>
+            <p>分治，动态规划，贪心，回溯，分支界限</p>
+        </section>
+    
+        <section>
+            <h3>5.参考文献</h3>
+            <p>算法（第四版）</p>           
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+            <p>sheel排序是否稳定？</p>
+            <p>洗牌算法？</p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 李恪非</small></p>
+           
+        </section>
+
+    </div>
+    <script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
