@@ -1,0 +1,280 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>为什么要使用memcache？memcashe有什么作用？</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：闵仕宇</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+         <section>
+		    <p style="text-align:left">简单介绍</p>
+            <p style="text-align:left">memcached是一种缓存技术，存储在内存中(高性能分布式内存缓存服务器)。目的：提速。（传统的都是把数据保存在关系型数据库管理系统即RDBMS，客户端请求时会从RDBMS中读取数据并在浏览器中显示，这样当访问量过大时或集中时，导致RSBMS负担过重，数据库响应恶化，浏览器中显示延迟等严重问题，使用memcached减少数据库查询和访问次数以提高访问速度，提高扩展性）
+memcached为key->value非关系型数据库，key为一般字串，值唯一。value除了php中的资源不能存，其它的数据都能存储（字符串、数值、数组、对象、布尔值、null、二进制<图片、视频>）</p>
+            <p style="text-align:left"></p>
+        </section>
+		
+        <section>
+            <p style="text-align:left">Memcache是这个项目的名称，而memcached是它服务器端的主程序文件名，也就是一个是项目名称，一个是主程序文件名</p>
+            <p style="text-align:left">Memcached Client目前有3种：
+Memcached Client for Java, 
+SpyMemcached, 
+XMemcached</p>
+            <p style="text-align:left">这三种Client一直存在各种争议：
+Memcached Client for Java 比 SpyMemcached更稳定、更早、更广泛；
+SpyMemcached 比 Memcached Client for Java更高效；
+XMemcached 比 SpyMemcache并发效果更好。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">memcached特征：</p>
+            <p style="text-align:left">1、协议简单（文本行协议） </p>
+            <p style="text-align:left">2、基于libevent事件处理（注：libevent是一个程序库，封装了linux的epoll、BSD类操作系统的kqueue等事件处理功能。即使对服务器的连接数添加，也能发挥O(1)的性能。memcached在linux、BSD等操作系统上能发挥其高性能。）</p>
+            <p style="text-align:left">3、内置内存存储方式(存储在memcached内置的内存存储空间中，提高性能。 问题：memcached重启或操作系统重启数据会丢失，达到一定量后会启动算法自动删除不使用的缓存)</p>
+            <p style="text-align:left">4、不互相通信的分布式（不互相通信共享信息。）</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">memcache工作原理：</p>
+            <p style="text-align:left">memcache 的工作就是在专门的机器的内存里维护一张巨大的 hash 表，来存储经常被读写的一些数组与文件，
+			从而极大的提高网站的运行效率。</p>
+            <p style="text-align:left">采用的是C/S模式，在 server 端启动服务进程，在启动时可以指定监听的 ip，自己的端口号，
+			所使用的内存大小等几个关键参数。采用了单进程，单线程，异步I/O，基于事件 (event_based) 的服务方式.使用 libevent 作为事件通知实现。
+			每个 Server 只是对自己的数据进行管理。Client 端通过指定 Server 端的 ip 地址(通过域名应该也可以)。
+			以key->value形式，key 的值通过 hash 进行转换，然后确定对那台sever存储/获取数据。</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">命令：</p>
+            <p style="text-align:left">开启memcached服务：</p>
+            <p style="text-align:left">memcached -d -p 11211 -m 256 </p>
+            <p style="text-align:left">使用上述的指令是以守护进程的形式开启memcached服务，端口为11211，使用256MB大小的内存空间存储数据。</p>
+            <p style="text-align:left">使用telnet进行连接：</p>
+            <p style="text-align:left">telnet  memcached_IP   memcached_PORT</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">启动和关闭：</p>
+            <p style="text-align:left">启动memcached 很简单，在shell中输入memcached即可</p>
+            <p style="text-align:left">1.手动关闭memcached服务</p>
+            <p style="text-align:left">ps  -ef | grep memcached  </p>
+            <p style="text-align:left">kill  -9   PID  </p>
+            <p style="text-align:left">2. 创建时保存进程PID到文件，关闭的时候直接从文件获取PID</p>
+            <p style="text-align:left">需要关闭此memcached服务时，直接读取对应文件的PID,然后使用kill -9 PID 杀死即可。</p>
+        </section>        
+		
+		<section>
+            <p style="text-align:left">管理操作：stats、flush_all 操作:</p>
+            <p style="text-align:left">stats</p>
+			<p style="text-align:left">是statistics单词的拼写，即统计的意思。该指令攻击当前memcached服务的各种指标。
+			这些指标跟memcached 的性能和工作状况紧密相关。</p>
+            <p style="text-align:left">flush_all</p>
+            <p style="text-align:left">flus_all 指令用于清空memcached中所有的键值对。</p>
+        </section>
+		
+		<section>
+			<p style="text-align:left">基本数据操作</p>
+            <p style="text-align:left">set                设置指定键值对</p>
+            <p style="text-align:left">add               若当前键值Key不存在，添加指定键值对</p>
+            <p style="text-align:left">replace         若当前键值Key存在，更新当前Value值</p>
+            <p style="text-align:left">get                获取指定键值对</p>
+            <p style="text-align:left">delete           删除指定键值对</p>
+            <p style="text-align:left">    1. set、add、replace 操作指令需要输入两行才能完成，第一行是指令前段，第二行是value值；</p>
+            <p style="text-align:left">    2. set、add、replace操作指定的字节数<length> 参数的大小要和第二行输入的字符串的个数保持完全相同，
+			否则将会报：“CLIENT_ERROR bad data chunk”</p>
+		</section>		
+			
+		<section>	
+			<p style="text-align:left">高级数据操作
+            <p style="text-align:left">gets		获取键值key对应的值，返回信息中携带版本号</p>
+            <p style="text-align:left">cas                指定版本号对键值key进行赋值，版本号不匹配，允许赋值</p>
+			<p style="text-align:left">cas 的操作语法如下：</p>
+			<p style="text-align:left">cas   key  flags   expiration_time  length   version </p>
+            <p style="text-align:left">缓存管理操作</p>            
+			<p style="text-align:left">stats             统计当前memcached 的数据信息。</p>
+            <p style="text-align:left">flush_all       清空当前memcached 服务的所有缓存数据</p></p>
+		</section>
+		
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">数据库信息更改，怎么保证缓存和数据库的信息一致？</p>
+            <p style="text-align:left">Redis与memcached有什么不同？</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">service层代码及时维护</p>
+            <p style="text-align:left">尽量选择修改次数少，或一次性数据（验证码</p>
+        </section>
+		
+        <section>
+            <p style="text-align:left">1.数据库类型支持不同</p>
+			<p style="text-align:left">与Memcached仅支持简单的key-value结构的数据记录不同，Redis支持的数据类型要丰富得多。</p>
+            <p style="text-align:left">最为常用的数据类型主要由五种：String、Hash、List、Set和Sorted Set。
+			Redis内部使用一个redisObject对象来表示所有的key和value。</p>
+        </section>
+        <section>
+            <p style="text-align:left">2.内存管理机制不同</p>
+            <p style="text-align:left">在Redis中，并不是所有的数据都一直存储在内存中的。这是和Memcached相比一个最大的区别。
+			当物理内存用完时，Redis可以将一些很久没用到的value交换到磁盘。</p>
+        </section>
+        <section>
+            <p style="text-align:left">3.集群管理不同</p>
+            <p style="text-align:left">Redis虽然是基于内存的存储系统，但是它本身是支持内存数据的持久化的，而且提供两种主要的持久化策略：
+			RDB快照和AOF日志。而memcached是不支持数据持久化操作的。</p>
+        </section>
+        <section>
+            <p style="text-align:left">4.内存管理机制不同</p>
+            <p style="text-align:left">Memcached是全内存的数据缓冲系统，Redis虽然支持数据的持久化，但是全内存毕竟才是其高性能的本质。</p>
+            <p style="text-align:left">Memcached本身并不支持分布式，因此只能在客户端通过像一致性哈希这样的分布式算法来实现Memcached的分布式存储。</p>
+            <p style="text-align:left">Redis更偏向于在服务器端构建分布式存储。最新版本的Redis已经支持了分布式存储功能。Redis Cluster是一个实现了分布式且允许单点故障的Redis高级版本，它没有中心节点，具有线性可伸缩的功能。</p>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">memcached适合做的东西?</p>
+            <p style="text-align:left">memcached失效策略?</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">memcached适合做的东西：</p>
+            <p style="text-align:left">1、访问频繁的字典数据</p>
+            <p style="text-align:left">2、大量的hot数据（热门数据缓存）</p>
+            <p style="text-align:left">3、页面缓存（web站常用）</p>
+            <p style="text-align:left">4、搜索的查询条件和结果（热门搜索的内容缓存起来）</p>
+            <p style="text-align:left">5、临时处理数据（不需要入库，排重）</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">memcached失效策略：</p>
+            <p style="text-align:left">Lazy expiration + LRU</p>
+            <p style="text-align:left">Lazy expiration作用:假如我们所存储的数据项相当多的时候，在这时候进行监控的话，花费的代价是相当大的，
+			所以memcached不会在过期监视上耗费过多的CPU时间，从而在性能方面也起到一定的优化作用。</p>
+            <p style="text-align:left">LRU:memcache会优先使用已超时的空间，但是还是会有追加信息时空间不足的状态，
+			这时候会使用Least Recently Used（LRU）机制来分配空间，就从最近未被使用的记录中搜索，并将其空间分配给新的记录。</p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>https://blog.csdn.net/guugle2010/article/details/40115675</p>
+            <p>https://blog.csdn.net/luanlouis/article/details/42425105</p>
+            <p>https://my.oschina.net/willSoft/blog/39311</p>
+            <p>http://www.cnblogs.com/loveincode/p/7411911.html</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 闵仕宇</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
