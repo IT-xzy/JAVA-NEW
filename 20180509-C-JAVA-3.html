@@ -1,0 +1,254 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '/css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt=""
+     usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt=""
+          target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>SpringAOP思想及用法快速入门</h3>
+            <p></P>
+            <h4>Java小课堂</h4>
+            <p>分享人：刘欢</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>什么是 AOP ?</p>
+            <p style="text-align:left">
+                AOP是对OOP的一种补充. </p>
+            <p style="text-align:left">
+                面向对象(OOP)引入了继承、多态、封装，将系统的业务功能按照模块划分，每个模块用一个或多个类来表示. </p>
+            <p style="text-align:left">而对于一些系统功能(比如日志,权限验证)，无法使用OOP的思想来实现它们.
+                这些系统功能往往穿插在业务功能的各处，和业务代码耦合在一起；而且系统功能往往会被重复使用，这就导致了模块不利于复用，这就是使用OOP实现系统功能的弊端. </p>
+            <p style="text-align:left">
+                AOP即为面向切面编程，它把系统需求按照功能分门归类，把它们封装在一个个切面中，然后再指定这些系统功能往业务功能中织入的规则.
+                最后由第三方机构根据你指定的织入规则，将系统功能整合到业务功能中. </p>
+        </section>
+        <section>
+            <p>我对于AOP思想的理解</p>
+            <p style="text-align:left">
+                在不改变程序源码的情况下,动态地将代码切入到类的指定方法、指定位置上(方法开始前或结束时)的编程思想就是面向切面的编程.</p>
+            <p style="text-align:left">
+                比如车有”打火“, ”刹车“, ”熄火“这三个动作(方法),
+                你希望能为这三个动作都加上计时的功能,
+                用OOP (面向对象) 只能每个方法里分别加上计算时间的代码. 万一什么时候不需要计时的功能了,
+                又得把计时的代码从一个方法一个方法里去掉, 修改起来也是一样麻烦. 而 AOP 通过定义切面,
+                可以很轻松地实现对不同的方法做抽象, 提取出共同的逻辑, 封装起来, 直接切入到动作执行前或执行后等你指定的位置,
+                添加/修改/删除都很轻松, 并且还不用修改‘车’的源代码. </p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+
+        <section>
+            <p> Spring AOP 相关名词 </p>
+            <p style="text-align:left"> 连接点（Joinpoint）:
+                程序执行过程中明确的点，简单的来说就是Java程序执行过程中的方法。Spring仅支持方法的连接点</p>
+            <p style="text-align:left"> 切点（Pointcut）:
+                如果连接点相当于数据中的记录，那么切点相当于查询条件，一个切点可以匹配多个连接点。Spring
+                AOP的规则解析引擎负责解析切点所设定的查询条件，找到对应的连接点 </p>
+        </section>
+        <section>
+            <p> 增强（Advice）: 也叫通知 </p>
+            <p style="text-align:left"> 它是织入到目标类连接点上的一段程序代码。Advice在国内的很多书面资料中都被翻译成"通知"，但是很显然这个翻译无法表达其本质，有少量的读物上将这个词翻译为"增强"，这个翻译是对Advice较为准确的诠释，我们通过AOP将横切关注功能加到原有的业务逻辑上，这就是对原有业务逻辑的一种增强</p>
+        </section>
+        <section>
+            <p> Spring AOP 切面可应用的有 5 种增强类型. </p>
+            <p style="text-align:left"> Before——在方法调用之前调用增强 </p>
+            <P style="text-align:left"> After——在方法完成之后调用增强，无论方法执行成功与否 </P>
+            <P style="text-align:left"> After-returning——在方法执行成功之后调用增强 </P>
+            <P style="text-align:left"> After-throwing——在方法抛出异常后进行增强 </P>
+            <P style="text-align:left">
+                Around——环绕增强包裹了被增强的方法，在被增强的方法调用之前和调用之后执行自定义的行为</P>
+
+        </section>
+        <section>
+            <p style="text-align:left"> 织入（Weaving）:
+                织入是将 增强 添加到目标类具体连接点上的过程</p>
+            <p style="text-align:left"> 切面（Aspect）:
+                切面是增强和切点的集合，增强和切点共同定义了切面的全部功能——它是什么，在何时何处完成其功能,  就是定义切面的类 </p>
+            <p style="text-align:left"> 目标（target）：被增强的方法所在的那个类, 也就是真正的业务逻辑,
+                他可以在毫不知情的情况下, 被织入切面,而自己专注于业务本身的逻辑</p>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:left">提问一：如何实现spring的AOP操作？</p><br>
+            <p style="text-align:left">提问二：在确定好需要增强的方法之后, 切入点的定位是如何完成的？</p><br>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align:left">
+                回答一：在sring里面进行aop操作，使用aspectJ来实现。aspectJ本身是一个单独的面向切面的框架，里面定义了AOP语法，不是spring的一部分，和spring协同完成springAOP的操作，使用aspectJ来实现springAOP的操作有两种方式</p>
+            <br>
+            <p style="text-align:left">1.基于注解</p>
+            <p style="text-align:left">2.基于xml文件</p>
+        </section>
+        <section>
+            <p style="text-align:left">
+                回答二：使用表达式来配置切入点，表达式有很多种，但是绝大多数问题都可以用execution表达式来解决</p><br>
+            <p style="text-align:left">1.execution（*
+                com.ptt.aop.Book.add(..))</p><br>
+            <p style="text-align:left">2.execution（* com.ptt.aop.Book.*(..))</p>
+            <br>
+            <p style="text-align:left">3.execution（* *.*(..))</p><br>
+            <p style="text-align:left">4.匹配所有save开头的方法：execution(*
+                save*(..))</p><br>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p>任务三中需要通过统计db接口的访问时间 </p>
+            <p style="text-align:left">需要获取Service层从发送请求到获得数据需要的时间,
+                原来的解决方法是创建一个时间记录类,
+                并在其中创建两个方法,一个记录开始时间,一个记录结束时间,内部做一些具体日志记录,然后在Service接口的实现类的每个方法中调用该类来记录日志.但是,
+                这样一来, 这个类跟我们Service层的类就有耦合了,
+                它的改变会影响Service接口的实现类,而且这种写法也有很明显的缺点, 方法调用前后输出时间的逻辑无法复用,
+                如果要增加新的接口这段逻辑就得再写一遍.
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p> Spring AOP 实现方式 </p>
+            <p style="text-align:left">Spring有两种实现AOP的方式：Java动态代理 和 Cglib.
+                默认使用动态代理，当目标对象没有实现接口时，就会使用后者. 我们这里使用Java的动态代理实现一个简单的AOP,
+                可以更深刻的理解Spring AOP </p>
+        </section>
+        <section>
+            <p>基于注解与基于配置文件的优缺点</p>
+            <p style="text-align:left">1、注解可以充分利用 Java
+                的反射机制获取类结构信息, 这些信息可以有效减少配置的工作, 注解和 Java 代码位于一个文件中, 配置信息和
+                Java代码放在一起,有助于增强程序的内聚性, 但其配置分散在各个类中增加了后期维护难度. 而采用独立的 XML配置文件,
+                程序员在编写一个功能时, 往往需要在程序文件和配置文件中不停切换,这种思维上的不连贯会降低开发效率,但是配置都集中管理有利于后期维护.</p>
+            <p style="text-align:left">
+                2、个人认为如果开发的程序需求常常改变应该使用XML, 这样以后方便维护, 反之则使用注解</p>
+        </section>
+
+        <section>
+            <p> 什么时候使用AOP </p>
+            <p style="text-align:left">
+                要理解什么时候使用AOP必须得看OOP(面向对象)与AOP的区别 </p>
+            <p style="text-align:left"> AOP与OOP是面向不同领域的两种设计思想. </p>
+            <p style="text-align:left">
+                OOP（面向对象编程）针对业务处理过程的实体及其属性和行为进行抽象封装，以获得更加清晰高效的逻辑单元划分.
+                AOP则是针对业务处理过程中的切面进行提取，它所面对的是处理过程中的某个步骤或阶段，以获得逻辑过程中各部分之间低耦合性的隔离效果. </p></section>
+
+        <section>
+            <p style="text-align:left">
+                OOP实际上是对对象的属性和行为的封装，而AOP对于这点就无从谈起，但是AOP是处理某个步骤和阶段的，从中进行切面的提取，也就是说，如果几个或更多个逻辑过程中，有重复的操作行为，AOP就可以提取出来，运用动态代理，实现程序功能的统一维护，这么说来可能太含蓄，如果说到权限判断，日志记录等，可能就明白了.<br><br>
+                如果我们单纯使用OOP，那么权限判断怎么办？在每个操作前都加入权限判断？日志记录怎么办？在每个方法里的开始、结束、异常的地方手动添加日志？所有，如果使用AOP就可以借助代理完成这些重复的操作，就能够在逻辑过程中，降低各部分之间的耦合了. 二者扬长补短，互相结合最好. </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p style="text-align:center">1.何东霖的PPT</p>
+            <p style="text-align:center">
+                2.CSDN博客：https://blog.csdn.net/javazejian/article/details/56267036</p>
+            <p style="text-align:center">3. JoinPoint对象:
+                https://blog.csdn.net/it_zouxiang/article/details/52576917</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js',
+                async: true
+            },
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

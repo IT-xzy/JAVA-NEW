@@ -1,0 +1,201 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>springIOC</h3>
+			<p></P>
+            <h4>Java小课堂</h4>
+            <p>分享人：方逾阳</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+			<p>4.扩展思考</p>
+			<p>5.编码实战(注解法)</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">程序的性质：
+			内聚：每个模块尽可能独立完成自己的功能，不依赖于模块外部的代码。
+耦合：模块与模块之间接口的复杂程度，模块之间联系越复杂耦合度越高，牵一发而动全身。
+目的：使得模块的“可重用性”、“移植性”大大增强
+通常程序结构中各模块的内聚程度越高，模块间的耦合程度就越低</p>
+        </section>
+		  <section>
+            <p style="text-align:left">如何减少耦合度？</p>
+        </section>
+        </section>
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>   
+            <p> 第一个重要概念：Ioc—Inversion of Control，即“控制反转”，是一种设计思想</p>		
+			<p>●谁控制谁，控制什么？</p>
+			<p>谁控制谁？当然是IoC 容器控制了对象；</p>
+			<p>控制什么？
+			那就是主要控制了外部资源获取（不只是对象包括比如文件等）</p>        
+        </section>
+		 <section>
+		  <img src="E:\学习资料\JAVA工作\小课堂\原来的程序.jpg" />
+		 <img src="E:\学习资料\JAVA工作\小课堂\IOC后.jpg" />
+	
+		  </section>	
+		
+        <section>
+            <p style="text-align:left">第二个重要概念： DI(Dependency Injection,依赖注入)</p>
+			 <p style="text-align:center">?哪来的</p>
+              </section>
+			  <section>
+			<p style="text-align:left"> 一个对象的创建往往会涉及到其他对象的创建，比如一个对象A的成员变量持有着另一个对象B的引用，这就是依赖</p>
+			  <p style="text-align:left"> 通过将依赖关系写入配置文件，然后在创建有依赖关系的对象时，由IOC容器注入依赖的对象</p>
+			 </section>
+		<section>
+            <p style="text-align:left">DI实现方式</p>
+		
+              </section>  
+         <section>
+             <p style="text-align:left">DI实现方式大概有四种：主要应用只有两种，所以就只举两个</p>
+              <p style="text-align:left">1，setter方法</p>
+              <p style="text-align:left">2，构造器方法</p>
+           
+        </section>
+       
+        <section>
+            <h3>4.编码实战</h3>
+        </section>
+	
+		
+		 <section>
+            <h3>5.扩展思考</h3>
+        </section>
+		 <section>
+		  <img src="E:\学习资料\JAVA工作\小课堂\4.PNG" />
+		
+		  </section>	
+			 <section>
+            <p style="text-align:left">1.创建Ioc配置文件的抽象资源，这个抽象资源包含了BeanDefinition的定义信息</p>
+     <p style="text-align:left">2.创建一个BeanFactory，这里使用了DefaultListableBeanFactory</p>
+    <p style="text-align:left">3.创建一个载入BeanDefinition的读取器，这里使用XmlBeanDefinitionReader来载入XML文件形式的BeanDefinition</p>
+    <p style="text-align:left">4.然后将上面定位好的Resource，通过一个回调配置给BeanFactory</p>
+   <p style="text-align:left"> 5.从定位好的资源位置读入配置信息，具体的解析过程由XmlBeanDefinitionReader完成</p>
+   <p style="text-align:left"> 6.完成整个载入和注册Bean定义之后，需要的Ioc容器就初步建立起来了</p>
+        </section>	
+        <section>
+ <p style="text-align:left">BeanDefinition</p>  
+  <p style="text-align:left">例如类名、scope、属性、构造函数参数列表、依赖的bean、是否是单例类、是否是懒加载等，
+  其实就是将Bean的定义信息存储到这个BeanDefinition相应的属性中，后面对Bean的操作就直接对BeanDefinition进行</p>  
+		 </section>
+      <section>
+ <p style="text-align:left">DefaultListableBeanFactory</p>  
+  <p style="text-align:left">spring Ioc容器的实现，从根源上是beanfactory，
+  但真正可以作为一个可以独立使用的ioc容器还是DefaultListableBeanFactory</p>  
+		 </section>
+		 <section>    
+		<img src="E:\学习资料\JAVA工作\小课堂\3.png" />
+        </section> 
+		<section> 
+	<p>	DefaultListableBeanFactory其实要实现的功能就是以list集合的方式操作bean，为什么要拆成这么多的类和接口呢。这里面可能基于几点考虑。</p>
+<p style="text-align:left">1 功能的不同维度，分不同的接口，方便以后的维护和其他人的阅读。如：AutowireCapableBeanFactory、ListableBeanFactory、HierarchicalBeanFactory等</p>
+<p style="text-align:left">2 不同接口的实现，分布在不同的之类里，方便以后不同接口多种实现的扩展</p>
+<p style="text-align:left">3 从整个类图的分布，可以看出spring在这块是面向接口编程，后面类的实现，他们认为只是接口功能实现的一种，随时可以拓展成多种实现</p>
+ </section>
+ <section> 
+	<p>XmlBeanDefinitionReader </p>
+	<p style="text-align:left">XmlBeanDefinitionReader并不是xml配置的真正解析者，它只是相当于一个指挥官。当它收到一条需要加载BeanDefinition对象的任务后，它只会协调手下去完成相应的工作
+</p>
+	 </section>
+	    <section>
+            <h3>5.编码实战(注解法)</h3>
+        </section>
+			    <section>
+            <h3>@Required 注释应用于 bean 属性的 setter 方法，它表明受影响的 bean 属性在配置时必须放在 XML 配置文件中</h3>
+        </section>
+		  </section>
+			    <section>
+            <h3>setter方法上使用@Autowired注释来摆脱XML配置文件中的<property>元素。
+			当Spring发现使用setter方法的@Autowired注释时，它会尝试在方法上执行autowire="byType"的自动连接。</h3>
+        </section>
+        <section>
+            <h3>6.参考文献</h3>
+			<p style="text-align:center">百度，博客</p>
+        </section>
+		
+        <section>
+            <h3>7.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
