@@ -1,0 +1,240 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	<style>
+	.divbackground{
+	 display: inline-block;
+	 float:left;
+	 margin-left:40px!important;
+	 
+	}
+	.left{
+		text-align:left;
+	}
+	</style>
+</head>
+<body>
+<img src="./PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是SpringIOC？为什么要用IOC而不是New来创建实例？</h2>
+            <p>分享人：张强</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+	       
+		<section>
+			<h3>1.背景介绍</h3>
+
+			<div class="divbackground" >
+			<p>Spring之父 Rod Johnson</p>
+			<img  src="https://gss0.bdstatic.com/94o3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=6a8ee626b3de9c82a665fe8954bae737/63d0f703918fa0ecf02c6612269759ee3c6ddbc2.jpg"/>	
+			</div>
+
+			<div class="divbackground" style="width:50%;">
+			<p>2002年，Rod Johnson在《Expert One-on-One J2EE Design and Development》书中首次推出了Spring框架雏形interface21框架。到现在将近20年了。<br/>
+			最早Spring是为了解决企业级应用开发的复杂性而创建的。但是归根究底它的主要使命就是一点：简化java开发
+		
+			</p>
+			</div>
+		</section>
+		<section>
+		<p>Spring的开发策略：</p>
+			基于POJO类的轻量级和最小侵入性编程；<br/>
+			通过依赖注入和面向接口实现松耦合；<br/>
+			基于切面和惯例进行声明式编程;<br/>
+			通过切面和模板减少样板式代码；
+		<p>
+		<br>
+			<div class="left">◆目的：解决应用开发的复杂性</div>
+			<div class="left">◆功能：使用基本的JavaBean代替EJB，并提供了非常多的功能模块支持</div>
+			<div class="left">◆范围：任何Java应用</div>
+
+       </p>
+			
+		</section>
+		<section>
+			<p>java程序是通过很多类相互协作、相互调用来实现的，也就是说它们相互依赖。只要有了依赖就有了耦合，spring就是为了解决这些耦合，它致力于建造更容易维护、清晰度更高、更容易开发的代码。</p>	
+		    <p>Spring的优点：</p>	
+			<p>
+			低侵入式设计；<br/>
+			独立性强，能独立于各种应用服务器<br/>
+			兼容性强，能融合各种框架模块，比如hibernate/mybatis/redis/actuvemq/sgiro/quartz/kafka……<br/>
+			分层结构，模块化，可扩展性更好<br/>
+			开发效率高，易维护，易测试<br/>
+			等等等等
+			</p>
+		</section>
+		<section>			
+			<p>Spring主要的核心：<br/>
+			<div style="text-align:left;padding-left:150px;">
+			SpringIOC 控制反转 容器管理<br/>
+			SpringAOP 切面编程<br/>
+			Spring ORM 对象关系映射<br/>
+			DAO 数据访问对象 （Transaction JDBC等等）<br/>
+			Spring Web MVC （web应用）<br/>
+			Spring Context （提供运行环境）
+			</p>
+			</div>
+		</section>
+		<section>
+			<h3>2.知识剖析</h3>
+			<p>什么是SpringIOC?</p>
+			<p>SpringIOC是Spring框架的一个核心概念。</p>
+			<p>java程序中的类互相依赖，大量耦合。而SpringIOC（Inversion of Control）就是去创建管理这些依赖，从而尽可能的降低耦合，这些被它创建管理的类被称为bean。它是一个思想，从字面上看它是控制反转，但是直接说反转可能难以理解，我们可以从另一个角度去理解它，比如先理解正再理解反会更容易一些。什么是正，我们平常去new对象就是正面使用，我们使用Spring依赖注入（DI）去获取对象也是正面使用，new的时候是自己去创建依赖然后使用，但是这样我们的代码内部就有了它的实例，这就有了耦合。</p>			
+		</section>
+
+		<section>
+			<p>spring容器读取了配置元数据之后，通过java反射创建类并注入其依赖类。</p>			
+			 <img src=" http://images.cnblogs.com/cnblogs_com/meijsuger/1216102/o_springcontainer.png">
+		</section>
+		<section>
+			<p>为什么不使用new来创建实例？</p>					
+		</section>
+		
+		<section>
+			<h3>3.常见问题</h3>			
+			<p>SpringBean和javaBean</p>
+			<p>ref和value</p>
+			<p>注解扫描方式</p>
+			<p></p>
+		</section>
+		
+		<section>	
+			<p>SpringBean和javaBean</p>			
+			<p>传统的javaBean基本上跟POJO类差不多，就是为了传值而存在，没有任何容器去管理它的生命周期，完全是靠回收机制回收。Spring沿用了Bean这个名称，但是Spring里只要是SpringIOC创建管理的任何类都可以称为Bean，而且它生成的bean完全由自己管理，生命周期可以自己控制；</p>
+		</section>
+		<section>	
+			<p>Ref和Value</p>			
+			<p>ref: 由IOC管理的其它bean</p>
+			<p>value：基本类型赋值</p>			
+		</section>
+		<section>	
+			<p>注解和扫描方式</p>			
+			<p>context:component-scan   base-package="com.xks.service"   &nbsp; 不需要写bean，直接扫描</p>
+			<p>context:annotation-config <br/> 开启注解，需要写bean</p>			
+		</section>
+		<section>
+			<h3>4.编码实战</h3>
+			<p>set方法</p>		   			
+			<p>构造方法</p>		   			
+			<p>注解方法</p>		   			
+		</section>
+	
+		<section>
+			<h3>5.扩展思考</h3>
+			<p>bean生命周期</p>			
+		    <p>Spring的缺点</p>	
+			<p>有没有更好的方式代替spring</p>	
+		</section>
+
+       	<section>
+			<p>bean生命周期</p>
+			<p>scope控制bean的生命周期<br>
+scope的取值有5种取值：<br>
+在Spring 2.0之前，有singleton和prototype两种；<br>
+在Spring 2.0之后增加另外三种：request，session和global session类型，它们只实用于web程序，通常是和XmlWebApplicationContext共同使用。</p>
+<p>singleton 默认 单一实例 所有引用这个bean使用的都是一个，由spring控制。只要不销毁或者推出它就一直存在</p>
+<p>prototype 标准 每次引用spring都返回一个新的，这个对象完全属于引用者。一般用来定义不能共享使用的对象类型</p>
+		</section>
+
+		<section>
+			<p>Spring的缺点</p>
+			<p>1.性能损耗，跟jsp+servlet+javabean性能差距很大</p>
+			<p>2.内存消耗大，缓存多</p>
+			<p>3.异常（bug）定位不是特别准确</p>
+			<p>4.越来越大，不容易理解知识体系（比如spring自己的测试体系，版本变更不清楚，配置和注解背后的原理、和j2EE自己的注解分不清，还有事务管理优越在哪里等等）</>
+		</section>
+		<section>
+			<p>有没有更好的方式代替spring</p>
+			<p>因为spring已经被大家研究的比较透彻了，所以一般来说spring是最佳的选择，如果非要替代的话可以直接使用servlet + javaBean 或者 EJB </p>
+
+		</section>
+
+		<section>
+			<h3>6.参考文献</h3>
+			<p>www.baidu.com</p>
+			<p>www.google.com</p>
+		</section>
+        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>欢迎大家讨论</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="./PPT/lib/reveal/js/head.min.js"></script>
+<script src="./PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './PPT/plugin/markdown/marked.js' },
+            { src: './PPT/plugin/markdown/markdown.js' },
+            { src: './PPT/plugin/notes/notes.js', async: true },
+            { src: './PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
