@@ -1,0 +1,259 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>什么是http协议？</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：段文凯</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+		<section>
+            <p style="text-align:left">Htpp协议简介：</p>
+　　        <p style="text-align:left">HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写,是用于从万维网服务器传输超文本到本地浏览器的传送协议。HTTP是一个基于TCP/IP通信协议来传递数据（HTML 文件, 图片文件, 查询结果等）。</p>
+            <p style="text-align:left">HTTP是一个属于应用层的面向对象的协议，由于其简捷、快速的方式，适用于分布式超媒体信息系统。它于1990年提出，经过二十几年的使用与发展，得到不断地完善和扩展。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left"><img src="./2.jpg" alt="" usemap="#pttmap" class="base-logo"></p>
+			<p style="text-align:left"></p>
+        </section>
+		
+		<section>
+			<p style="text-align:left">HTTP协议工作于客户端-服务端架构为上。浏览器作为HTTP客户端通过URL向HTTP服务端即WEB服务器发送所有请求。Web服务器根据接收到的请求后，向客户端发送响应信息。</p>
+        </section>
+		
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">Http协议主要特点：</p>
+            <p style="text-align:left">1、简单快速。客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。</p>
+			<p style="text-align:left">2、灵活。HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">Http协议主要特点：</p>
+			<p style="text-align:left">3、无连接。无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。</p>
+			<p style="text-align:left">4、无状态。HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。</p>
+			<p style="text-align:left">5、支持B/S及C/S模式。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">Http之URL</p>
+            <p style="text-align:left">HTTP使用统一资源标识符（Uniform Resource Identifiers, URI）来传输数据和建立连接。URL是一种特殊类型的URI，包含了用于查找某个资源的足够的信息URL,全称是UniformResourceLocator, 中文叫统一资源定位符,是互联网上用来标识某一处资源的地址。以下面这个URL为例，介绍下普通URL的各部分组成：</p>
+            <p style="text-align:left">http://www.baidu.com:80/news/index.jsp?boardID=5&ID=24618&page=1</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">从上面的URL可以看出，一个完整的URL包括以下几部分：</p>
+            <p style="text-align:left">1.协议部分。</p>
+			<p style="text-align:left">2.域名部分。</p>
+			<p style="text-align:left">3.端口部分。</p>
+			<p style="text-align:left">4.虚拟目录部分。</p>
+			<p style="text-align:left">5.文件名部分。</p>
+			<p style="text-align:left">6.参数部分。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">Http之请求消息Request：</p>
+            <p style="text-align:left">客户端发送一个HTTP请求到服务器的请求消息包括以下格式：请求行（request line）、请求头部（header）、空行和请求数据四个部分组成。</p>
+			<p style="text-align:left">第一部分：请求行，用来说明请求类型,要访问的资源以及所使用的HTTP版本。</p>
+			<p style="text-align:left">第二部分：请求头部，紧接着请求行（即第一行）之后的部分，用来说明服务器要使用的附加信息。</p>
+			<p style="text-align:left">第三部分：空行，请求头部后面的空行是必须的。</p>
+			<p style="text-align:left">第四部分：请求数据也叫主体，可以添加任意的其他数据。</p>
+		</section>
+		
+		<section>
+            <p style="text-align:left">Http之响应消息Response：</p>
+            <p style="text-align:left">一般情况下，服务器接收并处理客户端发过来的请求后会返回一个HTTP的响应消息。HTTP响应也由四个部分组成，分别是：状态行、消息报头、空行和响应正文。</p>
+			<p style="text-align:left">第一部分：状态行，由HTTP协议版本号， 状态码， 状态消息 三部分组成。</p>
+			<p style="text-align:left">第二部分：消息报头，用来说明客户端要使用的一些附加信息。</p>
+			<p style="text-align:left">第三部分：空行，消息报头后面的空行是必须的。</p>
+			<p style="text-align:left">第四部分：响应正文，服务器返回给客户端的文本信息。</p>
+		</section>
+		
+		<section>
+            <p style="text-align:left">Http之状态码：</p>
+            <p style="text-align:left">状态代码有三位数字组成，第一个数字定义了响应的类别，共分五种类别:</p>
+			<p style="text-align:left">1xx：指示信息--表示请求已接收，继续处理</p>
+			<p style="text-align:left">2xx：成功--表示请求已被成功接收、理解、接受</p>
+			<p style="text-align:left">3xx：重定向--要完成请求必须进行更进一步的操作</p>
+			<p style="text-align:left">4xx：客户端错误--请求有语法错误或请求无法实现</p>
+			<p style="text-align:left">5xx：服务器端错误--服务器未能实现合法的请求</p>
+        </section>
+		
+		
+		<section>
+            <p style="text-align:left">Http工作原理：</p>
+            <p style="text-align:left">HTTP协议定义Web客户端如何从Web服务器请求Web页面，以及服务器如何把Web页面传送给客户端。HTTP协议采用了请求/响应模型。客户端向服务器发送一个请求报文，请求报文包含请求的方法、URL、协议版本、请求头部和请求数据。服务器以一个状态行作为响应，响应的内容包括协议的版本、成功或者错误代码、服务器信息、响应头部和响应数据。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">以下是 HTTP 请求/响应的步骤：</p>
+            <p style="text-align:left">1、客户端连接到Web服务器</p>
+			<p style="text-align:left">一个HTTP客户端，通常是浏览器，与Web服务器的HTTP端口（默认为80）建立一个TCP套接字连接。</p>
+			<p style="text-align:left">2、发送HTTP请求</p>
+			<p style="text-align:left">通过TCP套接字，客户端向Web服务器发送一个文本的请求报文，一个请求报文由请求行、请求头部、空行和请求数据4部分组成。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">以下是 HTTP 请求/响应的步骤：</p>
+			<p style="text-align:left">3、服务器接受请求并返回HTTP响应</p>
+			<p style="text-align:left">Web服务器解析请求，定位请求资源。服务器将资源复本写到TCP套接字，由客户端读取。一个响应由状态行、响应头部、空行和响应数据4部分组成。</p>
+			<p style="text-align:left">4、释放连接TCP连接</p>
+			<p style="text-align:left">若connection 模式为close，则服务器主动关闭TCP连接，客户端被动关闭连接，释放TCP连接;若connection 模式为keepalive，则该连接会保持一段时间，在该时间内可以继续接收请求。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">以下是 HTTP 请求/响应的步骤：</p>
+			<p style="text-align:left">5、客户端浏览器解析HTML内容</p>
+			<p style="text-align:left">客户端浏览器首先解析状态行，查看表明请求是否成功的状态代码。然后解析每一个响应头，响应头告知以下为若干字节的HTML文档和文档的字符集。客户端浏览器读取响应数据HTML，根据HTML的语法对其进行格式化，并在浏览器窗口中显示。</p>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+		
+		<section>
+            <p style="text-align:left">URI和URL的区别？</p>
+			<p style="text-align:left">URI:统一资源标识符，用来唯一的标识一个资源。</p>
+			<p style="text-align:left">URI:统一资源定位器，它是一种具体的URI，即URL可以用来标识一个资源，而且还指明了如何locate这个资源。</p>
+        </section>
+		
+        <section>
+            <p style="text-align:left">Get和Post请求的区别？</p>
+            <p style="text-align:left">1、GET提交的数据会放在URL之后，以?分割URL和传输数据，参数之间以&相连，如EditPosts.aspx?name=test1&id=123456. POST方法是把提交的数据放在HTTP包的Body中。</p>
+			<p style="text-align:left">2、GET提交的数据大小有限制（因为浏览器对URL的长度有限制），而POST方法提交的数据没有限制。</p>
+			<p style="text-align:left">3、GET方式需要使用Request.QueryString来取得变量的值，而POST方式通过Request.Form来获取变量的值。</p>
+			<p style="text-align:left">4、GET方式提交数据，会带来安全问题，比如一个登录页面，通过GET方式提交数据时，用户名和密码将出现在URL上，如果页面可以被缓存或者其他人可以访问这台机器，就可以从历史记录获得该用户的账号和密码。</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">Http2.0新特性</p>
+			<p style="text-align:left">1、采用二进制格式传输数据，而非http1.1文本格式，二进制格式在协议的解析和优化扩展上带来了跟多的优势和可能。</p>
+			<p style="text-align:left">2.对消息头采用Hpack进行压缩传输，能够节省消息头占用的网络流量，http1.1每次请求，都会携带大量冗余的头信息，浪费了很多宽带资源。</p>
+			<p style="text-align:left">3、异步连接多路复用</p>
+			<p style="text-align:left">多路复用允许通过单一的HTTP 2.0连接发起多重的请求-相应消息。这意味着HTTP 2.0的通信都在一个连接上完成了，这个连接可以承载任意数量的双向数据流。</p>
+			<p style="text-align:left">3、Server Push，服务器端能够更快的把资源推送到客户端。</p>
+			<p style="text-align:left">HTTP 2.0新增加服务器提示，可以先于客户端检测到将要请求的资源，提前通知客户端，服务器不发送所有资源的实体，只发送资源的URL，客户端接到提示后会进行验证缓存，如果真需要这些资源，则正式发起请求。</p>
+		</section>
+
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>https://www.cnblogs.com/ranyonsue/p/5984001.html</p>
+            <p>https://blog.csdn.net/hsd2012/article/details/52800100</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 段文凯</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

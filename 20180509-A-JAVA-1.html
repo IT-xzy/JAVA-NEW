@@ -1,0 +1,205 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>springAOP</h3>
+			<p></P>
+            <h4>Java小课堂</h4>
+            <p>分享人：韩要贺</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">springAOP的中文意思是面向切面编程，我刚开始看的时候也不明白啥叫面向切面编程，现在谈谈自己的理解，如果说把各种类当成纵向的，那么类所运行的时间就是横向的，因为每个类运行都要时间，也就是所谓的面向切面。和IOC反转控制一样，AOP也是为了降低耦合度。</p>
+        </section>
+        </section>
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+        
+            <p style="text-align:left">AOP分为核心业务和周边业务。核心功能和周边功能相对独立开发，然后把它们编织起来，就是AOP。AOP的作用就是减少重复性的代码，降低模块间的耦合性，有利于将来的可操作性和可维护性。减少重复性代码，可以看下代码</p>
+           
+        </section>
+        <section>
+            <p style="text-align:center">分布于类各处的功能称为横切关注点，通常这些横切关注点在概念上是与应用的业务逻辑相分离，但其代码往往直接嵌入在应用的业务逻辑之中，将这些关注点与应用逻辑相分离正是AOP正向切面编程要做的。AOP具体可在下面的应用场景中使用：权限，缓存，内容传递，错误处理，懒加载调试，日志管理，性能优化，持久化，资源池，同步，事务。
+            </p>
+           
+              </section>
+        
+         <section>
+             <p style="text-align:left">基于XML和注解两种方式。spring中AOP的两种方式生成代理对象，JDK动态代理，cglib代理，spring默认为JDK代理</p>
+              <p style="text-align:left">JDK动态代理，利用反射机制生成一个实现代理接口的匿名类</p>
+              <p style="text-align:left">CGlib代理是一个强大的高性能高质量的code生成类库，它可以在运行期间扩展java类和实现java接口。</p>
+           
+        </section>
+        <section>
+            <p style="text-align:center">原理区别</p>
+             <p style="text-align:left">JDK动态代理只能对实现了接口的类生成代理，而不能针对类；在创建代理实现类时比CGLib要快，创建代理速度快</p>
+              <p style="text-align:left">CGLIB是针对类实现代理，主要是对指定的类生成一个子类，覆盖其中的方法；创建代理速度比JDK慢，但运行速度比JDK动态代理快。</p>
+ </section>
+		
+         <section>
+         	<p style="text-align:center">AOP术语</p>
+             <p style="text-align:left">连接点（Joinpoint）joinpoint，是在应用执行过程中能够插入切面的一个点，在spring中，这些点指的是方法。spring只支持方法级别的连接点，一个类里有多少方法就有多少Joinpoint。</p>
+             <p style="text-align:left">通知（Advice）：也成为增强，指的是拦截到joinpoint之后，你想要扩展的功能，如上图提到的安全事务日志等。有五种类型的通知，Before（前置）在方法被调用之前调用通知，After（后置）在方法调用之后调用通知，不管方法是否执行；After-returning返回结果通知，在方法返回结果后。After-throwing（异常通知），在方法抛出异常后。Around（环绕）在方法调用之前和调用之后都会调用通知。</p>
+             <p style="text-align:center">.切入点（Pointcut）：指的是我们要对哪个连接点进行拦截的定义。</p>
+             <p style="text-align:left">切面（Aspect）：切面是通知和切入点的结合。
+
+通知说明了扩展的功能是什么和什么时候扩展，而切入点说明了在哪里进扩展（指定到底是哪个方法），这就是一个完整的切面定义。可以看出切面就是表述的一个过程，就是将增强应用到具体方法上的过程。</p>
+             
+         </section>
+         <section>
+             <p style="text-align:left">引入（introduction）:引入允许我们向现有的类添加新方法或属性，从而可以在无需修改现有类的情况下，让它们具有新的行为和状态。</p>
+             <p style="text-align:left">织入（weaving）：是把增强应用到目标的过程。</p>
+              <p style="text-align:left">目标（target）：代理的目标对象（要增强的类。</p>
+               <p style="text-align:left">代理(proxy):通过代理实现整套aop机制的。</p>
+
+              
+         </section>
+         
+           <section>
+            <h3>3.常见问题</h3>
+        </section>
+         <section>
+            <p style="text-align:left">1.使用springAOP实现日志管理呢</p>
+    
+           
+         </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		
+       
+        <section>
+            <p style="text-align:left">在sring里面进行aop操作，使用aspectJ来实现。aspectJ本身是一个单独的面向切面的框架，里面定义了AOP语法，不是spring的一部分，和spring协同完成springAOP的操作，使用aspectJ来实现springAOP的操作有两种方式
+        </p>
+         <p style="text-align:left">基于aspectJ的xml文件
+</p>
+<p style="text-align:left">基于aspectJ注解
+</p>
+
+        </section>
+         <section>
+            <p style="text-align:left">使用表达式来配置切入点，表达式有很多种，但是绝大多数问题都可以用execution表达式来解决
+
+1.execution（* com.ptt.aop.Book.add(..))
+
+2.execution（* com.ptt.aop.Book.*(..))
+
+3.execution（* *.*(..))
+
+4.匹配所有save开头的方法：execution(* save*(..))
+</p>
+           
+         </section>
+       
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+<!--         <section>
+            <p style="text-align:left">Spring容器独立于配置元数据格式，二者之间是解耦的，因此，改变配置方式对 Spring 的框架自身是透明的。</p>  
+			<p style="text-align:left">对于一个使用Spring开发的典型WEB应用程序而言，将配置元数据划分到不同文件，可以清晰反映出应用程序的层，
+			不但便于管理，又可以同时由不同人员开发。</p>
+		 </section>
+		 <section>
+			<p style="text-align:left">beans-web.xml或者ConfigurationForWeb 类定义WEB层/表现层中所操作的Bean;</p>
+			<p style="text-align:left">beans-service.xml或者ConfigurationForService类定义服务层/业务层中所操作的Bean;</p>
+			<p style="text-align:left">beans-dao.xml或者ConfigurationForDao类定义数据访问层中所操作的Bean。</p>
+        </section> -->
+		
+        
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:center">百度，CSDN博客</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
