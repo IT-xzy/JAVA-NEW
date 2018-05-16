@@ -1,0 +1,253 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>1.jdbc插入百万级数据 </h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：宋尚</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+	
+			<section>
+            <h3>快速插入百万级数据</h3>
+			<p>我们一般用JDBC向数据库插入数据时，
+			一般使用以下API</P>
+			<p>
+			Statement.update/excute(sql)
+			preparedstatment.update/excute(sql)
+			</p>
+			<p>
+			但当要插入的数据为百万级别甚至千万级别时，这种方法显然无法满足我们的需求，可以尝试写一个循环
+			循环以百万次的statement.excute(sql)方法来实验，我这边测试是半个小时还没有插完，一般要一个小时左右才能完成。
+			</p>
+			<p>
+			缺点:一条一条的sql执行，大部分时间都是消耗在打开数据库，关闭数据库上了。
+			是否可以只发一句sql而实现批量插入呢</p><br\>
+			</section>
+			
+			<section>
+			
+			<p>
+			为此，jdbc也提供了相应的方法
+			来应对这种场景。今天就来介绍jdbc批处理的相关api，更重要的是介绍些我踩过的坑以及对此相关的一些见解。</p>
+			 
+		  
+			</section>
+			
+		 
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		<section>
+		
+		   <p>批量处理</p>
+		   <p>
+		   |-- Statement</br>
+		      |-- PreparedStatement </br>
+			   子接口，建议使用</br></br>
+	       批处理相关方法</br>
+		   void addBatch(String sql) </br>   
+		   void clearBatch()    </br> 
+           int[] executeBatch()    </br>   
+
+		  </p>
+		   
+
+
+		</section>
+		<section>
+             
+		   <p>事务提交</p>
+		   <p>connection.setAutoCommit(false);</br>  
+		  connection.commit();</br>  
+		   connection.rollback();</br>  
+		   </p>
+        </section>
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+		
+		<section>
+		<p></p>
+            <p>批量处理无法生效</p>
+			 
+			 
+
+			
+			
+	
+		</section>
+		
+        
+        <section>
+           <p>1、rewriteBatchedStatements=true</p>
+			
+			
+        </section>
+			
+		<section>
+          <p>2、mysql 5.1.13</p>
+			
+		</section>
+	
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		
+       <section>
+        <p>To see in IDEA.</p>
+        </section>
+		
+        <section>
+            <h3>6.扩展思考</h3>
+			
+        </section>
+              
+        <section>
+            <p>1.批处理addbatch为什么比一般插入效率高，难道仅仅因为名字叫批处理？</p>
+        </section>
+		<section>
+            <p>当然不是，如果这样的话我们大可再搞一个超级批处理叫addsuperbatch,
+			其实我们可以做一个这样的实验，在sql语句后面加一个 ; ,看程序是否可以正常运行。
+			我们知道，如果不是批处理加一个分号是很正常的，可以正常执行的。那么现在我这里做个实验。
+			
+			可以插一个小时，有时候甚至中间出个错会卡机。</p>
+        </section>
+		
+		 <section>
+            <p>2.批处理时，每批不同数量sql是否对性能有影响?
+			</p>
+        </section>
+		
+		<section>
+			<p>
+			进入正式测试，100万数据插入</br>
+			实测数据</br>
+            100万整个一批 &nbsp;&nbsp; &nbsp;&nbsp;  27s</br>
+
+			50万        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        26s</br>
+
+			20万      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;         28</br>
+
+			10万        &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      19s</br>
+
+			5万             &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  18s</br>
+
+			1万       &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;       28s</br>
+
+			5000      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     48s</br>
+
+   由上面可知，批处理的速度跟每批处理数据量有关，每次处理太少会慢，但太高也不好，经过上面的测试对于100万的插入每批10万或5万最佳。
+			</p>
+		</section>
+      
+		<section>
+            <p>3.插入1000w时会怎么样？
+			</p>
+        </section>
+		
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>https://www.cnblogs.com/applerosa/p/7988765.html</p>
+			<p>http://www.jnshu.com/daily/56446?dailyType=others&total=21&page=2&uid=23334&sort=0&orderBy=3</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+		
+		<section>
+			<p></p>
+		</section>		
+		
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢曲艳行师兄，此教程是在他之前技术分享的基础上完善而成,如有出错,恳请指正</p>
+            <p><small>BY : sweetalin</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

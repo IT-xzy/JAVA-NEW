@@ -1,0 +1,222 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>socket实现rmi</h2>
+
+            <h3>java分享会</h3>
+            <p>分享人：吴艺强</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+
+        <section>
+            <p>RMI概念</p>
+            <p>RMI是运行在一个java虚拟机上的对象调用运行在另一个java虚拟机上的对象的方法。RMI的用途就是为java程序之间的远程通信提供服务。</p>
+        </section>
+
+        <section>
+            <p>Java分布式对象编程技术</p>
+            <p>RMI是Enterprise JavaBeans（EJB）的支柱，是建立分布式Java应用程序的方便途径。只要按照RMI规则设计程序，可以不必再过问在RMI之下的网络细节了，如：TCP和Socket等等。任意两台计算机之间的通讯完全由RMI负责。调用远程计算机上的对象就像本地对象一样方便。</p>
+            <p>在RMI中的核心是远程对象（remote object），除了对象本身所在的虚拟机，其他虚拟机也可以调用此对象的方法，而且这些虚拟机可以不在同一个主机上。每个远程对象都要实现一个或者多个远程接口来标识自己，声明了可以被外部系统或者应用调用的方法</p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p>RMI的通信模型</p>
+			<p>从方法调用角度来看，RMI要解决的问题，是让客户端对远程方法的调用可以相当于对本地方法的调用而屏蔽其中关于远程通信的内容，即使在远程上，也和在本地上是一样的。</p>
+			<p>从客户端-服务器模型来看，客户端程序直接调用服务端，两者之间是通过JRMP（ Java Remote Method Protocol）协议通信，这个协议类似于HTTP协议，规定了客户端和服务端通信要满足的规范。</p>
+        </section>
+
+        <section>
+            <p>RMI 采用stubs 和 skeletons 来进行远程对象(remote object)的通讯。stub 充当远程对象的客户端代理，有着和远程对象相同的远程接口，远程对象的调用实际是通过调用该对象的客户端代理对象stub来完成的，通过该机制RMI就好比它是本地工作，采用tcp/ip协议，客户端直接调用服务端上的一些方法。优点是强类型，编译期可检查错误，缺点是只能基于JAVA语言，客户机与服务器紧耦合。</p>
+          
+        </section>
+
+        <section>
+            <h3>一次完整的远程通信过程的原理</h3>
+            <p>1、客户端发起请求，请求转交至RMI客户端的stub类；</p>
+            <p>2、stub类将请求的接口、方法、参数等信息进行序列化；</p>
+			<P>3、基于socket将序列化后的流传输至服务器端；</P>
+			<p>4、服务器端接收到流后转发至相应的skelton类；</p>
+			<p>5、skelton类将请求的信息反序列化后调用实际的处理类；</p>
+			<p>6、处理类处理完毕后将结果返回给skelton类；</p>
+			<p>7、Skelton类将结果序列化，通过socket将流传送给客户端的stub；</p>
+			<p>8、stub在接收到流后反序列化，将反序列化后的Java Object返回给调用者。</p>
+
+        </section>
+
+        <section>
+            <h3>RMI的编程思想</h3>
+            <p>客户端：需要一些特定的代码来引用远程对象，一旦客户端的代码拥有对远程对象的引用，对远程对象上的调用与对本地对象方法的调用除了速度以外没什么区别。</p>
+
+        </section>
+
+        <section>
+            <h3>RMI的编程思想</h3>
+            <p>服务端：必须定义类并实例化类的远程对象，服务器的代码必须能够登记对象并向客户端导出它们的方法，这样，这些方法就能够被远程调用了。</p>
+
+        </section>
+
+        <section>
+            <h3>RMI的编程思想</h3>
+            <p>客户端和服务端的代码都必须定义或能够访问一个接口，该接口中申明了可以远程调用的方法，并且两者还可以设置一个安全管理器。</p>
+
+        </section>
+
+        <section>
+            <h3>RMI的编程思想</h3>
+            <p>当调用远程对象上的方法时，客户端可以将对象作为参数来传递，并且，远程对象上的方法可以返回对象，这些是通过序列化来实现的。</p>
+
+        </section>
+
+        <section>
+        	<h3>输入输出流</h3>
+        	<p>ObjectOutputStream代表对象输出流，它的writeObject(Object obj)方法可对参数指定的obj对象进行序列化，把得到的字节序列写到一个目标输出流中。</p>
+			<p>ObjectInputStream代表对象输入流，它的readObject()方法从一个源输入流中读取字节序列，再把它们反序列化为一个对象，并将其返回。</p>
+        </section>
+
+        <section>
+        	<h3>对象序列化包括如下步骤：</h3>
+        	<p>1） 创建一个对象输出流，它可以包装一个其他类型的目标输出流，如文件输出流；</p>
+			<p>2） 通过对象输出流的writeObject()方法写对象。</p>
+
+        </section>
+
+        <section>
+            <h3>对象反序列化的步骤如下：</h3>
+            <p>1） 创建一个对象输入流，它可以包装一个其他类型的源输入流，如文件输入流；</p>
+			<p>2） 通过对象输入流的readObject()方法读取对象。</p>
+        </section>
+
+        <section>
+            <h3>4.常见问题</h3>
+        </section>
+
+        <section>
+            <p>1、传输的标准格式是什么</p>
+            <p>Java ObjectStream</p>
+
+            <p>ObjectOutputStream 将 Java 对象的基本数据类型和图形写入 OutputStream。可以使用 ObjectInputStream 读取（重构）对象。通过在流中使用文件可以实现对象的持久存储。如果流是网络套接字流，则可以在另一台主机上或另一个进程中重构对象。</p>
+
+        </section>
+
+        <section>
+            <p>2、 怎么接收和处理流？</p>
+            <p>根据采用的协议启动相应的监听端口，当有流进入后基于Java串行化机制将流进行反序列化，并根据RMI协议获取到相应的处理对象信息，进行调用并处理，处理完毕后的结果同样基于java串行化机制进行返回。</p>
+
+        </section>
+
+        <section>
+            <p>3、 传输协议是？</p>
+            <p>Socket</p>
+            <p>socket是TCP/IP协议的API</p>
+			<p>TCP是数据的介质,Socket是TCP的介质.</p>
+
+        </section>
+
+
+        <section>
+            <h3>5.参考文献</h3>
+            <p>https://blog.csdn.net/u014490157/article/details/51726663</p>
+            <p>http://blog.51cto.com/hedaoyuan/813702</p>
+            <p>http://www.blogjava.net/zhenyu33154/articles/320245.html</p>
+            <p>https://blog.csdn.net/lmy86263/article/details/72594760</p>
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p>
+                <small>BY : sweetalin</small>
+            </p>
+        </section>
+
+    </div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

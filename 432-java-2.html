@@ -1,0 +1,562 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>什么是http协议？Get和post请求有什么区别？http请求content-Type有几种，有什么区别？http适合什么场景？http状态码有哪些？</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：王琦超</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+         <section>
+            <p style="text-align:left">
+			什么是HTTP协议？
+			</p>
+　　        <p style="text-align:left">
+             HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写,是用于从万维网（WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议。
+             </p>
+            <p style="text-align:left">
+			HTTP是一个属于应用层的面向对象的协议，由于其简捷、快速的方式，适用于分布式超媒体信息系统。
+			</p>
+			 <p style="text-align:left">
+			HTTP协议工作于客户端-服务端架构为上。浏览器作为HTTP客户端通过URL向HTTP服务端即WEB服务器发送所有请求。Web服务器根据接收到的请求后，向客户端发送响应信息。
+			</p>
+
+        </section>
+		
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">
+			HTTP主要特点
+			</p>
+            <p style="text-align:left">
+			①简单快速：客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。
+			</p>
+       
+           <p style="text-align:left">
+			②灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。
+			</p>
+            <p style="text-align:left">
+			③无连接：无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。
+			</p>
+        </section>
+         <section>
+            <p style="text-align:left">
+		
+			</p>
+　　        <p style="text-align:left">
+             ④无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。
+             </p>
+            <p style="text-align:left">
+			⑤支持B/S及C/S模式。B/S即Browser/Server,浏览器/服务器，C/S即Client/Server,客户端/服务器
+			</p>
+
+        </section>
+		<section>
+            <p style="text-align:left">
+			优点：a.基于应用级的接口使用方便
+       
+			</p>
+			 <p style="text-align:left">
+			 b.要求的开发水平不高，容错性强
+			</p>
+            <p style="text-align:left">
+			缺点： a.传输速度慢，数据包大。
+			</p>
+			<p style="text-align:left">
+			 b.如实现实时交互，服务器性能压力大
+			</p><p style="text-align:left">
+			c.数据传输安全性差
+			</p>
+       
+           <p style="text-align:left">
+			http适用场景：公司OA服务，互联网服务。
+			</p>
+           
+        </section>
+        
+       <section>
+            <p style="text-align:left">
+		     HTTP之URL
+			</p><br/>
+			 <p style="text-align:left">
+		    HTTP使用统一资源标识符（Uniform Resource Identifiers, URI）来传输数据和建立连接。URL是一种特殊类型的URI，包含了用于查找某个资源的足够的信息
+			</p>
+　　        <p style="text-align:left">
+            URL,全称是UniformResourceLocator, 中文叫统一资源定位符,是互联网上用来标识某一处资源的地址。以下面这个URL为例，介绍下普通URL的各部分组成：
+             </p>
+            <p style="text-align:left">
+			
+			</p>
+
+        </section>
+		 <section>
+            <p style="text-align:center">
+			  http://www.aspxfans.com:8080/news/index.asp?boardID=5&ID=24618&page=1#name
+			</p>
+            <p style="text-align:left">
+			 从上面的URL可以看出，一个完整的URL包括以下几部分：
+			</p>
+       
+           <p style="text-align:left">
+			①协议部分：该URL的协议部分为“http：”，这代表网页使用的是HTTP协议。在Internet中可以使用多种协议，如HTTP，FTP，HTTPS等等.本例中使用的是HTTP协议。在"HTTP"后面的“//”为分隔符
+			</p>
+            <p style="text-align:left">
+			②域名部分：该URL的域名部分为“www.aspxfans.com”。一个URL中，也可以使用IP地址作为域名使用
+			</p>
+			<p style="text-align:left">
+			③端口部分：跟在域名后面的是端口，域名和端口之间使用“:”作为分隔符。端口不是一个URL必须的部分，如果省略端口部分，将采用默认端口
+			</p>
+        </section>
+		<section>
+            <p style="text-align:left">
+			 ④虚拟目录部分：从域名后的第一个“/”开始到最后一个“/”为止，是虚拟目录部分。本例中的虚拟目录是“/news/”
+			</p>
+            <p style="text-align:left">
+			⑤文件名部分：从域名后的最后一个“/”开始到“？”为止，是文件名部分，如果没有“?”,则是从域名后的最后一个“/”开始到“#”为止，如果没有“？”和“#”，那么从域名后的最后一个“/”开始到结束，都是文件名部分。本例中的文件名是“index.asp”。
+			</p>
+           <p style="text-align:left">
+			⑥锚部分：从“#”开始到最后，都是锚部分。本例中的锚部分是“name”。
+			</p>
+            <p style="text-align:left">
+			⑦参数部分：从“？”开始到“#”为止之间的部分为参数部分，又称搜索部分、查询部分。本例中的参数部分为“boardID=5&ID=24618&page=1”。参数可以允许有多个参数，参数与参数之间用“&”作为分隔符。
+			</p>
+        </section>
+       	<section>
+            <p style="text-align:left">
+			HTTP之请求消息Request
+			</p><br/>
+            <p style="text-align:left">
+			客户端发送一个HTTP请求到服务器的请求消息包括以下格式：请求行（request line）、请求头部（header）、空行和请求数据
+			</p>
+           
+           
+        </section>
+			<section>
+			<p style="text-align:left">
+		    第一部分：请求行，用来说明请求类型,要访问的资源以及所使用的HTTP版本.
+			</p>
+			 <p style="text-align:left">
+			第二部分：请求头部，紧接着请求行（即第一行）之后的部分，用来说明服务器要使用的附加信息，如Host: 主机名，
+           Use-Agent: 浏览器基本资料，
+           Accept: 浏览器能够识别的响应类型，
+           Accept-Language: 浏览器默认语言，
+           Accept-Encoding: 浏览器能够识别的压缩方式，
+            Referer: 来路页面，
+           Connecton：是否保持连接。
+			</p>
+            <p style="text-align:left">
+			第三部分：空行，请求头部后面的空行是必须的
+			</p>
+            <p style="text-align:left">
+			第四部分：请求数据也叫主体，可以添加任意的其他数据。可以为空
+			</p>
+           
+		 </section>
+			<section>
+            <p style="text-align:left">
+			HTTP之请求方法
+			</p>
+            <p style="text-align:left">
+			根据HTTP标准，HTTP请求可以使用多种请求方法。
+			</p>
+			 <p style="text-align:left">
+			HTTP1.0定义了三种请求方法： GET, POST 和 HEAD方法。
+			</p> <p style="text-align:left">
+			<font color=red>GET </font>          请求指定的页面信息，并返回实体主体。
+			</p>
+			 <p style="text-align:left">
+			<font color=red>HEAD </font>       类似于get请求，只不过返回的响应中没有具体的内容，用于获取报头
+			</p>
+            <p style="text-align:left">
+			<font color=red>POST </font>        向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。
+			</p>
+   
+        </section>
+		<section>
+           
+			 <p style="text-align:left">
+			HTTP1.1新增了五种请求方法：OPTIONS, PUT, DELETE, TRACE 和 CONNECT 方法。
+			</p> <p style="text-align:left">
+			PUT           从客户端向服务器传送的数据取代指定的文档的内容。
+			</p>
+			 <p style="text-align:left">
+			DELETE      请求服务器删除指定的页面。
+			</p>
+            <p style="text-align:left">
+			CONNECT     HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。
+			</p>
+             <p style="text-align:left">
+			OPTIONS     允许客户端查看服务器的性能。
+			</p><p style="text-align:left">
+			TRACE          回显服务器收到的请求，主要用于测试或诊断。
+			</p>
+        </section>
+			<section>
+            <p style="text-align:left">
+			HTTP之响应消息Response
+			</p><br/>
+            <p style="text-align:left">
+			一般情况下，服务器接收并处理客户端发过来的请求后会返回一个HTTP的响应消息。
+			HTTP响应也由四个部分组成，分别是：状态行、消息报头、空行和响应正文。
+			</p>
+            </section>
+		
+			<section>
+			<p style="text-align:left">
+		   第一部分：状态行，由HTTP协议版本号(HTTP 1.1)， 状态码(200)， 状态消息 (OK)三部分组成。
+			</p>
+			 <p style="text-align:left">
+			第二部分：消息报头，用来说明客户端要使用的一些附加信息
+            Content-Length: 表示长度.
+            Content-Type: 内容格式
+            Date: 日期
+            Server: 服务器类型
+			</p>
+            <p style="text-align:left">
+			第三部分：空行，消息报头后面的空行也是必须的
+			</p>
+            <p style="text-align:left">
+			第四部分：响应正文，服务器返回给客户端的文本信息。
+			</p>
+        </section>
+		
+			<section>
+            <p style="text-align:left">
+			HTTP之主要的三种Content-Type：
+			</p>
+            <p style="text-align:left">
+			application/x-www-form-urlencoded：数据被编码为名称/值对。这是标准的编码格式。这种方式用的比较多。
+			</p>
+			 <p style="text-align:left">
+			multipart/form-data： 数据被编码为一条消息，页上的每个控件对应消息中的一个部分。一般上传文件才会使用这种方式。
+			</p> <p style="text-align:left">
+			text/plain： 数据以纯文本形式(text/json/xml/html)进行编码，其中不含任何控件或格式字符。一般向服务端发送json数据会使用这种方式。
+			</p>
+           
+        </section>
+		<section>
+            <p style="text-align:left">
+			HTTP之状态码
+			</p>
+            <p style="text-align:left">
+			状态代码由三位数字组成，第一个数字定义了响应的类别，共分五种类别:
+			</p>
+			 <p style="text-align:left">
+			1xx：指示信息--表示请求已接收，继续处理
+			</p> 
+			<p style="text-align:left">
+			2xx：成功--表示请求已被成功接收、理解、接受
+			</p>
+           <p style="text-align:left">
+			3xx：重定向--要完成请求必须进行更进一步的操作
+			</p>
+           <p style="text-align:left">
+			<font color=red>4xx：客户端错误--请求有语法错误或请求无法实现</font>
+			</p>
+			<p style="text-align:left">
+			5xx：服务器端错误--服务器未能实现合法的请求
+			</p>
+        </section>
+       <section>
+            <p style="text-align:left">
+			常见状态码：
+			</p>
+            <p style="text-align:left">
+			200 OK                        //客户端请求成功
+			</p>
+			 <p style="text-align:left">
+			<font color=red>400 Bad Request               //客户端请求有语法错误，不能被服务器所理解</font>
+			</p> <p style="text-align:left">
+			401 Unauthorized              //请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用 
+			</p><p style="text-align:left">
+			403 Forbidden                 //服务器收到请求，但是拒绝提供服务
+			</p>
+			 <p style="text-align:left">
+			<font color=red>404 Not Found                 //请求资源不存在，eg：输入了错误的URL</font>
+			</p> <p style="text-align:left">
+			500 Internal Server Error     //服务器发生不可预期的错误
+			</p><p style="text-align:left">
+			503 Server Unavailable        //服务器当前不能处理客户端的请求，一段时间后可能恢复正常
+			</p>
+           
+           
+           
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">
+			Get和post请求有什么区别？
+			</p><br/><br/>
+            <p style="text-align:left">
+			
+			</p>
+            
+            <p style="text-align:left">
+			首先分别看两段请求
+			</p>
+        </section>
+
+        <section>
+		<p style="text-align:left">
+			GET /books/?sex=man&name=Professional HTTP/1.1 
+			</p>
+            <p style="text-align:left">
+		Host: www.wrox.com 
+			</p>
+            <p style="text-align:left">
+			User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.6) 
+			</p>
+            <p style="text-align:left">
+		    Gecko/20050225 Firefox/1.0.1 
+			</p>
+            <p style="text-align:left">
+			Connection: Keep-Alive
+			</p><br/>
+            <p style="text-align:left">
+			注意最后一行是空行
+			</p>
+        </section>
+		 <section>
+		<p style="text-align:left">
+			POST / HTTP/1.1 
+			</p>
+            <p style="text-align:left">
+		Host: www.wrox.com 
+			</p>
+            <p style="text-align:left">
+			User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.6) 
+			</p>
+            <p style="text-align:left">
+		    Gecko/20050225 Firefox/1.0.1 
+			</p>
+            <p style="text-align:left">
+			<font color=red>Content-Type: application/x-www-form-urlencoded </font>
+			</p>
+            <p style="text-align:left">
+			Content-Length: 40 
+			</p>
+			 <p style="text-align:left">
+			Connection: Keep-Alive 
+			</p> <br/>
+			<p style="text-align:left">
+			name=Professional%20Ajax&publisher=Wiley
+			</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+		<p style="text-align:left">
+			①GET提交:请求的数据会附在URL之后（就是把数据放置在HTTP协议头中），
+			以?分割URL和传输数据，多个参数用&连接；例 如：login.action?name=hyddd&password=idontknow&verify=%E4%BD%A0 %E5%A5%BD。
+			如果数据是英文字母/数字，原样发送，如果是空格，转换为+，如果是中文/其他字符，则直接把字符串用BASE64加密，
+			得出如： %E4%BD%A0%E5%A5%BD，其中％XX中的XX为该符号以16进制表示的ASCII。
+			</p>
+            <p style="text-align:left">
+		POST提交：把提交的数据放置在是HTTP包的包体(body)中。
+			</p>
+            <p style="text-align:left">
+			因此，GET提交的数据会在地址栏中显示出来，而POST提交，地址栏不会改变
+			</p>
+           
+        </section>
+		 <section>
+		<p style="text-align:left">
+			②传输数据的大小：首先声明：HTTP协议没有对传输的数据大小进行限制，HTTP协议规范也没有对URL长度进行限制。
+
+
+而在实际开发中存在的限制主要有：
+			</p>
+            <p style="text-align:left">
+		GET:特定浏览器和服务器对URL长度有限制，例如 IE对URL长度的限制是2083字节(2K+35)。对于其他浏览器，如Netscape、FireFox等，理论上没有长度限制，其限制取决于操作系 统的支持。
+			</p>
+            <p style="text-align:left">
+			因此对于GET提交时，传输数据就会受到URL长度的 限制。
+			</p>
+            <p style="text-align:left">
+		    POST:由于不是通过URL传值，理论上数据不受 限。但实际各个WEB服务器会规定对post提交数据大小进行限制，Apache、IIS6都有各自的配置。
+			</p>
+           
+        </section>
+		 <section>
+		<p style="text-align:left">
+			③安全性
+			</p>
+            <p style="text-align:left">
+		POST的安全性要比GET的安全性高。比如：通过GET提交数据，用户名和密码将明文出现在URL上，因为(1)登录页面有可能被浏览器缓存；(2)其他人查看浏览器的历史纪录，那么别人就可以拿到你的账号和密码了，除此之外，使用GET提交数据还可能会造成Cross-site request forgery攻击
+			</p><br/>
+            <p style="text-align:left">
+			④GET方式需要使用Request.QueryString来取得变量的值，而POST方式通过Request.Form来获取变量的值。
+			</p>
+            <p style="text-align:left">
+		    
+			</p>
+           
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+       <section>
+		<p style="text-align:left">
+			HTTP之响应步骤
+			</p>
+            <p style="text-align:left">
+		①客户端连接到Web服务器
+			</p>
+            <p style="text-align:left">
+			一个HTTP客户端，通常是浏览器，与Web服务器的HTTP端口（默认为80）建立一个TCP套接字连接。例如，http://www.oakcms.cn。
+			</p>
+            <p style="text-align:left">
+		    ②发送HTTP请求
+			</p>
+			<p style="text-align:left">
+		    通过TCP套接字，客户端向Web服务器发送一个文本的请求报文，一个请求报文由请求行、请求头部、空行和请求数据4部分组成。
+			</p>
+           
+        </section>
+		 <section>
+		<p style="text-align:left">
+			③服务器接受请求并返回HTTP响应
+			</p>
+            <p style="text-align:left">
+		Web服务器解析请求，定位请求资源。服务器将资源复本写到TCP套接字，由客户端读取。一个响应由状态行、响应头部、空行和响应数据4部分组成。
+			</p>
+            <p style="text-align:left">
+			④释放连接TCP连接
+			</p>
+            <p style="text-align:left">
+		    若connection 模式为close，则服务器主动关闭TCP连接，客户端被动关闭连接，释放TCP连接;若connection 模式为keep-alive，则该连接会保持一段时间，在该时间内可以继续接收请求;
+			</p>
+           
+        </section>
+		
+		<section>
+		 <p style="text-align:left">
+		    ⑤客户端浏览器解析HTML内容
+			</p>
+			 <p style="text-align:left">
+		    客户端浏览器首先解析状态行，查看表明请求是否成功的状态代码。然后解析每一个响应头，响应头告知以下为若干字节的HTML文档和文档的字符集。客户端浏览器读取响应数据HTML，根据HTML的语法对其进行格式化，并在浏览器窗口中显示。
+			</p>
+           
+        </section>
+
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+          <p>https://www.cnblogs.com/52fhy/p/5436673.html</p>
+            <p>https://www.cnblogs.com/ranyonsue/p/5984001.html</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 王琦超</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
