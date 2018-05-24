@@ -1,0 +1,246 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>为什么要使用memcache？memcashe有什么作用？</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：王琦超</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+         <section>
+            <p style="text-align:left">在Web服务开发中，服务端缓存是服务实现中所常常采用的一种提高服务性能的方法。其通过记录某部分计算结果来尝试避免再次执行得到该结果所需要的复杂计算或是查询，从而提高了服务的运行效率。</p>
+　　        <p style="text-align:left">除了能够提高服务的运行效率之外，服务端缓存还常常用来提高服务的扩展性。因此一些大规模的Web应用，如Facebook，常常构建一个庞大的服务端缓存。而它们所最常使用的就是Memcached。</p>
+            <p style="text-align:left"></p>
+
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">Memcached的作用是在内存中划出一块区域来，对一些经常需要访问数据库的数据进行缓存，这样就可以直接在缓存中来读取到指定信息从而不需要频繁读取数据库，起到提高反应速度和减少serveice层压力的作用。</p>
+            <p style="text-align:left">同时，因为我们可以使用多个应用实例来访问同一个缓存，这样就避免了多个应用实例访问多个缓存出现的数据不同步，数据冗杂等问题，从而提升了服务扩展性。</p>
+            <p style="text-align:left">客户端——>应用实例——>缓存实例</p>
+            <p style="text-align:left">客户端——>服务器里的tomcat——>memcached缓存</p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <p style="text-align:left">Memcached就是一个使用了BSD许可(即开源协议）的服务端缓存实现。但是与其它服务端缓存实现不同的是，其主要由两部分组成：独立运行的Memcached服务实例，以及用于访问这些服务实例的客户端。因此相较于普通服务端缓存实现中各个缓存都运行在应用实例之上的情况，Memcached服务实例则是在应用实例之外独立运行的。</p>
+            <p style="text-align:left">由于Memcached缓存实例是独立于各个应用服务器实例运行的，因此应用服务实例可以访问任意的缓存实例。而传统的缓存则与特定的应用实例绑定，因此每个应用实例将只能访问特定的缓存。这种绑定一方面会导致整个应用所能够访问的缓存容量变得很小，另一方面也可能导致不同的缓存实例中存在着冗余的数据，从而降低了缓存系统的整体效率。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <p style="text-align:left">在运行时，Memcached服务实例只需要消耗非常少的CPU资源，却需要使用大量的内存。因此在决定如何组织您的服务端缓存结构之前，您首先需要搞清当前服务中各个服务实例（单机多实例或是多机多实例）的负载情况。如果一个服务器的CPU使用率非常高，却存在着非常多的空余内存，那么我们就完全可以在其上运行一个Memcached实例。而如果当前服务中的所有服务实例都没有过多的空余内存，那么我们就需要使用一系列独立的服务实例来搭建服务端缓存。一个大型服务常常拥有上百个Memcached实例。而在这上百个Memcached实例中所存储的数据则不尽相同。由于这种数据的异构性，我们需要在访问由Memcached所记录的信息之前决定在该服务端缓存系统中到底由哪个Memcached实例记录了我们所想要访问的数据。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+		
+		 <section>
+            <p style="text-align:left">用户需要通过一个Memcached客户端来完成对缓存服务所记录信息的访问。该客户端知道服务端缓存系统中所包含的所有Memcached服务实例。在需要访问具有特定键值的数据时，该客户端内部会根据所需要读取的数据的键值，如“foo”，以及当前Memcached缓存服务的配置来计算相应的哈希值，以决定到底是哪个Memcached实例记录了用户所需要访问的信息。在决定记录了所需要信息的Memcached实例之后，Memcached客户端将从配置中读取该Memcached服务实例所在地址，并向该Memcached实例发送数据访问请求，以从该Memcached实例中读取具有键值“foo”的信息。在各个论坛的讨论中，这被称为是Memcached的两阶段哈希（Two-stage hash）。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+			
+        </section>
+		
+		
+		 <section>
+		 <p style="text-align:left">这里的服务端是指我们在服务器中下载安装的memcached程序，而客户端则是指我们的web项目中用到的memcached包以及工具类。</p>
+			<p style="text-align:left">需要注意的是，要使用memcached缓存必须保证拥有客户端和服务端并且服务端已经开启，否则会显示连接失败。</p>
+            <p style="text-align:left">而对数据的记录也使用了类似的流程：假设用户希望通过服务端缓存记录数据“bar”，并为其指定值“foo”。那么Memcached客户端将首先对用户所赋予的键值“foo”及当前服务端缓存所记录的可用服务实例个数执行哈希计算，并根据哈希计算结果来决定存储该数据的Memcached服务实例。接下来，客户端就会向该实例发送请求，以在其中记录具有键值“foo”的数据“bar”。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+		 <section>
+            <p style="text-align:left">这样做的好处则在于，每个Memcached服务实例都是独立的，而彼此之间并没有任何交互。在这种情况下，我们可以省略很多复杂的功能逻辑，如各个节点之间的数据同步以及结点之间消息的广播等等。这种轻量级的架构可以简化很多操作。如在一个节点失效的时候，我们仅仅需要使用一个新的Memcached节点替代老节点即可。而在对缓存进行扩容的时候，我们也只需要添加额外的服务并修改客户端配置。</p>
+            <p style="text-align:left">这些记录在服务端缓存中的数据是全局可见的。也就是说，一旦在Memcached服务端缓存中成功添加了一条新的记录，那么其它使用该缓存服务的应用实例将同样可以访问该记录。</p>
+            <p style="text-align:left"></p>
+        </section>
+		 <section>
+            <p style="text-align:left">在Memcached中，每条记录都由四部分组成：记录的键，有效期，一系列可选的标记以及表示记录内容的数据。由于记录内容的数据中并不包含任何数据结构，因此我们在Memcached中所记录的数据需要是经过序列化之后的表示。</p>
+            <p style="text-align:left">序列化有三种方式：①json②Object Serialize③Google protobuf </p>
+            <p style="text-align:left">一般为方便使用第二种，我们将需要放进缓存的类继承Serializable接口，并且拥有专属serialVersionUID即可</p>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">1.memcached对java的客户端有哪几种，各有什么优缺点，我该怎么选？</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+      
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+ <section>
+        <p style="text-align:left">Memcached Client目前有3种： Memcached Client for Java, SpyMemcached, XMemcached。</p>
+            <p style="text-align:left">Memcached Client for Java：较早推出的memcached JAVA客户端API，应用广泛，运行比较稳定。</p>
+			<p style="text-align:left">SpyMemcached：支持异步，单线程的memcached客户端，用到了java1.5版本的concurrent和nio，存取速度会高于前者，但是稳定性不好，测试中常报timeOut等相关异常。</p>
+            <p style="text-align:left"></p>
+			
+</section>
+          <section>
+            <p style="text-align:left">XMemcached：同样是基于java nio的客户端，java nio相比于传统阻塞io模型来说，有效率高（特别在高并发下）和资源耗费相对较少的优点。传统阻塞IO为了提高效率，需要创建一定数量的连接形成连接池，而nio仅需要一个连接即可（当然,nio也是可以做池化处理），相对来说减少了线程创建和切换的开销，这一点在高并发下特别明显。因此XMemcached与Spymemcached在性能都非常优秀，在某些方面（存储的数据比较小的情况下）Xmemcached比Spymemcached的表现更为优秀。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>  
+		<section>
+            <p style="text-align:left">由于memcached client for java发布了新版本，性能上有所提高，并且运行稳定，所以建议使用memcached clientfor java。</p>
+            <p style="text-align:left">但XMemcached也使用得比较广泛，而且有较详细的中文API文档，具有如下特点：高性能、支持完整的协议、支持客户端分布、允许设置节点权重、动态增删节点、支持JMX、与Spring框架和Hibernate-memcached的集成、客户端连接池、可扩展性好等。</p>
+            <p style="text-align:left">除此之外还有阿里自己封装的memcached，其注释全都是使用的中文，很适合英语渣使用，但是网上资料比较少，所以这里不考虑，有兴趣的师兄可以自己去尝试。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p style="text-align:left">1.适用memcached的业务场景？</p>
+            <p style="text-align:left">1）如果网站包含了访问量很大的动态网页，因而数据库的负载将会很高。由于大部分数据库请求都是读操作，那么memcached可以显著地减小数据库负载。</p>
+            <p style="text-align:left">2）如果数据库服务器的负载比较低但CPU使用率很高，这时可以缓存计算好的结果（ computed objects ）和渲染后的网页模板（enderred templates）。</p>
+            <p style="text-align:left">3）利用memcached可以缓存 session数据 、临时数据以减少对他们的数据库写操作。</p>
+            <p style="text-align:left">4）缓存一些很小但是被频繁访问的文件。</p>
+			 <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+        <section>
+            <p style="text-align:left">2.不适用memcached的业务场景？</p>
+			<p style="text-align:left">1）缓存对象的大小大于1MB</p>
+			<p style="text-align:left">Memcached本身就不是为了处理庞大的多媒体（large media）和巨大的二进制块（streaming huge blobs）而设计的。</p>
+			<p style="text-align:left">2）key的长度大于250字符，这也是我们尽力避免的</p>
+			<p style="text-align:left">3）业务本身需要的是持久化数据或者说需要的应该是database</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">4）应用运行在不安全的环境中</p>
+            <p style="text-align:left">Memcached未提供任何安全策略，仅仅通过telnet就可以访问到memcached。如果应用运行在共享的系统上，需要着重考虑安全问题。</p>
+            <p style="text-align:left">5）虚拟主机不让运行memcached服务</p>
+			 <p style="text-align:left"> 如果应用本身托管在低端的虚拟私有服务器上，像vmware, xen这类虚拟化技术并不适合运行memcached。Memcached需要接管和控制大块的内存，如果memcached管理的内存被OS或 hypervisor交换出去，memcached的性能将大打折扣。</p>
+        </section>
+
+
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>https://www.cnblogs.com/jiaosq/p/5812250.html</p>
+            <p>https://blog.csdn.net/rachel_luo/article/details/8814087</p>
+            <p>https://www.cnblogs.com/loveis715/p/4681643.html</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p>谢谢各位观看</p>
+            <p><small>By : 上海分院 王琦超</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
