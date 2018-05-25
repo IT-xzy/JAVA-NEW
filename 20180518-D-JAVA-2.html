@@ -1,0 +1,189 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>生成Json有几种方式，他们之间的好处和坏处分别是什么，为什么推荐使用JsonTaglib来处理Json？</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：陈鑫</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>	
+		
+        <section>
+		
+			<section>
+            <p>1.背景介绍</p>
+			<p style="text-align:left">JSON，全称是 JavaScript Object Notation，即 JavaScript 对象标记法。是一种轻量的数据交换格式。易于人阅读和编写。同时也易于机器解析和生成。所以使用json来传递数据可以达到简单，快捷的效果。</p>
+			<p style="text-align:left"></p>
+			<p></p>
+			</section>
+			
+			<section>
+			<p>JSON的两种形式：</p>
+            <p style="text-align:left">对象：是一个无序的“‘名称/值’对”集合。一个对象以“{”（左括号）开始，“}”（右括号）结束。每个“名称”后跟一个“:”（冒号）；“‘名称/值’ 对”之间使用“,”（逗号）分隔。</p>       		
+            <p style="text-align:left">数组：是值（value）的有序集合。一个数组以“[”（左中括号）开始，“]”（右中括号）结束。值之间使用“,”（逗号）分隔。</p>
+			 <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+			
+			</section>
+			<section>
+			<p>JSON的值</p>
+			<p style="text-align:left">值（value）可以是双引号括起来的字符串（string）、数值(number)、true、false、 null、对象（object）或者数组（array）。这些结构可以嵌套。</p>
+			<p style="text-align:left"></p>
+			<!--<p style="text-align:left"></p>
+			<p></p>-->
+			</section>
+		</section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+			<p style="text-align:left">生成的JSON字符串是用来做前后端交互的，当前端用ajax请求时，后端就返还一个JSON字符串。</p>
+            <p style="text-align:left">生成JSON的三种方式：</p>       		
+            <p style="text-align:left">适用json-taglib并在jsp页面来设置字段或嵌套。</p>
+			 <p style="text-align:left">同过注解ResponseBody返回Java对象或集合，可以自动转化为JSON字符串。</p>
+			 <p style="text-align:left">利用Gson转化。</p>
+			 <p></p>
+			 <p></p>
+            <p></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+        </section>
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:left">前端传过来的JSON转化为Java对象？</p>
+			<p style="text-align:left">JSON库性能比较？</p>
+			<p style="text-align:left">JSON和XML的优缺点JSON和XML的优缺点</p>
+			<p></p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+			 <p style="text-align:left">答：传过来的是JSON字符串，不是JSON对象，需要先转化为JSON对象，然后解析为Java对象。转化为JSON对象，可以通过new JSONObject(jsonstr);或者调用JSONObject.fromObject(jsonstr);</p>
+             <p style="text-align:left">答：Java几种常用JSON库性能比较 https://www.xncoding.com/2018/01/09/java/jsons.html</p>
+			 <p style="text-align:left">答：xml优点：格式统一，符合标准；容易与其他系统进行远程交互，数据传输比较方便。</p>
+			 <p style="text-align:left">缺点：大，占带宽；客户端和服务端解析花费代码量大；不同浏览器解析方式不同，需要很多重复代码；解析花较多时间和资源。</p>
+			 <p style="text-align:left">JSON优点：格式简单，易读写，压缩格式；易解析；支持多种语言；可以直接作为服务端代码适用，减少代码量。</p>
+			 <p style="text-align:left">缺点：不如XML通用；推广比较少。</p>
+             <p></p>
+			 <p></p>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+        <img src="">
+		<img src="">
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p></p>
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p style="text-align:left">json的生成方法 https://www.jianshu.com/p/002ef4cbcb2a</p>
+			<p style="text-align:left">介绍 JSON https://json.org/json-zh.html</p>
+			<p style="text-align:left">http://www.w3school.com.cn/tiy/t.asp?f=jquery_ajax_load</p>
+			<p style="text-align:left">https://github.com/google/gson</p>
+			<p style="text-align:left">Java中string字符串转json对象方法 http://www.51gjie.com/java/757.html</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 陈鑫</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
