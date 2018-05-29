@@ -7,10 +7,10 @@
 
     <title>葡萄藤PPT</title>
 
-    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <link rel="stylesheet" href=".css/reveal/reveal.css">
 
     <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
-    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <link rel="stylesheet" href=".css/reveal/theme/ptt.css">
 
     <!-- syntax highlighting 代码高亮主题 -->
     <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
@@ -146,7 +146,7 @@
         </section>
 
     </div>
-    <script src="./PPT/lib/reveal/js/head.min.js"></script>
+    <script src="./lib/reveal/js/head.min.js"></script>
 <script src="./lib/reveal/reveal.js"></script>
 
 <script>
@@ -171,13 +171,13 @@
     // }
 
     // 初始化幻灯片
-    Reveal.initialize({
+ Reveal.initialize({
         history: true,
         dependencies: [
-            { src: './plugin/markdown/marked.js' },
-            { src: './plugin/markdown/markdown.js' },
-            { src: './plugin/notes/notes.js', async: true },
-            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
         ]
     });
 </script>
