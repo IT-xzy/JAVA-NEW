@@ -1,0 +1,253 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>jsp的9个隐式对象</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：闵仕宇</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+         <section>
+            <p style="text-align:left">九大对象：<br>
+
+内置对象（又叫隐含对象，有9个内置对象）:不需要预先声明就可以在脚本代码和表达式中随意使用</p>
+　　        <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+
+        </section>
+
+        <section>
+            <p style="text-align:left">内置对象特点:<br>
+
+			1.由JSP规范提供,不用编写者实例化。<br>
+			2.通过Web容器实现和管理<br>
+			3.所有JSP页面均可使用<br>
+			4.只有在脚本元素的表达式或代码段中才可使用(<%=使用内置对象%>或<%使用内置对象%>)</p>
+			<p style="text-align:left">常用内置对象:<br>
+			1.输出输入对象:request对象、response对象、out对象<br>
+			2.通信控制对象:pageContext对象、session对象、application对象<br>
+			3.Servlet对象:page对象、config对象<br>
+			4.错误处理对象:exception对象</p>  
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>		
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">Request(Javax.servlet.ServletRequest)它包含了有关浏览器请求的信息.通过该对象可以获得请求中的头信息、Cookie和请求参数。
+			<p style="text-align:left">Response(Javax.servlet.ServletResponse)作为JSP页面处理结果返回给用户的响应存储在该对象中。并提供了设置响应内容、响应头以及重定向的方法(如cookies,头信息等)
+			<p style="text-align:left">Out(Javax.servlet.jsp.JspWriter)用于将内容写入JSP页面实例的输出流中,提供了几个方法使你能用于向浏览器回送输出结果。
+			<p style="text-align:left">pageContext(Javax.servlet.jsp.PageContext)描述了当前JSP页面的运行环境。可以返回JSP页面的其他隐式对象及其属性的访问,另外,它还实现将控制权从当前页面传输至其他页面的方法。
+            <p style="text-align:left"></p>
+
+        </section>
+
+        <section>
+			<p style="text-align:left">Session(javax.servlet.http.HttpSession)会话对象存储有关此会话的信息,也可以将属性赋给一个会话,每个属性都有名称和值。会话对象主要用于存储和检索属性值。
+			<p style="text-align:left">Application(javax.servle.ServletContext)存储了运行JSP页面的servlet以及在同一应用程序中的任何Web组件的上下文信息。
+			<p style="text-align:left">Page(Java.lang.Object)表示当前JSP页面的servlet实例
+			<p style="text-align:left">Config(javax.servlet.ServletConfig)该对象用于存取servlet实例的初始化参数。
+			<p style="text-align:left">Exception(Javax.lang.Throwable)在某个页面抛出异常时,将转发至JSP错误页面,提供此对象是为了在JSP中处理错误。只有在错误页面中才可使用&lt;%@page isErrorPage=“true”%&gt;</p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <p style="text-align:left">作用域：</p>
+            <p style="text-align:left">
+			page：respons、pageContext、out、config、page、exception<br>
+            request：request<br>
+            session：session<br>
+            application：application</p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">作用域是什么？</p>
+            <p style="text-align:left">作用域之间的区别？</p>
+            <p style="text-align:left">如何使用？</p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		
+		<section>
+            <p style="text-align:left"></p>
+            <p style="text-align:left">"作用域"就是"信息共享的范围"，也就是说一个信息能够在多大的范围内有效。</p>
+            <p style="text-align:left">JSP的四种范围，分别为page,request,session,application</p>
+            <p style="text-align:left">1.application：服务器启动到停止这段时间。</p>
+            <p style="text-align:left">2.session：HTTP会话开始到结束这段时间。</p>
+            <p style="text-align:left">3.request：HTTP请求开始到结束这段时间。</p>
+            <p style="text-align:left">4.page：当前页面从打开到关闭这段时间。</p>
+            <p style="text-align:left"></p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">作用域之间的区别？</p>
+            <p style="text-align:left">1、区别：<br>
+			1.page指当前页面有效。在一个jsp页面里有效<br>
+			2.request 指在一次请求的全过程中有效，即从http请求到服务器处理结束，返回响应的整个过程，存放在HttpServletRequest对象中。在这个过程中可以使用forward方式跳转多个jsp。在这些页面里你都可以使用这个变量。<br>
+			3.Session是用户全局变量，在整个会话期间都有效。只要页面不关闭就一直有效（或者直到用户一直未活动导致会话过期，默认session过期时间为30分钟，或调用HttpSession的invalidate()方法）。存放在HttpSession对象中 。<br>
+			4.application是程序全局变量，对每个用户每个页面都有效。存放在ServletContext对象中。它的存活时间是最长的，如果不进行手工删除，它们就一直可以使用。</p>
+            <p style="text-align:left"></p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">如何使用？</p>
+            <p style="text-align:left">page里的变量没法从index.jsp传递到test.jsp。只要页面跳转了，它们就不见了。  <br>
+			request里的变量可以跨越forward前后的两页。但是只要刷新页面，它们就重新计算了。  <br>
+			session的变量一直在累加，开始还看不出区别，只要关闭浏览器，再次重启浏览器访问这页，session里的变量就重新计算了。  <br>
+			application里的变量一直在累加，除非你重启tomcat，否则它会一直变大。 <br> 
+			而作用域规定的是变量的有效期限。  </p>
+            <p style="text-align:left"></p>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">forward和redirect的区别？</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <p style="text-align:left">response.sendRedirect()<br>
+　　		是在用户的浏览器端工作,sendRedirect()可以带参数传递,比如servlet?name=frank传至下个页面,同时它可以重定向至不同的主机上,sendRedirect()可以重定向有frame.的jsp文件.
+			<br>　　
+			重定向后在浏览器地址栏上会出现重定向页面的URL</p>
+		</section>
+		
+		<section>
+            <p style="text-align:left">RequestDispatcher.forward()<br>
+　　		是在服务器端起作用,当使用forward()时,Servlet engine传递HTTP请求从当前的Servlet or JSP到另外一个Servlet,JSP 或普通HTML文件,也即你的form提交至a.jsp,在a.jsp用到了forward()重定向至b.jsp,此时form提交的所有信息在b.jsp都可以获得,参数自动传递.
+			<br>
+　			但forward()无法重定向至有frame的jsp文件,可以重定向至有frame的html文件,同时forward()无法在后面带参数传递,比如servlet?name=frank,这样不行,可以程序内通过response.setAttribute("name",name)来传至下一个页面.
+			<br>
+　　		重定向后浏览器地址栏URL不变.</p>
+            <p style="text-align:left"></p>
+        </section>
+
+
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>http://www.blogjava.net/ourday/archive/2008/09/20/230107.html</p>
+            <p>https://blog.csdn.net/qq_36871364/article/details/70153502</p>
+            <p>http://zhyp29.iteye.com/blog/2356417</p>
+            <p>http://blog.51cto.com/6881116/1322725</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 闵仕宇</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

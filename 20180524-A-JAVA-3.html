@@ -1,0 +1,193 @@
+0
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3></h3>
+			<p>java基础synchronized和lock类</P>
+            <h4>Java小课堂</h4>
+            <p>分享人：隆航</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">多线程，是指从软件或者硬件上实现多个线程并发执行的技术。具有多线程能力的计算机因有硬件支持而能够在同一时间执行多于一个线程，进而提升整体处理性能。具有这种能力的系统包括对称多处理机、多核心处理器以及芯片级多处理或同时多线程处理器。多线程一般继承Thread或者实现Runnable，jdk1.5使用ExecutorService、Callable、Future实现有返回结果的多线程</p></section>
+           <section>  
+             <p style="text-align:left">线程安全：线程安全就是多线程访问时，采用了加锁机制，当一个线程访问该类的某个数据时，进行保护，其他线程不能进行访问直到该线程读取完，其他线程才可使用。不会出现数据不一致或者数据污染。 线程不安全就是不提供数据访问保护，有可能出现多个线程先后更改数据造成所得到的数据是脏数据。</p>
+        </section>
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+        
+            <p style="text-align:left">线程如何安全：类要成为线程安全的，首先必须在单线程环境中有正确的行为。一个类要成为线程安全的，在被多个线程访问时，不管运行时环境执行这些线程有什么样的时序安排或者交错，它必须仍然有如上所述的正确行为，并且在调用的代码中没有任何额外的同步。</p>
+           
+        </section>
+        <section>
+            <p style="text-align:center">
+            </p>
+           
+              </section>
+        
+         <section>
+             <p style="text-align:left">多线不安全原因： 线程安全问题都是由全局变量及静态变量引起的。
+若每个线程中对全局变量、静态变量只有读操作，而无写操作，一般来说，这个全局变量是线程安全的；若有多个线程同时执行写操作，一般都需要考虑线程同步，否则的话就可能影响线程安全。</p>
+              
+        </section>
+        <section>
+           
+             <p style="text-align:left">synchronized</p>
+                <p style="text-align:left"> synchronized 关键字，代表这个方法加锁,相当于不管哪一个线程，运行到这个方法时,都要检查有没有其它线程 正在用这个方法(或者该类的其他同步方法)，有的话要等正在使用synchronized方法的线程运行完这个方法后再运行此线程,没有的话,锁定调用者,然后直接运行。它包括两种用法：synchronized 方法和 synchronized 块。</p>
+
+               <p style="text-align:left"> synchronized的缺点 </p>
+<p style="text-align:left">线程A和B都要获取对象O的锁定，假设A获取了对象O锁，B将等待A释放对O的锁定，如果使用 synchronized ，如果A不释放，B将一直等下去，不能被中断。</p>
+              
+ </section>
+		
+         <section>
+         	<p style="text-align:center">lock类</p>
+             <p style="text-align:left">
+                lock中的一些方法，Lock lock = new ReentrantLock(); lock.newCondition();tryLock();join();awark();
+                signal()；lock.unlock().
+             使用ReentrantLock，如果A不释放，可以使B在等待了足够长的时间以后，中断等待，而干别的事情</p>
+            
+    <p style="text-align:center">5.0的多线程任务包对于同步的性能方面有了很大的改进，在原有synchronized关键字的基础上，又增加了ReentrantLock，以及各种Atomic类。jdk1.6出现偏向锁public static List<Integer> numberList = new Vector<Integer>();轻量级锁BasicObjectLock；重量级锁；自旋锁。</p>
+             
+            </section>
+            <section>
+        <p style="text-align:left">synchronized：
+在资源竞争不是很激烈的情况下，偶尔会有同步的情形下，synchronized是很合适的</p>
+        <p style="text-align:left">ReentrantLock提供了多样化的同步，在资源竞争不激烈的情形下，性能稍微比synchronized差点点。但是当同步非常激烈的时候，synchronized的性能一下子能下降好几十倍。而ReentrantLock确还能维持常态。
+        Atomic:不激烈情况下，性能比synchronized略逊，激烈的时候，Atomic的性能会优于ReentrantLock一倍左右。但是其有一个缺点，就是只能同步一个值，一段代码中只能出现一个Atomic的变量，多于一个同步无效。因为他不能在多个Atomic之间同步。    
+   我们写同步的时候，优先考虑synchronized，如果有特殊需要，再进一步优化。ReentrantLock和Atomic如果用的不好，不仅不能提高性能，还可能带来灾难。</p>
+              </section>
+           <section>
+            <h3>3.常见问题</h3>
+        </section>
+         <section>
+            <p style="text-align:left">死锁。</p>
+    
+           
+         </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		
+       
+        <section>
+            <p style="text-align:left">查出死锁出现的原因规则 1：多线程、进程并行访问共享资源时，一定要加锁保护。 规则2：锁的职责单一。 规则3：锁范围尽量小，只锁对应资源操作代码。 规则4：避免免嵌套加锁；如果必须加锁，务必保证不同地方的加锁顺序是一样的。</p>
+             <p style="text-align:left">建议1：进程间通讯，使用自己保证互斥的数据库系统、共享内存，或socket消息机制；尽量避免使 用文件等进程无法管理的资源。 建议2：可重入函数尽量只使用局部变量和函数参数，少用全局变量、静态变量。 建议3： 锁中避免调用函数；如果必须调用函数，务必保证不会造成死锁 建议4 锁中避免使用跳转语句 
+        </p>
+         
+ </section>
+         
+     
+       
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+<!--         <section>
+            <p style="text-align:left">Spring容器独立于配置元数据格式，二者之间是解耦的，因此，改变配置方式对 Spring 的框架自身是透明的。</p>  
+			<p style="text-align:left">对于一个使用Spring开发的典型WEB应用程序而言，将配置元数据划分到不同文件，可以清晰反映出应用程序的层，
+			不但便于管理，又可以同时由不同人员开发。</p>
+		 </section>
+		 <section>
+			<p style="text-align:left">beans-web.xml或者ConfigurationForWeb 类定义WEB层/表现层中所操作的Bean;</p>
+			<p style="text-align:left">beans-service.xml或者ConfigurationForService类定义服务层/业务层中所操作的Bean;</p>
+			<p style="text-align:left">beans-dao.xml或者ConfigurationForDao类定义数据访问层中所操作的Bean。</p>
+        </section> -->
+		
+        
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:center">百度，CSDN博客</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
