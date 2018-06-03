@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>反射的基本使用</h2>
+            <p></p>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p></p>
+            <p></p>
+            <p>分享人：杨聪聪</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        	<h4>反射的概述</h4>
+        	<p>反射是框架设计的灵魂</p>
+        	<p>JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取信息以及动态调用对象的方法的特性称为java语言的反射机制。</p>
+        	<p>要想获得类的各种信息，必须先要获取到该类的字节码文件对象。该对象也就是java.lang.Class类，Class类用于表示java程序编译后得到的.class文件。</p>
+        </section>
+
+        <section>
+        	<h4>Class类的理解</h4>
+        	<p>Java程序在运行时，系统会对所有的对象进行所谓的运行时类型标识（RTTI，Run-Time Type Identification），其作用是在运行时识别一个对象的类型和类的信息。</p>
+        	<p>传统的”RRTI”,它假定我们在编译期已知道了所有类型(在没有反射机制时，一般都是编译期已确定其类型，如new对象时该类必须已定义好)；另外一种是反射机制，它允许我们在运行时发现和使用类型的信息。</p>
+        	<p>在Java中用来表示运行时类型信息的对应类就是Class类，Class类也是一个实实在在的类，存在于JDK的java.lang包中。</p>
+        </section>
+        <section>
+        	<p>Class 没有公共构造方法。Class 对象是在加载类时由 Java 虚拟机以及通过调用类加载器中的 defineClass 方法自动构造的，因此不能显式地声明一个Class对象。 </p>
+        	<p>JVM为每种类型管理一个独一无二的Class对象。也就是说，无论创建多少个实例对象，在内存中每个类有且只有一个相对应的Class对象，并且基本的java类型和关键字void也都对应一个Class对象。运行程序时，JVM首先检查所要加载的类对应的Class对象是否已经加载。如果没有加载，JVM就会根据类名查找.class文件，并将其Class对象载入。</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+        	<p>在这里先看一下java为我们提供了哪些反射机制中的类：</p>
+        	<p>
+	java.lang.Class;<br>        
+	java.lang.reflect.Constructor;<br> 
+	java.lang.reflect.Field; <br>
+	java.lang.reflect.Method;<br>
+	java.lang.reflect.Modifier;<br>
+        	</p>
+        </section>
+        <section>
+        	<h4>反射的基本运用：Class对象获取方式</h4>
+        	<p>之前说了，Class对象是jvm用来保存对应实例对象的相关信息的，除此之外，我们完全可以把Class对象看成一般的实例对象。得到一个实例对象对应的Class对象有以下三种方式：</p>
+        	<p>1.通过实例变量的getClass()方法</p>
+        	<p>2.通过类Class的静态方法forName()</p>
+        	<p>3.直接给出对象类文件的.class</p>
+        </section>
+        <section>
+        	<h4>反射的基本运用：判断是否为某个类的实例</h4>
+        	<p>一般地，我们用instanceof关键字来判断是否为某个类的实例。同时我们也可以借助反射中Class对象的isInstance()方法来判断是否为某个类的实例，它是一个Native方法</p>
+        	<p>public native boolean isInstance(Object obj);</p>
+        </section>
+        <section>
+        	<h4>反射的基本运用：创建实例</h4>
+        	<p>通过反射来生成对象主要有两种方式：<br>
+	（1）使用Class对象的newInstance()方法来创建Class对象对应类的实例。</p>
+	<p>（2）先通过Class对象获取指定的Constructor对象，再调用Constructor对象的newInstance()方法来创建实例。这种方法可以用指定的构造器构造类的实例。</p>
+        </section>
+        <section>
+        	<h4>反射的基本运用：获取方法</h4>
+        	<p>获取某个Class对象的方法集合，主要有以下几个方法：</p>
+        	<p>(1) getDeclaredMethods() 方法返回类或接口声明的所有方法，包括公共、保护、默认（包）访问和私有方法，但不包括继承的方法。</p>
+        	<p>(2) getMethods() 方法返回某个类的所有公用（public）方法，包括其继承类的公用方法。</p>
+        	<p>(3) getMethod("add", int.class, int.class) 方法返回一个特定的方法，其中第一个参数为方法名称，后面的参数为方法的参数对应Class的对象。</p>
+        </section>
+        <section>
+        	<h4>反射的基本运用：获取构造器信息</h4>
+        	<p>获取类构造器的用法与上述获取方法的用法类似。主要是通过Class类的getConstructor方法得到Constructor类的一个实例，而Constructor类有一个newInstance方法可以创建一个对象实例。</p>
+        	<p>public T newInstance(Object ... initargs)</p>
+        </section>
+        <section>
+        	<h4>反射的基本运用：获取类的成员变量（字段）信息</h4>
+        	<p>主要是这几个方法：</p>
+        	<p>	
+        		getFiled: 访问公有的成员变量<br>
+		getDeclaredField：所有已声明的成员变量。但不能得到其父类的成员变量。<br>
+		getFileds和getDeclaredFields用法同上（参照Method）
+	</p>
+        </section>
+        <section>
+        	<h4>反射的基本运用：反射用于工厂模式</h4>
+
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+        	<p>反射机制的作用?</p>
+        	<p>暴力反射？</p>
+        	<p>类加载的过程？</p>
+        	<p>反射的应用场景？</p>
+        </section>
+
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+        	<p>反射机制的作用?</p>
+        	<p> 1，反编译：.class-->.java<br>
+              2,通过反射机制访问java对象的属性，方法，构造方法等；</p>
+        </section>
+        <section>
+        	<p>暴力反射？</p>
+        	<p>获取类的私有成员。通过setAccessible(true)方法，设置成可访问。</p>
+        </section>
+        <section>
+        	<p>类加载的过程？</p>
+        	<p>加载：通过一个类的完全限定查找此类字节码文件，并利用字节码文件创建一个Class对象。<br>
+
+链接：验证字节码的安全性和完整性，准备阶段正式为静态域分配存储空间，注意此时只是分配静态成员变量的存储空间，不包含实例成员变量，如果必要的话，解析这个类创建的对其他类的所有引用。<br>
+
+初始化：类加载最后阶段，若该类具有超类，则对其进行初始化，执行静态初始化器和静态初始化成员变量。</p>
+        </section>
+        <section>
+        	<p>反射的应用场景？</p>
+        	<p>Java的反射特性一般结合注解和配置文件（如：XML）来使用，这也是大部分框架（Spring等）支持两种配置方式的原因。还有著名的junit测试框架也是利用反射方法名和参数名来进行测试的。</p>
+        </section>
+
+
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+        	<p>理解泛化的Class对象引用</p>
+        	<p>由于Class的引用总是指向某个类的Class对象，利用Class对象可以创建实例，这也就说明Class对象的引用指向的是对象确切的类型。在Java SE5引入泛型后，使我们可以利用泛型来表示Class对象更具体的类型，即使在运行期间会被擦除，但编译期足以确保我们使用正确的对象类型。</p>
+        </section>
+
+ 
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>
+            链接：https://zh.wikipedia.org/zh-hans/%E8%B6%85%E6%96%87%E6%9C%AC%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE
+        </p>
+            <p>作者：维基百科</p>
+            <p>链接：https://blog.csdn.net/javazejian/article/details/70768369</p>
+            <p>作者：zejian_</p>
+            <p>链接：https://blog.csdn.net/sinat_38259539/article/details/71799078</p>
+            <p>作者：敬业的小码哥</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正。</p>
+            <p>
+               BY : 深圳分院 杨聪聪
+            </p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+
+ <dependency>
+            <groupId>net.sf.json-lib</groupId>
+             <artifactId>json-lib</artifactId>
+             <version>2.4</version>
+             <classifier>jdk15</classifier>
+         </dependency>

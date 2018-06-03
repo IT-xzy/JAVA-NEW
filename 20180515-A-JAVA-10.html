@@ -1,0 +1,211 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>Java基础之多线程</h3>
+			<p></P>
+            <h4>Java小课堂</h4>
+            <p>分享人：何东霖</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        	<p>程序、进程和线程</p>
+            <p style="text-align:left">线程和进程描述的都是一个过程，是对CPU工作过程的描述，颗粒大小有所不同，线程可以看作一个轻量级的进程</p>
+            <p style="text-align:left">一段进程的实质：CPU加载上下文+CPU执行+CPU保存上下文</p>
+            <p style="text-align:left">共同点：动态性、并发性</p>
+            <p style="text-align:left">不同点：进程独享内存和资源，通信难度较高；线程共享内存和资源（同父进程下），可以协同并进，但要注意避免相互妨碍</p>
+        </section>
+             <section>
+            <p>单线程和多线程</p>
+            <p style="text-align:left">单线程只有一条顺序执行流（java中从main()方法开始），如果代码遇到阻塞，整个程序都会停滞在该处，功能十分有限</p>
+            <p style="text-align:left">多线程的程序可以包括多个执行流，他们的执行互不干扰，在许多应用场景中是必须使用多线程的，比如购票系统，不同的客户端之间应该互不干扰，否则将毫无用户体验</p>
+            <p style="text-align:left">Java语言对多线程的支持非常优秀，程序可以通过很简洁的方式来启用多线程</p>
+        </section>
+           
+
+<section>
+            <h3>2.知识剖析</h3>
+        </section>
+            <section>
+            <p>在Java中如何实现多线程编程</p>
+            <p style="text-align:left">1.继承Thread类</p>
+            <p style="text-align:left">2.实现Runnable接口</p>
+            <p style="text-align:left">3.使用ExecutorService、Callable、Future实现有返回结果的多线程</p>
+
+        </section>
+		<section>
+			<p>继承Thread类</p>
+			<p style="text-align:left">a、重写run()方法</p>
+			<p style="text-align:left">b、创建线程对象</p>
+            <p style="text-align:left">c、调用start()方法开启线程并运行</p>
+            <p style="text-align:left">注意，不是调用run()方法启动线程，run方法中只是定义需要执行的任务。</p>
+             <p style="text-align:left">优点：编程难度较低</p>
+		</section>
+        <section>
+            <p>实现Runnable接口</p>
+            <p style="text-align:left">a、重写run()方法</p>
+            <p style="text-align:left">b、创建实现类的实例</p>
+            <p style="text-align:left">c、以该实例作为Thread的target来创建线程对象</p>
+            <p style="text-align:left">d、调用start()方法开启线程并运行</p>
+            <p style="text-align:left">优点：1、线程类只是实现了一个接口，它还可以去继承其它的类。2、共享同一个target对象，适合多个相同线程来处理同一个资源的情况</p>
+            <p style="text-align:left">综合来看，推荐用Runnable</p>
+        </section>
+<!-- 		        <section>
+            <p>这三个异常类的顶层都是java.lang.Throwable类，检查型异常，运行期异常，错误都是这个类的子类。</p>
+
+            <p style="text-align:left">第一步：准备数据库、表</p>
+            <p style="text-align:left">第二步：3个依赖和1个插件</p>
+            <p style="text-align:left">mybatis.jar</p>
+            <p style="text-align:left">mybatis-generator-core.jar</p>
+            <p style="text-align:left">mysql-connector-java.jar</p>
+            <p style="text-align:left">mybatis-generator-maven-plugin</p>
+        </section> -->
+
+		<section>
+			<p style="text-align:left">线程的生命周期</p>
+			<p style="text-align:left">1)、新建（New）状态: 初始化了一个多线程的对象</p>
+			<p style="text-align:left">2)、就绪（runnable）状态: 调用了start()方法, 等待CPU进行调度 </p>
+			<p style="text-align:left">3)、运行（running）状态: 执行run()方法</p>
+			<p style="text-align:left">4)、阻塞（blocked）状态:又称挂起，表示暂时停止执行, 可能将资源交给其它线程使用</p>
+			<p style="text-align:left">5)、终止（dead）状态: 线程销毁</p>
+			
+		</section>
+ 
+
+<!--                 <section>
+            <p>命令行生成</p>
+
+
+        </section> -->
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:left">线程间的同步</p><br>
+            <!-- <p style="text-align:center">2、Java也不可能做到穷举所有异常可能出现的情况，出现Java提供的异常类之外的异常该如何处理呢？</p><br> -->
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		<section>
+			<p style="text-align:left">答：synchronized关键字的使用</p><br>
+		</section>
+         
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		 <section>
+            <h3>6.扩展思考</h3>
+             <p style="text-align:left">原子操作</p>
+             <p style="text-align:left">假定有两个操作A和B，如果从执行A的线程来看，当另一个线程执行B时，
+
+要么将B全部执行完，要么完全不执行B，那么A和B对彼此来说是原子的。
+
+原子操作是指对于方位同一个状态的所有操作（包括该操作本身）来说，
+
+这个操作是一个以原子方式执行的操作。</p>
+
+        </section>
+
+	<!-- 	 <section>
+			<p style="text-align:left">3、如果程序用到了文件、Socket、JDBC连接之类的资源，即使遇到了异常，也要正确释放占用的资源。所以还要充分运用finally关键词</p>
+			<p style="text-align:left">4、应尽量减小try块的体积，我们常常习惯把大量的代码放入单个try块，然后再在catch语句中声明Exception，而不是分离各个可能出现异常的段落并分别捕获其异常。这种做法为分析程序抛出异常的原因带来了困难，因为一大段代码中有太多的地方可能抛出Exception。   </p>
+			<p style="text-align:left">5、当执行循环的过程中抛出了异常，要仔细分析并全面考虑可能出现的异常以及这些异常对执行流程的影响，对已经输出但不完全的数据要做好应对措施，否则使用数据的人或者设备收到一份不完整的数据，却得不到任何有关这份数据是否完整的提示，网网比异常导致的系统停止运行带来的损失更大</p>
+        </section>
+		 -->
+        
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:center">1.知乎：https://www.zhihu.com/question/25532384</p>
+			<p style="text-align:center">2.CSDN博客：https://www.cnblogs.com/microtiger/p/7623858.html</p>
+			<p style="text-align:center"></p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
