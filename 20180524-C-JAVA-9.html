@@ -1,0 +1,195 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+   <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是Tuscany?</h2>
+            <p></p>
+            <h3>java分享会</h3>
+            <p>分享人：袁磊</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+
+      <h3>什么是Tuscany?</h3>
+       <P>开源 Apache Tuscany 项目致力于实现 SCA 规范（和一些其他的 SCA 规范，如 Service Data Objects 和 Data Access Service）。依照 Open Service-Oriented Architecture (OSOA) 和针对全球信息社会 (OASIS SCA Java) 规范的一些标准，Apache Tuscany 为 SCA 运行时提供了一个全面的基础架构。这里需要说明的是Tuscany官方已经不维护了,但是了解其设计思想对我们理解现在很流行的微服务框架是有好处的.
+       </P>
+       </section>
+       
+        <section>
+        <P>随着SCA（服务组件架构）和SDO（服务数据对象）最终落户OASIS，国内对它们的关注也呈上升趋势。与以往SOA 开发部署方式相比，SCA 所提供的编程模型和装配模型大大减轻了这些工作的难度。加之有OASIS 标准组织和以IBM为代表的业界巨擘的保驾护航，SCA 和SDO 的前途不可限量。
+        Tuscany 是SCA 和SDO 的第一个参考实现，旨在提供基于SCA 和SDO 的SOA 基础设施。Tuscany 几乎是伴随规范成长起来的，这样做的目的是对规范进行验证并获得有益的反馈。 </P>
+       </section>
+
+
+        <section>
+     <h3>什么是SCA?</h3>
+     <p>SCA是一个可执行的模型，用于将不同的 服务集成到一个业务解决方案。它简化了实现业务服务的组件编程模型，这些组件可以使用不同编程语言实现。SCA带来的一些益处主要为：</p>
+     <P>1,松耦合:组件件的集成不需要知道彼此是基于何种编程语言实现的。在同步、异步情况下，组件都可以被方便的调用。</P>
+     <p>2,可扩展性:组件可被简单的被替换。既有的服务可被用来创建新的解决方案（自下而上），也可业务建模和开发（自上而下）。</p>
+     <p>3,生产率:SCA可让你专心于分析业务逻辑，而不需要过多的去担心系统架构。SCA简化了所有开发者的使用体验（包括J2EE和集成开发者）。</p>
+        </section>
+        
+        <section>
+      <h4>SCA组件实现</h4>
+   <p>SCA的基本的组成部分是组件实现。当你编写SCA代码时，你通常正在写一个组件的实现或者将被这样的组件使用的代码。 一个组件通常由下列属性描述： </p>
+   <p>服务：描述了该类型的组件所能提供的功能；
+      引用：描述了该类型的组件相关功能的依赖性；
+      属性：定义了配置参数，控制程序逻辑如何实现，例如，使用何种货币； </p>
+   </section>
+        <section>
+        <p> 策略：描述了组件行为策略，主要有两种策略：
+           实现策略：对组件实现施加影响，例如：事务、监视以及日志；
+           互动策略：定义组件件如何互动，例如：安全；</p>
+        <p>
+        	一个组件可以使用任何用户想要的编程语言去实现，例如用BPEL去实现业务流程控制，XSL-T实现转换，RUBY来编写脚本，也可以使用纯JAVA。这些服务、引用、属性以及策略如何去定义界定了一个组件的是具体实现类型。
+        </p>
+        </section>
+
+        <section>
+        	<h4>SCA集成</h4> 
+        	<p>单个组件可独立使用，也可被组合起来作为一个合成组件使用。一个合成组件不是代码，而是由一个或多个组件集成起来作为一个整体提供服务的。合成作为一种解决方案，例如信用检查组合。合成方案也可以在一个更大规模的解决方案中使用，例如信用检查可能是一个订单处理组合中的一部分，一个复合构建像一个组件一样具有同样的特性，它提供服务，包含对其他组件的引用，并且可以配置成像单独组件那样使用属性和策略。</p>
+        </section>
+        
+        <section>
+       <h4>SCA Domain(域)</h4>
+       <p>这些组件无论独立还是集成，全部都是可在不同环境下使用多次 的可重用单元。一个合成组件，连带它的配置信息，被打包到一个叫做contribution的部署单元部署到域。资源可以在不同contributions间重用，比如：JAVA类、XSD文件、WSDL文件等等。
+       一个SCA域是一个完整的运行配置，可能分布于一系列互联的的节点运行，域配置的整体布局，是服务依赖、属性、策略的配置。一个域是运行着的系统，或者一组互相协作在一起工作工作的组件的逻辑视图，它们通过SCA线路彼此连接。当它实际的用于一个SCA环境的时候，合成组件实例化。</p>
+        </section>
+        
+       
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+         <h3>实现一个Tuscany项目具体的步骤</h3>
+         <p>步骤1：定义所需要的功能块：考虑下你的应用如何被分解为一个个较小的功能/服务，每个块都是一个可以在总的应用里使用的逻辑操作单元，这样的话，Calculator应用可以被分为五个功能块：AddService（加）、SubstractService（减）、MultiplyService（乘）、DivideService（除）和一个主功能块，起接收请求并引导到正确操作的控制器的作用。我们可以叫这个控制器为CalculatorService。</p>
+         </section>
+            
+         <section>
+           <p>步骤2：实现每个功能块：既然你已经识别了应用中的功能块，现在将准备创建它们。在SCA里，功能性的块称为组件。我们将把AddService组件作为我们的第一个例子。一个组件包括方法的接口及其实现</p>
+        </section>
+
+    
+        <section>
+        	<p>步骤3:编写CalculatorService组件,它会调用AddService组件，在完整应用中，它会调用SubtractService、MultiplyService以及DivideService组件，但我们目前会忽略其他的，因为它们和我们实现的AddService是一个模式。</p>
+        	<p>编写CalculatorService组件同样从CalculatorService接口开始,这是自身提供给其他程序调用的接口,然后实现这个接口.</p>
+        </section>
+        
+       <section>
+       	  <p>步骤4:组装应用.编写Tuscany重要的配置文件"Calculator.composite".该配置文件是告诉SCA 这些组件在我们计算器应用内如何集成工作的一个XML文件。我们在这里定义了两个组件并且指定了Tuscany SCA需要加载去实现业务计算的Java实现类。它们是我们刚刚实现的那些类.
+          需要注意的是，CalculatorServiceComponent拥有一个对addService的引用，在这个XML配置文件里，这个引用目标是AddServiceComponent。当我们实现CalculatorServiceImpl时，引用名字"addService"，与我们建立的addService 领域的名字相配，这不是巧合。</p>
+        </section>
+
+       <section>
+       	<p>Tuscany SCA运行时从Xml配置文件解析这些信息，并且用来创建描述我们calculator应用程序的对象和关系。它首先创建了AddServiceImpl 和CalcualtorSreviceImpl的实例，然后将AddServiceImpl引用注入到CalculatorServiceImpl对象的addService字段域。如果你回过头来看下我们如何实现的CalculatorService，你会发现@Reference注释，它告诉SCA哪些字段/域需要被自动设置。</p>
+       </section>
+       
+       <section>
+        <p>步骤5:在服务端使用Tuscany的Node启动该服务,并在客户端接收该服务,并使用.</p>
+        
+       </section>
+        <section>
+            <h3>3.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>4.常见问题</h3>
+        </section>
+
+
+        <section>
+            <p>因为Tuscany已经被官方放弃了,所以出现很容易出现jar冲突的问题,需要使用exclusion去掉有冲突的jar包,另外还可以降低Spring jar包的版本号试试.</p>
+        </section>
+
+    
+
+      <section>
+            <h3>5.参考文献</h3>
+            <p>
+              https://blog.csdn.net/supheros/article/details/40982973
+            </p>
+            <p>
+             http://book.51cto.com/art/200805/75270.htm
+            </p>
+            <p>
+            https://blog.csdn.net/abigfrog/article/details/1812162
+            </p>
+            <p>
+               https://www.cnblogs.com/skyme/archive/2011/10/31/2217739.html
+            </p>
+        </section>
+
+         <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+   <script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

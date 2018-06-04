@@ -1,0 +1,254 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>为什么要使用memcache？memcache有什么作用？</h2>
+                   <p>宋尚</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+ 
+        
+		<section>
+            <p>什么是Memcache?</p>
+			<P>Memcached是开源的分布式cache系统，现在很多的大型web应用程序包括facebook，youtube，wikipedia，yahoo等等都在使用memcached来支持他们每天数亿级的页面访问。通过把cache层与他们的web架构集成，他们的应用程序在提高了性能的同时，还大大降低了数据库的负载。<br/>
+			关键词：缓存、非关系型数据库(类似)、分布式。
+         </P>
+		</section>
+		
+		<section>
+			<p>为什么要使用Memcache？</P>
+			<p>主要用于动态Web应用以减轻数据库的负载。
+			它通过在内存中缓存数据和对象来减少读取数据库的次数，
+			从而提高了网站访问的速度。</p>
+         </section>
+			 
+        <section>
+           <p>Memcache的实现原理</P>
+		   <p>memcache处理的原子是每一个key、val，key会通过一个hash表转换成hash的key，便于查找对比以及竟可能的做到散列。同时mem用的是一个二级散列，通过一个hash表来维护。 
+memcache有两个核心组件:服务端和客户端 
+在一个memcache组件查询中，client先通过key的hash值来确定kv在service端的位置，当server端确定后，客户端就会发一个请求个server端。让它来查找出确切数据，因为这之间没有交互以及多播协议，因此mem带给网络的影响最小</p>
+         </section>
+
+
+
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+		<section>
+		  
+            <p>memcached是怎么工作的？</p>
+            <p>
+
+
+Memcached的高性能源于两阶段哈希（two-stage hash）结构。Memcached就像一个巨大的、存储了很多<key,value>对的哈希表。通过key，可以存储或查询任意的数据。 客户端
+
+可以把数据存储在多台memcached上。当查询数据时，客户端首先参考节点列表计算出key的哈希值（阶段一哈希），进而选中一个节点；客户端将请求发送给选中的节点，然后
+
+memcached节点通过一个内部的哈希算法（阶段二哈希），查找真正的数据（item）并返回给客户端。从实现的角度看，memcached是一个非阻塞的、基于事件的服务器程序。<br/>
+</p><br/>
+
+</p>			 
+        </section>
+		
+		<section>
+            <h4>和学过的什么有类似的地方？</h4>
+			 <p>md5/hashmap</p><br/>
+        </section>
+		
+		
+        <section>
+		  
+            <p>缓存策略</p>
+            <p>
+当ms的hash表满了之后，新的插入数据会替代老的数据，更新的策略是LRU（最近最少使用），以及每个kv对的有效时限。Kv对存储有效时限是在mc端由app设置并作为参数传给ms的。
+同时ms采用是偷懒替代法，ms不会开额外的进程来实时监测过时的kv对并删除，而是当且仅当，新来一个插入的数据，而此时又没有多余的空间放了，才会进行清除动作。</p>			 
+        </section>
+		
+		<section>
+         <p>Memcache的安装</p>
+		 <p>1.命令行安装</p>
+		  <p>2.源码安装 <br/>
+		  ./configure  <br/>
+make   build编译连接生成可执行程序<br/>
+make install</p>
+		 </section>	
+		 
+	        
+	    <section>
+		<p>三种Memcached Client</p>
+		    <p>Memcached Client for Java 比 SpyMemcached更稳定、更早、更广泛；</p>
+            <p>SpyMemcached 比 Memcached Client for Java更高效；</p>
+            <p>XMemcached 比 SpyMemcache并发效果更好。</p>
+		</section>
+	   
+	   
+	    <section>
+            <h3>3.常见问题</h3>
+        </section>
+       		
+		<section>  
+			 <P>memcache如何储存java对象？</p>
+			 <P>三个易混淆指令</p>
+			 <P>如何保证数据安全</p>
+        </section>
+
+		 <section>
+            <h3>4.解决方案</h3>
+			  
+        </section>
+		<section>
+            <p>序列化</p>
+			<img src="mingling.png">
+        </section>
+		<section>
+        	<p>对 对象 进行序列化</p><p>
+serialVersionUID适用于Java的序列化机制。简单来说，Java的序列化机制是通过判断类的serialVersionUID来验证版本一致性的。在进行反序列化时，JVM会把传来的字节流中的serialVersionUID与本地相应实体类的serialVersionUID进行比较，如果相同就认为是一致的，可以进行反序列化，否则就会出现序列化版本不一致的异常，即是InvalidCastException。
+			</p>
+        </section>
+		
+     
+		<section>
+		    <p>memcache::add 方法：add方法用于向memcache服务器添加一个要缓存的数据。<br/>
+
+memcache::set 方法：set方法用于设置一个指定key的缓存内容，set方法是add方法和replace方法的集合体<br/>
+
+mmecache::replace方法： replace方法用于替换一个指定key的缓存内容，如果key不存在则返回false</p>
+        </section>
+       
+	<section>
+		    <p>没有身份认证机制。memcached是运行在应用下层的软件（身份验证应该是应用上层的职责）。memcached的客户端和服务器端之所以是轻量级的，部分原因就是完全没有实现身份验
+
+证机制。这样，memcached可以很快地创建新连接，服务器端也无需任何配置。如果希望限制访问，可以使用防火墙。</p>
+        </section>
+	
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+        	<h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+           <p>不适用memcached的业务场景？</p>
+        </section>
+  
+  <section>
+         
+		   
+		   <p> 1）缓存对象的大小大于1MB<br/>
+
+Memcached本身就不是为了处理庞大的多媒体（large media）和巨大的二进制块（streaming huge blobs）而设计的。<br/>
+
+2）key的长度大于250字符<br/>
+
+3）应用运行在不安全的环境中
+
+Memcached为提供任何安全策略，仅仅通过telnet就可以访问到memcached。如果应用运行在共享的系统上，需要着重考虑安全问题。<br/>
+
+4）业务本身需要的是持久化数据或者说需要的应该是database</p>
+		  
+		   
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>百度百科</p>
+			<p>利用Memcache解决数据库高并发访问的瓶颈问题:https://www.cnblogs.com/js-net/p/20160225_cola.html</p>
+			<p>Memcache安全配置:http://blog.csdn.net/myhuashengmi/article/details/51992519</p>
+			<p>Memcached笔记：http://snowolf.iteye.com/blog/1471805</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+		
+		<section>
+         <p></p>
+		</section>
+		
+        <section>
+            <h4>谢谢观看</h4>
+            <p></p>
+            <p><small>By:宋尚</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

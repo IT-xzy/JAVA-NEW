@@ -1,0 +1,248 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>JWT相关</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：闵仕宇</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+         <section>
+            <p style="text-align:left">由于HTTP协议是无状态的协议，因此用户登陆后保持登陆状态就是一个需要解决的问题。</p>
+　　        <p style="text-align:left">常规的解决方案有session、cookie、token等方式。</p>
+            <p style="text-align:left">JWT就是一种Token的解决方案。</p>
+
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">JWT(JSON Web Tokens)是一项RFC的标准，由RFC 7519定义，用于两个实体之间安全地传输用JSON表示的数据。在传输过程中，JWT表现为一个字符串，可以通过HTTP的参数或者Header传输，由三部分字符串用点号相连，格式如下：</p>
+            <p style="text-align:left">header.payload.signature</p>
+            <p style="text-align:left">①首先用户通过用户名密码向认证服务器发起请求 </p>
+            <p style="text-align:left">②认证服务器核实用户身份之后，生成一个Token返回到客户端，这个生成过程如下：首先构造称为header的JSON对象：</p>
+            <p style="text-align:left">{<br>
+    "typ":"JWT",<br>
+    "alg":"HS256"<br>
+}</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">这个JSON包含两个字段，typ表示Token的类型，一般情况下为JWT，alg表示签名算法，这里我们使用HMACSHA256算法。</p>
+            <p style="text-align:left">接着是payload部分，认证服务器验证密码后找到用户的ID，将其放入payload，并且给定一个过期时间：</p>
+            <p style="text-align:left">{<br>
+    "userId":"b08f86af-35da-48f2-8fab-cef3904660bd",<br>
+    "exp":1371720939<br>
+}</p>
+            <p style="text-align:left">接着我们把header和payload分别使用base64urlEncode算法编码，然后用点号连接起来，并且使用私钥和HS256算法进行签名。</p>
+        </section>
+
+        <section>
+             <p style="text-align:left">通过以上的过程，认证服务器将jwt返回的客户端，格式如：</p>
+            <p style="text-align:left">aaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbb.cccccccccccccccc</p>
+            <p style="text-align:left">需要注意的是，JWT并没有加密，而只是进行编码和签名，没有解决安全性问题，https等基础设施依然必要。</p>
+            <p style="text-align:left">③OK，客户端现在拿到JWT，可以使用认证服务器的公钥进行验证，拿到payload里面的数据，用于页面展示等。然后携带JWT想应用服务器请求API。 </p>
+            <p style="text-align:left">④API服务器拿到JWT后，同样使用认证服务器的公钥验证签名，判断用户是否经过认证，token是否还在有效期内等，同样可以拿到payload中的用户id，用于日志等数据存储。认证完成之后，将业务数据返回给客户端。</p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">JWT放在那里？</p>
+            <p style="text-align:left">JWT如何生成？</p>
+            <p style="text-align:left">JWT如何验证？</p>
+            <p style="text-align:left"></p>
+        </section>
+        		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">1.html5存储：localStorage or sessionStorage (Web Storage)</p>
+            <p style="text-align:left">2.放置cookies中</p>
+            <p style="text-align:left">两种方式比较：<br> 
+相同点：都是无状态的，因为api所需要的验证信息都在token中 <br>
+不同点： <br>
+1.前者可使用跨站点脚本（XSS）进行攻击，cross-site scripting (XSS) attacks。所以，Web存储在传输过程中不执行任何安全标准。 <br>
+2.Cookie与HttpOnly cookie标志一起使用时，不能通过JavaScript访问，并且不受XSS影响。但是传统的cookies不符合RESTful最佳实践，因为需要服务器存储。cookies+JWT不需要将状态存储在服务器上。这是因为JWT封装了服务器为请求提供服务所需的所有内容。
+</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+		
+		
+        <section>
+            <p style="text-align:left">JWT放在那里？</p>
+            <p style="text-align:left">结论：建议存储在cookie中</p>
+            <p style="text-align:left"></p>
+        </section>
+        
+
+        <section>
+		    <p style="text-align:left">JWT如何验证？</p>
+            <p style="text-align:left">JWT对多种语言都有支持，java中有不少第三方的制品库。</p>
+            <p style="text-align:left">我在项目中使用的是Auth0的JWT包。</p>
+        </section>
+        
+        <section>
+            <p style="text-align:left">JWT如何验证？</p>
+            <p style="text-align:left">编写拦截器，首先验证合法性（是否可以被正确解析），是否过期（exp时间戳对比当前时间），再对其中的几个重要字段进行检查。</p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">什么场景该适合使用jwt？</p>
+            <p style="text-align:left">1、一次性验证：比如用户注册后需要发一封邮件让其激活账户，通常邮件中需要有一个链接，这个链接需要具备以下的特性：能够标识用户，该链接具有时效性（通常只允许几小时之内激活），不能被篡改以激活其他可能的账户…这种场景就和 jwt 的特性非常贴近，jwt 的 payload 中固定的参数：iss 签发者和 exp 过期时间正是为其做准备的。</p>
+            <p style="text-align:left">2、restful api的无状态认证：
+使用 jwt 来做 restful api 的身份认证也是值得推崇的一种使用方案。客户端和服务端共享 secret；过期时间由服务端校验，客户端定时刷新；签名信息不可被修改…spring security oauth jwt 提供了一套完整的 jwt 认证体系，以笔者的经验来看：使用 oauth2 或 jwt 来做 restful api 的认证都没有大问题，oauth2 功能更多，支持的场景更丰富，后者实现简单。</p>
+        </section>
+        
+
+        <section>
+            <p style="text-align:left">但是不推荐用JWT做单点登陆和会话管理</p>
+            <p style="text-align:left">首先 cookie+jwt 的方案前提是非跨域的单点登录(cookie 无法被自动携带至其他域名)，其次单点登录系统包含了很多技术细节，至少包含了身份认证和会话管理，这还不涉及到权限管理。如果觉得比较抽象，不妨用传统的 session+cookie 单点登录方案来做类比，通常我们可以选择 spring security（身份认证和权限管理的安全框架）和 spring session（session 共享）来构建，而选择用 jwt 设计单点登录系统需要解决很多传统方案中同样存在和本不存在的问题</p>
+            <p style="text-align:left"></p>
+        </section>
+        
+        <section>
+            <p style="text-align:left">jwt token泄露了怎么办？</p>
+            <p style="text-align:left">遵循如下的实践可以尽可能保护你的 jwt 不被泄露：使用 https 加密你的应用，返回 jwt 给客户端时设置 httpOnly=true 并且使用 cookie 而不是 LocalStorage 存储 jwt，这样可以防止 XSS 攻击和 CSRF 攻击</p>
+            <p style="text-align:left"></p>
+        </section>
+        
+
+        <section>
+            <p style="text-align:left">续签问题</p>
+            <p style="text-align:left">传统的 cookie 续签方案一般都是框架自带的，session 有效期 30 分钟，30 分钟内如果有访问，session 有效期被刷新至 30 分钟。而 jwt 本身的 payload 之中也有一个 exp 过期时间参数，来代表一个 jwt 的时效性，而 jwt 想延期这个 exp 就有点身不由己了，因为 payload 是参与签名的，一旦过期时间被修改，整个 jwt 串就变了，jwt 的特性天然不支持续签。</p>
+            <p style="text-align:left">如果一定要使用 jwt 做会话管理（payload 中存储会话信息），也不是没有解决方案</p>
+        </section>
+		
+		<section>
+		    <p style="text-align:left">解决方案：</p>
+			<p style="text-align:left">每次请求刷新 jwt</p>
+			<p style="text-align:left">只要快要过期的时候刷新 jwt</p>
+			<p style="text-align:left">完善 refreshToken</p>
+			<p style="text-align:left">使用 redis 记录独立的过期时间</p>
+			</section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>http://blog.didispace.com/learn-how-to-use-jwt-xjf/</p>
+            <p>http://www.jdon.com/artichect/json-web-tokens.html</p>
+            <p>https://blog.csdn.net/HaixWang/article/details/79661209</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 闵仕宇</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
