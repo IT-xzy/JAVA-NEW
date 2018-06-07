@@ -1,0 +1,158 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3></h3>
+			<p>什么是rmi？为什么要使用rmi框架？ </P>
+            <h4>Java小课堂</h4>
+            <p>分享人：隆航</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">RMI全称是Remote Method Invocation－远程方法调用，是纯Java的网络分布式应用系统的核心解决方案之一。Java RMI 支持存储于不同地址空间的程序级对象之间彼此进行通信，实现远程对象之间的无缝远程调用。</p></section>
+           <section>  
+             <p style="text-align:left">RMI目前使用Java远程消息交换协议JRMP进行通信。由于JRMP是专为Java对象制定的，用Java RMI开发的应用系统可以部署在任何支持JRE的平台上。但由于JRMP是专为Java对象制定的，因此，RMI对于用非Java语言开发的应用系统的支持不足。不能与用非Java语言书写的对象进行通信。</p>
+        </section>
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align:left">一个正常工作的RMI系统由下面几个部分组成：</p>
+<p style="text-align:left"> 1·远程服务的接口定义</p> 
+<p style="text-align:left">2·远程服务接口的具体实现 </p>
+<p style="text-align:left">3·桩（Stub）和框架（Skeleton）文件 </p>
+<p style="text-align:left">4·一个运行远程服务的服务器 </p>
+<p style="text-align:left">5·一个RMI命名服务，它允许客户端去发现这个远程服务</p>
+<p style="text-align:left"> 6·类文件的提供者（一个HTTP或者FTP服务器）</p>
+<p style="text-align:left"> 7·一个需要这个远程服务的客户端程序 </p>
+           
+        </section>
+         <section>
+             <p style="text-align:left">RMI的主要优点如下： </p>
+<p style="text-align:left">
+面向对象：RMI可将完整的对象作为参数和返回值进行传递。直接跨网传递对象。</p> 
+<p style="text-align:left">1.可移动属性：RMI可将属性从客户机移动到服务器，或者从服务器移到客户机。 </p>
+<p style="text-align:left">2.设计方式：对象传递功能使您可以在分布式计算中充分利用面向对象技术的强大功能。</p>
+<p style="text-align:left">3.安　　全：RMI使用Java内置的安全机制保证下载执行程序时用户系统的安全。</p>           
+        </section>
+        <section>
+             <p style="text-align:left">分布式和集群</p>
+                <p style="text-align:left">分布式：一个业务分拆多个子业务，部署在不同的服务器上。集群：同一个业务，部署在多个服务器上</p>
+ </section>
+           <section>
+            <h3>3.常见问题</h3>
+        </section>
+         <section>
+            <p style="text-align:left">配置问题，远程连接</p>
+         </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		
+       
+        <section>
+            <p style="text-align:left">正确配置文件。try/catch处理宏机
+        </p>
+         
+ </section>
+         
+     
+       
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>        
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:center">百度，CSDN博客</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

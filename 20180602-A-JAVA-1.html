@@ -1,0 +1,190 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>JAVA异常处理机制 </h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：周浩</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+            <p align="left">程序在运行过程中发生错误或异常情况是不可避免的，如果每一个运行时错误都由程序员手动控制和处理，其工作量是不可想象的。</p>
+            <p>Java语言中的异常处理机制就解决的上述问题，把错误与异常的管理带到了面向对象的世界</p>
+            <p></p>
+            <p></p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>对比Error和Exception</p>
+            <p align="left">Error(错误):程序在执行过程中所遇到的硬件或操作系统的错误</p>
+            <p align="left">比如内存溢出OutOfMemoryError、堆栈溢出、calss文件没有主方法</p>
+            <p>错误对程序而言是致命的，将导致程序无法运行</p>
+        </section>
+
+        <section>
+            <p>Exception(异常):是程序正常运行中，可以预料的意外情况</p>
+            <p align="left">比如数据库连接中断，空指针，数组下标越界。异常出现可以导致程序非正常终止，也可以预先检测，被捕获处理掉，使程序继续运行。</p>
+            <br> </br>
+            <p>异常按照性质划分</p>
+            <p>又可分为编译时异常和运行时异常</p>
+            <p></p>
+            <p></p>
+        </section>
+        <section>
+            <p>编译时异常（可检查）</p>
+            <p align="left">语法错误造成的异常，环境原因造成的异常</p>
+            <p align="left">比如输入输出异常IOException，数据库操作SQLException</p>
+            <p align="left">必须捕获和处理</p>
+            <p>运行时异常（不检查）RuntimeException</p>
+            <p align="left">这些异常一般是由程序逻辑错误引起的，即语义错</p>
+            <p align="left">比如算术异常，空指针异常NullPointerException，下表越界IndexOutOfBoundsException</p>
+            <p align="left">程序调试，避免捕获</p>
+            <p></p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>java对程序错误的分类和对应处理方式？</p>
+			<br> </br>
+            <p>一是程序不能处理的错误</p>
+            <p>二是程序应该避免而可以不去捕获的运行时异常</p>
+            <p>三是必须捕获的非运行时异常</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+			<p align="left"> java默认处理机制</p>
+            <p align="left"> 1抛出异常</p>
+            <p align="left"> 2终止程序</p>
+          <br> </br>
+            <p align="left">异常处理程序</p>
+            <p align="left">1抛出异常</p>
+			<p align="left">2try-catch-finally 捕获和处理异常</p>
+			
+			<p align="left">异常对象包含异常事件类型，发生异常时应用程序的状态，以及调用过程等信息</p>
+        </section>
+		
+        <section>
+            <h3>5.编码实战</h3>
+
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+			<p>ClassNotfoundException 和 NoClassDefFoundError 区别</p>
+			<p></p>
+            <p>NoClassDefFoundError</p>
+            <p>类明明还在，为什么找不到？</p>
+			<p align="left">NoClassDefFoundError错误的发生，是因为Java虚拟机在编译时能找到合适的类，而在运行时不能找到合适的类导致的错误</p>
+            <p align="left">例如在程序运行时想调用某个类的方法或NEW()这个类的静态成员的时候,需要JVM或者ClassLoader实例尝试加载该类，却找不到类的定义。</p>
+            
+        </section>
+		 <section>
+            <p>加载时从外存储器找不到需要的class就出现ClassNotFoundException</p>
+            <p>连接时从内存找不到需要的class就出现NoClassDefFoundError</p>
+        </section>
+			
+		
+        <section>
+            <h3>7.参考文献</h3>
+            <p>https://blog.csdn.net/u013065023/article/details/71171373</p>
+			<p>https://my.oschina.net/jasonultimate/blog/166932</p>
+			<p>https://www.cnblogs.com/dragonsuc/p/6937584.html</p>
+                      
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 周浩</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
