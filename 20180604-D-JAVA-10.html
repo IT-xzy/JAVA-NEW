@@ -1,0 +1,251 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>HashMap JDK1.8 新特性讲解</h2>
+            <h3>java分享会</h3>
+            <p>分享人：袁磊</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+
+      <h3>什么是HashMap?</h3>
+       <P>HashMap是基于哈希表的Map接口的实现,存储的是键值对,并允许使用null键和null值.HashMap是非Synchronized,即是线程不安全的.如何要满足线程安全可以使用ConcurrentHashMap.HashMap根据键的hashCode值存储数据,大多数情况下可以直接定位到它的值,因而具有很快的访问速度,但遍历顺序是不确定的.
+       </P>
+       </section>
+       
+       <section>
+       <h3>哈希表及Map接口</h3>
+     <P>
+      哈希表(也叫散列表),是根据关键码值(key value)而直接进行访问的数据结构.
+    </P>
+    <p>也就是说,它通过把关键码值(key value)映射到表中一个位置来访问记录,以加快查找的速度.这个映射函数叫做散列函数,存放记录的数组叫做散列表.</p>
+    <p>Map主要用于存储键值对.Map的三个特点:1,包含键值对;2,键唯一;3,键对应的值唯一.Map还提供了3个集合视图,分别是一组键值对,一组键,一组值.</p>
+       </section>
+
+
+        <section>
+     <h3>Map接口主要常用的实现类</h3>
+     <p>Map接口主要有四个常用的实用类,分别是HashMap,Hashtable,LinkedHashMap和TreeMap.类继承关系如下图所示:</p>
+     <img src="C:\Users\LL\Desktop\26341ef9fe5caf66ba0b7c40bba264a5_hd.jpg">
+        </section>
+        
+        <section>
+    <h4>Hashtable</h4>
+    <p>Hashtable是遗留类,很多映射的常用功能与HashMap类似,不同的是它继承自Dictionary类,并且是线程安全的,任一时间只有一个线程能写Hashtable.Hashtable不建议在新代码中使用,不需要线程安全的场合可以用HashMap替换,需要线程安全的场合可以用ConcurrentHashMap替换.</p>
+       </section>
+        
+       <section>
+       	<h4>LinkedHashMap</h4>
+        <p>LinkedHashMap是HashMap的一个子类,保存了记录的插入顺序,在用Iterator遍历LinkedHashMap时,先得到的记录肯定是先插入的,也可以在构造时带参数,按照访问次序排序.</p>
+       
+        </section>
+
+        <section>
+        <h4>TreeMap</h4> 
+        <p>TreeMap实现SortedMap接口，能够把它保存的记录根据键排序，默认是按键值的升序排序，也可以指定排序的比较器，当用Iterator遍历TreeMap时，得到的记录是排过序的。如果使用排序的映射，建议使用TreeMap。在使用TreeMap时，key必须实现Comparable接口或者在构造TreeMap传入自定义的Comparator，否则会在运行时抛出java.lang.ClassCastException类型的异常。</p>
+        </section>
+        
+        
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+         <h3>Java 8系列之重新认识HashMap</h3>
+         <p>Java1.8对HashMap底层的实现进行了优化,例如红黑树的数据结构和扩容的优化等,接下来我们将深入探讨HashMap 的结构实现和功能原理.</p>
+         </section>
+            
+        <section>
+         <h3>结构实现</h3>
+         <p>从结构实现来讲,HashMap是数组+链表+红黑树(JDK1.8增加了红黑树部分)实现的,如下图所示.
+         <img src="‪C:\Users\LL\Desktop\8db4a3bdfb238da1a1c4431d2b6e075c_hd.jpg">
+         </p>
+        </section>
+
+    
+       <section>
+        <p>这里需要讲明白两个问题:数据底层具体存储的是什么?这样的存储方法有什么优点?</p>
+        <p>
+         (1)HashMap类中有一个非常重要的字段,就是Node[]table,即哈希桶数组,明显它是一个Node的数组.Node就是HashMap的一个内部类,实现了Map.Entry接口,本质就是一个映射(键值对).</p>
+        	
+       </section>
+        
+       <section>
+       	<p>
+       	  (2)HashMap就是使用哈希表来存储的.在上面已经介绍了键值对是通过散列函数(哈希函数)映射到哈希表的地址上的,而所有的散列函数都有如下一个基本特征:根据同一散列函数计算出来的散列值不同,那么输入的信息肯定也不同.但是,根据同一散列函数计算出的散列值如果相同,输入值不一定相同.
+       	</p>
+        </section>
+
+       <section>
+       	<p>这句话的意思就是输入不同的两个值可能得到一样的散列值.这种现象叫做碰撞.Java中HashMap为了解决冲突采用链表地址法.链表地址法:将哈希表的每个单元作为链表的头结点，所有哈希地址为i的元素构成一个同义词链表。即发生冲突时就把该关键字链在以该单元为头结点的链表的尾部。</p>
+       </section>
+       
+       <section>
+      <p>举个例子,例如程序执行下面的代码:map.put("美团","小小");系统将调用"美团"这个key的hashCode()方法得到其hashCode 值（该方法适用于每个Java对象），然后再通过Hash算法的后两步运算（高位运算和取模运算，下文有介绍）来定位该键值对的存储位置，有时两个key会定位到相同的位置，表示发生了Hash碰撞。当然Hash算法计算结果越分散均匀，Hash碰撞的概率就越小。如果哈希桶数组很大，即使较差的Hash算法也会比较分散，所以就需要在空间成本和时间成本之间权衡.那么通过什么方式来控制map使得Hash碰撞的概率又小，哈希桶数组（Node[] table）占用空间又少呢？答案就是好的Hash算法和扩容机制。</p>
+      </section>
+
+       <section>
+       	<p>在理解Hash和扩容流程之前，我们得先了解下HashMap的几个字段。从HashMap的默认构造函数源码可知，构造函数就是对下面几个字段进行初始化，源码如下：
+
+        int threshold;             // 所能容纳的key-value对极限 
+        final float loadFactor;    // 负载因子
+        int modCount;  
+        int size;</p>
+       </section>
+        
+        <section>
+       <p>
+    首先，Node[] table的初始化长度length(默认值是16)，Loadfactor为负载因子(默认值是0.75)，threshold是HashMap所能容纳的最大数据量的Node(键值对)个数。threshold = length * Load factor。也就是说，在数组定义好长度之后，负载因子越大，所能容纳的键值对个数越多。结合负载因子的定义公式可知，threshold就是在此Load factor和length(数组长度)对应下允许的最大元素数目，超过这个数目 就重新resize(扩容)，扩容后的HashMap容量是之前容量的两倍。
+    </p>
+        </section>
+
+        <section>
+       <p>默认的负载因子0.75是对空间和时间效率的一个平衡选择，建议大家不要修改，除非在时间和空间比较特殊的情况下，如果内存空间很多而又对时间效率要求很高，可以降低负载因子Load factor的值；相反，如果内存空间紧张而对时间效率要求不高，可以增加负载因子loadFactor的值，这个值可以大于1。</p>
+        </section>
+
+        <section>
+        <p>size这个字段其实很好理解，就是HashMap中实际存在的键值对数量。modCount字段主要用来记录HashMap内部结构发生变化的次数，例如put新键值对，但是某个key对应的value值被覆盖不属于结构变化。在HashMap中，哈希桶数组table的长度length大小必须为2的n次方(一定是合数)，HashMap采用这种非常规设计，主要是为了在取模和扩容时做优化，同时为了减少冲突，HashMap定位哈希桶索引位置时，也加入了高位参与运算的过程。</p>
+        </section>
+        
+        <section>
+        <p>这里存在一个问题，即使负载因子和Hash算法设计的再合理，也免不了会出现拉链过长的情况，一旦出现拉链过长，则会严重影响HashMap的性能。于是，在JDK1.8版本中，对数据结构做了进一步的优化，引入了红黑树。而当链表长度太长（默认超过8）时，链表就转换为红黑树，利用红黑树快速增删改查的特点提高HashMap的性能.</p>
+        </section>
+        
+
+        <section>
+        <h3>功能实现-方法</h3>
+        <p>接下来我将结合HashCode的源码来为大家讲解以下三个具有代表性的功能点:
+        </p>
+        <p>1, 确定哈希桶数组索引位置;
+           2, 分析HashMap的put方法;
+           3,扩容机制.
+        </p>
+        </section>
+        <section>
+            <h3>3.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>4.常见问题</h3>
+        </section>
+
+
+        <section>
+            <h3>为什么String, Interger这样的wrapper类适合作为键？</h3>
+        <p>String, Interger这样的wrapper类作为HashMap的键是再适合不过了，而且String最为常用。因为String是不可变的，也是final的，而且已经重写了equals()和hashCode()方法了。其他的wrapper类也有这个特点。不可变性是必要的，因为为了要计算hashCode()，就要防止键值改变，如果键值在放入时和获取时返回不同的hashcode的话，那么就不能从HashMap中找到你想要的对象。因为获取对象的时候要用到equals()和hashCode()方法，那么键对象正确的重写这两个方法是非常重要的。如果两个不相等的对象返回不同的hashcode的话，那么碰撞的几率就会小些，这样就能提高HashMap的性能。</p>
+        </section>
+
+      <section>
+      	<h3>我们可以使用自定义的对象作为键吗？</h3>
+      	<p>这是前一个问题的延伸。当然你可能使用任何对象作为键，只要它遵守了equals()和hashCode()方法的定义规则，并且当对象插入到Map中之后将不会再改变了。如果这个自定义对象时不可变的，那么它已经满足了作为键的条件，因为当它创建之后就已经不能改变了。</p>
+      </section>
+
+      <section>
+      	<h3>我们可以使用CocurrentHashMap来代替Hashtable吗？</h3>
+      	<p>这是另外一个很热门的面试题，因为ConcurrentHashMap越来越多人用了。我们知道Hashtable是synchronized的，但是ConcurrentHashMap同步性能更好，因为它仅仅根据同步级别对map的一部分进行上锁。ConcurrentHashMap当然可以代替HashTable。</p>
+      </section>
+
+      <section>
+            <h3>5.参考文献</h3>
+            <p>
+              https://blog.csdn.net/abcdad/article/details/64123291
+            </p>
+            <p>
+             https://zhuanlan.zhihu.com/p/21673805
+            </p>
+            <p>
+            https://blog.csdn.net/v_july_v/article/details/6105630
+            </p>
+            
+        </section>
+
+         <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
