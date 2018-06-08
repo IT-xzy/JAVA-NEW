@@ -1,0 +1,369 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	<style>
+		.left{ text-align: left; }
+	</style>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>JSP内置对象</h2>
+            <p>分享人：张强</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+         <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>1.背景介绍</h3>
+            </section>
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+	            <p>JSP（Java Server Pages）是JavaWeb服务器端的动态资源，是java服务器页面，与html页面的作用是相同的，也可以说是用来生成html的模板文件。</p>
+				<p>JSP技术是以Java语言作为脚本语言的</p>
+				<p>JSP其实是一种特殊的Servlet<br/>
+					当JSP页面第一次被访问时，服务器会把jsp编译成java文件，然后再把java编译成.class，然后创建该类对象，最后调用它的service()方法。
+					第二次请求同一jsp时，直接调用service()方法。
+				</p>			
+            </section>
+             <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+	            <p>JSP内有自己的动作指令、脚本元素、内置对象、JSP标签等等，这里讲的是JSP的几个内置对象以及它们的常用方法</p>
+	            <p>内置对象</p>
+				<p>JSP的内置对象是Web容器创建的一组对象（也就是java对象），可以在JSP内直接使用而不用事先声明，所以也称为隐式对象。jsp内的每个内置对象都有对应的类，也就是说都是通过servlet创造的</p>
+				<p>通过<% 内置对象 %>或者<%= 内置对象 %>使用</p>
+             </section>
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+				<h3>2.知识剖析</h3>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>JSP九大隐式对象：</p>
+				<p><img src="http://images.cnblogs.com/cnblogs_com/meijsuger/1216102/o_123123.png"></p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>作用域（Scope）：内置对象的作用范围</p>
+				<p>作用域就是指内置对象某个实例在某个范围内有效，这个范围包括时间、页面、请求响应和结束等等，在这个范围内可以有效的获取同一个对象实例。JSP定义了四种作用范围：Application，Session，Request、Page。同样这四种作用域也有它们对应的内置对象。</p>
+				<p>Application：全局变量，整个应用。application作用域就是服务器启动到关闭的整段时间，在这个作用域内设置的信息可以被所有应用程序使用。application作用域上的信息传递是通过ServletContext实现的。</p>		
+			</section>		
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">		
+				<p>Session：会话开始到结束，用户的全局变量，从浏览器请求访问服务器开始生效，到浏览器关闭一直可以使用。session作用域比较容易理解，同一浏览器对服务器进行多次访问，在这多次访问之间传递信息就是session作用域的体现。
+				session是通过HttpSession接口实现的。Session有默认的过期时间，在不关闭浏览器的情况下默认是30分钟失效，这个时间可以通过后台设置。</p>				
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">	
+				<p>Request：请求开始到结束。从http请求到服务器处理结束返回整个响应的过程都有效，在这个过程中可以使用forward方式跳转多个jsp，在这些页面里你都可以使用这个变量。一旦刷新或者发起其它请求当前的值就会消失。 </p>
+				<p>Page：当前的单个页面，仅限于在本页范围内有效。如果进行重定向或者页面跳转，那么里面的属性值就会消失</p>	
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>内置对象</p>
+			<p>application：web应用本身。application就是把信息保存在服务器中，直到服务器关闭,application对象中保存的信息在整个应用中都有效。它存储了web服务器中所有web组件的上下文信息，与session对象相比，application对象生命周期更长，类似于系统的“全局变量”。</p>
+			</section>			
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align: left; font-size: 25px" hidden="">
+				<p>application对象常用的方法：</p>
+				<p>getAttribute(String key):通过一个关键字返回用户所需要的信息，返回类型为对象（Object），类似session中的getAttribute(String key)方法。<br>
+				getAttributeNames()：返回所有可用的属性名，返回类型为枚举（Enumeration）。<br>
+				setAttribute(String key, Object obj)：保存一个对象信息，并指定给一个关键字。<br>
+				removeAttribute(String key)：通过关键字来删除一个对象信息。<br>
+				getServletInfo()：返回JSP引擎的相关信息。<br>
+				getRealPath(String path)：返回虚拟路径的真实路径。<br>
+				getContext(String URLPath)：返回执行Web应用的application对象。<br>
+				getMajorVersion()和getMinorVersion()：服务器支持的ServletAPI最大最小版本号。<br>
+				getMineType(String file)：返回指定文件的MIME类型。<br>
+				getResource(String path)：返回指定资源的URL路径。<br>
+				getResourceAsStream(String path)：返回指定资源的输入流。<br>
+				getRequestDispatcher(String URLPath)：返回指定资源的RequestDispatcher对象。<br>
+				getServlet(String name)：返回指定名称的Servlet。<br>
+				getServlets()：返回所有的Servlet，返回类型为枚举型。<br>
+				getServletNames()：返回所有的Servlet名称，返回类型为枚举型。<br>
+				log(String msg)：把指定信息写入到Servlet的日志文件中。<br>
+				log(String msg, Throwable throwable)：把栈轨迹以及给出的Throwable异常的说明信息写入Servlet的日志文件。</p>		
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>session：用户访问服务器的一次会话。也就是说从浏览器发出请求到当前浏览器关闭，所有信息在这次会话中都有效。访问的时候服务器为每个用户都生成一个session对象，用于保存该用户的信息，跟踪用户的操作状态。可以在页面头部配置<%@ page session="false"%>来阻止当前页面使用session</p>			
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;  text-align: left; font-size: 30px" hidden="">
+				<p>session对象常用的方法：</p>
+				<p>getId()：此方法返回唯一的标识，这些标识为每个session而产生。当只有一个单一的值与一个session联合时，或当日志信息与先前的sessions有关时，它被当作键名用。<br>
+				getCreationTime()：返回session被创建的时间。最小单位为千分之一秒。为得到一个对打印输出很有用的值，可将此值传给Date constructor 或者GregorianCalendar的方法setTimeInMillis。<br>
+				getLastAccessedTime()：返回session最后被客户发送的时间。最小单位为千分之一秒。<br>
+				getMaxInactiveInterval()：返回总时间（秒），负值表示session永远不会超时。<br>
+				getAttribute(String key)：通过给定的关键字获取一个存储在session中相对应的信息。例如session.getAttrobute("item")。<br>
+				setAttribute(String key, Object obj)：提供一个关键词和一个对象值，然后存在session当中。例如，session.setAttribute("ItemValue", itemName)。</p>		
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>request：客户端请求信息。request就是javax.servlet.httpServletRequest类型的对象。代表了客户端的请求信息，包含了所有HTTP请求的数据，包括请求头信息、请求参数、cookie等等。作用范围是一个请求从发出到响应结束。</p>
+				<!-- <p>
+					Object HttpSession.getAttribute（String name）：从session中获取信息。<br>
+					void HttpSession.setAttribute（String name, Object value）：向session中保存信息。<br>
+					HttpSession HttpServletRequest.getSession()：获取当前请求所在的session的对象。<br>
+				</p> -->				
+			</section><section class="future" aria-hidden="true" style="top: 198px; display: none; text-align: left; font-size:  21px" hidden="">
+					<p>request对象常用的方法：</p>	
+					getMethod()：返回HTTP请求信息中所使用到的方法名称(GET、POST等)；<br>
+					getServletPath()：返回请求信息中调用Servlet的URL部分；<br>
+					getQueryString()：返回HTTP GET请求信息中URL之后的查询字符串；<br>
+					getContentType()：返回请求实体的MIME类型；<br>
+					getProtocol()：返回请求信息中的协议名名字与版本号；<br>
+					getPathInfo()：返回有关任何路径信息；<br>
+					getServletName()：返回接受请求的服务器主机；<br>
+					getServletPort()：返回服务器的端口号；<br>
+					getRemoteHost()：返回提交请求的客户机的规范名字；<br>
+					getRemoteAddr()：返回提交请求的客户机的IP地址；<br>
+					getScheme()：返回请求使用的模式（协议）名字；<br>
+					getParameter()：返回客户端通过表单提交过来的参数值。例如request.getParameter(“myname”)，通过该语句来获取客户端传递过来的myname 参数。
+					getContextPath()：返回HTTP 请求中指示请求上下文的部分。<br>
+					getHeaderNames()：返回一个枚举类型，此枚举集合中包含了请求所含有的所有请求名。<br>
+					getAuthType()：返回用于保护Servlet 的认证模式的名字。例如，BASIC，SSL 或者NULL（没有保护）。<br>
+					gtRequestURL()：返回HTTP 请求信息中的第一行从协议名开始直至查询字符串之间的URL 部分。例如，对HTTP GET 请求http://www.baidu.com/helloworld?name=zhangqiang&age=20，这个方法将返回http://www.baidu.com/helloworld 字符串。<br>
+					gtCountLength()：返回整数，表示请求实体的长度（以字节为单位）。<br>
+					gtUestPrincipal()：返回java.security 类的Principal 对象，其中包含有目前授权用户的名字。<br>
+					iUserInRole(String role)：返回一个布尔值，指示某个授权用户是否包含在某个具体的逻辑角色role 中。<br>
+					gtRemoteHost()：如果用户已经被授权，则返回提交请求的用户的注册名字，否则返回一个NULL。<br>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>response：服务器响应。response就是HTTP请求的响应信息，会放入缓冲区，只有在当前的jsp页面有效，作用范围就是page</p>	
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align: left; font-size: 20px" hidden="">
+				<p>response对象常用的方法：</p>
+				<p>setContentLength(int len)：此方法用于设置响应头的长度。<br>
+				setContentType(String type)：用于设置HTTP响应的contentType中的MIME类型，其中可以包含字符编码的规则。例如可以把contentType设置为“text/html;charset=UTF-8”。在Servelet编写过程中，需要调用此方法进行设置，但是在JSP中一般都是使用page指令直接指定contentType的属性。<br>
+				getOutputStream()：此方法返回一个Servlet的输出流。用于在响应中写入二进制数据。Servlet容器不对二进制数据进行编码。<br>
+				getWriter()：此方法返回一个PrintWriter对象，在Servlet编写过程使用的比较频繁，而在JSP文件中，由于out是用getWriter()创建的PrintWriter对象的隐含对象，所以可以直接调用out对象作输出响应。<br>
+				getCharacterEncoding()：该方法获得此时响应所采用的字符编码类型。<br>
+				sendError(int status)：使用指定错误状态码向客户机发送相应的错误信息。<br>
+				sendError(int status, String message)：使用自定义的错误状态码以及描述信息向客户机发送错误的提示信息。<br>
+				sendRedirect(String location)：将请求重新定位到一个不同的URL（页面）上。此方法在实际开发过程中会经常使用到。<br>
+				setDateHeader(String headername, long date)：把指定的头名称以及日期设置为响应头信息。其中日期是用long值表示的，这是按照从新纪元开始算起的毫秒数。<br>
+				ContainsHeader(String name)：检测指定的头信息是否存在。返回一个布尔类型。<br>
+				setHeader(String headername, String value)：此方法使用指定的头名字以及相应的值来设置头信息。如果此头信息已经设置，则新的值会覆盖掉旧的值。如果头信息已经被发送出去，则此方法的设置将被忽略。<br>
+				addheader(String headername, String value)：把指定的头名字以及相应值添加到头信息当中去。<br>
+				addIntHeader(String headername, int value)：把指定的头名字以及整数值设置为头信息。如果头信息已经设置了，则新的设置值将覆盖掉以前的值。
+				setStatus(int sc)：给响应设置状态的代码。<br>
+				setStatus(int sc, String sm)：为响应设置状态代码以及信息。这是在没有错误的时候使用的。</p>			
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>page：当前页面。page对象代表的就是jsp页面本身，有点类似于this，只有在jsp页面才有用。它是java.lang.Object类的对象。作用范围是page</p>
+				
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align: left;" hidden="">
+				<p>page对象常用的方法：</p>
+				<p>getClass()：返回当前Object的类。<br>
+				hashCode()：返回此Object的哈希代码。<br>
+				toString()：把此时的Object类转换成字符串。<br>
+				equals(Object o)：比较此对象是否和指定的对象是否相等。<br>
+				copy（Object o）：把此对象复制到指定的对象当中去。<br>
+				clone()：对此对象进行克隆。</p>			
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">				
+				<p>pageContext：比较特殊，pageContext的作用域是本身的page页面，也就是page，但是它可以访问到所有的其它内置对象，比如getSession(),getRequest()等。</p>				
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align: left; font-size: 23px" hidden="">
+				
+				<p>pageContext对象常用的方法：</p>
+				<p>getRequest()：返回当前页面中的request对象。<br>
+				getResponse()：使用此方法将返回当前页面中的response对象。<br>
+				getPage()：此方法返回当前页面中的page对象。<br>
+				getSession()：返回当前页面中的session对象。<br>
+				getOut()：返回当前页面中的out对象。<br>
+				getException()：返回当前页面中的exception对象。<br>
+				getServletConfig()：返回当前页的config对象。<br>
+				getServletContext()：返回当前页中的application对象。<br>
+				setAttribute(String name)：给指定的属性名设置属性值。<br>
+				getAttribute(String name)：根据属性名称找到相应的属性值。<br>
+				setAttribute(String name, Object obj, int scope)：在给定的范围内设置相应的属性值。<br>
+				getAttribute(String name, int scope)：在指定的范围内获取到相应的属性值。<br>
+				findAttribute(String name)：寻找一个属性并返回，如果没有找到则返回一个null。<br>
+				removeAttribute(String name)：通过属性名删除掉某个属性。<br>
+				removeAttribute(String name, int scope)：在指定的某个范围内删除某个属性。<br>
+				getAttributeScope(String scope)：返回某属性的作用域。<br>
+				getAttributeNamesInScope(int scope)：返回指定范围内的所有属性名的枚举。<br>
+				release()：释放掉pageContext()所占的所有资源。<br>
+				forward(String relativeURLpath)：使用当前页面重导到另一个页面。<br>
+				include(String relativeURLpath)：使用当前位置包含的另一个页面。	<br>	</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>Out：输出流。向客户端浏览器输出信息，也就是在页面输出信息，也可以管理页面的输出缓冲区。比较简单但是使用频繁。作用范围是page</p>
+				<p>config：上下文配置信息。config是配置对象是ServletConfig类的实例，一般是用来获取Servlet的相关配置信息，比如上下文，服务器初始参数等等</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align: left; font-size: 25px" hidden="">
+				<p>Out对象常用的方法：</p>
+				<p>print()：在页面中打印出字符串信息，不换行；	<br>
+				println()：在页面中打印出字符串信息，并且换行；	<br>
+				clear()：清除掉缓冲区中尚存在的内容。	<br>
+				clearBuffer()：此方法清除掉当前缓冲区中尚存在的内容。	<br>
+				flush()：清除掉数据流。	<br>
+				getBufferSize()：返回缓冲区的内存大小，单位为字节流。如果不进行缓冲区的设置，大小为0。	<br>
+				getRemaining()：此方法返回缓冲区还剩下多少字节数可以使用。	<br>
+				isAutoFlush()：检查当前缓冲区是设置为自动清空，还是满了就抛出异常。	<br>
+				close()：关闭输出流。</p>	
+				<p>config对象常用的方法：</p>
+				<p>
+				getServletContext()：此方法将返回一个含有服务器相关信息的ServletContext对象。<br>
+				getInitParameter(String name)：返回初始化参数的值。<br>
+				getInitParameterNames()：返回包含了Servlet初始化所需要的所有参数，返回类型是枚举型。</p>			
+			</section>		
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>execption：异常信息，例外对象。就是针对异常做出响应处理的对象，如果在jsp页面中出现异常就会生成execption对象，然后根据指令跳转到错误页面，则需要在错误页面配置<%@ page isErrorPage=”true”%>，然后在错误页面使用execption</p>			
+			</section>	
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align: left;" hidden="">
+				<p>execption对象常用的方法：</p>
+				<p>getMessage()和getLocalizedMessage()：这两种方法分别返回exception对象的异常消息字符串和本地化语言的异常错误。<br>
+				printStackTrace()：显示异常的栈跟踪轨迹。<br>
+				toString()：返回关于异常错误的简单消息描述。<br>
+				fillInStackTrace()：重写异常错误的栈执行轨迹。</p>			
+			</section>
+
+			</section>
+			<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+				<h3>3.常见问题</h3>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>JSP隐式对象和EL表达式隐式对象的区别</p>
+				<p>
+				1.EL只能获取对象的属性、而不能改写、也不能直接调用方法<br>
+				2.EL不能访问局部变量，只能访问作用域中的属性,比如${applicationScope.total}访问的就是applicatopn对象中的属性<br>
+				3.EL输出null的时候用空串（""）代替 像：（empty）的empty运算符将""视为null $( empty null ) && $( empty "" ) 为true<br>
+				</p>				
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">				
+				<p>
+					4.EL表达式在计算时会将字符串转换成数字（null == 0）<br><br>
+					5.jsp和EL表达式有一个共同的对象：pageContext 就是说<%pageContext%>和${gageContext}实际上是一个对象，余下的EL隐式对象都是Java映射（map），他们只是提供了更容易的途径来访问pageContext隐式对象的某些性质。</p>
+			</section>
+
+			<section class="future left" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+			<p>session的生命周期</p>
+			<p class="">
+			在客户端是没办法销毁session的，要销毁session必须等到它的生命周期结束或者服务器销毁。也就是下面的两个方式： 
+			一个是Session.invalidate()方法，不过这个方法在实际的开发中，并不推荐，可能在强制注销用户的时候会使用；一个是当前用户和服务器的交互时间超过默认时间后，Session会失效</p>
+			<p>我们知道Session是存在于服务器端的，当把浏览器关闭时，浏览器并没有向服务器发送任何请求来关闭Session，自然Session也不会被销毁，为什么当我们关闭浏览器后，就再也访问不到之前的session了呢？Session一直都在服务器端，而当我们关闭浏览器时，此时的Cookie是存在于浏览器的进程中的，当浏览器关闭时，Cookie也就不存在了。</p>
+			</section>
+			<section class="future left" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+			
+			<p>session的Cookie是存在于浏览器的进程中，那么这种Cookie我们称为会话Cookie，当我们重新打开浏览器窗口时，之前的Cookie中存放的Sessionid已经不存在了，此时服务器从HttpServletRequest对象中没有检查到sessionid，服务器会再发送一个新的存有Sessionid的Cookie到客户端的浏览器中，此时对应的是一个新的会话，而服务器上原先的session等到它的默认时间到之后，便会自动销毁。</p>
+			</section>
+		</section>
+		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>4.编码实战</h3>
+			</section>			
+		</section>
+		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>5.扩展思考</h3>				
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>EL表达式的内置对象</p>
+			</section>		
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>(1)pageScope：获取jsp中pageContext域属性，相当于pageContext.getAttribute("xxx")</p>
+				<p>(2)requestScope：获取request域属性，相当于request.getAttribute("xxx")</p>
+				<p>(3)sessionScope：获取session域属性，相当于session.getAttribute("xxx")</p>
+				<p>(4)applicationScope：获取application域属性，相当于application.getAttribute("xxx")</p>
+				<p>(5)param：对应参数，它是一个Map，其中key是参数，value是参数值，适用于单值的参数，相当于request.getParameter("xxx")</p>			
+			</section>	
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">				
+				<p>(6)paramValues：对应参数，它是一个Map，其中key是参数，value是多个参数值，适用于多值的参数，相当于request.getParameterValues("xxx")</p>
+				<p>(7)header：对应请求头，它是一个Map，其中key表示头名称，value是单个头值，适用于单值的请求头，相当于request.getHeader("xxx")</p>
+				<p>(8)headerValues：对应请求头，它是一个Map，其中key表示头名称，value是多个头值，适用于多值的请求头，相当于request.getHeaders("xxx")</p>
+			</section>	
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">	
+				<p>(9)initParam：获取web.xml中<context-param>内的参数，${ initParam.xxx}，xxx就是<param-name>标签内的值，进而得到<param-value>中的值</p>
+				<p>(10)cookie：用于获取cookie，Map<String,Cookie>，其中key是cookie的name，value是cookie对象，例如${cookie.JSESSIONID.value }就是获取sessionId</p>
+				<p>(11)pageContext：可以获取JSP九大内置对象，相当于使用该对象调用getxxx()方法，例如pageContext.getRequest()可以写为${pageContext.request)</p>
+			</section>
+		</section>
+		<section>
+			<h3>6.参考文献</h3>
+			<p>csdn</p>
+			<p>baidu.com</p>
+		</section>
+        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>欢迎大家讨论</p>            
+        </section>
+        <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">				
+			</section>
+		</section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

