@@ -1,0 +1,201 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>JDBCTemplate和JDBC </h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：宋武</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+            <p>按照任务步骤学习了JDBC，以及JDBCTemplate，总结一下两者之间的联系与区别</p>
+            <p></p>
+            <p></p>
+            <p></p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>什么是JDBC</p>
+            <p>JDBC（Java DataBase Connectivity,java数据库连接）是一种用于执行SQL语句的Java API它由一组用Java语言编写的类和接口组成</p>
+            <p>JDBC 可做三件事：与数据库建立连接、发送 操作数据库的语句并处理结果</p>
+            <p>JDBC访问数据库的一般步骤</p>
+        </section>
+
+        <section>
+            <p>1与数据库建立连接</p>
+            <p>一般创建工具类减少代码重复</p>
+            <p>2创建SQL语句</p>
+            <p>3获得用于向数据库发送sql语句的对象</p>
+            <p>Statement statement = connection.createStatement()</p>
+            <p>PreparedStatement preparedStatement=connection.preparStatement(sql)</p>
+        </section>
+        <section>
+            <p>4执行SQL语句</p>
+            <p>executeQury用于执行SELECT语句，返回代表结果的ResultSet对象</p>
+            <p>executeUpdate用于INSERT、UPDATE 或 DELETE 语句以及 SQL DDL（数据定义语言）语句，例如 CREATE TABLE 和 DROP TABLE</p>
+            <p>返回一个整数(int)用于指示受影响的行数</p>
+            <p>execute可执行任何sql语句,返回一个boolean值，表明执行该SQL语句是否返回了ResultSet</p>
+            <p>5关闭连接，释放资源</p>
+            <p>先关闭resultSet,再statement，最后是connection，通过if和try catch语句确保资源释放</p>
+            <p></p>
+            <p></p>
+            <p></p>
+        </section>
+
+        <section>
+				<p>什么是JDBC Template？</p>
+				<p>为了使 JDBC 更加易于使用,Spring 在 JDBCAPI 上定义了一个抽象层, 以此建立一个JDBC存取框架</p>
+				<p>通俗点说就是Spring对jdbc的封装的模板</p>
+				<p>在配置文件中使用spring的注入功能，可以把DataSource注册到JdbcTemplate之中</p>
+		</section>
+			<section>
+                <p>1.xml配置文件</p>
+                <p>在配置文件中创建dataSource的bean注入相关属性，然后将定义好的DataSource注入到jdbcTemplate中
+                </p>
+        </section>
+        <section>
+            <p>2执行SQL语句</p>
+            <p>execute方法可以用于执行任何SQL语句，一般用于执行DDL语句</p>
+            <p>update方法及batchUpdate方法：update方法用于执行新增、修改、删除等语句；batchUpdate方法用于执行批处理相关语句</p>
+            <p>query方法及queryForXXX方法：用于执行查询相关语句</p>
+            <p>call方法：用于执行存储过程、函数相关语句</p>
+        </section>
+        <section>
+            <p>3两者对比</p>
+            <p>Spring提供的JdbcTemplate对jdbc做了封装，大大简化了数据库的操作如果直接使用JDBC的话，需要我们加载数据库驱动、创建连接、释放连接、异常处理等一系列的动作；繁琐且代码看起来不直观。此外，Spring提供的JdbcTempate能直接数据对象映射成实体类，不再需要获取ResultSet去获取值/赋值等操作，提高开发效率</p>
+        </section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>3.1sql语句报错</p>
+            <p>3.2连接数据库后没有关闭连接</p>
+           
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+			<p> 4.1sql语句报错</p>
+            <p> 基本sql语句是否正确，检查执行sql语句参数的先后顺序，在preparesStatement.setObject中应与sql语句相匹配</p>
+            </p>
+        </section>
+        <section>
+            <p>4.2连接数据库后没有关闭连接</p>
+            <p>是一种资源的浪费，如果调用多次，到后面可能就会没有连接资源，导致连接不上数据库，释放资源</p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+			<p>通过学习spring再创建一个bean用于注入jdbcTemplate</p>
+            <p>可通过spring的ioc生产一个对象去调用方法</p>
+            <p>建立连接池</p>
+            <p>能让连接得到循环调用</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>https://www.cnblogs.com/qiuyong/p/6363224.html</p>
+            <p>https://www.cnblogs.com/erbing/p/5805727.html</p>
+            <p>https://blog.csdn.net/u013468917/article/details/52217954</p>
+            <p>https://blog.csdn.net/m_hahahaha1994/article/details/51752370</p>
+           
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 宋武</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
