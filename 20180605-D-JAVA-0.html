@@ -1,0 +1,255 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+         link.href = window.location.search.match( /print-pdf/gi ) ? 'https://./css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>计算机网络结构</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：李恪非</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.扩展思考</p>
+            <p>7.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+        <h3>基本概念</h3>
+        <p>协议:为进行网络中的数据交换而建立的规则、标准或约定即为网络协议</p>
+        <p>接口:同一节点内相连两层交换信息的连接点为接口，下层通过接口向上层提供服务</p>
+        <p>服务:下层为相邻的上层提供的功能调用</p>
+        </section>
+       
+        <section>
+        <h3>协议与服务的区别</h3>
+        <p>协议是水平的、服务是垂直的</p>
+        <p>协议的实现保证了能够向上一层提供服务</p>
+        <p>服务分为面向连接服务和无连接服务</p>
+        </section>
+
+        <section>
+        <h3>参考模型</h3>
+        <p>ISO/OSI参考模型</p>
+        <p>从下至上:物理层、数据链路层、网络层、传输层、会话层、表示层、应用层·</p>
+        </section>
+
+        <section>
+        <h3>参考模型</h3>
+        <p>TCP/IP模型</p>
+        <p>从下至上:网络接口层、网际层、传输层、应用层</p>
+        <p>网络接口层对应数据链路层+网络层 网际层对用网络层 应用层对应会话层+表示层+应用层</p>
+        </section>
+
+        <section>
+        <h3>参考模型</h3>
+        <p>五层协议模型</p>
+        <p>从下至上:物理层、数据链路层、网络层、传输层、应用层</p>
+        <p>应用层对用会话层+表示层+应用层</p>
+        </section>
+     
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+        <h3>物理层</h3>
+        <p>在物理层数据以比特流形式传输，涉及到信号原理</p>
+        <p>设备：中继器--放大信号  集线器(Hub)--多个端口的中继器</p>
+        </section>
+
+        <section>
+        <h3>数据链路层</h3>
+        <p>加强物理层传输原始比特流的功能，将物理层提供的可能出错的物理连接改造为逻辑上无差错的数据链路</p>
+        <p>对网络层呈现无差错的数据链路</p>
+        </section>
+
+        <section>
+        <h3>数据链路层</h3>
+        <p>局域网与广域网</p>
+        <p>以太网是局域网的一种实现形式，但是已经几乎垄断局域网，以太网采用无连接工作方式</p>
+        <p>以太网通过光纤等方式传输，计算机与外界局域网的连接是通过网络接口板实现</p>
+        <p>网络接口板又被称为网络适配器或网络接口卡，即我们常说的网卡</p>
+        <p>网卡工作在物理层和数据链路层，每块网卡有唯一一个代码，称为mac地址，数据链路层设备使用此mac地址</p>
+        <p>由6个十六进制数表示，共48bit,前24bit为厂商代码，后24bit为厂商自行分配的网卡序列号</p>
+        </section>
+
+         <section>
+        <h3>数据链路层</h3>
+        <p>局域网与广域网</p>
+        <p>广域网也成为远程网，是因特网的核心部分，通常覆盖几十千米到几千千米</p>
+        <p>广域网不等于互联网，互联网可以通过路由器连接局域网与广域网</p>
+        <p>广域网由一些节点交换机(不是路由器)连接</p>
+        </section>
+
+        <section>
+        <h3>数据链路层</h3>
+        <p>局域网与广域网的区别</p>
+        <p>广域网覆盖面很广，而局域网很小</p>
+        <p>广域网节点都是点到点连接，一个节点交换机往往与多个节点交换机连接，局域网采用多点接入</p>
+        <p>局域网使用的协议主要在数据链路层，广域网使用的协议主要在网络层</p>
+        </section>
+
+        <section>
+        <h3>数据链路层</h3>
+        <p>数据链路层的设备</p>
+        <p>网桥:连接两个相似的网络</p>
+        <p>局域网交换机:多端口网桥</p>
+        </section>
+
+        <section>
+        <h3>网络层</h3>
+        <p>路由选择:按照分布式算法动态改变所选择的路由</p>
+        <p>分组转发:根据转发表将用户的IP数据报从合适的端口转发</p>
+        <p>静态路由与动态路由</p>
+        </section>
+
+        <section>
+        <h3>网络层</h3>
+        <p>IPV4</p>
+        <p>由首部和数据部分组成，首部声明了版本、源地址和目的地址等等</p>
+        <p>在TCP/IP标准中，各种数据格式基本以32bit(4B）为单位进行描述</p>
+        <p>路由器会提取主机IP地址，通过计算得到网络地址，如果网络地址与路由器相连则直接交给相应的主机，否则传送至下一路由器</p>
+        </section>
+
+         <section>
+        <h3>网络层</h3>
+        <p>IPV4地址与网络地址转换NAT</p>
+        <p>8bit*4组成，IP地址=网络号+主机号，常用的分为A、B、C三类</p>
+        <p>A类:0+7位网络号+24位主机号   1-126</p>
+        <p>B类:10+14位网络号+16位主机号 128-191</p>
+        <p>C类:110+21位网络号+8位主机号 192-223</p>
+        <p>主机号全为0代表网络本身、主机号全为1代表网络广播地址</p>
+        <p>IP地址与MAC地址映射由地址解析协议完成，即ARP协议</p>
+        </section>
+
+        <section>
+        <h3>网络层</h3>
+        <p>网络地址转换</p>
+        <p>在内部使用非注册的IP地址，如果在外部使用的时候则将它们转换为注册的IP地址</p>
+        <p>特有的可以重复注册的IP地址段，路由器中如果收到私有地址数据报一律不进行转发</p>
+        <p>当使用本地地址的主机和外界通信的时候，NAT路由器将本地地址转换为全球地址</p>
+        </section>
+
+          <section>
+        <h3>网络层</h3>
+        <p>子网划分与子网掩码</p>
+        <p>先通过网络号找到路由器，在根据网络号和子网号进行下一步查找</p>
+        <p>划分子网是修改主机号，而不改变原来的网络号</p>
+        <p>A、B、C类默认掩码分别为255.0.0.0、255.255.0.0、255.255.255.0</p>
+        <p>网络地址=IP地址按位与子网掩码</p>
+        </section>
+
+        <section>
+        <h3>网络层</h3>
+        <p>无分类编址CIDR</p>
+        <p>抛弃了传统的编制，使用例如xxx.xxx.xxx.xxx/x来表示掩码</p>
+        <p>斜杠后面的x代表1的个数</p>
+        </section>
+
+        <section>
+        <h3>传输层</h3>
+        <p>UDP协议与TCP协议</p>
+        <p>传输层按端口号寻址，端口号只需有本地意义</p>
+        <p>UDP不需要建立链接、TCP需要进行三次握手和四次释放</p>
+        <p>DHCP基于UDP，UDP无连接不可靠不代表只有缺点</p>
+        </section>
+
+        <section>
+        <h3>关于三次握手和四次释放</h3>
+        <p>SYN、FIN、ATK</p>
+        </section>
+    
+        <section>
+            <h3>3.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>4.常见问题</h3>
+            <p> 一个主机的IP地址是202.112.14.137，子网掩码是255.255.255.224，计算这个主机所在网络的网络地址和广播地址、地址范围及主机数 </p>
+            <p>根据每个网络的主机数量进行子网地址的规划和计算子网掩码</p>
+            <p>206.110.4.0/18被划分成16个子网，每个子网掩码？</p>
+        </section>
+
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 李恪非</small></p>
+           
+        </section>
+
+    </div>
+    <script src="./lib/reveal/js/head.min.js"></script>
+    <script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+     Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
