@@ -1,0 +1,206 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>redis缓存集群介绍</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：段文凯</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+		<section>
+            <p style="text-align:left">redis简介：</p>
+　　        <p style="text-align:left">redis是一个开源的、使用C语言编写的、支持网络交互的、可基于内存也可持久化的Key-Value数据库，是目前最流行的NoSQL数据库。</p>
+            <p style="text-align:left">众多语言都支持Redis，因为Redis交换数据快，所以在服务器中常用来存储一些需要频繁调取的数据，这样可以大大节省系统直接读取磁盘来获得数据的I/O开销，更重要的是可以极大提升速度。</p>
+        </section>
+		
+		<section>
+          <p style="text-align:left">为什么使用redis集群？</p>
+		  <p style="text-align:left">1、大型网站应用，热点数据量往往巨大，单台redis实例不能满足需求。</p>
+		  <p style="text-align:left">2、单台服务主机的内存资源往往是有限制的，通过横向可伸缩扩展，使用多台主机提供服务，能够获得更好的效果</p>
+		  <p style="text-align:left">3、单redis服务一旦宕机、对系统服务会造成性能巨大损失。为了在大流量访问下提供稳定的业务，集群化是存储的必然形态。</p>
+        </section>
+		
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">关于redis的集群化方案，目前有三种 </p>
+            <p style="text-align:left">1、Twitter开发的twemproxy。</p>
+			<p style="text-align:left">2、豌豆荚开发的codis。</p>
+			<p style="text-align:left">3、redis官方的redis-cluster。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">twemproxy架构简单，就是用proxy对后端redis server进行代理，但是由于代理层的消耗性能很低，而且通常涉及多个key的操作都是不支持的，而且本身不支持动态扩容和透明的数据迁移，而且也失去维护，Twitter内部已经不使用了。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">redis-cluster是三个里性能最强大的，因为他使用去中心化的思想。</p>
+            <p style="text-align:left">使用hash slot方式，将16348个hash slot覆盖到所有节点上，对于存储的每个key值，使用CRC16(KEY)&16348=slot，得到他对应的hash slot，并在访问key时就去找他的hash slot在哪一个节点上，然后由当前访问节点从实际被分配了这个hash slot的节点去取数据</p>
+            <p style="text-align:left">节点之间使用轻量协议通信，减少带宽占用，性能很高，自动实现负载均衡与高可用。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">codis使用的也是proxy思路，但是做的比较好，是这两种之间的一个中间级，而且支持redis命令是最多的，有图形化GUI管理和监控工具，运维友好。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">redis-cluste集群原理：</p>
+            <p style="text-align:left">1、所有的redis节点彼此互联(PING-PONG机制),内部使用二进制协议优化传输速度和带宽。</p>
+			<p style="text-align:left">2、节点的fail是通过集群中超过半数的节点检测失效时才生效。</p>
+			<p style="text-align:left">3、客户端与redis节点直连,不需要中间proxy层.客户端不需要连接集群所有节点,连接集群中任何一个可用节点即可。</p>
+			<p style="text-align:left">4、redis-cluster把所有的物理节点映射到[0-16383]slot上,cluster 负责维护node<->slot<->value。</p>
+		</section>
+		
+		<section>
+            <p style="text-align:left">Redis集群中内置了16384个哈希槽，当需要在 Redis 集群中放置一个 key-value 时，redis 先对key 使用 crc16 算法算出一个结果，然后把结果对 16384 求余数，这样每个 key 都会对应一个编号在 0-16383 之间的哈希槽，redis 会根据节点数量大致均等的将哈希槽映射到不同的节点。</p>
+		</section>
+		
+		<section>
+            <p style="text-align:left">Redis Cluster主从模式</p>
+			<p style="text-align:left">redis cluster 为了保证数据的高可用性，加入了主从模式，一个主节点对应一个或多个从节点，主节点提供数据存取，从节点则是从主节点拉取数据备份，当这个主节点挂掉后，就会有这个从节点选取一个来充当主节点，从而保证集群不会挂掉。</p>
+			<p style="text-align:left">这样就算主节点挂掉，redis集群也会选择从节点作为新的主节点，保证能够正常提供服务。</p>
+		</section>
+		
+		<section>
+            <p style="text-align:left">redis-cluster投票:容错</p>
+            <p style="text-align:left">1、投票过程是集群中所有master参与,如果半数以上master节点与master节点通信超时(cluster-node-timeout),认为当前master节点挂掉。</p>
+			<p style="text-align:left">2、什么时候整个集群不可用(cluster_state:fail)?</p>
+			<p style="text-align:left">如果集群任意master挂掉,且当前master没有slave.集群进入fail状态,也可以理解成集群的slot映射[0-16383]不完整时进入fail状态。</p>
+			<p style="text-align:left">可以修改cluster-require-full-coverage参数为true,打开集群兼容部分失败。</p>
+			<p style="text-align:left">如果集群超过半数以上master挂掉，无论是否有slave，集群进入fail状态。</p>
+		</section>
+		
+		<section>
+            <p style="text-align:left">redis集群搭建：</p>
+			<p style="text-align:left">1、下载安装redis</p>
+			<p style="text-align:left">2、ruby环境</p>
+			<p style="text-align:left">3、配置多个redis节点</p>
+			<p style="text-align:left">4、创建集群</p>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+		
+		<section>
+			<p style="text-align:left">若想使用redis自带的脚本搭建集群，ruby版本必须在2.2以上</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>https://www.cnblogs.com/yingchen/p/6763524.html</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 段文凯</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
