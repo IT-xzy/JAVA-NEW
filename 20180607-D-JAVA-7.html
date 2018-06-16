@@ -1,0 +1,239 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>什么是JSP</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：乔宝</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+		 <section>
+            <p style="text-align:left">以前一直以为页面这种东西都是切图仔的事情，写html的也能算程序员？JSP的东西我们不用管。</p>
+　　        <p style="text-align:left">随着了解的深入，我发现JSP不是我想的那么简单，在html文件中也能够使用java语法，表现层实现渲染页面和后台的分离。</p>
+            <p style="text-align:left">虽然说JSP技术已经不再是当今的主旋律，但它在web程序设计中所体现的思想和实现技术还是值得我们探讨一下。</p>
+
+        </section>
+		
+		<section>
+            <p style="text-align:left">什么是JSP?</p>
+　　        <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">  我感觉想要准确的给一个名词下定义是很难的，对于JSP尤为如此，因为他的表现形式和它的本质，大相径庭。
+			想要认识JSP是什么，还是先认识JSP文件在web应用中是怎么执行的，他的作用是什么。</p>
+　　        <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+        	
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">JSP的执行原理和流程：</p>
+			<p style="text-align:left"><img src="C:\Users\qiaobao\Desktop\小课堂\jsp流程.jpg"/></p>
+        </section>
+
+        <section>
+			<p style="text-align:left">基于对JSP在web容器工程中的转译过程，我们描述一下JSP的定义：</p>
+			<p style="text-align:left">JSP全称是JavaServer Pages，它和servle技术一样，都是SUN公司定义的一种用于开发动态web资源的技术。</p>
+			<p style="text-align:left">JSP这门技术的最大的特点在于，写jsp就像在写html，但：它相比html而言，html只能为用户提供静态数据，而Jsp技术允许在页面中嵌套java代码，为用户提供动态数据。</p>
+			<p style="text-align:left">相比servlet而言，servlet很难对数据进行排版，而jsp除了可以用java代码产生动态数据的同时，也很容易对数据进行排版。</p>
+			<p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <p style="text-align:left">不管是JSP还是Servlet，虽然都可以用于开发动态web资源。但由于这2门技术各自的特点，在长期的软件实践中，人们逐渐把servlet作为web应用中的控制器组件来使用，而把JSP技术作为数据显示模板来使用。</p>
+            <p style="text-align:left">其原因为，程序的数据通常要美化后再输出：</p>
+            <p style="text-align:left">让jsp既用java代码产生动态数据，又做美化会导致页面难以维护。让servlet既产生数据，又在里面嵌套html代码美化数据，同样也会导致程序可读性差，难以维护。因此最好的办法就是根据这两门技术的特点，让它们各自负责各的，servlet只负责响应请求产生数据，并把数据通过转发技术带给jsp，数据的显示jsp来做。</p>
+        </section>
+
+		<section>
+            <p style="text-align:left">JSP的组成元素</p>
+　　        <p style="text-align:left">----1   JSP模版数据：　就是JSP中的HTML代码，它的内容给是固定的，无论程序如何运行模版数据输出到客户端浏览器时都不会发生改变，当我们创建一个JSP时，模版就已经固定了。</p>
+           
+        </section>
+		
+		 <section>
+             <p style="text-align:left">----2   JSP脚本：<br>
+             </br> 1. 使用<% 编写java代码 %>，中间java代码必须遵循Java语法<br>
+			 </br> 2. 表达式：使用<%=xxx %>来输出结果  ervlet中就会将其转换为out.print(result)进行输出。输出各种类型数据：int、double、boolean、String、Object等<br>
+			 </br>3.JSP中申明方法与属性(全局变量)　　使用<%!  方法、属性%></p>
+            <p style="text-align:left">在JSP中使用if语句，或者使用for循环,声明对象等都可以实现，也就是编写脚本而已</p>
+            <p style="text-align:left"></p>
+        </section>
+	
+	 <section>----2   JSP指令：<br>
+　　　　</br>指令用来申明JSP页面的一些属性，比如编码方式，文档类型。我们在servlet中也会申明我们使用的编码方式和响应的文档类型的，而JSP就是用指令来申明。上面我们也说到了一条指令，也就是page指令，</p>
+            <p style="text-align:left">　JSP指令格式：<%@ directive {attribute=value}* %></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+		
+			<section>
+            <p style="text-align:left">前面讲了JSP语法，介绍了JSP页面中的内容有哪些，分别有什么作用，就两个东西，模块数据和元素。其中元素有包括脚本，指令，标签，脚本就是JSP中嵌入java代码，指令作用就是申明页面的属性，</p>
+            <p style="text-align:left">我们还经常听到c标签等名词，那标签是干嘛的，标签分为JSP自带内置的标签，和通过taglib指令来使用JSP标签库，或者自定义标签。现在我们先来讲一些JSP内置的标签。</p>
+            <p style="text-align:left">JSP内置的标签就被称为JSP行为(JSP Actions)。只要书写很少的标记代码就能使用JSP提供的丰富功能，JSP行为其实是对常用的JSP功能的抽象与封装，可以取代jsp脚本，让JSP中就少一些嵌入java代码的地方。</p>
+        </section>
+		
+			<section>
+            <p style="text-align:left">典型的JSP内置标签认识：jsp:forward 行为<br>
+             </br>实现请求转发功能，Servlet中通过request.getRequestDispatcher("someServlet").forward(request,response);而在JSP中也能够实现相同的功能，只不过用的是<jsp:forward />行为，实际上forward行为就是对其进行了封装。</p>
+            <p style="text-align:left">JSP的自定义标签的产生的目的就是为了替代JSP中的脚本，因为在JSP文件中嵌套代码，不易维护，软件开发的封装思想。<br>
+               </br> ----------脚本会慢慢被标签全部代替，也就是说JSP中基本上不会嵌入Java代码--------</p>
+            <p style="text-align:left"></p>
+        </section>
+		
+		 <section>
+            <p style="text-align:left">------JSP的隐藏对象</p>
+            <p style="text-align:left">我们知道JSP会转换为servlet，在Servlet中，输出数据时，都需要通过response.getWrite()；但是在JSP中，直接使用out对象进行输出，为什么呢？这就是因为out为JSP的一个隐藏对象，JSP中内置了9个隐藏对象，使得JSP比Servlet使用起来更简单，更方便：</p>
+            <p style="text-align:left">page、config、application、request、response、session、out、exception、pageContext</p>
+            <p style="text-align:left">除了out和pageContext对象就是JSP独有的，其他的都是Servlet中的老东西，只是实现可servlet中的接口。</p>
+        </section>
+		
+		
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">JSP文件的编译执行和servlet有什么区别？</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+	
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		
+		<section>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"> JSP和servlet有一点区别就在于：jsp是先部署后编译，而servlet是先编译后部署。</p>
+            <p style="text-align:left">当第一次请求JSP文件时，JSP文件的转译开始，但也只会编译一次，后面的请求就不会在编译</p>
+            <p style="text-align:left">所以一般第一次加载JSP的时候会较慢，</p>
+            <p style="text-align:left"></p>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>http://www.blogjava.net/ourday/archive/2008/09/20/230107.html</p>
+            <p>https://blog.csdn.net/qq_36871364/article/details/70153502</p>
+            <p>http://zhyp29.iteye.com/blog/2356417</p>
+            <p>http://blog.51cto.com/6881116/1322725</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 乔宝</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
