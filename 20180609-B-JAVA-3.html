@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>NGINX服务器有什么作用？什么叫反向代理？为什么要使用反向代理？</h3>
+			<p></P>
+            <h4>Java小课堂</h4>
+            <p>分享人：田野</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+       <section>
+			<h3>1.背景介绍</h3>
+			<p>什么是nginx?</p>
+			<p>Nginx 是俄罗斯人编写的十分轻量级的 HTTP 服务器,Nginx，它的发音为“engine X”，是一个高性能的HTTP和反向代理服务器，同时也是一个 IMAP/POP3/SMTP 代理服务器。Nginx 是由俄罗斯人 Igor Sysoev 为俄罗斯访问量第二的 Rambler.ru 站点开发的，它已经在该站点运行超过两年半了。Igor Sysoev 在建立的项目时,使用基于 BSD 许可。</p>
+            <p>英文主页：http://nginx.net 。</p>
+            <p>到 2013 年，目前有很多国内网站采用 Nginx 作为 Web 服务器，如国内知名的淘宝、京东、百度、新浪、163、腾讯、Discuz、豆瓣等。据 netcraft 统计，Nginx 排名第 3，约占 15% 的份额</p>
+			
+		</section>
+        <section>
+             <p>nginx的使用场景</p>
+             <p>1、反向代理</p>
+             <p>2、负载均衡</p>
+             <p>3、动静分离</p>
+        
+            
+        </section>
+
+        <section>
+            <p style="text-align:left">反向代理：反向代理（ReverseProxy）是指以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端,简单来说就是真实的服务器不能直接被外部网络访问,想要访问必须通过代理。</p>
+            
+        </section>
+           <section>
+            <p style="text-align:left">反向代理的作用</p>
+            <p style="text-align:left">1、防止主服务器被恶意攻击</p>
+            <p style="text-align:left">2、为负载均衡和动静分离提供实现支持</p>           
+        </section>
+  
+
+
+        <section>
+        <p style="text-align:left">负载均衡：使用反向代理同时代理多个相同内容的应用服务器（比如tomcat），将客户端请求分发到各个应用服务器上并接收响应返回给客户端</p>
+        </section>
+                <section>
+        <p style="text-align:left">负载均衡的作用：当一台服务器的单位时间内的访问量越大时，服务器压力就越大，大到超过自身承受能力时，服务器就会崩溃。为了避免服务器崩溃，让用户有更好的体验，我们通过负载均衡的方式来分担服务器压力。我们可以建立很多很多服务器，组成一个服务器集群，当用户访问网站时，先访问一个中间服务器，在让这个中间服务器在服务器集群中选择一个压力较小的服务器，然后将该访问请求引入该服务器。如此一来，用户的每次访问，都会保证服务器集群中的每个服务器压力趋于平衡，分担了服务器压力，避免了服务器崩溃的情况。</p>
+        </section>
+         <section>
+            <p style="text-align:left">动静分离：运用Nginx的反向代理功能分发请求：所有动态资源的请求交给应用服务器，而静态资源的请求（例如图片、视频、CSS、JavaScript文件等）则直接由Nginx返回到浏览器</p>
+        </section>
+        <section>
+            <p style="text-align:left">动静分离的作用：主要是nginx处理静态页面的效率远高于tomcat的处理能力，使用c语言开发的nginx对静态资源每秒的吞吐量是使用Java语言开发的tomcat的6倍，也远高于其它应用服务器</p>
+        </section>
+        <section>
+         <p style="text-align:left">总而言之：nginx应用之所以广泛，我认为这归功于它的灵活配置，一个nginx.conf文件解决大部分问题，不论是nginx创建虚拟服务器、nginx的反向代理服务器，还是nginx的负载均衡，几乎都在这个配置文件中进行。服务器上只负责把nginx搭好，跑起来即可。而且它本身轻量级，不需要占用服务器太多资源就可以达到较好的效果，是一个非常值得推崇的服务器。</p>
+        </section>
+       
+       
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+         <section>
+            <p style="text-align:center">代理服务器
+            </p>
+            <p style="text-align:left">一般是指局域网内部的机器通过代理服务器发送请求到互联网上的服务器,代理服务器一般作用在客户端。 一个完整的代理请求过程为：客户端首先与代理服务器创建连接，接着根据代理服务器所使用的代理协议，请求对目标服务器创建连接、或者获得目标服务器的指定资源。 Web代理（proxy）服务器是网络的中间实体。 代理位于Web客户端和Web服务器之间，扮演“中间人”的角色。HTTP的代理服务器即是Web服务器又是Web客户端。</p>
+            
+        </section>
+        <section>
+        	<p style="text-align:center">正向代理</p>
+           
+            <p style="text-align:left">正向代理 是一个位于客户端和原始服务器(origin server)之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并指定目标(原始服务器)，然后代理向原始服务器转交请求并将获得的内容返回给客户端。客户端必须要进行一些特别的设置才能使用正向代理。</p>
+             </section>
+          
+        <section>
+            <p style="text-align:center">反向代理
+            </p>
+            <p style="text-align:left">反向代理 在计算机世界里，由于单个服务器的处理客户端（用户）请求能力有一个极限，当用户的接入请求蜂拥而入时，会造成服务器忙不过来的局面，可以使用多个服务器来共同分担成千上万的用户请求，这些服务器提供相同的服务，对于用户来说，根本感觉不到任何差别。在服务器端接受客户端的请求，然后把请求分发给具体的服务器进行处理，然后再将服务器的响应结果反馈给客户端。</p>
+           
+        </section>
+         <section>
+            <p style="text-align:center">反向代理的实现
+            </p>
+            <p style="text-align:left">1）需要有一个负载均衡设备来分发用户请求，将用户请求分发到空闲的服务器上；
+                                       2）服务器返回自己的服务到负载均衡设备；
+                                       3）负载均衡将服务器的服务返回用户；</p>
+           
+        </section>
+           <section>
+            <h3>3.常见问题</h3>
+        </section>
+         <section>
+            <p style="text-align:left">1.正向代理和反向代理有什么区别</p>
+            <p style="text-align:left">2.负载均衡策略有几种</p>
+         </section>
+		<section>
+		    <p style="text-align:left">Nginx目前支持自带3种负载均衡策略，还有2种常用的第三方策略。</p>
+            <p style="text-align:left">1、RR（默认）</p>
+            <p style="text-align:left">每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除。</p>
+			<p style="text-align:left">2、权重</p>
+            <p style="text-align:left">指定轮询几率，weight和访问比率成正比，用于后端服务器性能不均的情况。 </p>
+		</section>
+
+        <section>
+            <p style="text-align:left">3、ip_hash</p>
+            <p style="text-align:left">上面的2种方式都有一个问题，那就是下一个请求来的时候请求可能分发到另外一个服务器，
+			当我们的程序不是无状态的时候（采用了session保存数据），这时候就有一个很大的很问题了，比如把登录信息保存到了session中，
+			那么跳转到另外一台服务器的时候就需要重新登录了，所以很多时候我们需要一个客户只访问一个服务器，那么就需要用iphash了，
+			iphash的每个请求按访问ip的hash结果分配，这样每个访客固定访问一个后端服务器，可以解决session的问题。</p>
+		</section>
+		
+		<section>
+            <p style="text-align:left">4、fair（第三方）</p>
+            <p style="text-align:left">按后端服务器的响应时间来分配请求，响应时间短的优先分配。</p>
+            <p style="text-align:left">5、url_hash（第三方）</p>
+            <p style="text-align:left">按访问url的hash结果来分配请求，使每个url定向到同一个后端服务器，后端服务器为缓存时比较有效。 </p>
+        </section>
+		
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		<section>
+			
+         </section>
+       
+            
+       
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+		
+        
+        <section>
+            <h3>7.参考文献</h3>
+		
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
