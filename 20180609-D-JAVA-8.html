@@ -1,0 +1,214 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>dubbo和zookeeper</h2>
+            <p></p>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p></p>
+            <p></p>
+            <p>分享人：杨聪聪</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        	<h4>Dubbo是什么？</h4>
+        	<p>1、一款分布式服务框架；2、高性能和透明化的RPC远程服务调用方案；3、SOA服务治理方案。</p>
+        	<p>其核心部分包含:<br>
+1. 远程通讯: 提供对多种基于长连接的NIO框架抽象封装，包括多种线程模型，序列化，以及“请求-响应”模式的信息交换方式。<br>
+2. 集群容错: 提供基于接口方法的透明远程过程调用，包括多协议支持，以及软负载均衡，失败容错，地址路由，动态配置等集群支持。<br>
+3. 自动发现: 基于注册中心目录服务，使服务消费方能动态的查找服务提供方，使地址透明，使服务提供方可以平滑增加或减少机器。</p>
+       </section>
+<section>
+	<h4>Dubbo能做什么?</h4>
+	<p>
+		1、Dubbo采用全spring配置方式，透明化接入应用，对应用没有任何API侵入，只需用Spring加载Dubbo的配置即可；<br>
+		2、软负载均衡及容错机制，可在内网替代F5等硬件负载均衡器，降低成本，减少单点。<br>
+		3、服务自动注册与发现，不再需要写死服务提供方地址，注册中心基于接口名查询服务提供者的IP地址，并且能够平滑添加或删除服务提供者。
+	</p>
+</section>
+     
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+        	<p>dubbo的架构</p>
+        	<p>节点角色说明：
+       Provider: 暴露服务的服务提供方。<br>
+
+       Consumer: 调用远程服务的服务消费方。<br>
+
+       Registry: 服务注册与发现的注册中心。<br>
+
+       Monitor: 统计服务的调用次数和调用时间的监控中心。<br>
+
+       Container: 服务运行容器。</p>
+        </section>
+        <section>
+        	<p>调用关系说明：</p>
+        	<p>0.服务容器负责启动，加载，运行服务提供者。<br>
+1. 服务提供者在启动时，向注册中心注册自己提供的服务。<br>
+2. 服务消费者在启动时，向注册中心订阅自己所需的服务。<br>
+3. 注册中心返回服务提供者地址列表给消费者，如果有变更，注册中心将基于长连接推送变更数据给消费者。<br>
+4. 服务消费者，从提供者地址列表中，基于软负载均衡算法，选一台提供者进行调用，如果调用失败，再选另一台调用。<br>
+5. 服务消费者和提供者，在内存中累计调用次数和调用时间，定时每分钟发送一次统计数据到监控中心。</p>
+        </section>
+
+        <section>
+        	<p>Dubbo注册中心</p>
+        	<p>
+        		通过将服务统一管理起来，可以有效地优化内部应用对服务发布/使用的流程和管理。服务注册中心可以通过特定协议来完成服务对外的统一。
+        	</p>
+        	<p>
+        		Dubbo提供的注册中心有如下几种类型可供选择：<br>
+        		Multicast注册中心<br>
+				Zookeeper注册中心<br>
+				Redis注册中心<br>
+				Simple注册中心<br>
+        	</p>
+        </section>
+        <section>
+        	<p>Zookeeper介绍与安装</p>
+        	<p>Zookeeper是一个分布式服务协调框架，是树型的目录服务的数据存储，能做到集群管理数据 ，这里能很好的作为Dubbo服务的注册中心。<br>
+
+Dubbo能与Zookeeper做到集群部署，当提供者出现断电等异常停机时，Zookeeper注册中心能自动删除提供者信息，当提供者重启时，能自动恢复注册数据，以及订阅请求。</p>
+        </section>
+   
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+        	<p>Dubbo优缺点?</p>
+        	<p>Dubbo支持多种协议？</p>
+        	<p>spring cloud 与 dubbo?</p>
+        </section>
+
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+        	<p>Dubbo优缺点?</p>
+        	<p>优点：1、透明化的远程方法调用，只需简单配置，没有任何API侵入。2、软负载均衡及容错机制 。3、服务注册中心自动注册 & 配置管理 。4、服务接口监控与治理 ，Dubbo-admin与Dubbo-monitor提供了完善的服务接口管理与监控功能，针对不同应用的不同接口，可以进行 多版本，多协议，多注册中心管理。<br>
+缺点：
+只支持JAVA语言
+        	</p>
+        </section>
+        <section>
+        	<p>Dubbo支持多种协议？</p>
+        	<p> Hessian协议、HTTP协议、WebService协议（都是基于http短连接的)；</p>
+        	<p> Dubbo协议、RMI协议（tcp长连接）；</p>
+        	<p>Thrift协议、Memcached协议、Redis协议。</p>
+        </section>
+        <section>
+        	<p>spring cloud 与 dubbo?</p>
+        	<p>从整体架构上来看，二者模式接近，都需要服务提供方，注册中心，服务消费方。</p>
+        	<p>从核心要素来看，Spring Cloud 更胜一筹，在开发过程中只要整合 Spring Cloud 的子项目就可以顺利的完成各种组件的融合，而 Dubbo 却需要通过实现各种 Filter 来做定制，开发成本以及技术难度略高。</p>
+              	
+        </section>
+        <section>	
+        	<p>从通讯协议和性能来看，Dubbo 支持各种通信协议，而且消费方和服务方使用长链接方式交互；Spring Cloud 使用 HTTP 协议的 REST API；通信速度上略胜 Spring-Cloud，如果对于系统的响应时间有严格要求，长链接更合适。</p>
+        	<p>从服务依赖方式来看，Dubbo 服务依赖略重，需要有完善的版本管理机制，但是程序入侵少。而 Spring Cloud 通过 Json 交互，省略了版本管理的问题，但是具体字段含义需要统一管理，自身 Rest API 方式交互，为跨平台调用奠定了基础。</p>
+        </section>
+        
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+     
+ 
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>
+            链接：https://zh.wikipedia.org/zh-hans/%E8%B6%85%E6%96%87%E6%9C%AC%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE
+        </p>
+            <p>作者：维基百科</p>
+            <p>链接：https://blog.csdn.net/houshaolin/article/details/76408399</p>
+            <p>作者：洛离Carlos</p>
+            <p>链接：https://blog.csdn.net/noaman_wgs/article/details/70214612/</p>
+            <p>作者：是Guava不是瓜娃</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正。</p>
+            <p>
+               BY : 深圳分院 杨聪聪
+            </p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+
+ <dependency>
+            <groupId>net.sf.json-lib</groupId>
+             <artifactId>json-lib</artifactId>
+             <version>2.4</version>
+             <classifier>jdk15</classifier>
+         </dependency>
