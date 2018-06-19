@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Spring MVC的web.xml配置详解</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：方广辉</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>web.xml是servlet规定的启动配置文件，凡属基于servlet的javaWeb容器必遵守这个规范，而目前主流的容器都是基于servlet的，
+                因此可以理解web.xml是每个javaweb应用都离不开web.xml配置文件。
+                web.xml完整的名字应该叫做部署描述符文件，当容器启动时会去读这个文件，然后加载相关配置，该文件通常会放在WEB-INF文件夹下。
+                当我们去启动一个WEB项目时，Tomcat首先会读取项目web.xml配置文件里的配置，
+                当这一步骤没有出错并且完成之后，项目才能正常地被启动起来。
+                web.xml文件是用来初始化配置信息：比如Welcome页面、servlet、servlet-mapping、filter、listener、启动加载级别等。
+                当你的web工程没用到这些时，你可以不用web.xml文件来配置你的Application。
+
+                </p>
+
+
+        </section>
+	
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>web.xml基本元素</p>
+            <p>元素1 context-param </p>
+            <p>含义
+            context-param 元素用来设定web应用的环境参数(context),它包含两个子元素: param-name和param-value.</p>
+            <p>元素2,3  filter与filter-mapping </p>
+            <p>含义
+            filter元素用来设定web应用的过滤器，它的两个主要子元素filter-name和filter-class用来定义Filter所对应的class
+            filter-mapping 元素的两个主要子元素filter-name和url-pattern.用来定义Filter所对应的URL.</p>
+                
+		</section>
+        <section>
+            <p>元素4 listener </p>
+            <p>含义
+                listener元素用来定义Listener接口,它的主要子元素为listener-class
+            　　监听器Listener就是在application,session,request三个对象创建、销毁或者往其中添加修改删除属性时自动执行代码的功能组件。
+            　　Listener是Servlet的监听器，可以监听客户端的请求，服务端的操作等。</p>
+            <p>元素5,6  servle、servlet-mapping </p>
+            <p>含义
+                servlet元素的两个主要子元素servlet-name和servlet-class用来定义servlet所对应的class
+                servlet-mapping元素包含两个子元素servlet-name和url-pattern.用来定义servlet所对应URL.</p>
+        </section>
+
+
+
+
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1）在Spring框架中是如何解决从页面传来的字符串的编码问题的呢？</p>
+            <p>2）web.xml中标签的加载顺序</p>
+            
+        </section>
+
+        
+        <section>
+            <h3>4.解决方案</h3>
+        </section> 
+        <section> 
+            <p>1.配置一个编码过滤器 </p>
+
+                <!--9. 对于某类元素而言，与它们出现的顺序是有关的。-->
+                <!--以<filter>为例，web.xml中当然可以定义多个<filter>，与<filter>相关的一个元素是<filter-mapping>，-->
+                <!--注意，对于拥有相同<filter-name>的<filter>和<filter-mapping>元素而言，-->
+                <!--<filter-mapping>必须出现在<filter>之后，否则当解析到<filter-mapping>时，它所对应的<filter-name>还未定义。-->
+                <!--web容器启动初始化每个<filter>时，按照<filter>出现的顺序来初始化的，当请求资源匹配多个<filter-mapping>时，-->
+                <!--<filter>拦截资源是按照<filter-mapping>元素出现的顺序来依次调用doFilter()方法的。-->
+                <!--<servlet>同<filter>类似，此处不再赘述.</p>-->
+            <p></p>
+            <p></p>
+	
+		</section>
+        <section>
+            <p> 1.启动WEB项目的时候，容器首先会去它的配置文件web.xml读取两个节点:  listener和context-param。</p>
+            <p> 2. 紧接着，容器创建一个ServletContext（application），这个WEB项目所有部分都将共享这个上下文。</p>
+            <p> 3. 容器以context-param 的name作为键，value作为值，将其转化为键值对，存入ServletContext。</p>
+            <p> 4. 容器创建listener中的类实例，根据配置的class类路径listener-class来创建监听，
+            在监听中会有contextInitialized(ServletContextEvent args)初始化方法，启动Web应用时，系统调用Listener的该方法，在这个方法中获得：
+            context-param的值，得到这个context-param的值之后，你就可以做一些操作了。</p>
+        </section>
+        <section>
+            <p>5. 接着，容器会读取filter，根据指定的类路径来实例化过滤器。</p>
+            <p>6. 以上都是在WEB项目还没有完全启动起来的时候就已经完成了的工作。
+            如果系统中有Servlet，则Servlet是在第一次发起请求的时候被实例化的，
+            而且一般不会被容器销毁，它可以服务于多个用户的请求。所以，Servlet的初始化都要比上面提到的那几个要迟。</p>
+            <p>7. 总的来说，web.xml的加载顺序是:context-param -> listener -> filter -> servlet。
+            其中，如果web.xml中出现了相同的元素，则按照在配置文件中出现的先后顺序来加载。</p>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+            <p>web.xml各个配置详解</p>
+            <p></p>
+            <p></p>
+	
+        </section>
+        
+        <section>
+            <h3>6.扩展思考</h3>
+			<p></p>
+            <p></p>
+            <p></p>
+<p></p>
+<p></p>
+<p></p>
+
+        </section>
+
+        
+        <section>
+            <h3>7.参考文献</h3>
+           <p>文献一:&nbsp https://blog.csdn.net/zuoluoboy/article/details/4213053</P>
+           <p>文献二:&nbsp http://www.cnblogs.com/hxsyl/p/3435412.html</P>
+           <p>文献三:&nbsp https://blog.csdn.net/qing_gee/article/details/50965562</P>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 方广辉</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

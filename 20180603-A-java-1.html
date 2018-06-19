@@ -1,0 +1,251 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Sping简单介绍</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：王庸之</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+
+            <h3>Spring的使命</h3>
+            <p>spring是一种多层的J2EE应用程序框架，是以Rod Johson编写的《Expert one to one J2EE design and development》一书的代码为基础发展而来的。它是为了解决企业应用开发的复杂性而创建的。</p>
+            <p>Spring使用基本的JavaBean来完成以前只可能由EJB完成的事情。从简单性、可测试性和松耦合的角度而言，任何Java应用都可以从Spring中受益。</p>
+            <p>sping的根本使命：简化java开发</p>
+
+            
+        </section>
+		
+		<section>
+
+            <h3>Spring简化java开发的几种策略</h3>
+            <p>基于POJO的轻量级和最小侵入性编程</p>
+			<p>通过依赖注入和面向接口实现松耦合</p>
+            <p>基于切面和惯例进行声明式编程</p>
+            <p>通过模板减少样板式代码</p>
+            
+        </section>
+       
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+		<section>
+
+            <h3></h3>
+            <p>1、什么是IOC</p>
+			<p>2、spring容器介绍</p>
+			<p>3、什么是bean？</p>
+			<p>4、配置bean的几种方式</p>
+
+            
+        </section>
+		
+	    <section>
+
+            <h3>什么是IOC？</h3>
+            <p>IOC（Inversion of Control）即“控制反转”，是一种是面向对象编程中的一种设计原则， 用来减低计算机代码之间的耦合度。</p>
+			<p>在传统的程序设计中，调用者直接使用new关键字创建对象，是程序主动去创建依赖对象，调用者和被调用者之间的耦合度很高，不利于程序的复用和维护。</p>
+			<p>而IoC是有专门一个容器来创建这些对象，即由Ioc容器来控制对象的创建，这样本来是由程序来创建对象，转变成由IOC容器来创建，总之就是依赖对象的获取被反转了。</p>
+			<p>至于依赖注入（DI）则是一种IOC理念指导下的技术手段。</p>
+
+            
+        </section>
+		
+		<section>
+
+            <h3>spring容器</h3>
+			<p>容器是Spring框架的核心。Spring容器负责创建对象，装配它们，配置它们并管理它们的整个生命周期，从生存到死亡。Spring容器使用DI管理构成应用的组件，它会创建相互协作的组件之间的关联。</p>			
+			<p>Spring自带了多个容器实现，可以归为两种不同的类型。</p>	
+			<p>一、BeanFactory容器，这是最简单的容器，提供基本的DI支持。</p>
+			<p>二、ApplicationContext容器（由org.springframework.context.ApplicationContext接口定义）基于BeanFactory构建，并提供应用框架级别的服务，例如从属性文件解析文本信息以及发布应用事件给感兴趣的事件监听者。</p>
+			
+
+            
+        </section>
+		
+		
+        <section>
+		
+        <h3>常用ApplicationContext容器</h3>
+		<p>• FileSystemXmlApplicationContext：该容器从 XML 文件中加载已被定义的 bean。在这里，你需要提供给构造器 XML 文件的完整路径</p>
+		<p>• ClassPathXmlApplicationContext：该容器从 XML 文件中加载已被定义的 bean。在这里，你不需要提供 XML 文件的完整路径，只需正确配置 CLASSPATH 环境变量即可，因为，容器会从 CLASSPATH 中搜索 bean 配置文件。</p>
+		<p>• WebXmlApplicationContext：该容器会在一个 web 应用程序的范围内加载在 XML 文件中已被定义的 bean。</p>
+             
+		
+        </section>
+		
+		<section>
+		
+           <h3>bean</h3>
+		<p>bean 是一个被实例化，组装，并通过 Spring IoC 容器所管理的对象</p>
+		<p>bean的简单属性：</p>
+		<p>name/id:用来指定唯一bean的标识符。</p>
+		<p>class，是必须的，用来指定创建bean的类。</p>
+		<p>constructor-arg、properties、autowire：注入依赖关系。</p>
+		<p>scope:指定bean的作用域为单例或多例等等，默认为单例。</p>
+		
+		
+		   
+        </section>
+
+
+        <section>
+		
+            <h3>配置bean的几种方式</h3>
+            <p>在XML中进行显式配置</p>
+			<p>在Java中进行显式配置</p>
+            <p>隐式的bean发现机制和自动装配。</p>	
+			
+        </section>
+        
+
+        <section>
+		
+            <h3>隐式的bean发现机制和自动装配。</h3>
+            <p>主要是利用@Component和@Autowired</p>
+            <p>需要显示启动扫描。@ComponentScan。value属性中指明包的名称。basePackages和basePackageClasses</p>
+			<p>需要显示启动扫描。<context:component-scan>。</p>
+			
+        </section>
+
+        <section>
+		
+            <h3>在Java中进行显式配置</h3>
+            <p>创建JavaConfig类的，为其添加@Configuration注解 </p>
+            <p>声明bean，我们需要编写—个方法，这个方法会创建所需类型的实例，然后给这个方法添加@Bean注解</p>
+            <p>注入主要通过传入参数实现。</p>
+			
+        </section>
+		
+		<section>
+		
+            <h3>在XML中进行显式配置</h3>
+            <p>要创建—个XML文件，并且要以<beans>元素为根。</p>
+            <p>创建<bean>标签，对应需要创建的实例。</p>
+            <p><constructor-arg>和<property></p>
+			
+        </section>
+
+        <section>
+		
+            <h3>3.编码实战</h3>
+			
+        </section>
+
+        <section>
+		
+            <h3>4.常见问题</h3>
+			
+        </section>		
+
+        <section>		
+		
+           <h3>自动装配时，如果冲突了怎么办。</h3>		   
+           <p>利用@Primary和@Qualifier</p> 
+		   
+        </section>
+		
+
+        <section>
+		
+            <h3>5.参考文献</h3>
+            
+            <p>《Spring in action》</p>
+            <p>杨聪聪师兄的ppt</p>
+           
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+		
+            <h3>鸣谢</h3>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
