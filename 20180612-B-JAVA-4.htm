@@ -32,10 +32,10 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>拦截器实现自动登录验证</h2>
+            <h2>jsp标签和内置对象简介</h2>
 			<p></p>
-            <h3></h3>
-            <p>晋良金</p>
+            <h3>java分享会</h3>
+            <p>分享人：刘君健</p>
         </section>
         <section>
             <p>1.背景介绍</p>
@@ -45,73 +45,95 @@
             <p>5.编码实战</p>
             <p>6.扩展思考</p>
             <p>7.参考文献</p>
-            <p>7.更多讨论</p>
+            <p>8.更多讨论</p>
         </section>
         <section>
             <h3>1.背景介绍</h3>
-            <p>web项目中在处理客户请求的时候，大概分为对动态资源的请求和静态资源的请求。请求静态资源的时候直接返回静态资源；请求动态资源的时候则需要controller层处理以及视图解析器渲染，然后才返回视图。而有时候因业务需求，需要对操作动态资源的请求进行分类处理，这时候就需要拦截器拦截这类请求，在拦截器中加入执行请求前、中、后所需要的单独的逻辑，以达到对请求分类处理的目的。最典型的就是某些网页需要登录才能访问。</p>
+            <p>作为后端程序员，我们后端得到的结果，传到前端的时候，该怎么在前端进行一些处理,然后显示出来</p>
+            <p>所以了解一下前端页面的一些简单知识是有必要的</p>
+            <p>在这里给大家简单介绍一下jsp标签和内置对象</p>
+            <p></p>
+            <p></p>
+        </section>
+        <section>
+        	<h2>jsp标签</h2>
+        	<p>JSP标准标签库（JSTL）是一个JSP标签集合，它封装了JSP应用的通用核心功能。</p>
+        	<p>JSTL支持通用的、结构化的任务，比如迭代，条件判断，XML文档操作，国际化标签，SQL标签。</p>
+        	<p>除了这些，它还提供了一个框架来使用集成JSTL的自定义标签。</p>
+        	<p>根据JSTL标签所提供的功能，可以将其分为5个类别:</p>
+        	<p>核心标签(c标签)、格式化标签</p>
+        	<p>SQL 标签、XML 标签、JSTL 函数</p>
+        
+        </section>
+          <section>
+        	<h2>jsp隐式对象</h2>
+        	<p>JSP隐式对象也被称为预定义变量，或者内置对象</p>
+        	<p>JSP隐式对象是JSP容器为每个页面提供的Java对象，开发者可以直接使用它们而不用显式声明。</p>
+        	<p>jsp内置对象主要有9个:</p>
+        	<p>out、request、response、session、pageContext、application、config、page、exception</p>
         </section>
 
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
-            <h3>拦截器</h3>
-            <p>拦截器是动态拦截Action调用的对象。它提供了一种机制可以定义在一个action执行的前后执行的代码，也可以在一个action执行前阻止其执行，同时也提供了一种可以提取action中可重用部分的方式。</p>
-            <p>主要用于拦截URI中带关键字的请求</p>
+            <p>1）内置对象的简单应用</p>
         </section>
         <section>
-            <h3>拦截器特性</h3>
-            <p>拦截器是基于java反射机制来实现的。</p>
-            <p>拦截器不依赖servlet容器。</p>
-            <p>拦截器只对Action起作用。</p>
-            <p>在Action的生命周期中，拦截器可以多次调用。</p>
-        </section> 
+        	<p>2）c标签详解</p>
+        </section>
+
         <section>
-            <h3>自动登录验证</h3>
-            <p>session</p>
-            <p>cookie（cookieValue）：name/validTime</p> 
-            <p>自动登录的记录</p>
-            <p>用户是否存在</p>
-            <p>token：name/password/time/salt</p>
-            <p>账密</p>
-        </section> 
+				<p>3.常见问题</p>
+				
+		</section>
+		<section>
+                <p>1)java代码在jsp页面怎么使用</p>
+                <p>2)标签的使用方法</p>
+        </section>
+        <section>
+            
+            <p>4.解决方案</p>
+        </section>
+        
+        <section>
+        	<h2>java代码的使用</h2>
+            <P>jsp页面是可以编写java代码的，把java代码用<% %>包起来就行了</P>
+            <P>如<% out.println("hello World"); %></P>
+            
+        </section>
+
+        <section>
+        	<h2>标签使用方法</h2>
+        	<p>引入biaoqian </p>
+            <p><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %></p>
+            <p>标签使用</p>
+            <p> < c:out value="java是一门神奇的语言"/></p>
+        </section>
          <section>
-            <h3>3.常见问题</h3>
-        </section>
-        <section>
-            <h3>实现自动登录的目的</h3>
-        </section>
-        <section>
-            <h3>4.解决方案</h3>
-        </section>
-        <section>
-            <h3>实现自动登录的目的</h3>
-            <p>在安全的前提之下</p>
-            <p>减轻数据库以及服务器压力</p>
-            <p>减少用户操作，改善用户体验</p>
-        </section>
-        <section>
             <h3>5.编码实战</h3>
         </section>
+        
         <section>
-            <h3>6.扩展思考</h3>
+            <h3>6.拓展思考</h3>
         </section>
-        <section>
-            <h3>6.扩展思考</h3>
-        </section>
+       
+       
         <section>
             <h3>7.参考文献</h3>
-            <p>https://blog.csdn.net/reggergdsg/article/details/52962774</p>
-            <p>百度百科</p>
-            <p>https://blog.csdn.net/ly_linyuan/article/details/79999758</p>
+            <p>http://www.runoob.com/jsp/jsp-jstl.html</p>
+            <p>https://www.cnblogs.com/smyhvae/p/4065790.html</p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
+            
         </section>
+        
+
         <section>
-            <p></p>
-            <p>谢谢大家</p>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 刘君健</small></p>
         </section>
 
     </div>
@@ -145,8 +167,8 @@
     Reveal.initialize({
         history: true,
         dependencies: [
-            { src: 'https://blog.csdn.net/USTC_Zn/article/details/54912367' },
-            { src: 'https://blog.csdn.net/luomingkui1109/article/details/72820232' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
             { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
             { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
         ]
