@@ -1,0 +1,201 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>线程</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：陈鑫</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>	
+		
+        <section>
+		
+			<section>
+            <p>1.背景介绍</p>
+			
+			<p style="text-align:left">一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务。</p>
+			<p style="text-align:left">一个进程包括由操作系统分配的内存空间，包含一个或多个线程。一个线程不能独立的存在，它必须是进程的一部分。一个进程一直运行，直到所有的非守护线程都结束运行后才能结束。</p>
+			</section>
+			
+			<section>
+			<p style="text-align:left">一个线程是程序中的一个执行线程。JVM允许一个应用在运行时有多个执行线程。</p>
+			<p style="text-align:left">每个线程都有一个优先级。高优先级的线程先于低的执行。任何一个线程可能或不可能被标记为守护进程。当运行在同一个线程中的代码创建了一个新线程对象（Thread Object），那么这个新线程将它的优先级设置为与创建它的线程相同的优先级。当且仅当这个线程是守护进程时，新建的线程才是守护进程。</p>
+			<p style="text-align:left">当JVM启动时，通常只有一个非守护进程的线程，通常会调用某些类的main方法。</p>
+            <p style="text-align:left"></p>       		
+            <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+			
+			</section>
+			<!--<section>
+			<p></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p></p>
+			</section>-->
+		</section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+			<p style="text-align:left">创建新Thread的两种方式。一个方式是声明一个Thread类的子类，这个子类需要重写Thread类的run方法。然后这个子类的实例可以被分配和启动。</p>
+			<p style="text-align:left">另外一个方式是声明一个类去实现Runnable接口。然后实现run方法。之后这个子类的实例作为创建Thread的参数可以被分配和启动。</p>
+			<p style="text-align:left">每个线程有一个用于指定它目的的名称，多个线程可以同样的名字。如果没有指定名字，会自动生成。除非额外注明，否则传递一个null参数给构造器或者方法，会造成NullPointerException。</p>
+			<br>
+			</section>
+        <section>
+            <p style="text-align:left">大多数情况，应该使用Runnable接口，因为应用只需要重写run()方法，而且如果不打算修改或增强类的基本行为不应该将类进行子类化。</p>       		
+            <p style="text-align:left">线程属性：线程优先级（不推荐使用），守护线程（为其他线程提供服务），处理未捕获异常的处理器（run方法不能抛出任何被检查，不被检测的异常会导致线程终止。在这种情况下，线程就死亡了。在这种情况下，我们需要实现一个Thread.UncaughtExceptionHandler。我们可以通过这种方式来知道，真正让我们的run意外死亡的问题在哪里。）。</p>
+			 <p style="text-align:left">线程状态（NEW, Runnable, Blocked, Waiting, Timed waiting, Terminated）。</p>
+			<p style="text-align:left">中断线程：自然终止或异常终止。</p>
+			<p style="text-align:left"></p>
+        </section>
+		<section>
+		<p style="text-align:left">竞态条件：两个线程竞争同一资源时，如果对资源的访问顺序敏感，就称为存在竞态条件。导致竞态条件发生的代码区称为临界区。临界区使用适当的同步就可以避免竞态条件。</p>
+		<p style="text-align:left">允许被多个线程同时执行的代码称作线程安全的代码，线程安全的代码不包含竞态条件。</p>
+		</section>
+         <section>
+		 <p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+		 <p style="text-align:left"></p>
+		 </section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:left">调用 run()方法而非 start()方法？</p>
+			<p style="text-align:left">中断线程？</p>
+			<p style="text-align:left"></p>
+			<p></p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+			 <p style="text-align:left">答：应该调用start()方法启动线程。直接调用run()方法不会创建一个新线程。</p>
+             <p style="text-align:left">答：执行完run()方法最后一句正常退出；出现了没有捕获的异常，终止run()方法，异常退出。</p>
+			 <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+             <p></p>
+			 <p></p>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+        <img src="">
+		<img src="">
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p></p>
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p style="text-align:left">https://www.cnblogs.com/android-blogs/p/5765148.html</p>
+			<p style="text-align:left">https://blog.csdn.net/quinnnorris/article/details/55106626?utm_source=gold_browser_extension</p>
+			<p style="text-align:left">https://blog.csdn.net/quinnnorris/article/details/55522555</p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 陈鑫</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
