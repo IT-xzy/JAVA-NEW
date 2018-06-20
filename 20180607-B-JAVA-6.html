@@ -1,0 +1,212 @@
+<html class=" js no-mobile desktop no-ie chrome chrome66 ppt-section ppt-section w-1536 gt-240 gt-320 gt-480 gt-640 gt-768 gt-800 gt-1024 gt-1280 gt-1440 lt-1680 lt-1920 no-portrait landscape gradient rgba opacity textshadow multiplebgs boxshadow borderimage borderradius cssreflections csstransforms csstransitions no-touch retina fontface domloaded" id="javatask06_02-page"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script><link rel="stylesheet" type="text/css" href="../css/reveal/print/paper.css"><script type="text/javascript" src="https://ptteng.github.io/PPT/plugin/markdown/marked.js"></script><script type="text/javascript" src="https://ptteng.github.io/PPT/plugin/markdown/markdown.js"></script><script type="text/javascript" src="https://ptteng.github.io/PPT/plugin/notes/notes.js"></script><script type="text/javascript" src="https://ptteng.github.io/PPT/plugin/highlight/highlight.js"></script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank">
+</map>
+<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+    <div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.322714);">
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <h2>什么是负载均衡，为什么要做负载均衡？</h2>
+            <p></p>
+            <h3>java分享会</h3>
+            <p>分享人：石奥林</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <h3>1.背景介绍</h3>
+        </section>
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+
+
+            <p>在网站创立初期，我们一般都使用单台机器对台提供集中式服务，但是随着业务量越来越大，无论是性能上还是稳定性上都有了更大的挑战。这时候我们就会想到通过扩容的方式来提供更好的服务。我们一般会把多台机器组成一个集群对外提供服务。然而，我们的网站对外提供的访问入口都是一个的，比如www.taobao.com。那么当用户在浏览器输入www.taobao.com的时候如何将用户的请求分发到集群中不同的机器上呢，这就是负载均衡在做的事情。</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <p>针对以上情况的解决方案</p>
+            <p>①.服务器进行硬件升级：采用高性能服务器替换现有低性能服务器。</p>
+            <p>该方案的弊端：成本高，可扩展性差，无法完全解决现在网络中面临的问题。</p>
+            <p>②.组建服务器集群，利用负载均衡技术在服务器集群间进行业务均衡。多台服务器通过网络设备相连组成一个服务器集群，每台服务器都提供相同或相似的网络服务。服 务器集群前端部署一台负载均衡设备，负责根据已配置的均衡策略将用户请求在服务器集群中分发， 为用户提供服务，并对服务器可用性进行维护。</p>
+            <p>该方案的优势：低成本，可扩展性，高可靠性</p>
+    </section>
+
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <h3>2.知识剖析</h3>
+        </section>
+        
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+         
+            <p>负载均衡原理</p>
+            <p>四层负载均衡：
+四层负载均衡工作在OSI模型的传输层，由于在传输层，只有TCP/UDP协议，这两种协议中除了包含源IP、目标IP以外，还包含源端口号及目的端口号。四层负载均衡服务器在接受到客户端请求后，以后通过修改数据包的地址信息（IP+端口号）将流量转发到应用服务器。</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+        	七层负载均衡：
+七层负载均衡工作在OSI模型的应用层，应用层协议较多，常用http、radius、dns等。七层负载就可以基于这些协议来负载。这些应用层协议中会包含很多有意义的内容。比如同一个Web服务器的负载均衡，除了根据IP加端口进行负载外，还可根据七层的URL、浏览器类别、语言来决定是否要进行负载均衡。
+        </section>
+
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+
+        <p>应用集群：将同一应用部署到多台机器上，组成处理集群，接收负载均衡设备分发的请求，进行处理，并返回相应数据。</p>
+            <p>负载均衡设备：将用户访问的请求，根据负载均衡算法，分发到集群中的一台处理服务器。</p>
+
+        </section>
+
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <p>负载均衡的作用</p>
+            <p>1.解决并发压力，提高应用处理性能（增加吞吐量，加强网络处理能力）；</p>
+            <p>2.提供故障转移，实现高可用</p>
+            <p>3.通过添加或减少服务器数量，提供网站伸缩性（扩展性)</p>
+            <p>4.安全防护；（负载均衡设备上做一些过滤，黑白名单等处理）</p>
+        </section>
+
+
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <p>负载均衡分类</p>
+            <p>根据实现技术不同，可分为DNS负载均衡，HTTP负载均衡，IP负载均衡，反向代理负载均衡、链路层负载均衡等。</p>      
+
+        </section>
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+        <p>负载均衡算法</p>
+        <p>轮询、 随机、最少链接、Hash（源地址散列）、加权</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <p>硬件负载均衡</p>
+            <p>采用硬件的方式实现负载均衡，一般是单独的负载均衡服务器，价格昂贵，一般土豪级公司可以考虑，业界领先的有两款，F5和A10。
+            价格：F5， 15w~55w不等；A10， 55w-100w不等。</p>
+            <p>优点：功能全面支持各层级的负载均衡，支持全面的负载均衡算法，支持全局负载均衡。一般软件负载均衡支持到5万级并发已经很困难了，硬件负载均衡可以支持。商用硬件负载均衡稳定性高，具备防火墙，防DDOS攻击等安全功能，提供售后支持。
+
+</p>
+        </section>
+
+   
+         <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <h3>3.常见问题</h3>
+        </section>
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <p>怎么配置负载均衡？</p>
+
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+        </section>
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <h3>4.解决方案</h3>
+
+        </section>
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+                    <p>部署至少两台服务器，我选择在本地部署一台jetty、一台tomcat。在nginx.conf配置文件中http括号内添加如下配置:</p>
+          <p>upstream  local_tomcat {</p>
+  <p>server    localhost:8080;</p>
+  <p>server    localhost:7080;}</p>
+
+<p>server{</p>
+ <p>       location / {</p>
+ <p>       proxy_pass http://local_tomcat;}}</p>
+<p>在hosts文件中添加解析域名</p>
+<p>127.0.0.1   &nbsp;   local_tomcat</p>
+        </section>
+
+   
+        
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+        	<h3>6.扩展思考</h3>
+        </section>
+
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+        	<p>什么是反向代理负载均衡？</p>
+        	<p> 反向代理（Reverse Proxy）方式是指以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个服务器，该服务器就可称之为代理服务器。由于代理服务器处在最终处理请求访问的服务器之前，因此可以在代理服务器上做负载均衡。</p>
+        </section>
+  
+        <section hidden="" aria-hidden="true" class="past" style="top: 233.5px; display: block;">
+            <h3>7.参考文献</h3>
+            <p>https://ketao1989.github.io/2015/08/30/nginx-proxy-configure-and-sduty/</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="past" style="top: 267px; display: block;">
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section class="present" style="top: 212px; display: block;">
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 石奥林</small></p>
+        </section>
+
+    </div>
+<div class="backgrounds"><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" data-loaded="true" style="display: block;"></div><div class="slide-background past" data-loaded="true" style="display: block;"></div><div class="slide-background present" data-loaded="true" style="display: block;"></div></div><div class="progress" style="display: block;"><span style="width: 1536px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left enabled" aria-label="previous slide"></button><button class="navigate-right" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px);">
+            鸣谢
+            感谢观看,如有出错,恳请指正
+            BY : 杨舜
+        </div></div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+
+
+</body></html>
