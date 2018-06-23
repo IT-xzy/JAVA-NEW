@@ -1,0 +1,171 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>jmeter性能测试</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：万全林</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>JMeter 介绍</p>
+            <p>  Apache JMeter是100%纯JAVA桌面应用程序，被设计为用于测试客户端/服务端结构的软件(例如web应用程序)。</p>
+            <p>  它可以用来测试静态和动态资源的性能，例如：静态文件，Java Servlet,CGI Scripts,Java Object,数据库和FTP服务器等等。</p>
+            <p>  JMeter可用于模拟大量负载来测试一台服务器，网络或者对象的健壮性或者分析不同负载下的整体性能。</p>
+            <p>  同时，JMeter可以帮助你对你的应用程序进行回归测试。通过你创建的测试脚本和assertions来验证你的程序返回了所期待的值。</p>
+            <p>  为了更高的适应性，JMeter允许你使用正则表达式来创建这些assertions.</p>
+            <p>  一个轻量级的控制反转（IOC)面向切面(AOP)的容器框架</p>
+        </section>
+	
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+				<p>spring中的IOC是什么意思</p>
+				<p>spring通过IOC即控制反转促进了松耦合</p>
+				<p>一个对象依赖的其他对象会通过被动的方式传递进来</p>
+				<p>而不是这个对象自己创建或者查找依赖对象</p>	
+		</section>
+		<section>
+                <p>为什么要使用IOC而不是new来创建实例</p>
+                <p>调用者直接使用new创建被调用者的实例，两者之间耦合度很高</p>
+                <p>要由调用者亲自创建被调用者的实例对象，不利于软件的移植与维护</p>
+        </section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>JMeter的优缺点</p>
+            <p>开源，他是一款开源的免费软件，使用它你不需要支付任何费用</p>
+            <p>小巧，相比LR的庞大（最新LR11将近4GB），它非常小巧，不需要安装，但需要JDK环境，因为它是使用java开发的工具。</p>
+            <p>功能强大，jmeter设计之初只是一个简单的web性能测试工具，但经过不段的更新扩展，现在可以完成数据库、FTP、LDAP、WebService等方面的测试。因为它的开源性，当然你也可以根据自己的需求扩展它的功能。</p>
+        </section>
+        
+        <section>
+              <p>JMeter元件的执行顺序</p>
+              <p>（1）配置元件（config elements ）
+             <p>  （2）前置处理程序（Per-processors）   
+             <p>  （3）定时器（timers ）
+              <p>  （4）取样器（Sampler）
+              <p>   （5）后置处理程序（Post-processors） （除非Sampler 得到的返回结果为空）。
+             <p>  （6）断言（Assertions）（除非Sampler 得到的返回结果为空）。
+            <p>（7）监听器（Listeners）（除非Sampler 得到的返回结果为空）。 </section>
+	
+        <section>
+            <h3>4.解决方案</h3>
+        </section> 
+        
+        <section>
+            <h3>5.编码实战</h3>
+	
+        </section>
+        
+        <section>
+            <h3>6.扩展思考</h3>
+			<p>jmeter性能测试优化</p>
+        </section>
+        <section>
+            <p>IOC控制反转，强调容器的作用</p>
+            <p>用于组织或控制容器内bean的运行</p>
+            <p>把传统上有程序代码直接操控的对象的调用权交给容器</p>
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>w3cschool spring概述</p>
+            <p>百度</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>什么是bean</p>
+            <p>由IOC容器管理的那些组成你应用程序的对象就是bean，是由spring容器初始化，装配以及管理的对象</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 曹樾</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

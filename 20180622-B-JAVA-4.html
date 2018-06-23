@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>为什么要使用tiles框架？</h3>
+			<p></P>
+            <h4>Java小课堂</h4>
+            <p>分享人：田野</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">Tiles是一种JSP布局框架，主要目的是为了将复杂的jsp页面作为一个的页面的部分机能，然后用来组合成一个最终表示用页面用的，这样的话，便于页面的各个机能的变更及维护。tiles使得struts在页面的处理方面多了一种选择。并且更容易实现代码的重用（就是你把一个功能写成一个模块， 以便当再次需要相同功能的时候，可以直接使用，而不用重新开发。）。就是一个页面由几个部分组成，下个页面和这个页面相比，只变动了一小部分，我们只需要改其中的一小部分就行啦，这种几个页面组合成一个页面的方式，就叫tiles。</p>
+        </section>
+        </section>
+		
+        <section>
+            <p style="text-align:center">Tiles起源
+            </p>
+            <p style="text-align:left">最早的Tiles是组装在Struts1.1里面的（Struts-Tiles），后面发展为独立的Tiles框架，现在Tiles已经作为一个Apache独立的开源项目维护着。</p>
+           
+        </section>
+        <section>
+            <p style="text-align:center">Tiles作用
+            </p>
+            <p style="text-align:left">Tiles允许作者定义页面片段，这些片段可以在运行时被组合成一个完整的页面，这些片段或片可以被简单的包括在内，以便减少常见的页面元素的重复或者嵌入在其他的片中以开发一系列可重复使用的模板。 这些模板简化了整个应用程序中一致的外观和感觉的开发。（Tiles官方文档）</p>
+           
+        </section>
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+         <section>
+         	<p style="text-align:center">TILES框架</p>
+             <p style="text-align:left">Tiles框架可以令我们组合可以复用的Tiles来搭建网页。例如，图中的页面就是通过组合一个head, 一个foot, 一个right和一个body搭建起来的。每一个Tiles（head, foot, body, ...）都是一个JSP页面，它们也可以通过组合其他的Tiles来搭建。</p>
+            
+         </section>
+         <section>
+         	<p style="text-align:center">嵌套TILES</p>
+             <p style="text-align:left">一个 tile 布局可以插入到另一个 tile 布局中，依此类推。实际上，创建的 tile 布局如此之 小，以至于它们本身并不是真正的模板。相反，它们是更类似于自定义标签的小型可视组件，而不是页面模板。</p>
+             </section>
+          <section>
+         	<p style="text-align:center">TILES运行流程</p>
+             <p style="text-align:left">当Spring MVC的DispatchServlet收到来自浏览器的请求后，分析出需要请求的控制器，然后访问解析出来的控制器StudentController的home方法，接着就开始解析视图了。因为我们用的是Tiles的视图解析器，激情饱满的二级制代码就访问到了layout.xml,最后根据layout.xml的配置组装成我们看到的页面。</p>
+            </section>
+           <section>
+            <h3>3.常见问题</h3>
+        </section>
+         <section>
+            <p style="text-align:center">为什么要用Tiles框架?</p>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		<section>
+			<p style="text-align:left">举个通俗的例子,现在有一个超级大的电子商务网站，网站拥有10万个JSP页面，并且每个JSP都引用了同一个JSP，我们称这个JSP页面为A吧。你就是这个网站的开发人员，有一天被要求修改页面A，我们总不能一个一个修改，会花费很多时间，而tiles就是用来在短时间内能帮你改完10万个页面的产品。
+</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+<!--         <section>
+            <p style="text-align:left">Spring容器独立于配置元数据格式，二者之间是解耦的，因此，改变配置方式对 Spring 的框架自身是透明的。</p>  
+			<p style="text-align:left">对于一个使用Spring开发的典型WEB应用程序而言，将配置元数据划分到不同文件，可以清晰反映出应用程序的层，
+			不但便于管理，又可以同时由不同人员开发。</p>
+		 </section>
+		 <section>
+			<p style="text-align:left">beans-web.xml或者ConfigurationForWeb 类定义WEB层/表现层中所操作的Bean;</p>
+			<p style="text-align:left">beans-service.xml或者ConfigurationForService类定义服务层/业务层中所操作的Bean;</p>
+			<p style="text-align:left">beans-dao.xml或者ConfigurationForDao类定义数据访问层中所操作的Bean。</p>
+        </section> -->
+		
+        
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:center">百度，CSDN</p>
+            <p style="text-align:center">https://blog.csdn.net/chj225500/article/details/7055526</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
