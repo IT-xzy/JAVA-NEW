@@ -1,0 +1,221 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>I/O流简单介绍</h2>
+            <p>分享人：张强</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>	       
+		<section>
+			<h3>1.背景介绍</h3>
+			
+		</section>	       
+		<section>
+			<p >什么是流</p>
+			<p style="text-align:left;">在编程里流是一组有序的数据序列，JAVA里IO流用来处理设备之间的数据传输</p>
+			<p style="text-align:left;">最开始的时候，数据是要在各种端之间传递，从而需要各种源/端之间的操作，而且还需要多种不同的方式进行通信（比如顺序、随机存取、缓冲、二进制、按符号、行、字等等），于是java类库的设计者就通过创建大量的类来解决这个问题，于是就有了JAVA中的IO流（但JAVAI/O设计的初衷就是为了避免过多的类，好在现在我们只需要通过封装好的接口就可以很容易的使用）。<br>
+			</p>
+		</section>	       
+		<section >
+			<p style="text-align:left;">
+			jdk1.0的时候只有InputStream和OutputStream这两个接口和它们的包装类<br><br>
+			
+			在jdk1.1引入了Reader和Writer（字符流）来适应国际化，并且解决了原先IO流对传递16进制的字符串不友好的问题，而且它们的效率比传统的字节流更高<br><br>
+			在jdk1.4版本为了改进性能及功能又引入了nio类（也就是包含Channel（通道），Buffer（缓冲区），Selector（选择器）这几个主要概念）
+			</p>
+		</section>
+		<section>
+			<h3>2.知识剖析</h3>
+			<p></p>
+		</section>
+		<section>
+			<p>流的操作对象：File类</p>
+			<p>File类是java.io包中唯一代表磁盘文件本身的对象，通过File来实现对磁盘文件的操作，包括创建、删除、获取信息等等</p>
+		</section>
+		<section>
+			<p>流的模式：输入流和输出流</p>
+			<p style="text-align:left; width:50%; float:left;">输入流：InputStream<br>
+			<img style="width:100%;" src="http://images.cnblogs.com/cnblogs_com/meijsuger/1216102/o_QQ%e6%88%aa%e5%9b%be20180622102304.png"/>
+			</p>
+			<p style="text-align:left; width:50%; float:left;">输出流：OutputStream<br>
+			<img style="width:100%;" src="http://images.cnblogs.com/cnblogs_com/meijsuger/1216102/o_QQ%e6%88%aa%e5%9b%be20180622102314.png"/>
+			</p>
+		</section>
+		<section>
+			<p style="text-align:left; ">输入流：InputStream 
+			它的作用是用来表示那些从不同数据源产生输入的类，这些数据源包括：</p>
+			<p style="text-align:left; ">
+			1）字节数组 <br>
+			2）String对象<br>
+			3）文件对象<br>
+			4）“管道”，工作方式与实际生活中的管道类似，即从一端输入，从另一端输出<br>
+			5）由其它种类的流组成的序列，以便我们可以将它们收集合并到一个流内<br>
+			6）其它数据源，如Internet连接等<br>
+			</p>
+			<p style="text-align:left; ">
+			每种数据源都有对应的InputStream子类，还有一种单独的FileInputStream也是属于一种InputStream
+			</p>
+			
+		</section>
+		<section>
+			<p>InputStream 对应的子类：<br>
+			<img style="width:80%;" src="http://images.cnblogs.com/cnblogs_com/meijsuger/1216102/o_QQ%e6%88%aa%e5%9b%be20180622163307.png"/>
+			</p>	
+		</section>
+		<section>
+			<p style="text-align:left; ">输出流：OutputStream 
+			它决定输出所要去的目标：</p>
+			<p style="text-align:left; ">
+			1）字节数组<br>
+			2）文件对象<br>
+			3）管道<br>
+			</p>
+			<p style="text-align:left; ">
+			输出目标也有对应的子类</p>
+						
+		</section>
+		<section>
+			<p>OutputStream 对应的子类：<br>
+			<img style="width:100%;" src="http://images.cnblogs.com/cnblogs_com/meijsuger/1216102/o_QQ%e6%88%aa%e5%9b%be20180622163318.png"/>
+			</p>	
+		</section>
+		<section>
+			<p style="text-align:left; " >Reader和Writer（字符输入和输出流）<br><br>
+			java 1.1对基本的IO流类库进行了重大的修改，当中最大的改动就是出现了Reader和Writer类。这两个类不是用来替代InputStream和OutputStream的，而是提供Unicode和面向字符的IO功能，也就是现在我们说的字符流。它的继承层次结构主要是为了国际化，而且在此之前的io流不能很好的处理16位的Unicode字符，在我们需要字符和字节结合起来使用的时候很不方便，它们也可以通过适配器（InputStreamReader/OutputStreamWriter）和InputStream/OutputStream互相转换。<br>
+			而Java中的字符是Unicode是双字节的，InputStream是用来处理字节，并不适合处理字符串文本，所以在处理字符上应该尽量使用它们。
+			</p>	
+		</section>
+		<section>
+			<p style="text-align:left; " >缓存流 <br><br>
+			BufferedInputStream和BufferedOutputStream<br>
+			BufferedReader和BufferedWriter<br>
+			缓存是IO的一种性能优化。缓存流为IO流增加了内存缓存区，大大增加了流的执行效率<br>			缓存流本身不具IO功能，只是在别的流上加上缓冲提高效率，像是为别的流装上一种包装。在对文件或其他目标频繁读写或操作的时候可能效率低、效能差，这时候使用缓冲流可以更高效的读写信息。因为缓冲流先将数据缓存起来，然后一起写入或读取出来。所以说，缓冲流还是很重要的，在IO操作时记得加上缓冲流提升性能。
+			</p>	
+		</section>
+		<section>
+			<p style="text-align:left; " >Zip压缩输入/输出流 <br><br>
+			ZipInputStream和ZipOutputStream<br>
+			JarInputStream和JarOutputStream<br>
+			也有linux下的文件压缩流：GZIPOutputStream/GZIPInputStream<br>
+			在日常的使用中经常会使用到WinRAR或WinZIP等压缩文件，通过这些软件可以把一个很大的文件进行压缩以方便传输。在Java中为了减少传输时的数据量也提供了专门的压缩流，可以将文件或文件夹压缩,而且它的压缩类型也非常丰富，更可以实现JAR及GZIP文件格式的压缩
+			</p>
+		</section>
+		<section>
+		<p style="text-align:left; " >压缩流的注意事项<br><br>
+			<p style="text-align:left; ">
+			1、压缩文件中的每一个压缩实体都使用ZipEntry保存，一个压缩文件中可能包含一个或多个ZipEntry对象。<br>
+			2、在JAVA中可以进行zip、jar、gz三种格式的压缩支持，操作流程基本上是一致的。<br>
+			3、ZipOutputStream可以进行压缩的输出，但是输出的位置不一定是文件。<br>
+			4、ZipFile表示每一个压缩文件，可以得到每一个压缩实体的输入流。<br>
+			</p>			
+		</section>
+		<section>
+			<h3>3.常见问题</h3>
+		</section>
+		<section>			
+			<p style="text-align:left; ">字符流和字节流的区别</p>
+			<p style="text-align:left; ">字节流操作的基本单元为字节（8bit），可以通过字节操作所有数据；字符流操作的基本单元为Unicode码元，只能处理字符类 数据。<br>
+			字节流默认不使用缓冲区；字符流使用缓冲区。<br>
+			字节流通常用于处理二进制数据，实际上它可以处理任意类型的数据，但它不支持直接写入或读取Unicode码元；字符流通常处理文本数据，它支持写入及读取Unicode码元。<br>
+			</p>
+		</section>
+		<section>
+			<h3>4.编码实战</h3>
+			<p></p>	   			
+		</section>
+		<section>
+			<h3>5.扩展思考</h3>
+			<p>Spring框架中的流读取图片上传到本地服务器</p>
+		</section>
+		<section>
+			<h3>6.参考文献</h3>
+			<p>JAVA编程思想</p>
+			<p>JAVA从入门到精通（第三版）</p>
+			<p>百度：JAVA IO流</p>
+		</section>        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>谢谢大家！</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
