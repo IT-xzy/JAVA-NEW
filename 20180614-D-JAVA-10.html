@@ -1,0 +1,188 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>Spring data Jpa入门</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：段文凯</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+		<section>
+            <p style="text-align:left">JPA(Java Persistence API)是Sun官方提出的Java持久化规范。JPA通过JDK 5.0注解或XML描述对象－关系表的映射关系，并将运行期的实体对象持久化到数据库中。它为Java开发人员提供了一种对象/关联映射工具来管理Java应用中的关系数据。</p>
+        </section>
+	
+		<section>
+			<p style="text-align:left">JPA的由来:</p>
+            <p style="text-align:left">JPA的出现主要是为了简化持久化开发工作和整合ORM技术，结束Hibernate，TopLink，JDO等ORM框架各自为营的局面</p>
+		</section>
+		
+		<section>
+			<p style="text-align:left">JPA是一套规范，而非产品</p>
+			<p style="text-align:left">JPA的出现只是用于规范现有的ORM技术，它不能取代Hibernate，TopLink等ORM框架。相反，在使用JPA开发时，我们仍将使用到这些ORM框架，只是此时的应用不再依赖于某个持久化提供商。应用可以在不修改代码的情况下在任何JPA环境下运行，真正做到低耦合，可扩展的程序设计。</p>
+		</section>
+		
+		<section>
+			<p style="text-align:left">SpringdataJpa</p>
+            <p style="text-align:left">Spring data jpa的目标是简化关于各种持久存储数据访问层，它极大的简化了JPA的写法，可以在几乎不用写实现的情况下，实现对数据的访问和操作，还包括分页、排序等一些基本的功能。</p>
+			<p style="text-align:left">它不算是新的ORM框架，具体使用哪种ORM框架还是由开发者决定，默认是Hibernate</p>
+		</section>
+		
+		
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">JPA包括以下3方面的技术：</p>
+            <p style="text-align:left">1、ORM映射元数据</p>
+			<p style="text-align:left">JPA支持XML和JDK5.0注释(也可译作注解)两种元数据的形式，元数据描述对象和表之间的映射关系，框架据此将实体对象持久化到数据库表中。</p>
+			<p style="text-align:left">2、Java持久化API</p>
+			<p style="text-align:left">用来操作实体对象，执行CRUD操作，框架在后台替我们完成所有的事情，开发者可以从繁琐的JDBC和SQL代码中解脱出来。</p>
+			<p style="text-align:left">3、查询语言（JPQL）</p>
+			<p style="text-align:left">这是持久化操作中很重要的一个方面，通过面向对象而非面向数据库的查询语言查询数据，避免程序的SQL语句紧密耦合。</p>
+        </section>
+		
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+		
+		<section>
+            <p style="text-align:left">JPA的复杂查询</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		
+		<section>
+            <p style="text-align:left">1、基本配置</p>
+			<p style="text-align:left">2、简单CRUD</p>
+			<p style="text-align:left">3、使用@Query查询</p>
+			<p style="text-align:left">4、复杂查询</p>
+        </section>
+		
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+		<section>
+			<p style="text-align:left">基于Hibernate的JPA实现和Mybatis的差别？</p>
+            <p style="text-align:left">1、mybatis官方文档就说了他是一个半自动化的持久层框架，相对于全自动化的 hibernate 他更加的灵活、可控</p>
+			<p style="text-align:left">2、mybatis 的学习成本低于 hibernate。hibernate 使用需要对他有深入的理解，尤其是缓存方面，作为一个持久层框架，性能依然是第一位的。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">3、传统公司需求迭代速度慢，项目改动小，hibernate可以帮他们做到一劳永逸。</p>
+			<p style="text-align:left">互联网公司追求快速迭代，需求快速变更，灵活的 mybatis 修改起来更加方便，而且一般每一次的改动不会带来性能上的下降，hibernate经常因为添加关联关系或者开发者不了解优化导致项目越来越糟糕。</p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>http://www.spring4all.com/article/500</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 段文凯</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

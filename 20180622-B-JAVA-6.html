@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是压测，为什么要进行压力测试？Jemeter工具的使用</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：郭超</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <h3>JMeter简介</h3>
+            <p>Apache JMeter是Apache组织开发的基于Java的压力测试工具。用于对软件做压力测试，它最初被设计用于Web应用测试，但后来扩展到其他测试领域。 它可以用于测试静态和动态资源，例如静态文件、Java 小服务程序、CGI 脚本、Java 对象、数据库、FTP 服务器， 等等。JMeter 可以用于对服务器、网络或对象模拟巨大的负载，来自不同压力类别下测试它们的强度和分析整体性能。另外，JMeter能够对应用程序做功能/回归测试，通过创建带有断言的脚本来验证你的程序返回了你期望的结果。为了最大限度的灵活性，JMeter允许使用正则表达式创建断言。</p>
+        </section>
+        <section>
+            <p>性能测试是通过自动化的测试工具模拟多种正常峰值和异常负载条件来对系统的各项性能指标进行测试。 性能测试包括负载测试,强度测试和容量测试等.</p>
+            <p>通过负载测试,确定在各种工作负载下系统的性能,目标是当负载逐渐增加时,测试系统各项性能指标的变 化的情况.
+压力测试是通过确定一个系统的瓶颈或者不能接受的性能点,来获得系统能提供的最大服务级别的测试.</p>
+
+           <p>在Web性能测试领域,有两种工具广泛使用:LoadRunner和JMeter.</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3>性能测试的目的</h3>
+            <p>1.评估系统的能力;</p>
+            <p>2.识别系统中的弱点;</p>
+            <p>3.系统调优;</p>
+            <p>4.测试软件中的问题;</p>
+            <p>5.验证稳定性(Resilience)和可靠性(Reliability);</p>
+        </section>
+        <section>
+            <h3>组件介绍</h3>
+            <p>1、线程组：代表一定数量的并发用户，它可以用来模拟并发用户发送请求。实际的请求内容在Sampler中定义，它被线程组包含。可以在“测试计划->添加->线程组”来建立它，然后在线程组面板里有几个输入栏：线程数、Ramp-Up Period(in seconds)、循环次数，其中Ramp-Up Period(in seconds)表示在这时间内创建完所有的线程。如有8个线程，Ramp-Up = 200秒，那么线程的启动时间间隔为200/8=25秒，这样的好处是：一开始不会对服务器有太大的负载。线程组是为模拟并发负载而设计。</p>
+        </section>
+
+        <section>
+            <p>
+            2、取样器（Sampler）：模拟各种请求。所有实际的测试任务都由取样器承担，存在很多种请求。如：HTTP 、ftp请求等等。
+            </p>
+            <p>
+            3、监听器：负责收集测试结果，同时也被告知了结果显示的方式。功能是对取样器的请求结果显示、统计一些数据（吞吐量、KB/S……）等。
+            </p>
+            <p>
+            4、断言：用于来判断请求响应的结果是否如用户所期望，是否正确。它可以用来隔离问题域，即在确保功能正确的前提下执行压力测试。这个限制对于有效的测试是非常有用的。
+            </p>
+            <p>5、定时器：负责定义请求（线程）之间的延迟间隔，模拟对服务器的连续请求。</p>
+        </section>
+        
+        <section>
+            <p>
+           6、逻辑控制器：允许自定义JMeter发送请求的行为逻辑，它与Sampler结合使用可以模拟复杂的请求序列。
+            </p>
+            <p>
+           7、配置元件维护Sampler需要的配置信息，并根据实际的需要会修改请求的内容。
+            </p>
+            <p>
+            8、前置处理器和后置处理器负责在生成请求之前和之后完成工作。前置处理器常常用来修改请求的设置，后置处理器则常常用来处理响应的数据。
+            </p>
+        </section>
+        <section>
+            <h3>JMeter执行顺序规则</h3>
+            <p>配置元件----前置处理器----定时器----采样器---- 后置处理器(除非服务器响应为空)-----断言(除非服务器响应为空)----监听器(除非服务器响应为空)</p>
+        </section>
+
+        <section>
+            <h3>JMeter测试结果</h3>
+            <p>label:定义HTTP请求名称</p>
+            <p>samples:表示这次测试中一共发出了多少个请求</p>
+            <p>average:平均响应时长,默认情况下是单个request的平均响应时长</p>
+            <p>median:中位数,50%用户的响应时长(50%阈值)</p>
+            <p>90%line:90%用户的响应时长(90%阈值)</p>
+            <p>min:访问页面的最小响应时长</p>
+            <p>max:访问页面的最大响应时长</p>
+            <p>error%:错误请求数量/请求总数</p>
+            <p>throughput:默认情况下表示每秒完成的请求数</p>
+            <p>KB/sec:每秒从服务器接收到的数据量</p>
+        </section>
+
+        <section>
+            <h3>3.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>4.常见问题</h3>
+        </section>
+
+        <section>
+            <p>哪些原因可能导致error的产生？</P>
+            <p>Http错误，包括不响应，结果找不到，数据错误等等；JMeter本身原因产生的错误。</p>
+        </section>
+
+        <section>
+            <p>为何在run时，有些页面失败，但是最后不影响结果？</P>
+            <p>原因较多，值得提及的一种是因为主流页面与它不存在依赖关系，所以即使这样的页面出错，也不会影响运行得到正常结果，但是这样会影响到测试的结果以及分析结果。</p>
+        </section>
+
+        <section>
+            <h3>5.参考文献</h3>
+            <p>
+              https://www.jianshu.com/p/1282e06c86e1
+            </p>
+            <p>
+              https://blog.csdn.net/u010454030/article/details/53491177
+            </p>
+            <p>
+              https://www.jianshu.com/p/85639f2ae88a
+            </p>
+           
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+          
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

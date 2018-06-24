@@ -1,0 +1,244 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>HttpServlet简单介绍</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：王庸之</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+
+            <h3>什么是Servlet？</h3>
+            <p>Servlet是sun公司提供的一门用于开发动态web资源的技术。</p>
+            <p>Sun公司在其API中提供了一个servlet接口，用户若想用发一个动态web资源(即开发一个Java程序向浏览器输出数据)，需要完成以下2个步骤：</p>
+            <p>1、编写一个Java类，实现servlet接口。</p>
+            <p>2、把开发好的Java类部署到web服务器中。</p>
+            <p>按照一种约定俗成的称呼习惯，通常我们也把实现了servlet接口的java程序，称之为Servlet</p>			
+			
+            
+        </section>
+       
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+				
+		<section>
+
+            <h3>HttpServlet</h3>
+			<p>Servlet的几种方法</p>			
+            <p>init（）、getServletConfig（）、service（）、getServletInfo（）、destory（）</p>
+            <p>Servlet接口SUN公司定义了两个默认实现类，分别为：GenericServlet、HttpServlet。</p>
+            <p>HttpServlet指能够处理HTTP请求的servlet，它在原有Servlet接口上添加了一些与HTTP协议处理方法，它比Servlet接口的功能更为强大。</p>
+            <p>HttpServlet在实现Servlet接口时，覆写了service方法，重写doGet方法和doPost方法</p>            
+        </section>
+		
+		<section>
+
+            <h3>Servlet与普通Java类的区别</h3>
+            <p>　Servlet是一个供其他Java程序（Servlet引擎）调用的Java类，它不能独立运行，它的运行完全由Servlet引擎来控制和调度。</p>
+			<p>针对客户端的多次Servlet请求，通常情况下，服务器只会创建一个Servlet实例对象，也就是说Servlet实例对象一旦创建，它就会驻留在内存中，为后续的其它请求服务，直至web容器退出，servlet实例对象才会销毁。</p>
+
+
+            
+        </section>
+		
+	    <section>
+
+            <h3>Servlet访问URL映射配置</h3>
+            <p>由于客户端是通过URL地址访问web服务器中的资源，所以Servlet程序若想被外界访问，必须把servlet程序映射到一个URL地址上，这个工作在web.xml文件中使用servlet元素和servlet-mapping元素完成。</p>
+			<p><servlet>元素用于注册Servlet，它包含有两个主要的子元素：servlet-name和servlet-class，分别用于设置Servlet的注册名称和Servlet的完整类名。 </p>
+
+
+            
+        </section>
+		
+			    <section>
+
+            <h3>Servlet访问URL映射配置</h3>
+			<p>一个servlet-mapping元素用于映射一个已注册的Servlet的一个对外访问路径，它包含有两个子元素：servlet-name和url-pattern，分别用于指定Servlet的注册名称和Servlet的对外访问路径。</p>
+			<p>在Servlet映射到的URL中也可以使用*通配符，但是只能有两种固定的格式：一种格式是"*.扩展名"，另一种格式是以正斜杠（/）开头并以"/*"结尾。</p>
+
+            
+        </section>
+		
+		<section>
+
+            <h3>ServletConfig对象</h3>
+			<p>在Servlet的配置文件web.xml中，可以使用一个或多个init-param标签为servlet配置一些初始化参数。</p>			
+			<p>当servlet配置了初始化参数后，web容器在创建servlet实例对象时，会自动将这些初始化参数封装到ServletConfig对象中，并在调用servlet的init方法时，将ServletConfig对象传递给servlet。进而，我们通过ServletConfig对象就可以得到当前servlet的初始化参数信息。</p>	
+				
+            
+        </section>
+		
+		
+        <section>
+		
+        <h3>ServletContext对象</h3>
+		<p>WEB容器在启动时，它会为每个WEB应用程序都创建一个对应的ServletContext对象，它代表当前web应用。ServletContext对象通常也被称之为context域对象。</p>
+		<p>由于一个WEB应用中的所有Servlet共享同一个ServletContext对象，因此Servlet对象之间可以通过ServletContext对象来实现通讯。</p>
+		<p>同时也可以用servletContext实现请求转发。</p>
+             
+		
+        </section>
+		
+		<section>
+		
+        <h3>HttpServletResponse对象</h3>
+		<p>HttpServletResponse对象代表服务器的响应。这个对象中封装了向客户端发送数据、发送响应头，发送响应状态码的方法。</p>
+		<p>发送响应头：setHeader（）、addHeader（）</p>
+		<p>发送状态码：setStatus（）</p>
+		<p>向客户端发送数据：OutputStream流、PrintWriter流</p>
+
+		
+		
+		   
+        </section>
+
+
+        <section>
+		
+            <h3>HttpServletResponse应用</h3>
+            <p>OutputStream流、PrintWriter流向浏览器输出中文</p>
+			<p>OutputStream流下载文件</p>
+			<p>通过response实现请求重定向</p>
+
+			
+        </section>
+        
+
+        <section>
+		
+            <h3>HttpServletRequest对象</h3>
+            <p>Request常用方法：</p>
+            <p>获得客户机信息</p>
+			<p>获得客户机请求头</p>
+			<p>获得客户机请求参数：getParameter(String)方法和getParameterValues(String name)方法</p>
+			<p>Request对象实现请求转发</p>
+			
+			
+        </section>
+
+        
+        <section>
+		
+            <h3>3.编码实战</h3>
+			
+        </section>
+
+        <section>
+		
+            <h3>4.常见问题</h3>
+			
+        </section>		
+
+        <section>		
+		
+           <h3></h3>		   
+           <p>请求重定向和请求转发的区别</p> 
+		   <p>OutputStream流和PrintWriter流区别</p>
+		   
+        </section>
+		
+
+        <section>
+		
+            <h3>5.参考资料</h3>
+            
+            <p>http://www.cnblogs.com/xdp-gacl/category/574705.html</p>
+
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+		
+            <h3>鸣谢</h3>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
