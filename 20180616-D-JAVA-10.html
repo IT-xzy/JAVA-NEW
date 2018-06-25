@@ -1,0 +1,275 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Hibernate解析</h2>
+            <h3>java分享会</h3>
+            <p>分享人：袁磊</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+
+      <h3>什么是Hibernate?</h3>
+       <P>Hibernate是一个开放源代码的对象关系映射框架，它对JDBC进行了非常轻量级的对象封装，它将POJO与数据库表建立映射关系，是一个全自动的orm框架，hibernate可以自动生成SQL语句，自动执行，使得Java程序员可以随心所欲的使用对象编程思维来操纵数据库。 Hibernate可以应用在任何使用JDBC的场合，既可以在Java的客户端程序使用，也可以在Servlet/JSP的Web应用中使用，最具革命意义的是，Hibernate可以在应用EJB的J2EE架构中取代CMP，完成数据持久化的重任。
+       </P>
+       </section>
+       
+       <section>
+       <h3>对象关系映射</h3>
+        <p>ORM，即Object- Relational Mapping（对象关系映射），它的作用是在关系型数据库和业务实体对象之间作一个映射，这样，我们在具体的操作业务对象的时候，就不需要再去和复杂的 SQL语句打交道，只要像平时操作对象一样操作它就可以了。 对象关系映射（ORM）提供了概念性的、易于理解的模型化数据的方法</p>
+       </section>
+
+
+        <section>
+       <h3>Hibernate的优点</h3>
+       <p>1、对象化。hibernate可以让开发人员以面相对象的思想来操作数据库。jdbc只能通过SQL语句将元数据传送给数据库，进行数据操作。而hibernate可以在底层对元数据和对象进行转化，使得开发者只用面向对象的方式来存取数据即可。
+       2、更好的移植性。hibernate使用xml或JPA的配置以及数据库方言等等的机制，使得hibernate具有更好的移植性，对于不同的数据库，开发者只需要使用相同的数据操作即可，无需关心数据库之间的差异。而直接使用JDBC就不得不考虑数据库差异的问题。</p>
+       </section>
+        
+        <section>
+       <p>3、开发效率高。hibernate提供了大量的封装（这也是它最大的缺点），很多数据操作以及关联关系等都被封装的很好，开发者不需写大量的sql语句，这就极大的提高了开发者的开发效率。
+       4、缓存机制的使用。hibernate提供了缓存机制（session缓存，二级缓存，查询缓存），对于那些改动不大且经常使用的数据，可以将它们放到缓存中，不必在每次使用时都去查询数据库，缓存机制对提升性能大有裨益。</p>
+       </section>
+        
+       <section>
+       	<h4>Hibernare的缺点</h4>
+        <p>一、由于对持久层封装过于完整，导致开发人员无法对SQL进行优化，无法灵活使用JDBC的原生SQL，Hibernate封装了JDBC，所以没有JDBC直接访问数据库效率高。要使用数据库的特定优化机制的时候，不适合用Hibernate. 
+        二、框架中使用ORM原则，导致配置过于复杂，一旦遇到大型项目，比如300张表以上，配置文件和内容是非常庞大的，另外，DTO满天飞，性能和维护问题随之而来</p>
+       
+        </section>
+
+        <section>
+        <p>三、如果项目中各个表中关系复杂，表之间的关系很多，在很多地方把lazy都设置false，会导致数据查询和加载很慢，尤其是级联查询的时候。
+          四、Hibernate在批量数据处理时有弱势，对于批量的修改，删除，不适合用Hibernate,这也是ORM框架的弱点</p>
+        </section>
+        
+        
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+         <h3>Hibernate的核心接口</h3>
+         <p>Hibernate有五大核心接口，分别是：Session Transaction Query SessionFactoryConfiguration。这五个接口构成了Hibernate运行的基本要素，可以执行存取，持久化，事务管理等操作。这五个接口可以位于系统的业务逻辑层和持久化层。</p>
+         </section>
+            
+        <section>
+         <h3>Session接口</h3>
+         <p>Session接口 Session 接口对于Hibernate 开发人员来说是一个最重要的接口。然而在Hibernate中，实例化的Session是一个轻量级的类，创建和销毁它都不会占用很多资源。这在实际项目中确实很重要，因为在客户程序中，可能会不断地创建以及销毁Session对象，如果Session 的开销太大，会给系统带来不良影响。但是Session对象是非线程安全的，因此在你的设计中，最好是一个线程只创建一个Session对象。 session可以看作介于数据连接与事务管理一种中间接口。我们可以将session想象成一个持久对象的缓冲区，Hibernate能检测到这些持久对象的改变，并及时刷新数据库。我们有时也称Session是一个持久层管理器，因为它包含这一些持久层相关的操作,诸如存储持久对象至数据库，以及从数据库从获得它们。需要注意的是，Hibernate的session不同于JSP应用中的HttpSession。当我们使用session这个术语时，我们指的Hibernate中的session，
+         而我们以后会将HttpSesion 对象称为用户session。
+         </p>
+        </section>
+
+    
+       <section>
+        <h3>SessionFactory接口</h3>
+        <p>SessionFactroy接口负责初始化Hibernate。它充当数据存储源的代理，并负责创建Session对象。这里用到了工厂模式。需要注意的是SessionFactory并不是轻量级的，因为一般情况下，一个项目通常只需要一个SessionFactory就够，当需要操作多个数据库时，可以为每个数据库指定一个SessionFactory。</p>
+        	
+       </section>
+        
+       <section>
+       	<h3>Transaction的接口</h3>
+       	<p>
+       	  Transaction接口负责事务相关的操作，一般在Hibernate的增删改中出现，但是使用Hibernate的人一般使用Spring去管理事务。
+       	</p>
+        </section>
+
+       <section>
+       	<h3>Query接口</h3>
+       	<p>Query负责执行各种数据库查询。它可以使用HQL语言或SQL语句两种表达方式。它的返回值一般是List。需要自己转换。</p>
+       </section>
+       
+       <section>
+       	<h3>Configuration接口</h3>
+        <p>Configuration对象用于配置并根启动Hibernate。Hibernate应用通过Configuration实例来指定对象—关系映射文件的位置或者动态配置Hibernate的属性，然后创建SessionFactory实例。</p>
+      </section>
+
+       <section>
+       	<h3>Hibernate运行过程:</h3>
+       	<p>1.通过Configuration().configure(),读取并解析hibernate.cfg.xml配置文件;
+           2.由hibernate.cfg.xml中的resource="xxx.hbm.xml"读取并解析映射信息;
+           3.通过config.buildSessionFactory().//创建SessionFactory;
+           4.sessionFactory.openSession().//打开Sesssion;
+           5.session.beginTransaction().//创建事务Transation;
+           6.persistent operate持久化操作.//一般指Save这个方法;
+           7.session.getTransaction().commit().//提交事务;
+           8.关闭Session;
+           9.关闭SesstionFactory;
+       	</p>
+       </section>
+        
+        <section>
+        <h3>Hibernate的单向关联与双向关联的区别:</h3>
+       <p>单向关联是你在A类里面，可以访问到B类数据，借此就访问到B表的数据，但是在B类里面无法访问A类的数据，也就是访问不到A表的数据。双向是在B类里也可以访问A的数据。举个例子:班级表和学生表，对应的java类是班级类和学生类，假如我在显示学生信息的时候需要同时显示其所属的班级信息，那么就可以建立学生类到班级类的单向关联，如果我还想在显示班级基本信息的同时显示其所对应的学生信息，那么这时就可以建立双向关联了。
+      </p>
+        </section>
+
+        <section>
+       <p>Hibernate推荐使用双向关联,单向一对多关联映射是在一的一端维护关系,具有以下缺点:必须先保存多的一端后才可以保存一的一端，所以在保存多的一端时多的一端不知道一的一端是否存在相应的数据，所以只能将维护的关系字段设置为null，如果为非空则无法保存。因为是一的一端维护关系，所以在保存一的一端时，会发出多余的 update语句维护多的一端的外键关系。</p>
+        </section>
+
+        <section>
+      <H3>Hibernate缓存</H3>
+      <p>缓存就是数据库数据在内存中的临时容器，包括数据库数据在内存中的临时拷贝，它位于数据库与数据库访问层中间。ORM在查询数据时首先会根据自身的缓存管理策略，在缓存中查找相关数据，如发现所需的数据，则直接将此数据作为结果加以利用，从而避免了数据库调用性能的开销。而相对内存操作而言，数据库调用是一个代价高昂的过程。</p>
+        </section>
+        
+        <section>
+        <p>Hibernate缓存包括两大类：一级缓存和二级缓存。
+        Hibernate一级缓存又被成为“Session的缓存”。Session缓存是内置的，不能被卸载，是事务范围的缓存。在一级缓存中，持久化类的每个实例都具有唯一的OID。
+        Hibernate二级缓存又被称为“SessionFactory的缓存”。由于SessionFactory对象的生命周期和应用程序的整个过程对应，因此Hibernate二级缓存是进程范围或者集群范围的缓存，有可能出现并发问题，因此需要采用适当的并发访问策略，该策略为被缓存的数据提供了事务隔离级别。第二级缓存是可选的，是一个可配置的插件，默认下SessionFactory不会启用这个插件。</p>
+        </section>
+        
+
+        <section>
+        <h3>Hibernate延迟加载</h3>
+        <p>延迟加载（load）是Hibernate为提高程序执行效率而提供的一种机制，即只有真正使用该对象的数据时才会创建。
+       延迟加载的过程：通过代理（Proxy）机制来实现延迟加载。Hibernate从数据库获取某一个对象数据时、获取某一个对象的集合属性值时，或获取某一个对象所关联的另一个对象时，由于没有使用该对象的数据（除标识符外），Hibernate并不从数据库加载真正的数据，而只是为该对象创建一个代理对象来代表这个对象，这个对象上的所有属性都为默认值；只有在真正需要使用该对象的数据时才创建这个真正的对象，真正从数据库中加载它的数据。
+       当调用Session上的load()方法加载一个实体时；当Session加载某个实体时，会对这个实体中的集合属性值采用延迟加载；当Session加载某个实体时，会对这个实体所单端关联的另一个实体对象采用延迟加载
+
+        </p>
+        </section>
+        <section>
+            <h3>3.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>4.常见问题</h3>
+        </section>
+
+
+        <section>
+            <h3>hibernate的三种状态之间如何转换</h3>
+        <p>当对象由瞬时状态(Transient)一save()时，就变成了持久化状态； 
+        当我们在Session里存储对象的时候，实际是在Session的Map里存了一份， 也就是它的缓存里放了一份，然后，又到数据库里存了一份，在缓存里这一份叫持久对象(Persistent)。 Session 一 Close()了,它的缓存也都关闭了,整个Session也就失效了,这个时候，这个对象变成了游离状态(Detached)，但数据库中还是存在的。 
+        当游离状态(Detached)update()时，又变为了持久状态(Persistent)。 
+         当持久状态(Persistent)delete()时，又变为了瞬时状态(Transient), 此时，数据库中没有与之对应的记录。</p>
+        </section>
+
+      <section>
+      	<h3>Hibernate查询方法</h3>
+      	<p>1,HQL查询,适用情况：常用方法，比较传统，类似jdbc。缺点：新的查询语言，适用面有限，仅适用于Hibernate框架。
+           2,对象化查询Criteria方法,适用情况：面向对象操作，革新了以前的数据库操作方式，易读。缺点：适用面较HQL有限。
+           3,动态分离查询DetachedCriteria,适用情况：面向对象操作，分离业务与底层，不需要字段属性摄入到Dao实现层。  缺点：适用面较HQL有限。
+           4,例子查询,适用情况：面向对象操作。   缺点：适用面较HQL有限，不推荐。
+           5,sql查询,适用情况：不熟悉HQL的朋友，又不打算转数据库平台的朋友，万能方法   缺点：破坏跨平台，不易维护，不面向对象。
+           6,命名查询,适用情况：万能方法，有点像ibatis轻量级框架的操作，方便维护。  缺点：不面向对象。基于hql和sql，有一定缺陷。
+      	 </p>
+      </section>
+
+      <section>
+      	<h3>什么是Hibernate的并发机制？怎么去处理并发问题？</h3>
+      	<p>Hibernate并发机制：
+         a、Hibernate的Session对象是非线程安全的,对于单个请求,单个会话,单个的工作单元(即单个事务,单个线程),它通常只使用一次, 然后就丢弃。
+         b、多个事务并发访问同一块资源,可能会引发第一类丢失更新，脏读，幻读，不可重复读，第二类丢失更新一系列的问题。
+         解决方案：设置事务隔离级别。 
+        Serializable：串行化。隔离级别最高，在该级别下，事务串行化顺序执行，可以避免脏读、不可重复读与幻读。但是这种事务隔离级别效率低下，比较耗数据库性能，一般不使用。
+        Repeatable Read：重复读，就是在开始读取数据（事务开启）时，不再允许修改操作,解决不可重复读问题.
+        Read Committed：读提交，顾名思义，就是一个事务要等另一个事务提交后才能读取数据,解决脏问题.
+        Read Uncommitted：未提交数据读。隔离级别最差 
+        设置锁：乐观锁和悲观锁。 
+        </p>
+      </section>
+
+      <section>
+            <h3>5.参考文献</h3>
+            <p>
+              https://blog.csdn.net/xc635960736/article/details/7049863
+            </p>
+            <p>
+            https://www.cnblogs.com/tianzibobo/articles/3154909.html
+            </p>
+            <p>
+            http://tracylihui.github.io/2015/07/20/Hibernate%EF%BC%9A%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6%E7%9A%84%E5%AD%A6%E4%B9%A0/
+            </p>
+            
+        </section>
+
+         <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

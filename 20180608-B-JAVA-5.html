@@ -1,0 +1,292 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	<style>
+		.left{ text-align: left; }
+	</style>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>JWT简单介绍</h2>
+            <p>分享人：张强</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+         <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>1.背景介绍</h3>
+            </section>
+             <section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+	             <p>什么是JWT<br><br>
+				JWT（JSON WEB TOKEN）：JSON网络令牌，JWT是一个轻便的安全跨平台传输格式，定义了一个紧凑的自包含的方式在不同实体之间安全传输信息（JSON格式）。它是在Web环境下两个实体之间传输数据的一项标准。实际上传输的就是一个字符串。广义上讲JWT是一个标准的名称；狭义上JWT指的就是用来传递的那个token字符串<br>
+				</p>
+				<p style="font-size: 23px; ">
+					
+				* 标准定义方为ISOC（Internet Society 国际互联网协会），标准文件为 RFC 7519，目前绝大多数的网络标准都是由ISOC定义的。<br>
+				* RFC(Request For Comments），意即“请求评议”，包含了关于Internet的几乎所有重要的文字资料和标准，也称为“网络知识圣经”
+				</p>				
+             </section>
+             <section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p>JWT用来做什么？怎么来的？</p>
+				<p style="font-size: 30px;"><br>					
+				由于http协议是无状态的，所以客户端每次访问都是新的请求。这样每次请求都需要验证身份，传统方式是用session+cookie来记录/传输用户信息，而JWT就是更安全方便的方式。它的特点就是简洁，紧凑和自包含，而且不占空间，传输速度快,而且有利于多端分离，接口的交互等等<br>
+				JWT是一种Token规范，主要面向的还是登录、验证和授权方向，当然也可以用只来传递信息。一般都是存在header里，也可以存在cookie里。
+			</p>		
+
+			<p style="font-size: 23px; ">
+					紧凑: 意味着这个字符串很小，甚至可以通过URL参数，POSTparameter中以Http Header的方式传输。<br>
+					自包含：传输的字符串包含很多信息，别人拿到以后就不需要再多次访问数据库获取信息，而且通过其中的信息就可以知道加密类型和方式，当然解密需要公钥和密钥。</p>	
+             </section>
+
+             <section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+             	<p>应用场景：认证和授权，认证解决[你是谁]的问题，授权解决了[你能做什么]的问题</p>
+			<p>一次性验证，邮件验证<br>
+				注册激活<br>
+				登录验证，长期未登录激活<br>
+				应用授权<br>
+				单点登录<br>
+			</p>
+				<p>
+				什么是TOKEN<br>
+				Token是服务器签发的一串加密字符串，是为了给客户端重复访问的一个令牌，作用是为了证明请求者（客户端）的身份，保持用户长期保持登录状态。
+				</p>
+             </section>
+             <section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p>
+				JWT和TOKEN的关系<br><br>
+				JWT就是TOKEN的一种载体，或者说JWT是一种标准，而Token是一个概念，而JWT就是这个概念执行的一种规范，通俗点说token就是一串字符串，jwt就是加上类型，信息等数据再加密包装一下成为一个新的token。<br>
+				最直观的区别就是不使用JWT的token需要查询数据库来验证，而使用JWT可以不用对数据库进行操作，因为它本身包含了可自定义的信息<br>
+				* JWT是所有语言通用的<br>				
+				* 其实sessionID储存也算是一种token
+				</p>
+             </section>
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+				<h3>2.知识剖析</h3>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p>JWT的数据结构以及签发的过程</p>
+				<p>JWT由三部分构成：header（头部）、payload（载荷）和signature（签名）。</p>
+				<p>Header 头部信息：指定类型和算法</p>
+				<p>Payload 荷载信息：存放Claims声明信息</p>
+				<p>Signature 签名：把前两者对应的Json结构进行base64url编码之后的字符串拼接起来和密钥放一起加密后的签名</p>
+				<p>组成方式为 header.payload.signature</p>
+				<p  style="font-size: 20px;">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.<br>eyJpc3MiOiLlvKDlvLoiLCJuYW1lIjoiNzg5IiwiZXhwIjoxNTI4MzY0MjU5LCJpYXQiOjE1MjgzNjMwNTl9.<br>574koY-c9SqMNNzfvAWQuKEnimWeZAcoFQ5XudNWF3o</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>Header的结构</h3>
+				<p style="text-align:left;">* type 声明类型 <br>
+					* algorithm 声明加密算法 <br><br>
+				格式： {"typ": "JWT","alg": "HS256"}<br>
+				</p>
+				<img src="http://images2015.cnblogs.com/blog/459873/201611/459873-20161122142350471-273027174.png"><br>
+			</section>		
+					
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>payload的结构</h3>
+				<p style="text-align:left;">* 声明信息<br>
+					payload用来承载要传递的数据，它的json结构实际上是对JWT要传递的数据的声明，这些声明被JWT标准称为claims（声明），它的每个属性键值对其实就是一个claim，JWT常用的有两种声明，<br>一种是Reserved claims（保留声明），也就是JWT规定的标准声明。<br>
+					一种是Private claims（自定义声明），我们在这里定义要传递的信息<br>
+					还有一种是public claims（公共声明），这个目前没用到。
+					<br><br>
+				格式： {"name": "value","id": "value2"}<br>
+				</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>标准声明（JWT保留声明）</h3>
+				<p style="text-align:left;">•iss(Issuser)：代表这个JWT的签发主体； <br>
+•sub(Subject)：代表这个JWT的主体，即它的所有人； <br>
+•aud(Audience)：代表这个JWT的接收对象； <br>
+•exp(Expiration time)：是一个时间戳，代表这个JWT的过期时间； <br>
+•nbf(Not Before)：是一个时间戳，代表这个JWT生效的开始时间，意味着在这个时间之前验证JWT是会失败的； <br>
+•iat(Issued at)：是一个时间戳，代表这个JWT的签发时间； <br>
+•jti(JWT ID)：是JWT的唯一标识。 <br>
+</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>signature</h3>
+				<p style="text-align:left;">* 签名<br><br>
+				把header和payload对应的json结构进行base64url编码之后得到的字符串用点号拼接起来，然后根据header里面alg指定的签名算法生成出来的，然后添加自己设定的key进行加密签名		<br><br>							
+				添加：<br>
+					.sign(Algorithm.HMAC256(Key))</p>
+				<p style="font-size: 23px; ">在线加密解密：http://tool.oschina.net/encrypt?type=3</p>	
+
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>工具</h3>
+				<p >auth0 &nbsp;&nbsp;&nbsp; OAuth2.0 &nbsp;&nbsp;&nbsp; JWTUtil &nbsp;&nbsp;&nbsp; jsonwebtoken<br><br></p>
+			</section>
+		</section>
+		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+				<h3>3.常见问题</h3>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>如何验证</p>
+				<p style=" text-align:left">	
+				当接收方接收到一个JWT的时候，首先要对这个JWT的完整性进行验证，这个就是签名认证。它验证的方法其实很简单，只要把header使用base64url解码以后就知道签发者用什么算法做的签名，然后用这个算法对header和payload加密一下，再比较这个签名是否和JWT本身包含的signature是否完全相同，只要不同就可以认为这个JWT是被篡改过的。所以接收方生成签名的时候必须使用跟JWT发送方相同的密钥。<br><br>
+				再次就是验证payload里的部分，比如是否过期，还有自定义的信息是否相同，加上已经前面验证的signature，这样就保证了这个签名的有效性
+				</p>				
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>互斥登录/修改密码后登录的问题</p>
+				<p style=" text-align:left">	
+				场景：用户在多个设备或者其它浏览器/IP登录以后或者修改密码以后，那其它的设备就需要自动退出登录<br><br>
+				1.用户修改密码之后签发一个新的token来覆盖之前的。但是之前的token只要在失效之前仍然是可以验证并且登录的<br><br>
+				2.用户手动退出的时候也是需要token失效的，这就需要退出的时候直接清除或者覆盖客户端保存的token。同上，之前的token仍然有效，所以token的时间不能太长<br><br>
+				3.设置黑名单，在签发新token的时候把之前未过期的token加入黑名单使之失效。但是这样就需要储存token，而jwt的优点就是不需要储存空间。
+				</p>				
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">				
+				<p>续签</p>
+				<p>场景：需要用户长期登录的应用，比如用你开发需要用户保持登录的应用，在使用token的时候保证用户体验不需要频繁登录操作，又要保证用户在一段时间之后登录过期重新登录，主要是一个用户体验和用户信息安全的问题。这个时候又要求token不能过长，只能通过续签来保持登录状态</p>
+				<p>又或者说用户登录的时候你需要获取用户在社交网站的信息，就需要获取社交网站授权的token，这也需要续签，不过这是向社交网站续签。这里后面说。</p>
+			</section>
+			<section class="future left" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+			<p>何时续签：<br>
+			1.每次请求刷新 每次请求直接覆盖签发新的token<br>
+			2.记录时间定时刷新 设置一个定时器，记录签发时间，然后到过期的时候签发新的<br>
+			3.临期时刷新 访问的时候对比时间，如果即将过期就立即刷新。<br>
+			4.过期后续签，这样设置过期时间的意义就在于如果token被盗取后黑客登录也需要续签，这样用户再次登录客户端就会发现用户登录异常。而且每次获取的token都是新的，旧的只能获取一次续签的机会，也就说如果用户续签以后之前的token就不能再续签了。<br>
+			5.jwt-autorefresh(JWT自动刷新)（有限制条件，在客户端定时刷新）
+			</p>
+			</section>	
+		</section>
+		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>4.编码实战</h3>
+			</section>
+		</section>
+		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>5.扩展思考</h3>				
+			</section>
+			<!-- <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>安全性</p>
+				<p></p>
+			</section>	 -->	
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;text-align:left;" hidden="">
+				<p>如何维持 token 长期动态更新？</p>	
+				<p>一是在用户登录后生成一个有效期很长的Token(比如一个月乃至半年),保存在服务器端,同时发给客户端, 客户端的每次请求就以这个Token验证身份.</p>	
+				<p>安全性非常低，而且还会占用内存，更容易被获取信息，即使使用https传输也能在客户端本地被获取信息，长时间冒充用户登录。</p>
+			</section>	
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;text-align:left;" hidden="">
+				<p>二是在第一次用账号密码登录的时候服务器返回两个过期时间不同的 token<br>
+				一个短时效的token（ Access Token ）<br>
+			一个长时效的token（Refresh Token）<br>
+			Access Token过期之后，验证Refresh token 如果通过验证就重新获取一个Access token，如果两者都过期，就需要重新登录。<br>这种方式一般用来做授权，是微信等平台的设计方案，用的是oauth2实现。因为用户使用qq、微信等登录第三方的时候就需要授权，这个授权有一个长期的一个短期的，这样就不需要用户每次都授权，只要短期授权过期，且长期授权未过期的情况下第三方就可以继续获得授权。如果长期授权也过期了那么就需要用户重新授权登录了</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">				
+				<p>三是以旧换新</p>
+				<p>只使用一个短期的token，每次请求用这个token认证，过期了就凭此认证换取一个新的，也只能换取一次，这也是前面说的过期续签。当用户不登录的情况下被盗取token，黑客如果持续登录就需要持续更换旧的token，但是这时候如果用户登录的话服务器就会发现用户频繁更换ip和客户端登录的异常，这样可以强制让用户重新登录。但是如果用户长期不登也就没办法判断是否被盗取信息，这也是需要解决的地方。毕竟安全性都是在一定条件下才算安全的。</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">				
+				<p></p>
+				<p>而你作为第三方的时候，写了一个应用，要得到访问用户在某些大站的一些资源的授权，用户那里会弹出来大站的授权页面，这要求用户输入帐号密码做验证的。 然后你拿到 access token 和 refresh token 以后，快过期了用 refresh token 刷一下，就省去让用户再输入帐号密码登录然后再授权的这一步了。</p>
+			</section>
+			<section class="future left" aria-hidden="true" style="top: 198px; display: none;" hidden="">			
+			<p>单点登录</p>
+			<p>oauth2.0</p>
+			<p>单点登录是多系统下应用的，比如一个公司有OA系统，门户系统，管理系统，商品系统等等，公司用户可以在内部使用账户统一登录，不用每天登录每个系统浪费时间。（qq微信登录其它网站也算是单点登录，但是它们是跨域的，这样不推荐使用jwt）。这个有很多办法解决，比如浏览器记录用户名密码，使用session等等，这里也是可以使用token验证的，只是需要使用Oauth2，它不向下兼容。</p>
+			</section>	
+		</section>
+		<section>
+			<h3>6.参考文献</h3>
+			<p style="text-align:left;">JWT实现token-based会话管理 : https://www.cnblogs.com/lyzg/p/6028341.html<br><br>
+			RFC 7519 : https://tools.ietf.org/html/rfc7519<br><br>
+			RFC : https://baike.baidu.com/item/RFC/1840?fr=aladdin<br><br>
+			auth0：https://auth0.com/docs/tokens/refresh-token/current<br><br>
+			oauth2 ： https://oauth.net/2/</p>
+
+		</section>
+        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>欢迎大家讨论</p>            
+        </section>
+        <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">				
+			</section>
+		</section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

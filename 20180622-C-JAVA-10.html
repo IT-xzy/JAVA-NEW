@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '/css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>多线程</h3>
+            <p>小课堂</p>
+            <h3></h3>
+            <p>分享人：罗佳超</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">进程</p>
+            <p style="text-align:left">每个进程都有独立的代码和数据空间（进程上下文），进程间的切换会有较大的开销，一个进程包含1--n个线程。（进程是资源分配的最小单位）</p>
+            <p style="text-align:left">线程</p>
+            <p style="text-align:left">同一类线程共享代码和数据空间，每个线程有独立的运行栈和程序计数器(PC)，线程切换开销小。（线程是cpu调度的最小单位）</p>
+            <p style="text-align:left">线程和进程一样分为五个阶段：创建、就绪、运行、阻塞、终止。</p>
+            <p style="text-align:left">多进程是指操作系统能同时运行多个任务（程序）。</p>
+            <p style="text-align:left">多线程是指在同一程序中有多个顺序流在执行。</p>
+        </section>
+
+    
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p>Java程序运行原理</p>
+            <p>jvm中的主线程，垃圾回收线程</p>
+            <p>线程的实现</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">Java程序运行原理</p>
+            <p style="text-align:left">Java命令会启动java虚拟机，启动JVM，等于启动了一个应用程序，也就是启动了一个进程。</p>
+            <p style="text-align:left">该进程会自动启动一个 “主线程” ，然后主线程去调用某个类的 main 方法。</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">jvm中的主线程，垃圾回收线程</p>
+            <p style="text-align:left">执行main函数的线程，称为主线程</p>
+            <p style="text-align:left">执行垃圾回收的线程，称为垃圾回收线程。</p>
+            <p style="text-align:left">main函数代码执行时，也在运行着垃圾回收。所以是同时执行的，这就是两个独立的线程来进行控制的。</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">线程的实现</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">继承Thread类</p>
+            <p style="text-align:left">实现Runnable接口</p>
+            <p style="text-align:left">使用ExecutorService、Callable、Future实现有返回结果的多线程</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">Thread和Runnable的区别</p>
+            <p style="text-align:left">如果一个类继承Thread，则不适合资源共享。但是如果实现了Runable接口的话，则很容易的实现资源共享。</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">实现Runnable接口比继承Thread类所具有的优势：</p>
+            <p style="text-align:left">适合多个相同的程序代码的线程去处理同一个资源</p>
+            <p style="text-align:left">可以避免java中的单继承的限制</p>
+            <p style="text-align:left">增加程序的健壮性，代码可以被多个线程共享，代码和数据独立</p>
+            <p style="text-align:left">线程池只能放入实现Runable或callable类线程，不能直接放入继承Thread的类</p>
+        </section>
+        <section>
+            <p style="text-align:left">线程状态</p>
+            <p style="text-align:left">新建状态（New）：新创建了一个线程对象。</p>
+            <p style="text-align:left">就绪状态（Runnable）：线程对象创建后，其他线程调用了该对象的start()方法。该状态的线程位于可运行线程池中，变得可运行，等待获取CPU的使用权。</p>
+            <p style="text-align:left">运行状态（Running）：就绪状态的线程获取了CPU，执行程序代码。</p>
+            <p style="text-align:left">阻塞状态（Blocked）：阻塞状态是线程因为某种原因放弃CPU使用权，暂时停止运行。直到线程进入就绪状态，才有机会转到运行状态。</p>
+            <p style="text-align:left">死亡状态（Dead）：线程执行完了或者因异常退出了run()方法，该线程结束生命周期。</p>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>https://www.cnblogs.com/yjd_hycf_space/p/7526608.html</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 罗佳超</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

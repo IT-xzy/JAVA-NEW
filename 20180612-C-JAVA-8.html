@@ -1,0 +1,240 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>Quartz定时任务介绍以及在Spring中的简单使用</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：王琦超</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+       <section>
+            <p style="text-align:left">Quartz是什么，可以做什么？</p>
+            <p style="text-align:left">Quartz是一个任务调度框架。你可以将其理解为一个自定义闹钟，我们平时生活中很多东西都离不开定时功能，比如你遇到这样的问题</p>
+            <p style="text-align:left">a.想每月25号，信用卡自动还款</p>
+            <p style="text-align:left">b.想每天早上7点，中午11.30，晚上6.20命令电饭锅自动烧饭</p>
+            <p style="text-align:left">c.想在电脑开机时，每隔1小时，备份一下自己的爱情动作片，学习笔记到云盘</p>
+			 <p style="text-align:left">d.想每隔0.5秒确认一下抢票有没有开始</p>
+        </section>
+         <section>
+            <p style="text-align:left">这些问题总结起来就是：在某一个有规律的时间点干某件事。</p>
+            <p style="text-align:left">并且时间的触发的条件可以非常复杂（比如每月最后一个工作日的17:50），复杂到需要一个专门的框架来干这个事。 </p>
+            <p style="text-align:left">Quartz就是来干这样的事，你给它一个触发条件的定义，它负责到了时间点，触发相应的Job起来干活。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">1.Quartz的组成</p>
+            <p style="text-align:left">1）Scheduler调度器：所有的调度都是由它控制。</p>
+            <p style="text-align:left">2）Trigger触发器：定义触发的条件，主要涉及定义时间条件。</p>
+            <p style="text-align:left">通用属性（有但是不一定用得到）：</p>
+            <p style="text-align:left">StartTime&EndTime:顾名思义，开始和结束时间，date类型</p>
+			
+			
+        </section>
+
+        <section>
+		<p style="text-align:left">Priority:优先级，当多个任务执行，系统资源不够时，按照优先级来选择执行，默认为5，越高优先级越高，负数也是5.</p>
+            <p style="text-align:left">Misfire:错失触发策略，一般是资源不足或是重启等问题导致某些任务没有触发或者触发少了的应对策略，有很多选择，包括一次触发Miss的，忽略Miss的等等，看情况选择。</p>
+            <p style="text-align:left">Calinder:补充Trigger中时间设计不足的点。可以指定特定时间，或者是时间段等。</p>
+            <p style="text-align:left"></p>
+           
+        </section>
+
+        <section>
+            <p style="text-align:left">触发器其分为四种:</p>
+            <p style="text-align:left">a.SimpleTrigger:顾名思义，最简单的触发器，指定时间开始，以一定时间间隔（毫秒）执行任务。适合间隔时间短、时间多次重复的任务</p>
+            <p style="text-align:left">属性：</p>
+			 <p style="text-align:left">repeatInterval 重复间隔</p>
+            <p style="text-align:left">repeatCount 重复次数。实际执行次数是 repeatCount+1。因为在startTime的时候一定会执行一次。</p>
+            <p style="text-align:left"></p>
+        </section>
+		
+		  <section>
+            <p style="text-align:left">b.CanlinderIntervalTrigger：类似于SimpleTrigger，指定从某一个时间开始，以一定的时间间隔执行的任务。 但是不同的是SimpleTrigger指定的时间间隔为毫秒，没办法指定每隔一个月执行一次（每月的时间间隔不是固定值），而CalendarIntervalTrigger支持的间隔单位有秒，分钟，小时，天，月，年，星期。</p>
+            <p style="text-align:left">相较于SimpleTrigger有两个优势：1、更方便，比如每隔1小时执行，你不用自己去计算1小时等于多少毫秒。 2、支持不是固定长度的间隔，比如间隔为月和年。但劣势是精度只能到秒。</p>
+             <p style="text-align:left">它适合如：9:00 开始执行，并且以后每天9:00执行一次</p>
+			<p style="text-align:left">属性：interval 执行间隔;intervalUnit 执行间隔的单位（秒，分钟，小时，天，月，年，星期）</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section> 
+		<section>
+            <p style="text-align:left">c.DailyTimeIntervalTrigger</p>
+            <p style="text-align:left">指定每天的某个时间段内，以一定的时间间隔执行任务。并且它可以支持指定星期。</p>
+            <p style="text-align:left">它适合的任务类似于：指定每天9:00 至 18:00 ，每隔70秒执行一次，并且只要周一至周五执行。</p>
+			<p style="text-align:left">属性：</p>
+            <p style="text-align:left">startTimeOfDay 每天开始时间;endTimeOfDay 每天结束时间</p>
+		    <p style="text-align:left">daysOfWeek 需要执行的星期;interval 执行间隔;repeatCount 重复次数</p>
+            <p style="text-align:left">intervalUnit 执行间隔的单位（秒，分钟，小时，天，月，年，星期）</p>
+        </section>
+		  <section>
+            <p style="text-align:left">d.CronTrigger</p>
+            <p style="text-align:left">适合于更复杂的任务，它支持类型于Linux Cron的语法（并且更强大）。基本上它覆盖了以上三个Trigger的绝大部分能力（但不是全部）—— 当然，也更难理解。</p>
+            <p style="text-align:left">它适合的任务类似于：每天0:00,9:00,18:00各执行一次。</p>
+            <p style="text-align:left">属性：</p>
+			 <p style="text-align:left">cron表达式，类似正则表达式，需要用的时候学习一下，针对自己需要的场景仿照着写一个就可以，没必要深究。</p>
+			  <p style="text-align:left">举个例子：0 15 10 ? * 6L  代表什么意思？</p>
+			  <p style="text-align:left">每月最后一个星期五10:15分运行。</p>
+        </section>
+		
+        <section>
+            <p style="text-align:left">3）JobDetail任务细节定义器：</p>
+            <p style="text-align:left">具体干下面几件事：</p>
+            <p style="text-align:left">a.创建具体任务</p>
+            <p style="text-align:left">b.定义一个JobDetail引用这个任务</p>
+			<p style="text-align:left">c.将其加入ScheduleJob</p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">怎么在spring中来一站傻瓜式实现定时器的功能呢？</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        
+        <section>
+            <p style="text-align:left">1.首先需要导入相关依赖</p>
+            <p style="text-align:left">2.编写需要执行的定时任务的代码</p>
+            <p style="text-align:left">3.创建调度器，触发器，任务细节</p>
+            <p style="text-align:left">4.加载配置，启动即可</p>
+            <p style="text-align:left"></p>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">1.如果不用Quartz应该怎么做？</p>
+            <p style="text-align:left">2.前面的几个例子我们应该各自用哪个触发器呢？</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>https://www.cnblogs.com/drift-ice/p/3817269.html</p>
+            <p></p>
+            <p></p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 王琦超</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
