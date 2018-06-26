@@ -1,0 +1,261 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>Spring MVC简单介绍</h3>
+			<p></P>
+            <h4></h4>
+            <p>分享人：郑志航</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section> 
+            <h3>/h3>
+        </section>
+        <section>
+            <p style="text-align:left">Spring MVC 是一款基于MVC架构模式的轻量级Web框架，其目的是将Web开发模块化，对整体架构进行解耦，简化web开发流程。因此把web层分成三块：模型（Model）、视图（View）和控制器（Controller），即为MVC</p>
+        </section>
+          <section> 
+            <h3>1.背景介绍</h3>
+            <h5>JavaWeb经历的几个变化</h5>
+            <p style="text-align:left">1:Jsp Model1第一代：</p>
+            <p style="text-align:left">2:JSP Model1第二代</p>
+            <p style="text-align:left">3:JSP Model2 </p>
+        </section>
+        <section> 
+            <h3>1.背景介绍</h3>
+            <h5>Jsp Model1第一代</h5>
+            <p style="text-align:left">JSP Model1是JavaWeb早期的模型，它适合小型Web项目，开发成本低！Model1第一代时期，服务器端只有JSP页面，所有的操作都在JSP页面中，连访问数据库的API也在JSP页面中完成。也就是说，所有的东西都耦合在一起，对后期的维护和扩展极为不利。</p>
+        </section>
+        <section> 
+            <h3>1.背景介绍</h3>
+            <h5>JSP Model1第二代</h5>
+            <p style="text-align:left">JSP Model1第二代，把业务逻辑的内容放到了JavaBean中，而JSP页面负责显示以及请求调度的工作。而视图工作和请求调度（控制器）放在一起会产生一定的耦合，所以依然不太完善。</p>
+        </section>
+        <section> 
+            <h3>1.背景介绍</h3>
+            <h5>JSP Model2</h5>
+            <p style="text-align:left">JSP Model2模式已经可以清晰的看到MVC完整的结构了。</p>
+            <p style="text-align:left">·JSP：视图层，用来与用户打交道。负责接收用来的数据，以及显示数据给用户； </p>
+            <p style="text-align:left">·Servlet：控制层，负责找到合适的模型对象来处理业务逻辑，转发到合适的视图； </p>
+            <p style="text-align:left">JavaBean：模型层，完成具体的业务工作，例如：数据的查询，更新等。</p>
+        </section>
+
+        
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3>.知识剖析</h3>
+            <p style="text-align:left"> 本节主要讲的内容</p> 
+            <p style="text-align:left"> 如下：</p> 
+            <p style="text-align:left"> 1:JavaWeb经典三层框架</p> 
+            <p style="text-align:left"> 2:MVC小解 </p> 
+            <p style="text-align:left"> 3:简单的demo运行</p> 
+        </section>
+
+        <section>
+            <h3>知识剖析</h3>
+            <h4>1:JavaWeb经典三层框架</h4>
+            <p style="text-align:left">我们常说的三层框架是由JavaWeb提出的，也就是说这是JavaWeb独有的！ 
+所谓三层是表述层（WEB层）、业务逻辑层（Business Logic），以及数据访问层（Data Access）。 </p> 
+            <p style="text-align:left">WEB层：包含JSP和Servlet等与WEB相关的内容； </p> 
+            <p style="text-align:left"> 业务层：业务层中不包含JavaWeb API，它只关心业务逻辑</p> 
+            <p style="text-align:left"> 数据层：封装了对数据库的访问细节</p> 
+        </section>
+
+        <section>
+            <h3>知识剖析</h3>
+            <h4>2:MVC小解 </h4>
+            <p style="text-align:left">1:包含的组件</p> 
+            <p style="text-align:left">2:运行的过程</p> 
+            <p style="text-align:left">3:简单的demo展示</p> 
+        </section>
+
+        <section>
+            <h3>知识剖析</h3>
+            <h4>2:MVC小解：包含的组件 </h4>
+            <p style="text-align:left">1：中央调度器 DispatcherServlet（大都数时候不需要程序开发）</p> 
+            <p style="text-align:left">作用接收请求，响应结果，</p> 
+            <p style="text-align:left">相当于转发器,中央处理器。有了DispatcherServlet减少了其它组件之间的耦合的。</p> 
+        </section>
+
+        <section>
+            <h3>知识剖析</h3>
+            <h4>2:MVC小解：包含的组件 </h4>
+            <p style="text-align:left">2：处理器映射器HeadlerMapping (不需要程序员开发）</p> 
+            <p style="text-align:left">作用：根据请求的Url查找 Handler（xml配置或者注解去查找）</p> 
+            <p style="text-align:left">3：处理器适配器 HandlerAdapter</p> 
+            <p style="text-align:left">作用：根据映射器找到的handler信息，按照相关规则去执行handler</p> 
+        </section>
+
+        <section>
+            <h3>知识剖析</h3>
+            <h4>2:MVC小解：包含的组件 </h4>
+            <p style="text-align:left">4：处理器Conterller/（或者说 Handler）（需要程序员开发）</p> 
+            <p style="text-align:left">作用：执行相关的请求处理逻辑，并且返回相应的数据和视图信息，将其封装到ModelAndView对象中</p> 
+        </section>
+
+        <section>
+            <h3>知识剖析</h3>
+            <h4>2:MVC小解：包含的组件 </h4>
+            <p style="text-align:left">5:视图解析器View resolver</p> 
+            <p style="text-align:left">作用：进行视图解析，根据逻辑视图名解析成真正的视图（view)</p> 
+            <p style="text-align:left">6:视图 View（需要程序员开发JSP）</p> 
+            <p style="text-align:left">本身是一个接口，实现类支持不同的view类型</p> 
+        </section>
+
+        <section>
+            <h3>知识剖析</h3>
+            <h4>2:MVC小解：运行的过程 </h4>
+            <p style="text-align:left">1：发起请求到前端控制器（DispatcherServlet ）</p> 
+            <p style="text-align:left">2:前端控制器请求HandlerMapping查找Handler（可以根据xml、注解进行查找）</p> 
+            <p style="text-align:left">3：处理器映射器根据配置找到相应的Handler(可能包含若干个Interceptor.返回Handler给前端控制器</p> 
+        </section>
+        <section>
+
+        <h3>知识剖析</h3>
+            <h4>2:MVC小解：运行的过程 </h4>
+            <p style="text-align:left">4：前端控制器DispatcherServlet 调用处理器适配器HandlerAdapter 执行Handler</p> 
+            <p style="text-align:left">5：处理器适配器HandlerAdapter 执行Handler</p> 
+            <p style="text-align:left">6:处理器适配器HandlerAdaptor向前端控制器返回ModelAndView （ModelAndView 是SpringMvc的底层对象 包括model和view）</p> 
+        </section>
+
+        <section>
+                <h3>知识剖析</h3>
+            <h4>2:MVC小解：运行的过程 </h4>
+            <p style="text-align:left">7:HandlerAdapter接受到handler返回ModelAndView后，将其返回给前端控制器</p> 
+            <p style="text-align:left">8:DispatcherServlet接收到ModelAndView后，会请求视图解析器（View Reslover)对视图进行解析</p>
+            <p style="text-align:left">9:视图解析器根据view信息匹配到相应的视图结果，反馈给前端控制器</p>
+        </section>
+
+        <section>
+                <h3>知识剖析</h3>
+            <h4>2:MVC小解：运行的过程 </h4>
+            <p style="text-align:left">10、前端控制器进行视图渲染,视图渲染将模型数据（模型数据在ModelAndView对象中）填充到request域</p> 
+            <p style="text-align:left">11、前端控制器向用户响应结果</p>
+        </section>
+
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        
+         <section>
+            <p style="text-align:left">web.xml配置和SpringMVC配置</p>
+            <p style="text-align:left"> 404 Not Found   请求失败，请求所希望得到的资源未被在服务器上发现。</p>
+             <p style="text-align:left"> 500 Internal Server Error  服务器遇到了一个未曾预料的状况，导致了它无法完成对请求的处理。</p>
+    
+           
+         </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		
+       
+        <section>
+            <p style="text-align:left">编码实战统一讲</p>
+         
+
+        </section>
+        
+       
+        <section>
+            <h3>5.编码实战</h3>
+            <p style="text-align:left">两个demo简单讲解 </p>
+            <p style="text-align:left">1:基本的web实现 </p>
+            <p style="text-align:left">2:三层架构的实现 </p>
+        </section>
+
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:center">百度，CSDN博客</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

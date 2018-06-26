@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>Spring AOP</h3>
+            
+            <p>分享人：李伟明</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h3></h3>
+            <p>AOP（Aspect Orient Programming），作为面向对象编程的一种补充，广泛应用于处理一些具有横切性质的系统级服务，如事务管理、安全检查、缓存、对象池管理等。
+			AOP 实现的关键就在于 AOP 框架自动创建的 AOP 代理，AOP 代理则可分为静态代理和动态代理两大类:<br>
+			其中静态代理是指使用 AOP 框架提供的命令进行编译，从而在编译阶段就可生成 AOP 代理类，因此也称为编译时增强；<br>
+			而动态代理则在运行时借助于 JDK 动态代理、CGLIB 等在内存中“临时”生成 AOP 动态代理类，因此也被称为运行时增强。<br>
+			</p>
+        </section>
+        <section>
+            <h3>spring aop</h3>
+            <p>
+			AOP 代理其实是由 AOP 框架动态生成的一个对象，该对象可作为目标对象使用。
+			AOP 代理包含了目标对象的全部方法，但 AOP 代理中的方法与目标对象的方法存在差异：AOP 方法在特定切入点添加了增强处理，并回调了目标对象的方法。
+			Spring 的 AOP 代理由 Spring 的 IoC 容器负责生成、管理，其依赖关系也由 IoC 容器负责管理。
+			因此，AOP 代理可以直接使用容器中的其他 Bean 实例作为目标，这种关系可由 IoC 容器的依赖注入提供。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3>Spring AOP 相关名词</h3>
+            <p>
+			连接点（Joinpoint）: 程序执行过程中明确的点，例如一个方法的执行, 或者是一个异常的处理;
+			在 Spring AOP 中, join point 总是方法的执行点, 即只有方法连接点.
+			简单的来说就是Java程序执行过程中的方法。
+            </p>
+        </section>
+        <section>
+            <h3>切点(point cut)<br>
+			匹配 join point 的谓词(a predicate that matches join points).
+            </h3>
+            <p>
+                在 Spring 中, 所有的方法都可以认为是 joinpoint, 但是我们并不希望在所有的方法上都添加 Advice,
+				而 pointcut 的作用就是提供一组规则(使用 AspectJ pointcut expression language 来描述) 来匹配joinpoint, 给满足规则的 joinpoint 添加 Advice.
+            </p>
+        </section>
+        <section>
+            <h3>增强（Advice）: 也叫通知
+            </h3>
+            <p>             
+			它是织入到目标类连接点上的一段程序代码。我们通过AOP将功能加到原有的业务逻辑上，这就是对原有业务逻辑的一种增强
+            </p>
+        </section>
+		<section>
+            <h3>Spring AOP 切面可应用的有 5 种增强类型.
+            </h3>
+            <p>
+                Before——在方法调用之前调用增强<br>
+				After——在方法完成之后调用增强，无论方法执行成功与否<br>
+				After-returning——在方法执行成功之后调用增强<br>
+				After-throwing——在方法抛出异常后进行增强<br>
+				Around——环绕增强包裹了被增强的方法，在被增强的方法调用之前和调用之后执行自定义的行为<br>
+            </p>
+        </section>
+        <section>
+            <h3>织入(Weaving)
+            </h3>
+            <p>
+                将 aspect 和其他对象连接起来, 并创建 adviced object 的过程.<br>
+               根据不同的实现技术, AOP织入有三种方式:<br>
+1、编译器织入, 这要求有特殊的Java编译器.<br>
+2、类装载器织入, 这需要有特殊的类装载器.<br>
+3、动态代理织入, 在运行期为目标类添加增强(Advice)生成子类的方式.<br>
+Spring 采用动态代理织入, 而AspectJ采用编译器织入和类装载器织入.<br>
+            </p>
+        </section>
+        <section>
+            <h3>Aspect(切面)
+            </h3>
+            <p>
+aspect 由 pointcount 和 advice 组成. 它将切面所定义的横切逻辑织入到切面所指定的连接点中<br>
+AOP的工作重心在于如何将增强织入目标对象的连接点上, 这里包含两个工作:<br>
+1、如何通过 pointcut 和 advice 定位到特定的 joinpoint 上<br>
+2、如何在 advice 中编写切面代码.             <br>  
+            </p>
+        </section>
+        <section>
+            <h3>目标对象(Target):织入 advice 的目标对象,也叫advised object
+            </h3>
+            <p>
+               Spring AOP 使用运行时代理的方式来实现 aspect, 因此 adviced object 总是一个代理对象(proxied object)<br>
+               注意, adviced object 指的不是原来的类, 而是织入 advice 后所产生的代理类.
+            </p>
+        </section>
+        
+        
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3>如何在程序中实现spring的AOP操作？</h3>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		<section>
+		<p>
+		 在sring里面进行aop操作，使用aspectJ来实现。aspectJ本身是一个单独的面向切面的框架，里面定义了AOP语法，
+			 和spring协同完成springAOP的操作，使用aspectJ来实现springAOP的操作有两种方式<br>
+			 1.基于注解<br>
+			 2.基于xml文件<br>
+            </p>
+		</section>
+        <section>
+		<h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>统计db接口的访问时间</h3>
+        </section>
+        <section>
+            		<h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>Spring AOP实现原理</h3>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>
+               https://www.ibm.com/developerworks/cn/java/j-lo-springaopcglib/index.html<br>
+			   http://www.cnblogs.com/EasonJim/p/6901806.html
+			   
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p></p><p></p>
+			<p>感谢大家观看</p>
+
+        </section>
+
+    </div>
+</div>
+
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
