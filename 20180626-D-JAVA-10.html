@@ -1,0 +1,281 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Redis集群高可用原理解析</h2>
+            <h3>java分享会</h3>
+            <p>分享人：袁磊</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+
+      <h3>Redis集群</h3>
+       <P> Redis在3.0版正式引入了集群特性。Redis集群是一个分布式（distributed）、容错（fault-tolerant）的 Redis内存K/V服务， 普通单机 Redis 使用的功能 仅是集群中功能的一个子集（subset）。Redis集群并不支持处理多个keys的命令,因为这需要在不同的节点间移动数据,从而达不到像Redis那样的性能,在高负载的情况下可能会导致不可预料的错误。
+       </P>
+       </section>
+       
+       <section>
+       <h3>Redis Cluster主要特性和设计</h3>
+        <H4>集群目标</H4>
+        <p> (1）高性能和线性扩展，最大可以支撑到1000个节点；Cluster架构中无Proxy层，Master与slave之间使用异步replication，
+        	    且不存在操作的merge。（即操作不能跨多个nodes，不存在merge层）
+            (2）一定程度上保证writes的安全性，需要客户端容忍一定程度的数据丢失：集群将会尽可能（best-effort）保存客户端write操作的数据；通常在failover期间，会有短暂时间内的数据丢失（因为异步replication引起）；当客户端与少数派的节点处于网络分区时（network partition），丢失数据的可能性会更高。（因为节点有效性检测、failover需要更长的时间）
+         </p>
+       </section>
+         
+         <section>
+         (3）可用性：只要集群中大多数master可达、且失效的master至少有一个slave可达时，集群都可以继续提供服务；同时“replicas migration”可以将那些拥有多个slaves的master的某个slave，迁移到没有slave的master下，即将slaves的分布在整个集群相对平衡，尽力确保每个master都有一定数量的slave备份。
+         </section>
+
+        <section>
+       <h4>Redis集群的几个重要特征</h4>
+       <p>(1).Redis 集群的分片特征在于将键空间分拆了16384个槽位，每一个节点负责其中一些槽位。
+          (2).Redis提供一定程度的可用性,可以在某个节点宕机或者不可达的情况下继续处理命令.
+         (3).Redis 集群中不存在中心(central)节点或者代理(proxy)节点， 集群的其中一个主要设计目标是达到线性可扩展性(linear scalability)。</p>
+         <p>集群客户端连接集群中任一Redis Instance即可发送命令，当Redis Instance收到自己不负责的Slot的请求时，会将负责请求Key所在Slot的Redis Instance地址返回给客户端，客户端收到后自动将原请求重新发往这个地址，对外部透明。一个Key到底属于哪个Slot由crc16(key) % 16384 决定。
+         </p>
+       </section>
+        
+        
+       <section>
+       	<h4>Redis数据切片</h4>
+        <p>Redis 集群的键空间被分割为 16384 (2^14)个槽(slot)， 集群的最大节点数量也是 16384 个(推荐的最大节点数量为 1000 个)，同理每个主节点可以负责处理1到16384个槽位。当16384个槽位都有主节点负责处理时，集群进入“稳定”上线状态，可以开始处理数据命令。当集群没有处理稳定状态时，可以通过执行重配置(reconfiguration)操作，使得每个哈希槽都只由一个节点进行处理。
+        重配置指的是将某个/某些槽从一个节点移动到另一个节点。一个主节点可以有任意多个从节点， 这些从节点用于在主节点发生网络断线或者节点失效时， 对主节点进行替换。
+        集群的使用公式HASH_SLOT=CRC16(key) mod 16384 计算key属于哪个槽。CRC16其结果长度为16位。</p>
+       
+        </section>
+
+        <section>
+        <h4>Redis集群节点</h4>
+        <p>Redis 集群中的节点不仅要记录键和值的映射，还需要记录集群的状态，包括键到正确节点的映射。它还具有自动发现其他节点，识别工作不正常的节点，并在有需要时，在从节点中选举出新的主节点的功能。为了执行以上列出的任务， 集群中的每个节点都与其他节点建立起了“集群连接(cluster bus)”， 该连接是一个 TCP 连接， 使用二进制协议进行通讯。 节点之间使用 Gossip 协议 来进行以下工作：
+        (a).传播（propagate）关于集群的信息，以此来发现新的节点;
+        (b).向其他节点发送 PING 数据包，以此来检查目标节点是否正常运作;
+        (c).在特定事件发生时，发送集群信息.
+       除此之外， 集群连接还用于在集群中发布或订阅信息。</p>
+        </section>
+        
+        <section>
+          集群节点不能前端代理命令请求， 所以客户端应该在节点返回 -MOVED或者 -ASK转向（redirection）错误时， 自行将命令请求转发至其他节点。
+       客户端可以自由地向集群中的任何一个节点发送命令请求， 并可以在有需要时， 根据转向错误所提供的信息， 将命令转发至正确的节点， 所以在理论上来说， 客户端是无须保存集群状态信息的。但如果客户端可以将键和节点之间的映射信息保存起来， 可以有效地减少可能出现的转向次数， 借此提升命令执行的效率。
+       每个节点在集群中由一个独一无二的 ID标识， 该 ID 是一个十六进制表示的 160 位随机数，在节点第一次启动时由 /dev/urandom 生成。节点会将它的 ID 保存到配置文件， 只要这个配置文件不被删除， 节点就会一直沿用这个 ID 。一个节点可以改变它的 IP 和端口号， 而不改变节点 ID 。 集群可以自动识别出IP/端口号的变化， 并将这一信息通过 Gossip协议广播给其他节点知道。
+        </section>
+        
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+         <h3>Gossip协议</h3>
+         <p>
+    节点之间采用Gossip协议进行通信，Gossip协议就是指节点彼此之间不断通信交换信息,当主从角色变化或新增节点，彼此通过ping/pong进行通信知道全部节点的最新状态并达到集群同步.
+    Gossip协议的主要职责就是信息交换，信息交换的载体就是节点之间彼此发送的Gossip消息，常用的Gossip消息有ping消息、pong消息、meet消息、fail消息.
+     meet消息：用于通知新节点加入，消息发送者通知接收者加入到当前集群，meet消息通信完后，接收节点会加入到集群中，并进行周期性ping pong交换
+       </p>
+         </section>
+            
+        <section>
+      <p>ping消息：集群内交换最频繁的消息，集群内每个节点每秒向其它节点发ping消息，用于检测节点是在在线和状态信息，ping消息发送封装自身节点和其他节点的状态数据；
+       pong消息，当接收到ping meet消息时，作为响应消息返回给发送方，用来确认正常通信，pong消息也封闭了自身状态数据；
+      fail消息：当节点判定集群内的另一节点下线时，会向集群内广播一个fail消息，</p>
+        </section>
+        <section>
+         <h3>消息解析流程</h3>
+         <p>所有消息格式为：消息头、消息体，消息头包含发送节点自身状态数据（比如节点ID、槽映射、节点角色、是否下线等），接收节点根据消息头可以获取到发送节点的相关数据。
+         </p>
+        </section>
+        
+  
+    
+       <section>
+        <h3>选择节点并发送ping消息</h3>
+        <p>Gossip协议信息的交换机制具有天然的分布式特性，但ping,pong发送的频率很高，可以实时得到其它节点的状态数据，但频率高会加重带宽和计算能力，因此每次都会有目的性地选择一些节点； 但是节点选择过少又会影响故障判断的速度，redis集群的Gossip协议兼顾了这两者的优缺点，如下图:</p>
+        </section>
+
+        
+       <section>
+       	<h3>故障转移</h3>
+       	<p>redis集群实现了高可用，当集群内少量节点出现故障时，通过故障转移可以保证集群正常对外提供服务。当集群里某个节点出现了问题，redis集群内的节点通过ping pong消息发现节点是否健康，是否有故障，其实主要环节也包括了:主观下线和客观下线；主观下线：指某个节点认为另一个节点不可用，即下线状态，当然这个状态不是最终的故障判定，只能代表这个节点自身的意见，也有可能存在误判；
+
+       </p>
+        </section>
+
+  
+       
+       <section>
+        <p>下线流程：
+  A，节点a发送ping消息给节点b ,如果通信正常将接收到pong消息，节点a更新最近一次与节点b的通信时间；
+  B，如果节点a与节点b通信出现问题则断开连接，下次会进行重连，如果一直通信失败，则它们的最后通信时间将无法更新；
+ 节点a内的定时任务检测到与节点b最后通信时间超过cluster_note-timeout时，更新本地对节点b的状态为主观下线（pfail）
+ 客观下线：指真正的下线，集群内多个节点都认为该节点不可用，达成共识，将它下线，如果下线的节点为主节点，还要对它进行故障转移
+ 假如节点a标记节点b为主观下线，一段时间后节点a通过消息把节点b的状态发到其它节点，当节点c接受到消息并解析出消息体时，会发现节点b的pfail状态时，会触发客观下线流程；
+ 当下线为主节点时，此时redis集群为统计持有槽的主节点投票数是否达到一半，当下线报告统计数大于一半时，被标记为客观下线状态。</p>
+      </section>
+
+  
+        
+        <section>
+       <p>故障恢复：
+      故障主节点下线后，如果下线节点的是主节点，则需要在它的从节点中选一个替换它，保证集群的高可用；转移过程如下：
+      1，资格检查：检查该从节点是否有资格替换故障主节点，如果此从节点与主节点断开过通信，那么当前从节点不具体故障转移；
+      2，准备选举时间：当从节点符合故障转移资格后，更新触发故障选举时间，只有到达该时间后才能执行后续流程；
+      3，发起选举：当到达故障选举时间时，进行选举；
+      4，选举投票：只有持有槽的主节点才有票，会处理故障选举消息，投票过程其实是一个领导者选举（选举从节点为领导者）的过程，每个主节点只能投一张票给从节点，当从节点收集到足够的选票（大于N/2+1）后，触发替换主节点操作，撤销原故障主节点的槽，委派给自己，并广播自己的委派消息，通知集群内所有节点。
+      </p>
+        </section>
+
+    
+
+        <section>
+      <H3>数据迁移</H3>
+      <p>当前集群有3个节点,槽默认是平均分的:
+        节点 A （6381）包含 0 到 5499号哈希槽.
+        节点 B （6382）包含5500 到 10999 号哈希槽.
+        节点 C （6383）包含11000 到 16383号哈希槽.
+        这种结构很容易添加或者删除节点. 比如如果我想新添加个节点D, 我需要从节点 A, B, C中得部分槽到D上. 如果我像移除节点A,需要将A中得槽移到B和C节点上,然后将没有任何槽的A节点从集群中移除即可. 由于从一个节点将哈希槽移动到另一个节点并不会停止服务,所以无论添加删除或者改变某个节点的哈希槽的数量都不会造成集群不可用的状态.
+    </p>
+        </section>
+        
+        <section>
+        <p>数据迁移可以理解为slot(槽)和key的迁移，这个功能很重要，极大地方便了集群做线性扩展，以及实现平滑的扩容或缩容。
+         现在要将Master A节点中编号为1、2、3的slot迁移到Master B节点中，在slot迁移的中间状态下，slot 1、2、3在Master A节点的状态表现为MIGRATING（迁移）,在Master B节点的状态表现为IMPORTING（入口）。此时并不刷新node的映射关系</p>
+        </section>
+        
+
+        <section>
+        <p>IMPORTING状态:
+           被迁移slot 在目标Master B节点中出现的一种状态，准备迁移slot从Mater A到Master B的时候，被迁移slot的状态首先变为IMPORTING状态。
+           键空间迁移:
+           键空间迁移是指当满足了slot迁移前提的情况下，通过相关命令将slot 1、2、3中的键空间从Master A节点转移到Master B节点。此时刷新node的映射关系。
+       </p>
+        </section>
+     
+        <section>
+            <h3>3.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>4.常见问题</h3>
+        </section>
+
+
+        <section>
+            <h3>Redis如何做持久化的？</h3>
+        <p>bgsave做镜像全量持久化，aof做增量持久化。因为bgsave会耗费较长时间，不够实时，在停机的时候会导致大量丢失数据，所以需要aof来配合使用。在redis实例重启时，会使用bgsave持久化文件重新构建内存，再使用aof重放近期的操作指令来实现完整恢复重启之前的状态。</p>
+        </section>
+
+      <section>
+      	<h3>Redis集群的原理是什么？</h3>
+      	<p>Redis Sentinal着眼于高可用，在master宕机时会自动将slave提升为master，继续提供服务。
+          Redis Cluster着眼于扩展性，在单个redis内存不足时，使用Cluster进行分片存储。
+      	 </p>
+      </section>
+
+      <section>
+      	<h3>Redis的同步机制了解么？</h3>
+      	<p>Redis可以使用主从同步，从从同步。第一次同步时，主节点做一次bgsave，并同时将后续修改操作记录到内存buffer，待完成后将rdb文件全量同步到复制节点，复制节点接受完成后将rdb镜像加载到内存。加载完成后，再通知主节点将期间修改的操作记录同步到复制节点进行重放就完成了同步过程。
+        </p>
+      </section>
+
+      <section>
+            <h3>5.参考文献</h3>
+            <p>
+              https://blog.csdn.net/tianpeng341204/article/details/78963850
+            </p>
+            <p>
+          https://blog.csdn.net/lidiya007/article/details/53289535
+            </p>
+            <p>
+            https://www.cnblogs.com/wxd0108/p/5798498.html
+            </p>
+            
+        </section>
+
+         <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

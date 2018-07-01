@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是quartz</h2>
+            <p></p>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p></p>
+            <p></p>
+            <p>分享人：杨聪聪</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        	<h4>quartz是什么？</h4>
+    		<p>quartz是一个由java编写的任务调度库，由OpenSymphony组织开源出来。绝大多数公司都会用到任务调度这个功能， 比如公司需要定期执行任务调度生成报表， 或者比如博客什么的定时更新之类的，都可以靠Quartz来完成。</p>
+    		<p>任务调度：现在有N个任务（程序），要求在指定时间执行，比如每周二3点执行任务A、每天相隔5s执行任务B等等，这种多任务拥有多种执行策略就是任务调度。</p>
+    		<p>而quartz的核心作用，是使任务调度变得丰富、高效、安全，开发者只需要调几个quartz接口并做简单配置，即可实现上述需求。</p>
+    		<p>quartz号称能够同时对上万个任务进行调度，拥有丰富的功能特性，包括任务调度、任务持久化、可集群化、插件等。</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+        <p>quartz的体系结构</p>
+        <img src="F:\SmallClass\9-quartz\1234.png">
+        </section>
+        <section>
+        	<p>1、Job：是一个接口，只有一个方法void execute(JobExecutionContext context)，开发者实现该接口定义运行任务，JobExecutionContext类提供了调度上下文的各种信息。Job运行时的信息保存在JobDataMap实例中；</p>
+        	<p>2、JobDetail：Quartz在每次执行Job时，都重新创建一个Job实例，所以它不直接接受一个Job的实例，相反它接收一个Job实现类，以便运行时通过newInstance()的反射机制实例化Job。因此需要通过一个类来描述Job的实现类及其它相关的静态信息，如Job名字、描述、关联监听器等信息，JobDetail承担了这一角色。</p>
+        </section>
+        <section>
+        	<p>3、Trigger：是一个类，描述触发Job执行的时间触发规则。主要有SimpleTrigger和CronTrigger这两个子类。当仅需触发一次或者以固定时间间隔周期执行，SimpleTrigger是最适合的选择；而CronTrigger则可以通过Cron表达式定义出各种复杂时间规则的调度方案：如每早晨9:00执行，周一、周三、周五下午5:00执行等等；</p>
+    
+        </section>
+        <section>
+        	<p>Cron表达式的格式：秒 分 时 日 月 周 年(可选)。</p>
+        	<img src="F:\SmallClass\9-quartz\geshi.png">
+        </section>
+        <section>
+        	<p>
+        		“*”字符 ：代表所有可能的值。<br>
+        		“?”字符：表示不确定的值。当两个子表达式其中一个被指定了值以后，为了避免冲突，需要将另外一个的值设为“?”。例如：想在每月20日触发调度，不管20号是星期几，只能用如下写法：0 0 0 20 * ?，其中最后以为只能用“?”，而不能用“*”。<br>
+               “,”字符：指定数个值。<br>
+               “-”字符：指定一个值的范围。<br>
+               “/”字符：指定一个值的增加幅度。n/m表示从n开始，每次增加m。<br>
+           </p>
+        </section>
+        <section>
+        	<p>    “L”字符：用在日表示一个月中的最后一天，用在周表示该月最后一个星期X。<br>
+               “W”字符：指定离给定日期最近的工作日(周一到周五)。<br>
+               “#”字符：表示该月第几个周X。6#3表示该月第3个周五。<br>
+           “C”字符：允许在日期域和星期域出现。这个字符依靠一个指定的“日历”。也就是说这个表达式的值依赖于相关的“日历”的计算结果，如果没有“日历”关联，则等价于所有包含的“日历”。</p>
+        </section>
+
+        <section>
+        	<p>4、Calendar：org.quartz.Calendar和java.util.Calendar不同，它是一些日历特定时间点的集合（可以简单地将org.quartz.Calendar看作java.util.Calendar的集合——java.util.Calendar代表一个日历时间点）。一个Trigger可以和多个Calendar关联，以便排除或包含某些时间点。假设，我们安排每周星期一早上10:00执行任务，但是如果碰到法定的节日，任务则不执行，这时就需要在Trigger触发机制的基础上使用Calendar进行定点排除。针对不同时间段类型，Quartz在org.quartz.impl.calendar包下提供了若干个Calendar的实现类，如AnnualCalendar、MonthlyCalendar、WeeklyCalendar分别针对每年、每月和每周进行定义；</p>
+        </section>
+
+        <section>
+        	<p>5.、Scheduler： 代表一个Quartz的独立运行容器， Trigger和JobDetail可以注册到Scheduler中， 两者在Scheduler中拥有各自的组及名称， 组及名称是Scheduler查找定位容器中某一对象的依据， Trigger的组及名称必须唯一， JobDetail的组和名称也必须唯一（但可以和Trigger的组和名称相同，因为它们是不同类型的）。Scheduler定义了多个接口方法， 允许外部通过组及名称访问和控制容器中Trigger和JobDetail。<br>
+</p>
+        </section>
+
+        <section>
+        	<p>Scheduler可以将Trigger绑定到某一JobDetail中， 这样当Trigger触发时， 对应的Job就被执行。一个Job可以对应多个Trigger， 但一个Trigger只能对应一个Job。可以通过SchedulerFactory创建一个Scheduler实例。Scheduler拥有一个SchedulerContext，它类似于ServletContext，保存着Scheduler上下文信息，Job和Trigger都可以访问SchedulerContext内的信息。SchedulerContext内部通过一个Map，以键值对的方式维护这些上下文数据，SchedulerContext为保存和获取数据提供了多个put()和getXxx()的方法。
+        	可以通过Scheduler.getContext()获取对应的SchedulerContext实例；</p>
+        </section>
+
+        <section>
+        <p>6、ThreadPool：Scheduler使用一个线程池作为任务运行的基础设施，任务通过共享线程池中的线程提高运行效率。</p>
+        </section>
+   
+   
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+  
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+        <p>Quartz 中的两种存储方式？</p>
+        <p>RAMJobStore, JobStoreSupport，其中 RAMJobStore 是将 trigger 和 job 存储在内存中，而 JobStoreSupport 是基于 jdbc 将 trigger 和 job 存储到数据库中。RAMJobStore 的存取速度非常快，但是由于其在系统被停止后所有的数据都会丢失，所以在通常应用中，都是使用 JobStoreSupport。</p>
+        </section>
+
+        <section>
+        <p>Quartz实现动态配置定时任务？</p>
+        <p>在我们日常的开发中，很多时候，定时任务都不是写死的，而是写到数据库中，在数据库中取出需要的数据，从而实现定时任务的动态配置</p>
+        </section>
+
+        <section>
+        	<p>Quartz中的Job和StatefulJob的区别？</p>
+        	<p>Job：普通的任务，或者说无状态的任务，在JobDetail执行之后，不会记录状态 。<br>
+StatefulJob：继承自Job，由于在定义时添加了@PersistJobDataAfterExecution注释。
+对于同一个 trigger 来说，有状态的 job 不能被并行执行，只有上一次触发的任务被执行完之后，才能触发下一次执行。</p>
+        </section>
+
+ 		<section>
+ 			<p>除了Quartz以外，其他的定时任务的实现？</p>
+ 			<p>1、Java自带的类Timer和TimerTask,Timer类是用来记时、定时的类，它接受一个TimerTask做参数；TimerTask里面可以写我们的任务。</p>
+ 			<p>2、Spring3.0以后自带的task，可以将它看成一个轻量级的Quartz。</p>
+ 		</section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+        <p>Quartz实现多个定时任务的动态配置？</p>
+        </section>
+
+ 
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+           <p>百度、维基、CSDN</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正。</p>
+            <p>
+               BY : 深圳分院 杨聪聪
+            </p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+
+ <dependency>
+            <groupId>net.sf.json-lib</groupId>
+             <artifactId>json-lib</artifactId>
+             <version>2.4</version>
+             <classifier>jdk15</classifier>
+         </dependency>

@@ -1,0 +1,289 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>JSP简单介绍</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：王庸之</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+
+            <h3>什么是JSP？</h3>
+            <p>JSP全称是Java Server Pages，它和servle技术一样，都是SUN公司定义的一种用于开发动态web资源的技术。</p>
+            <p>JSP这门技术的最大的特点在于，写jsp就像在写html，但它相比html而言，html只能为用户提供静态数据，而Jsp技术允许在页面中嵌套java代码，为用户提供动态数据。</p>
+            <p>浏览器向服务器发请求，不管访问的是什么资源，其实都是在访问Servlet，所以当访问一个jsp页面时，其实也是在访问一个Servlet，服务器在执行jsp的时候，首先把jsp翻译成一个Servlet，所以我们访问jsp时，其实不是在访问jsp，而是在访问jsp翻译过后的那个Servlet。</p>			
+			
+            
+        </section>
+       
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+				
+		<section>
+
+            <h3>JSP知识点构成</h3>
+			<ol>
+			<li>JSP模版元素</li>
+			<li>JSP注释</li>
+			<li>JSP表达式</li>
+			<li>JSP脚本片断</li>
+			<li>JSP声明</li>
+			<li>JSP指令</li>
+			<li>JSP九个内置对象</li>
+			<li>JSP属性范围</li>
+			<li>JSTL标签库之核心标签</li>
+			<li>EL表达式</li>
+			</ol>
+
+        </section>
+		
+		<section>
+
+            <h3>jsp表达式、脚本片断、声明</h3>
+            <p>JSP脚本表达式（expression）用于将程序数据输出到客户端。JSP引擎在翻译脚本表达式时，会将程序数据转成字符串，然后在相应位置用out.print(…) 将数据输给客户端。JSP脚本表达式中的变量或表达式后面不能有分号（;）。</p>
+			<p>JSP脚本片断(scriptlet)用于在JSP页面中编写多行Java代码。</p>
+			<p>JSP页面中编写的所有代码，默认会翻译到servlet的service方法中， 而Jsp声明中的java代码被翻译到_jspService方法的外面。所以，JSP声明可用于定义JSP页面转换成的Servlet程序的静态代码块、成员变量和方法 。</p>
+
+
+            
+        </section>
+		
+	    <section>
+
+            <h3>JSP指令</h3>
+            <p>JSP指令（directive）是为JSP引擎而设计的，它们并不直接产生任何可见输出，而只是告诉引擎如何处理JSP页面中的其余部分。</p>
+			<p>Page指令:page指令用于定义JSP页面的各种属性，无论page指令出现在JSP页面中的什么地方，它作用的都是整个JSP页面，为了保持程序的可读性和遵循良好的编程习惯，page指令最好是放在整个JSP页面的起始位置。</p>
+			<p>include指令:@include和jsp:include。</p>
+			<p>include指令用于引入其它JSP页面，如果使用include指令引入了其它JSP页面，那么JSP引擎将把这两个JSP翻译成一个servlet。所以include指令引入通常也称之为静态引入。</p>
+
+
+            
+        </section>
+		
+		<section>
+
+            <h3>JSP指令</h3>
+			<p>jsp:include指令为动态包含，如果被包含的页面是JSP，则先处理之后再将结果包含，而如果包含的是非*.jsp文件，则只是把文件内容静态包含进来，功能与@include类似。</p>
+			<p>Taglib 指令是定义一个标签库以及其自定义标签的前缀。</p>
+
+            
+        </section>
+		
+		<section>
+
+            <h3>JSP九个内置对象</h3>
+			<div align="center">
+			<img width="600" height="400" src = "九个内置对象.jpg">
+			</div>
+							
+            
+        </section>
+		
+		
+        <section>
+		
+             <h3>JSP九个内置对象</h3>
+		     <p>page对象表示当前一个JSP页面，可以理解为一个对象本身，即：把一个JSP当作一个对象来看待。page对象在开发中几乎不用。</p>
+		     <p>out对象用于向客户端发送文本数据。通过调用pageContext对象的getOut方法返回的，其作用和用法与ServletResponse.getWriter方法返回的PrintWriter对象非常相似。</p>
+		     <p>out对象的类型为JspWriter，JspWriter相当于一种带缓存功能的PrintWriter，设置JSP页面的page指令的buffer属性可以调整它的缓存大小，甚至关闭它的缓存。 </p>
+             
+		
+        </section>
+		
+		<section>
+		
+             <h3>pageContext对象</h3>
+		     <p>pageContext对象是JSP技术中最重要的一个对象，它代表JSP页面的运行环境，这个对象不仅封装了对其它8大隐式对象的引用，它自身还是一个域对象(容器)，可以用来保存数据。并且，这个对象还封装了web开发中经常涉及到的一些常用操作，例如引入和跳转其它资源、检索其它域对象中的属性等。</p>
+		     <p>findAttribute方法：当要查找某个属性时，findAttribute方法按照查找顺序"page→request→session→application"在这四个对象中去查找，只要找到了就返回属性值，如果四个对象都没有找到要查找的属性，则返回一个null。</p>
+			
+		   
+        </section>
+
+
+        <section>
+		
+            <h3>pageContext对象</h3>
+            <p>EL表达式语句在执行时，会调用pageContext.findAttribute方法，用标识符为关键字，分别从page、request、 session、application四个域中查找相应的对象，找到则返回相应对象，找不到则返回”” （注意，不是null，而是空字符串）。</p>
+			<p>forward方法：PageContext类中定义了一个forward方法(用来跳转页面)来简化和替代RequestDispatcher.forward方法。</p>
+
+
+			
+        </section>
+        
+
+        <section>
+		
+            <h3>JSP属性范围</h3>
+            <p>RpageContext属性范围：当前页，在一个页面设置的属性，跳转到其他页面就无法访问了。</p>
+            <p>request属性范围：一次服务器请求，在一次服务器跳转中有效，只要是服务器跳转，则设置的request属性可以一直传递下去</p>
+			<p>session属性范围：一次会话，一个用户设置的内容，只要是与此用户相关的页面都可以访问（一个会话表示一个人，这个人设置的东西只要这个人不走，就依然有效）。</p>
+			<p>application属性范围：上下文中，在整个服务器上设置的属性，所有人都可以访问</p>
+
+			
+        </section>
+		
+        <section>
+		
+            <h3>JSP标签</h3>
+            <p>JSP标签也称之为Jsp Action(JSP动作)元素，它用于在Jsp页面中提供业务逻辑功能，避免在JSP页面中直接编写java代码，造成jsp页面难以维护</p>
+            <p>jsp:include标签用于把另外一个资源的输出内容插入进当前JSP页面的输出内容之中，这种在JSP页面执行时的引入方式称之为动态引入。</p>
+			<p>jsp:param标签用于向其他资源传递参数。name属性用于指定参数名，value属性用于指定参数值。</p>
+			<p>jsp:forward标签用于把请求转发给另外一个资源。</p>
+
+			
+        </section>		
+
+		
+        <section>
+		
+            <h3>EL表达式</h3>
+            <p>EL 全名为Expression Language。EL主要作用：</p>
+            <p>1、获取数据：EL表达式主要用于替换JSP页面中的脚本表达式，以从各种类型的web域 中检索java对象、获取数据。(某个web域 中的对象，访问javabean的属性、访问list集合、访问map集合、访问数组。</p>
+			<p>2、执行运算：利用EL表达式可以在JSP页面中执行一些基本的关系运算、逻辑运算和算术运算，以在JSP页面中完成一些简单的逻辑运算。</p>
+			<p>3、EL 表达式定义了一些隐式对象，利用这些隐式对象，web开发人员可以很轻松获得对web常用对象的引用，从而获得这些对象中的数据。</p>
+			
+
+			
+        </section>
+		
+        <section>
+		
+		    <p>4、调用Java方法：EL表达式允许用户开发自定义EL函数，以在JSP页面中通过EL表达式调用Java类的方法。</p>
+            <h3>JSTL标签库</h3>
+            <p>JSTL标签库的使用是为弥补html标签的不足，规范自定义标签的使用而诞生的。使用JSLT标签的目的就是不希望在jsp页面中出现java逻辑代码。</p>
+            <p>JSTL的核心标签库标签共13个，使用这些标签能够完成JSP页面的基本功能，减少编码工作。</p>
+			
+        </section>	
+        
+		<section>
+		
+		    <div align = "center">
+			<img width="700" height="200" src = "jstl核心标签.jpg">
+			</div>
+			
+        </section>	
+		
+        <section>
+		
+            <h3>3.编码实战</h3>
+			
+        </section>
+
+        <section>
+		
+            <h3>4.常见问题</h3>
+			
+        </section>		
+
+        <section>		
+		
+           <h3></h3>		   
+           <p>@include和jsp:include指令区别</p> 
+		   <p>jsp:forward标签和pageContext.forward区别</p>
+		   
+        </section>
+		
+
+        <section>
+		
+            <h3>5.参考资料</h3>
+            
+            <p>http://www.cnblogs.com/xdp-gacl/category/574705.html</p>
+
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+		
+            <h3>鸣谢</h3>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
