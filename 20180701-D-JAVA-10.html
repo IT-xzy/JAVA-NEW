@@ -1,0 +1,195 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>springcloud分布式--feign</h2>
+            <p></p>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p></p>
+            <p></p>
+            <p>分享人：杨聪聪</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        	<h4>spring cloud简介</h4>
+        	<p>Spring Cloud是一系列框架的有序集合。它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用Spring Boot的开发风格做到一键启动和部署。<br>
+        	Spring并没有重复制造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过Spring Boot风格进行再封装屏蔽掉了复杂的配置和实现原理，最终给开发者留出了一套简单易懂、易部署和易维护的分布式系统开发工具包。</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+       
+        <section>
+        	<p>Spring Cloud Netflix 简介</p>
+        	<p>首先Netflix是一家成功实践微服务架构的互联网公司，Netflix把它的整个微服务框架栈开源贡献给了社区。后来，Spring Cloud对Netflix开源组件进一步封装，方便Spring开发人员构建微服务基础框架。</p>
+        	<p>Spring Cloud Netflix的功能十分强大，包括Eureka，Ribbon，hystrix，Feign，Zuul等组件，结合到一起，让服务的调用、路由也变得异常容易。Spring Cloud Netflix作为Spring的重量级整合框架，使用它也意味着我们能从Spring获取到巨大的便利。Spring Cloud的其他子项目，比如Spring Cloud Stream、Spring Cloud Config等等，都为微服务的各种需求提供了一站式的解决方案。</p>
+        </section>
+   
+        <section>
+       <p>Spring Cloud Netflix主要组件介绍</p>
+       <p>其核心组件是用于服务注册与发现的Eureka：Eureka由多个instance(服务实例)组成，这些服务实例可以分为两种：Eureka Server和Eureka Client。为了便于理解，我们将Eureka client再分为Service Provider和Service Consumer。如下图所示：</p>
+       <img src="F:\SmallClass\10-feign\1.png">
+        </section>
+        <section>
+        <p>
+        	（1）Eureka Server：服务的注册中心，负责维护注册的服务列表。<br>
+			（2）Service Provider：服务提供方，作为一个Eureka Client，向Eureka Server做服务注册、续约和下线等操作，注册的主要数据包括服务名、机器ip、端口号、域名等等。<br>
+			（3）Service Consumer：服务消费方，作为一个Eureka Client，向Eureka Server获取Service Provider的注册信息，并通过远程调用与Service Provider进行通信。<br>
+		</p>
+		<p>Service Provider和Service Consumer不是严格的概念，Service Consumer也可以随时向Eureka Server注册，来让自己变成一个Service Provider。Spring Cloud针对服务注册与发现，进行了一层抽象，并提供了三种实现：Eureka、Consul、Zookeeper。目前支持得最好的就是Eureka，其次是Consul，最后是Zookeeper。</p>
+        </section>
+
+        <section>
+        	<p>服务注册：Service Provider本质上是一个Eureka Client。它启动时，会调用服务注册方法，向Eureka Server注册自己的信息。Eureka Server会维护一个已注册服务的列表，这个列表为一个嵌套的hash map：第一层，application name和对应的服务实例。
+		第二层，服务实例及其对应的注册信息，包括IP，端口号等。<br>
+		当实例状态发生变化时（如自身检测认为Down的时候），也会向Eureka Server更新自己的服务状态。续约的方式与服务注册基本一致，会周期性地向Eureka Server发送心跳以续约自己的信息，避免自己的注册信息被剔除。
+		</p>
+        </section>
+
+        <section>
+        	<p>Service Consumer本质上也是一个Eureka Client（它也会向Eureka Server注册，只是这个注册信息无关紧要罢了）。它启动后，会从Eureka Server上获取所有实例的注册信息，包括IP地址、端口等，并缓存到本地。这些信息默认每30秒更新一次。</p>
+        	<p>基于Service Consumer获取到的服务实例信息，我们就可以进行服务调用了。而Spring Cloud也为Service Consumer提供了丰富的服务调用工具：<br>
+        		(1)Ribbon，实现客户端的负载均衡。<br>
+				(2)Hystrix，断路器。<br>
+				(3)Feign，RESTful Web Service客户端，整合了Ribbon和Hystrix。</p>
+        </section>
+        <section>
+        	<p>服务调用端熔断——Hystrix</p>
+        	<p>Netflix创建了一个名为Hystrix的库,实现了断路器的模式。“断路器”本身是一种开关装置，当某个服务单元发生故障之后，通过断路器的故障监控（类似熔断保险丝），向调用方返回一个符合预期的、可处理的备选响应（FallBack），而不是长时间的等待或者抛出调用方无法处理的异常，这样就保证了服务调用方的线程不会被长时间、不必要地占用，从而避免了故障在分布式系统中的蔓延，甚至雪崩。</p>
+        </section>
+        <section>
+        	<p>服务调用端代码抽象和封装——Feign</p>
+        	<p>Feign是一个声明式的Web Service客户端，它的目的就是让Web Service调用更加简单。它整合了Ribbon和Hystrix，从而让我们不再需要显式地使用这两个组件。Feign还提供了HTTP请求的模板，通过编写简单的接口和插入注解，我们就可以定义好HTTP请求的参数、格式、地址等信息。接下来，Feign会完全代理HTTP的请求，我们只需要像调用方法一样调用它就可以完成服务请求。</p>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+  
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+       <p>Spring Cloud Netflix的优势?</p>
+       <p>对于微服务的治理而言，核心就是服务的注册和发现。因此选择哪个组件，很大程度上要看它对于服务注册与发现的解决方案。在这个领域，开源架构很多，最常见的是Zookeeper，但这并不是唯一选择。</p>
+       <p>在分布式系统领域有个著名的CAP定理：C—数据一致性，A—服务可用性，P—服务对网络分区故障的容错性。这三个特性在任何分布式系统中不能同时满足，最多同时满足两个。</p>
+       <p>Zookeeper保证的是CP，即它不能保证每次服务请求的可用性。对于大多数涉及到数据存储的分布式环境，数据一致性应该是首先被保证的。但是对于服务发现而言，可用性比数据一致性更加重要，即AP胜过CP。而Spring Cloud Netflix在设计Eureka时遵守的就是AP原则。</p>
+        </section>
+
+        <section>
+        <p>实际开发Eureka的过程中，有时会遇见Service Consumer获取到Server Provider的信息有延迟？</p>
+        <p>Eureka官网提到服务端的更改可能需要2分钟才能传播到所有客户端。这是因为Eureka有三处缓存和一处延迟造成的。</p>
+        <p>（1）Eureka Server对注册列表进行缓存，默认时间为30s。<br>
+			（2）Eureka Client对获取到的注册信息进行缓存，默认时间为30s。<br>
+				（3）Ribbon会从上面提到的Eureka Client获取服务列表，将负载均衡后的结果缓存30s。<br>
+（4）如果不是在Spring Cloud环境下使用这些组件(Eureka, Ribbon)，服务启动后并不会马上向Eureka注册，而是需要等到第一次发送心跳请求时才会注册。心跳请求的发送间隔默认是30s。Spring Cloud对此做了修改，服务启动后会马上注册。</p>
+        </section>
+        <section>
+        	<p>Feign具有如下特性：</p>
+        	<p>可插拔的注解支持，包括Feign注解和JAX-RS注解<br>
+支持可插拔的HTTP编码器和解码器<br>
+支持Hystrix和它的Fallback<br>
+支持Ribbon的负载均衡<br>
+支持HTTP请求和响应的压缩</p>
+        </section>
+
+        <section>
+        	<p>服务器端负载均衡和客户端负载均衡的区别？</p>
+        	<p>服务器端负载均衡：例如Nginx，通过Nginx进行负载均衡，先发送请求，然后通过负载均衡算法，在多个服务器之间选择一个进行访问；即在服务器端再进行负载均衡算法分配。<br>
+
+客户端负载均衡：例如spring cloud中的ribbon，客户端会有一个服务器地址列表，在发送请求前通过负载均衡算法选择一个服务器，然后进行访问，这是客户端负载均衡；即在客户端就进行负载均衡算法分配。</p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+ 
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+           <p>百度、维基、CSDN</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正。</p>
+            <p>
+               BY : 深圳分院 杨聪聪
+            </p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+
+ <dependency>
+            <groupId>net.sf.json-lib</groupId>
+             <artifactId>json-lib</artifactId>
+             <version>2.4</version>
+             <classifier>jdk15</classifier>
+         </dependency>
