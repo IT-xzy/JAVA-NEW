@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Spring中的IOC是什么意思，为什么要用IOC而不是New来创建实例？--feign</h2>
+            <p></p>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p></p>
+            <p></p>
+            <p>分享人：陈泽铭</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        	<h4>spring简介</h4>
+        	<p>1.spring是开源的轻量级框架，其目的是用于简化企业级应用程序开发。<br>
+			   2.spring是一站式框架。srping在javaee三层结构中，每一层都提供不同的解决技术<br>
+               ——web层：springMVC<br>
+               ——service层：spring的ioc<br>
+               ——dao层：spring的jdbcTemplate<br>
+			   3.spring两个核心：<br>
+			   ——aop:面向切面编程，扩展功能不是修改源代码实现<br>
+			   ——ioc:控制反转。重点<br>
+        	</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+       
+	   <section>
+            <p>1.Spring框架</p>
+            <p>2.ioc</p>
+            <p>3.bean</p>
+            <p>4.bean的实例化方式</p>
+            <p>5.bean的作用域</p>
+            <p>6.bean的注入方式</p>
+            <p>7.bean的注解</p>
+        </section>
+	   
+	   
+        <section>
+        	<p>Spring框架</p>
+			<p>何为框架？<br>
+			框架其实是具有一定功能的半成品，我们只要往里面开发其他功能，就形成一个应用程序。而且框架规定了你在开发应用程序时的整体架构，提供了一些基础功能，还规定了类和对象的如何创建、如何协作等，从而简化我们开发，让我们专注于业务逻辑开发。<br>
+        	<p>都说spring是轻量级，何为轻量级？<br>
+        	轻量级一般就是非入侵性的、所依赖的东西非常少、资源占用非常少、部署简单等等，其实就是比较容易使用，而重量级正好相反。<br>
+			其中spring的核心之一就是ioc。<br>
+			</p>
+        </section>
+   
+        <section>
+       <p>IOC</p>
+       <p> IoC是什么？即“控制反转”，不是什么技术，而是一种设计思想。在Java开发中，Ioc意味着将你设计好的对象交给容器控制，而不是传统的在你的对象内部直接控制。<br>
+		   传统Java SE程序设计，我们直接在对象内部通过new进行创建对象，是程序主动去创建依赖对象；而IoC是有专门一个容器来创建这些对象，即由Ioc容器来控制对象的创建<br>		  
+		   IoC容器就是具有依赖注入功能的容器<br>    
+	   </p>
+        </section>
+		
+		
+		 <section>
+       <p>IOC</p>
+       <p>  BeanFactory提供了IoC容器最基本功能，而 ApplicationContext 则增加了更多支持企业级功能支持。ApplicationContext完全继承BeanFactory，因而BeanFactory所具有的语义也适用于ApplicationContext。<br>
+	   </p>
+        </section>
+		
+          <section>
+       <p>bean</p>
+       <p> 由IoC容器管理的那些组成你应用程序的对象我们就叫它Bean， Bean就是由Spring容器初始化、装配及管理的对象，除此之外，bean就与应用程序中的其他对象没有什么区别了。<br>  
+		   Bean命名约定：Bean的命名遵循XML命名规范，但最好符合Java命名规范，由“字母、数字、下划线组成“，而且应该养成一个良好的命名习惯， 比如采用“驼峰式”，即第一个单词首字母开始，从第二个单词开始首字母大写开始，这样可以增加可读性。<br>
+		   bean的实例化方式<br>
+		   1.有参无参构造办法<br>
+		   2.静态工厂<br>
+		   3.实例工厂<br>
+	   </p>
+	    </section>
+        
+ <section>
+       <p>  bean的实例化方式<br>
+		   1.有参无参构造办法<br>
+		   2.静态工厂<br>
+		   3.实例工厂<br>
+	   </p>
+	    </section>
+		
+		 <section>
+       <p>  bean的作用域<br>
+		  Spring提供“singleton”和“prototype”两种基本作用域.<br>
+		  singleton：指“singleton”作用域的Bean只会在每个Spring IoC容器中存在一个实例，而且其完整生命周期完全由Spring容器管理。对于所有获取该Bean的操作Spring容器将只返回同一个Bean。<br>
+		  prototype:多例的（能创建多个对象）<br>
+		  
+	   </p>
+	    </section>
+		
+		 <section>
+       <p>  bean的注入方式<br>
+		   1.有参构造注入<br>
+		   2.set方法<br>
+		   3.接口的方法<br>
+		   4.注解的方式,spring是默认禁用注解的方式，所以首先要开启注解扫描<br>
+	   </p>
+	    </section>
+				
+				
+		<section>
+       <p>  bean的注解<br>
+		     一般我们是直接用@Component，不过为了阅读性，以及让注解的用途清晰，衍生出了下面三个<br>
+		     2 @Controller  web层<br>
+             3 @Service     业务层<br>
+		     4 @Repository  持久层<br> 
+		   目前这四个注解功能一样的，后续spring会对其进行增强<br>
+	   </p>
+	    </section>
+		
+
+			
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+  
+    
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+  
+  
+   <section>
+       <p>  @Autowired和@Resource有什么区别？<br>
+	        @Autowired注解是属于Spring的注解,按照类型（byType）装配依赖对象,依赖对象必须存在，如果要允许null值，可以设置它的required属性为false <br>
+			@Resource不属于Spring的注解,默认按名称进行装配，通过name属性进行指定
+			举个例子，一个类，俩个实现类，Autowired就不知道注入哪一个实现类，而Resource有name属性，可以区分<br>
+	   </p>
+	    </section>
+  
+  
+  		<section>
+       <p>  什么是正转，反转<br>
+		     传统应用程序是由我们自己在对象中主动控制去直接获取依赖对象，也就是正转；而反转则是由容器来帮忙创建及注入依赖对象；为何是反转？因为由容器帮我们查找及注入依赖对象，对象只是被动的接受依赖对象，所以是反转.<br>
+	   </p>
+	    </section>
+		
+				
+ 
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+ 
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+           <p>百度、维基、CSDN</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正。</p>
+            <p>
+               BY : 深圳分院 陈泽铭
+            </p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+
+ <dependency>
+            <groupId>net.sf.json-lib</groupId>
+             <artifactId>json-lib</artifactId>
+             <version>2.4</version>
+             <classifier>jdk15</classifier>
+         </dependency>
