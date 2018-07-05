@@ -1,0 +1,182 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>mysql读写分离</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：万全林</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>分布式环境下数据库的读写分离策略是解决数据库读写性能瓶颈的一个关键解决方案，更是最大限度了提高了应用中读取 （Read）数据的速度和并发量。</p>
+            <p> 在进行数据库读写分离的时候，我们首先要进行数据库的主从配置，最简单的是一台Master和一台Slave（大型网站系统的话，当然会很复杂，这里只是分析了最简单的情况）。
+                通过主从配置主从数据库保持了相同的数据，我们在进行读操作的时候访问从数据库Slave，在进行写操作的时候访问主数据库Master。这样的话就减轻了一台服务器的压力。</p>
+        </section>
+    
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+    
+            <section>
+                <p>读写分离的好处</p>
+               <p>1.增加冗余</p>
+                <p>2.增加了机器的处理能力</p>	
+                <p>3.对于读操作为主的应用，使用读写分离是最好的场景，因为可以确保写的服务器压力更小，而读又可以接受点时间上的延迟。</p>
+            </section>
+			<section>
+                <p>读写分离提高性能之原因</p>  
+                <p>1.物理服务器增加，负荷增加</p>
+                <p>2.主从只负责各自的写和读，极大程度的缓解X锁和S锁争用</p>
+                <p>3.从库可配置myisam引擎，提升查询性能以及节约系统开销</p>
+                <p>4.从库同步主库的数据和主库直接写还是有区别的，通过主库发送来的binlog恢复数据，但是，最重要区别在于主库向从库发送binlog是异步的，从库恢复数据也是异步的</p>
+                <p>5.读写分离适用与读远大于写的场景，如果只有一台服务器，当select很多时，update和delete会被这些select访问中的数据堵塞，等待select结束，并发性能不高。 对于写和读比例相近的应用，应该部署双主相互复制</p>
+          
+                
+
+
+        </section>
+        <section>
+                <p>读写分离提高性能之原因</p>  
+                <p>6.可以在从库启动是增加一些参数来提高其读的性能，例如--skip-innodb、--skip-bdb、--low-priority-updates以及--delay-key-write=ALL。
+                    当然这些设置也是需要根据具体业务需求来定得，不一定能用上</p>
+                <p>7.分摊读取。假如我们有1主3从，不考虑上述1中提到的从库单方面设置，假设现在1 分钟内有10条写入，150条读取。那么，1主3从相当于共计40条写入，
+                    而读取总数没变，因此平均下来每台服务器承担了10条写入和50条读取（主库不 承担读取操作）。因此，虽然写入没变，但是读取大大分摊了，提高了系统性能。
+                    另外，当读取被分摊后，又间接提高了写入的性能。所以，总体性能提高了，说白 了就是拿机器和带宽换性能。
+                    MySQL官方文档中有相关演算公式：官方文档 见6.9FAQ之“MySQL复制能够何时和多大程度提高系统性能”</p>
+        </section>
+        <section>
+                <p>读写分离提高性能之原因</p>  
+                <p>8.MySQL复制另外一大功能是增加冗余，提高可用性，当一台数据库服务器宕机后能通过调整另外一台从库来以最快的速度恢复服务，因此不能光看性能，
+                    也就是说1主1从也是可以的。</p>
+        </section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>怎么实现mysql的主从复制</p>
+       
+        </section>
+        <section>
+				<p>MySQL的Replication（英文为复制）是一个多MySQL数据库做主从同步的方案，特点是异步复制，广泛用在各种对MySQL有更高性能、更高可靠性要求的场合。
+
+                        与之对应的是另一个同步技术是MySQL Cluster，但因为MySQL Cluster配置比较复杂，所以使用者较少。
+                        
+                        Mysql Utilities 是一个 Mysql 的工具箱，里面有不少好用的小工具
+                        
+                        其中的 mysqlreplicate 命令，可以让我们通过一个命令就能快速配置好主从复制环境，</p>
+
+			    
+        
+            </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+	
+        </section>
+        
+        <section>
+            <h3>6.扩展思考</h3>
+      
+        </section>
+
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>https://kb.cnblogs.com/page/130970/#httpmeessagestructe</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 万全林</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

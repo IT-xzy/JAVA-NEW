@@ -1,0 +1,203 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是Quartz？</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：陈鑫</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>	
+		
+        <section>
+		
+			<section>
+            <p>1.背景介绍</p>
+			<p style="text-align:left">目前大多数Web应用都具有任务调度功能。任务调度是指基于给定时间点，给定时间间隔或者给定执行次数自动执行任务。</p>
+			<p style="text-align:left">实现任务调度的Java实现方式有：java.util.Time，ScheduledExecutor，开源工具包Quartz，开源工具包JCronTab。</p>
+			<p style="text-align:left"></p>
+			<p></p>
+			</section>
+			
+			<section>
+			<p></p>
+            <p style="text-align:left">Quartz特点：强大的调度功能；灵活的应用方式；分布式和集群能力。</p>
+            <p style="text-align:left">Quartz核心概念：调度器，任务，触发器。</p>
+			 <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+			
+			</section>
+			<!--<section>
+			<p></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p></p>
+			</section>-->
+		</section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+			<p style="text-align:left">要使用quartz需要引入quartz核心jar包：quartz-version.jar。通常都quartz会自动引入依赖slf4j-api。如果需要将任务存入数据库就需要c3p0 jar包。</p>
+			<p style="text-align:left"></p>   
+			<br>   		
+            <p style="text-align:left">Job接口，由作为任务的类实现，这个类必须有一个public的无参构造，必须实现execute(JobExecutionContext context)方法。当trigger活动时，execute方法会被Scheduler调用。</p>
+            <p style="text-align:left">JobDetail传递一个给的job实例的属性信息。它是由JobBuilder创建并初始的。</p>
+			<br>
+            <p style="text-align:left"></p> 
+        </section>
+		<section>
+			<p style="text-align:left">trigger：SimpleTrigger；CronTrigger。trigger定义一个特定任务被调度器执行的机制。trigger和job的关系是多对一。</p>
+			<p style="text-align:left">scheduler方法：start()，stop()，pause()，resume()。Scheduler管理着一个JobDetails和Triggers的注册器。一旦任务和触发器被注册，当触发的时间到了，调度器就会调用任务的execute方法。</p>
+			<p style="text-align:left">scheduler实例是被SchedulerFactory创建的。创建好后Scheduler会处于“stand-by”模式，直到实例的start()方法被调用，才可以执行任务。</p>
+			<p style="text-align:left">调用调用scheduler.scheduleJob(JobDetail, Trigger)注册任务和触发器。</p>
+			<p style="text-align:left"></p>
+		</section>
+         <section>
+		 <p style="font-size: 50px">quartz的线程。</p>
+			<p style="text-align:left">quartz中有两类线程，Scheduler的调用线程和任务执行线程，其中任务的执行线程通常使用一个线程池维护的一组线程。</p>
+		 <p style="text-align:left">Scheduler的调用线程主要有两个：执行常规调度的线程和执行misfired trigger线程。常规调度线程轮询存储的所有trigger，如果有trigger需要触发，就从任务执行线程池获取一个空闲线程，执行与该trigger关联的任务。Misfire 线程是扫描所有的 trigger，查看是否有 misfired trigger，如果有的话根据 misfire 的策略分别处理。</p>
+		 </section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:left">JobDetail和JobDataMap的区别？</p>
+			<p style="text-align:left">SimpleTrigger和CronTrigger的区别？</p>
+			<p style="text-align:left">Job和Trigger的name和group?</p>
+			<p style="text-align:left">StrSchedulerFactory和DirectSchedulerFactory？</p>
+			<p style="text-align:left">什么是cron表达式？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+			 <p style="text-align:left">答：JobDetail用来传递Job实例的详细属性，是由JobB；JobDataMap用来保存Job实例的状态信息，一旦job被添加到scheduler时，JobDataMap就会被保存。当job使用@PersistJobDataAfterExecution注解，它就会被重新保存。</p>
+             <p style="text-align:left">答：SimpleTrigger主要用于给定了延迟时间的一次或在给定时刻触发后的多次重复触发任务。CronTrigger是用来通过给的日期和时间的方式触发任务。</p>
+			 <p style="text-align:left">答：用来在一个单一的Scheduler中区分开了。而且group可以用来对任务和触发器进行逻辑分组或分类。</p>
+		</section>
+        <section>
+			 <p style="text-align:left">答：两者都是SchedulerFactory的实现。StrSchedulerFactory基于一个properties文件创建Scheduler实例。如果当前工作环境中没有，就会使用org/quartz下的quartz.properties文件。而DirectSchedulerFactory对于要创建的Scheduler有更多的控制，一切都需要编码控制，使用起来困难。</p>
+			 <p style="text-align:left">答：cron表达式是由7个子表达式组成的字符串，分别代表：秒，分，时，日，月，周，年。设计特殊符号：*, ?, /, L, W, #, ",", -。</p>
+			 <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+             <p></p>
+			 <p></p>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+        <img src="">
+		<img src="">
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p></p>
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p style="text-align:left">慕课网_《Java定时任务调度工具详解之Quartz篇》学习总结  https://segmentfault.com/a/1190000009972187#articleHeader5</p>
+			<p style="text-align:left">http://www.quartz-scheduler.org/api/2.2.1/index.html</p>
+			<p style="text-align:left">https://blog.csdn.net/chungle2011/article/details/52690050</p>
+			<p style="text-align:left">https://blog.csdn.net/liu1pan2min3/article/details/51540470</p>
+			<p style="text-align:left"></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 陈鑫</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

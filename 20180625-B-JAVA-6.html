@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>为什么要使用MEMCACHE？MEMCACHE有什么作用？</h2>
+            <h3>小课堂</h3>
+            <p>分享人：薛一星</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍 </h3>
+        </section>
+        <section>
+            <p>什么是memcache？ </p>
+            MemCache是一个自由、源码开放、高性能、分布式的内存对象缓存系统，用于动态Web应用以减轻数据库的负载。它通过在内存中缓存数据和对象来减少读取数据库的次数，从而提高了网站访问的速度。</p>
+        </section>
+        <section>
+            <p>Memcache通过在内存里维护一个统一的巨大的hash表，它能够用来存储各种格式的数据，包括图像、视频、文件以及数据库检索的结果等。简单的说就是将数据调用到内存中，然后从内存中读取，从而大大提高读取速度。其本质上就是一个内存key-value数据库，但是不支持数据的持久化，服务器关闭之后数据全部丢失</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>Memcache和memcached区别？</p>
+			<p>Memcache是这个项目的名称，而memcached是它服务器端的主程序文件名。
+			   一个是项目名称，一个是主程序文件名（守护进程）。</p>
+        </section>
+        <section>
+            <p>Memcache的实现原理</p>
+			<p align="left">memcache处理的原子是每一个key、value，key会通过一个hash表转换成hash的key，便于查找对比以及尽可能的做到散列。
+			memcache有两个核心组件:服务端和客户端。</p>
+			<p align="left">在一个memcache组件查询中，client先通过key的hash值来确定kv在service端的位置，当server端确定后，客户端就会发一个请求到server端。
+			让它来查找出确切数据，因为这之间没有交互以及协议，因此memcache带给网络的影响最小。</p>
+        </section>
+        <section>
+            <p>memcached存储方式</p>
+			<p>为了提高性能，memcached中保存的数据都存储在memcached内置的内存存储空间中。由于数据仅存在于内存中，因此重启memcached、重启操作系统会导致全部数据消失。另外，内容容量达到指定值之后，就基于LRU算法自动删除不使用的缓存。memcached本身是为缓存而设计的服务器，因此并没有过多考虑数据的永久性问题。</p>
+        </section>
+        <section>
+            <p>常用命令</p>
+			<p align="left">add -- 新增一个kv到Memcache服务器上</p>
+            <p align="left">set -- 保存数据到Memcache服务器上</p>
+            <p align="left">get --提取一个保存在Memcache服务器上的数据</p>
+			<p align="left">replace --替换一个已经存在Memcache服务器上的项目</p>
+			<p align="left">delete -- 从Memcache服务器上删除一个保存的项目</p>
+			<p align="left">flush -- 刷新所有Memcache服务器上保存的项目</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1.memcache如何储存java对象？</p>
+			<p>2.memcached对java客户端有哪几种，各有什么优缺点？</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>回答一：memcache是通过序列化和反序列化来储存java对象的</p>
+        </section>
+        <section>
+            <p>回答二：Memcached的客户端目前有3种：Memcached Client for Java, SpyMemcached, XMemcached。</p>
+        </section>
+		<section>
+            <p align="left">Memcached Client for Java：较早推出的memcached JAVA客户端API，应用广泛，运行比较稳定</p>
+			<p></p>
+            <p align="left">SpyMemcached：支持异步，单线程的memcached客户端，用到了java1.5版本的concurrent和nio，存取速度会高于前者，但是稳定性不好，测试中常报timeOut等相关异常。</p>
+        </section>
+		<section>
+            <p>XMemcached：</p>
+			<p>同样是基于java nio的客户端，java nio相比于传统阻塞io模型来说，有效率高（特别在高并发下）和资源耗费相对较少的优点。传统阻塞IO为了提高效率，需要创建一定数量的连接形成连接池，而nio仅需要一个连接即可（nio也是可以做池化处理），相对来说减少了线程创建和切换的开销，这一点在高并发下特别明显。因此XMemcached与Spymemcached在性能都非常优秀，在某些方面（存储的数据比较小的情况下）Xmemcached比Spymemcached的表现更为优秀。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>memcache和redis的区别</p>
+        </section>
+        <section>
+			<p>Redis</p>
+            <p>Redis是一个单线程, 开源的使用C语言编写、遵守BSD协议、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API。Redis最大的瓶颈是机器内存或者网络带宽。</p>
+        </section>
+        <section>
+            <p>区别</p>
+			<p align="left">1.Redis是单线程，而Memcached是多线程</p>
+			<p align="left">2. redis有部份存在硬盘上，这样能保证数据的持久性，支持数据的持久化.而memecache 把数据全部存在内存之中，断电后会挂掉，数据不能超过内存大小</p>
+			<p align="left">3.redis在数据支持上要比memecache多,Redis不仅仅支持简单的k/v类型的数据，同时还提供list，set，zset，hash等数据结构的存储。</p>
+        </section>
+		<section>
+            <p>总结</p>
+			<p>有持久化需求或者对数据结构和处理有高级要求的应用，选择redis，其他简单的key/value存储，选择memcache。</p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考一:http://www.runoob.com/memcached/memcached-tutorial.html</p>
+            <p>参考二:https://blog.csdn.net/weixin_41910244/article/details/80412209</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 薛一星</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    //  以下为常见配置属性的默认值
+    //  {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    //  }
+    //  初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

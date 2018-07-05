@@ -1,0 +1,254 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>ThymeLeaf简单介绍</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：闵仕宇</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+         <section>
+            <p style="text-align:left">Thymeleaf是一款用于渲染XML/XHTML/HTML5内容的模板引擎。类似JSP，Velocity，FreeMaker等，
+			它也可以轻易的与Spring MVC等Web框架进行集成作为Web应用的模板引擎。与其它模板引擎相比，
+			Thymeleaf最大的特点是能够直接在浏览器中打开并正确显示模板页面，而不需要启动整个Web应用。</p>
+　　        <p style="text-align:left">thymeLea支持Spring Expression Language语言作为方言，也就是SpEL，在学习JSP时我们对EL表达式都有一定的认识了，SpEL是可以用于Spring中的一种EL表达式。</p>
+            <p style="text-align:left"></p>
+
+        </section>
+		
+		<section>
+            <p style="text-align:left">简而言之，与我们使用过的JSP不同，thymeLeaf是使用html的标签来完成逻辑和数据的传入进行渲染，
+			而且不用像jsp一样作为一个servlet被编译再生成。即便单独的thymeleaf html文件依旧可以正确打开并有少量（相对）有价值的信息，并且是可以被浏览器直接打开的。</p>
+            <p style="text-align:left">可以说用thymeLeaf完全替代jsp是可行的。何况他的功能更强大。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">Thymeleaf 是一种模板语言。那模板语言或模板引擎是什么？常见的模板语言都包含以下几个概念：数据（Data）、模板（Template）、模板引擎（Template Engine）和结果文档（Result Documents）。</p>
+            <p style="text-align:left">- 数据<br>
+数据是信息的表现形式和载体，可以是符号、文字、数字、语音、图像、视频等。数据和信息是不可分离的，数据是信息的表达，信息是数据的内涵。数据本身没有意义，数据只有对实体行为产生影响时才成为信息。<br>
+- 模板<br>
+模板，是一个蓝图，即一个与类型无关的类。编译器在使用模板时，会根据模板实参对模板进行实例化，得到一个与类型相关的类。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <p style="text-align:left">- 模板引擎<br>
+模板引擎（这里特指用于Web开发的模板引擎）是为了使用户界面与业务数据（内容）分离而产生的，它可以生成特定格式的文档，用于网站的模板引擎就会生成一个标准的HTML文档。<br>
+- 结果文档<br>
+一种特定格式的文档，比如用于网站的模板引擎就会生成一个标准的HTML文档。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left">模板语言用途广泛，常见的用途如下：<br>
+- 页面渲染<br>
+- 文档生成<br>
+- 代码生成<br>
+- 所有 “数据+模板=文本” 的应用场景</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">ThymeLeaf与jsp的区别？</p>
+            <p style="text-align:left">ThymeLeaf如何替换模板和数据？</p>
+            <p style="text-align:left">如何使用ThymeLeaf？</p>
+            <p style="text-align:left">ThymeLeaf可以怎么学习？</p>
+        </section>
+
+
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+		<section>
+			<p style="text-align:left">ThymeLeaf与jsp的区别</p>
+            <p style="text-align:left">Thymeleaf是以HTML文件为基础，添加标签完成“数据+模板=文本”的过程，而jsp虽然看起来像XML或者HTML，但其实都不是。</p>
+            <p style="text-align:left">加之其使用了大量java源码（scriptlet）jsp标签库（jstl）使得文件可读性不高，也摧毁了我们想维持一个格式良好的文档的可能性。</p>
+            <p style="text-align:left">JSP缺乏良好格式的一个副作用就是它很少能够与其产生的HTML类似。所以，在Web浏览器或HTML编辑器中查看未经渲染的JSP模板是非常令人困惑的，而且得到的结果看上去也很丑陋。</p>
+            <p style="text-align:left">因为JSP并不是真正的HTML，很多浏览器和编辑器展现的效果都很难在审美上接近模板最终所渲染出来的效果。</p>
+            <p style="text-align:left"></p>
+        </section>		
+		
+		<section>
+            <p style="text-align:left">Thymeleaf是在标签中通过添加th:的方式实现逻辑和数据传递，html文件本身可以被浏览器很好的支持，即使没有后台的数据传输，也可以显示一个相差不多的页面。</p>
+            <p style="text-align:left">在查找资料时有看到不少评论说ThymeLeaf有性能方面的问题，而同时也看到不少评论说在经过多年的升级过后，thymeleaf的性能已经提升了数十倍。总之，性能应该目前不算是问题。</p>
+            <p style="text-align:left">与此同时，一些评论也称，需要严格遵守XMl规范的写法让他们难以接受，以及js脚本必须加入‘/’。</p>
+            <p style="text-align:left">不过，ThymeLeaf现在时Spring官方的模板引擎方案。从1.5（或许更早）开始spring-boot对jsp的支持也有不少问题</p>
+            <p style="text-align:left">所以无论优缺点，别问，问就是学就完事了。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">ThymeLeaf如何替换模板和数据？</p>
+            <p style="text-align:left">模板引擎可以让程序实现界面与数据分离，业务代码与逻辑代码的分离，这就提升了开发效率，良好的设计也使得代码复用变得更加容易。</p>
+            <p style="text-align:left">一般的模板引擎都包含一个模板解析器和一套标记语言，好的模板引擎有简洁的语法规则、强大的功能、高效的渲染效率、详尽的帮助说明与不断的更新与维护。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">如何使用ThymeLeaf？</p>
+            <p style="text-align:left">spring-boot中不进行任何配置也可以使用，此时使用的是默认配置，需要自定义配置时在properties文件中配置即可。</p>
+            <p style="text-align:left">传统spring项目中，可以通过配置类和xml方式配置模板和视图处理器的Bean</p>
+            <p style="text-align:left">代码就不放在PPT中了。</p>
+            <p style="text-align:left"></p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">ThymeLeaf可以怎么学习？</p>
+            <p style="text-align:left">官方有个5分钟入门文档（英文）：https://www.thymeleaf.org/doc/articles/standarddialect5minutes.html</p>
+            <p style="text-align:left">官方还有一个互动教程可以通过简单的练习快速了解ThymeLeaf：http://itutorial.thymeleaf.org/</p>
+            <p style="text-align:left">我自己clone了一个spring-boot的教程项目，里面用了ThymeLeaf：https://github.com/JeffLi1993/springboot-learning-example</p>
+            <p style="text-align:left">百（gu）度（ge）</p>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">ThymeLeaf可以实现什么功能？</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">5种表达式：<br>
+			${...} : 变量表达式<br>
+			*{...} : 选择表达式<br>
+			#{...} : 消息（i28n）表达式<br>
+			@{...} : 链接（URL）表达式<br>
+			~{...} : 片段表达式</p>
+            <p style="text-align:left">这5个表达式分工不同，但同时也可以互相嵌套。这也是SpEL所支持的，或者说，在Spring项目中使用的这些表达式本身也同时是SpEL</p>
+            <p style="text-align:left"></p>
+        </section>
+
+		<section>
+            <p style="text-align:left">鉴于本人糟糕的前端（HTML）知识，对于ThymeLeaf的详细用法只浅尝辄止了。</p>
+            <p style="text-align:left">只对简单的变量值传递，格式化（日期等），字符串拼接（表达式结果生成的字符串和普通文本字符串），国际化（i18n），转义，迭代（foreach），条件（if/else, switch），SpEL（Spring官方文档Part III 第7节），链接（URL），form（这个就开始有很多不懂得了）等有些了解。</p>
+            <p style="text-align:left">以上内容顺序来自ThymeLeaf官方互动教程前12章。我自己做了整理，在我的csdn（2018/6/8 还没发）和日报都有。</p>
+			<p style="text-align:left">但是很明显的，fragment表达式可以实现模板代码的功能来实现复用，而且可以在th:fragment 种传递参数，实现一定程度的个性化需求。</p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>https://www.bysocket.com/?p=1973</p>
+            <p>https://www.tianmaying.com/tutorial/using-thymeleaf</p>
+            <p>https://www.jianshu.com/p/ed9d47f92e37</p>
+			<p>https://www.jianshu.com/p/02678b669c66</p>
+			<p>https://www.imooc.com/article/20304</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 闵仕宇</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
