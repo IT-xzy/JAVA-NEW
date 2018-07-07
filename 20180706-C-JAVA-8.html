@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>RMI底层实现原理</h2>
+            <p>分享人：韩亚博</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+        
+		<section>
+			<h3>1.背景介绍</h3>	
+			<p>TCP/IP-->JRMP-->RMI</p>
+			
+		</section>
+		<section>
+			<p>TCP负责发现传输的问题，一有问题就发出信号，要求重新传输，直到所有数据安全正确地传输到目的地。而IP是给因特网的每一台联网设备规定一个地址。</p>			
+		</section>
+		
+		<section>			
+			<p>Java远程方法协议（英语：Java Remote Method Protocol，JRMP）是特定于Java技术的、用于查找和引用远程对象的协议。这是运行在Java远程方法调用（RMI）之下、TCP/IP之上的线路层协议。</p>			
+		</section>
+		
+		<section>			
+			<p>RMI（Remote Method Invocation，远程方法调用），是JAVA早在JDK 1.1中提供的JVM与JVM之间进行 对象方法调用的技术框架的实现（在JDK的后续版本中，又进行了改进）。通过RMI技术，某一个本地的JVM可以调用存在于另外一个JVM中的对象方法，就好像它仅仅是在调用本地JVM中某个对象方法一样。</p>	
+			<p>RMI使用Java语言接口定义了远程对象，它集合了Java序列化和Java远程方法协议(Java Remote Method Protocol)。</p>
+		</section>		
+		
+		<section>
+			<p>RMI简述</p>		
+			<p>远程方法调用从客户对象经Stub、远程引用层(Remote Reference Layer)和传输层（Transport Layer）向下，传递给主机，然后再次经 传输层，向上穿过远程调用层和Skeleton，到达服务器对象。</p>
+		</section>	
+		
+		<section>
+			<h3>2.知识剖析</h3>
+			<p>2.1 RMI作用</p>
+			<p>2.2 RMI分析</p>
+		</section>	
+		
+		<section>
+			<p>2.1 RMI作用</p>
+			<p>RMI为使用Java对象的分布式计算提供了一个简单而直接的模型。这些对象可以是新的Java对象，也可以是现有API的简单Java包装器。Java采用“一次编写，随处运行模型.RMI扩展了Java模型，可以在任何地方运行。”</p>
+			<p></p>	
+		</section>
+		
+		<section>
+			<p>2.2 实现RMI的步骤</p>
+			<p>基于tcp/ip通信，那么需要IP+PORT-->注册</p>
+			<p>将对象/请求转换为传输的过程-->代理</p>			
+		</section>
+		
+		<section>
+			<p><img src="https://img-blog.csdn.net/20151022205615948" alt="这里写图片描述" title=""></p>		
+		</section>
+		
+		<section>
+			<p>注册</p>
+			<p>Rmiregistry需要在提供远程对象服务端启动，它提供了一个环境，说白了就是在内存中，开辟了一片空间，用来接受服务端服务程序的 注册，产生一个类似于数据库，提供存储检索远程对象功能的注册表。这个RMI注册表，就是我们常听到的RMI名字服务。远程客户端，就是依靠它获得存根，调用远程方法。</p>		
+		</section>
+		
+		<section>
+			<p>代理</p>
+			<p>Stub为客户端编码远程命令并把他们发送到服务器。而Skeleton则是把远程命令解码，调用服务端的远程对象的方法，把结果在编 码发给stub，然后stub再解码返回调用结果给客户端。</p>			
+		</section>
+		
+		<section>				
+			<p><img alt="博采众生" src="http://p.blog.csdn.net/images/p_blog_csdn_net/QB2049_XG/EntryImages/20081110/RMI%20Principle.jpg"></p>
+		</section>
+		
+		<section>
+			<h3>3.常见问题</h3>
+			<p>3.1 stub到底在哪</p>
+			<p>3.2 RMI是不是只有java才能用</p>		
+		</section>
+		
+		<section>					
+			<p>3.1 stub到底在哪</p>
+			<p>从JDK5.0以后，stub就不需要rmic来产生了 ，而是由JVM自动处理。Stub存在于客户端，作为客户端的代理，让我们总是认为客户端产生了stub。实际上stub类是通过Java动态类 下载机制 下载的，它是由服务端产生，然后根据需要 动态加载到 客户端，如果下次再运行这个客户端该 存根类 存在于classpath中，就不需要再下载了，而是直接加载。</p>			
+		</section>	
+
+		<section>					
+			<p>3.2 RMI是不是只有java才能用</p>
+			<p>不是</p>			
+			<p>CodeProject上有一个RMI for C++</p> 
+			<p>https://www.codeproject.com/Articles/9524/RMI-for-C</p>
+		</section>			
+
+		<section>
+			<h3>4.编码实战</h3>
+			<p>模拟RMI</p>
+		</section>
+	
+		<section>
+			<h3>5.扩展思考</h3>
+			<p>应用场景</p>	
+			<p>RMI:使用JRMP协议承载数据描述。RMI可以开发企业分布式应用</p>
+		</section>
+		
+		<section>
+			<h3>6.参考文献</h3>			
+			<p>https://blog.csdn.net/column/details/sys-communication.html?&page=3</p>
+			<p>https://blog.csdn.net/yangdelong/article/details/4433035</p>		
+			<p>https://blog.csdn.net/buhuikanjian/article/details/53105416</p>
+		</section>
+        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>欢迎大家讨论</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
