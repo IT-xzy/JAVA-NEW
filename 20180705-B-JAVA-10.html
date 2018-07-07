@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>ajax的简单介绍</h2>
+            <p>分享人：张强</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>	       
+		<section>
+			<h3>1.背景介绍</h3>
+			
+		</section>	       
+		<section>
+			<p >什么是ajax</p>
+			<p style="text-align:left;">AJAX （Asynchronous JavaScript and XML）也就是异步 JavaScript 和 XML。<br>
+			最早的时候网页的提交是以表单的形式存在，我们需要提交数据的时候就算只需要更改一个很少的数据都需要提交整个表单，然后等待服务器发送，客户端处理后返回一个完整的html页面，这代表整个页面需要刷新。而且每当服务器处理客户端提交的请求时,客户都只能空闲等待。97年的时候微软就已经发明了ajax中的关键技术，并且在99年IE5推出的时候就开始支持XmlHttpRequest对象，但是后来却把它搁置了。后来是google的google earth、google suggest以及gmail等对ajax技术的广泛应用才流行起来的，一直到现在。这也是变相成就了它的竞争对手google在ajax技术方面的领先地位。
+			</p>
+		</section>
+		<section >
+			<p style="text-align:left;">AJAX 最大的优点是在不重新加载整个页面的情况下，可以与服务器交换数据并更新部分网页内容。但是ajax技术不仅仅如此，它最大的体现是在提升用户体验上面，它的代表就是异步传输。不仅是我们在网页上看到的效果，我们使用的软件很大部分也是有ajax技术的，比如现在用的闪电邮，谷歌的很多软件也是利用了ajax技术。<br>
+			</p>
+		</section>	   
+		<section>
+			<h3>2.知识剖析</h3>
+			<p></p>
+		</section>    
+		<section >
+			<p style="text-align:left;">关于异步和同步</p>
+			<p style="text-align:left;">异步传输是面向字符的传输，它的单位是字符；而同步传输是面向比特的传输，它的单位是桢，它传输的时候要求接受方和发送方的时钟是保持一致的。<br>			具体来说，异步传输是将比特分成小组来进行传送。一般每个小组是一个8位字符，在每个小组的头部和尾部都有一个开始位和一个停止位，它在传送过程中接收方和发送方的时钟不要求一致，也就是说，发送方可以在任何时刻发送这些小组，而接收方并不知道它什么时候到达。一个最明显的例子就是计算机键盘和主机的通信，按下一个键的同时向主机发送一个8比特位的ASCII代码，键盘可以在任何时刻发送代码，这取决于用户的输入速度，内部的硬件必须能够在任何时刻接收一个键入的字符。这是一个典型的异步传输过程。
+			</p>
+		</section>
+		<section>
+			<p style="text-align:left; ">ajax所包含的技术<br>
+			1.使用CSS和XHTML来表示。<br>
+			2. 使用DOM模型（DOM 是 Document Object Model（文档对象模型）的缩写。）来交互和动态显示。<br>
+			3.使用XMLHttpRequest来和服务器进行异步通信。<br>
+			4.使用javascript来绑定和调用。</p>	   			
+		</section>
+		<section>
+			<p style="text-align:left; font-size: 30px;">xmlHttpRequest对象<br>XMLHttpRequest是ajax的核心机制，在IE5中首先引入。XMLHttpRequest 是一个 API，它为客户端提供了在客户端和服务器之间传输数据的功能。是一种支持异步请求的技术（虽然名字含有XML，但它可以接受任何数据类型而不仅仅为XML，而且它支持的协议类型不限于HTTP（包括file,ftp））。简单的说，也就是javascript可以及时向服务器提出请求和处理响应，而不阻塞用户。达到无刷新的效果。<br>
+			XMLHttpRequest 最初由微软设计，随后被 Mozilla、Apple 和 Google采纳。如今，该对象已经被 W3C组织标准化。</p>
+		</section>
+		<section>
+			<p style="text-align:left; font-size: 30px;">xmlHttpRequest对象的属性<br>
+			onreadystatechange ：一个JavaScript函数对象，当readyState属性改变时会调用它。回调函数会在user interface线程中调用。每次状态改变所触发事件的事件处理程序。<br>
+			responseText：从服务器进程返回数据的字符串形式。<br>
+			responseXML：从服务器进程返回的DOM兼容的文档数据对象。请求未成功，请求未发送，或响应无法被解析成 XML 或 HTML的时候为null。响应为text/xml流时才会被解析。<br>
+			status：从服务器返回的状态码，比如常见的404（未找到）和200（已就绪） <br>
+			status Text：伴随状态码的字符串信息 <br>
+			readyState：对象状态值，也就是请求的状态<br>
+			
+			</p>
+		</section>
+		<section>
+			<p style="text-align:left; font-size: 30px;">readyState：请求的五种状态<br>
+			0 UNSENT(未初始化) 对象已建立，但是尚未初始化（open()方法还未被调用） <br>
+			1 OPENED(初始化) 对象已建立，尚未调用send方法（open()方法已经被调用） <br>
+			2 HEADERS_RECEIVED(发送数据，已获取响应头) send()方法已经被调用, 响应头和响应状态已经返回但是未获取 <br>
+			3 LOADING(数据传送中，正在下载响应体) 已接收部分数据，响应及http头还不全，这时通过responseBody和responseText获取部分数据会出现错误 <br>
+			4 DONE(完成) 数据接收完毕,此时可以通过通过responseXml和responseText获取完整的回应数据<br>
+			</p>
+		</section>
+		<section>
+			<p style="text-align:left; font-size: 25px;">status：返回状态码 （HTTP状态码）<br>
+			1XX	信息性状态码（Informational）	服务器正在处理请求<br>
+			2XX	成功状态码（Success）	请求已正常处理完毕<br>
+			3XX	重定向状态码（Redirection）	需要进行额外操作以完成请求<br>
+			4XX	客户端错误状态码（Client Error）	客户端原因导致服务器无法处理请求<br>
+			5XX	服务器错误状态码（Server Error）	服务器原因导致处理请求出错<br>
+			<br><br>举例：<br>
+			100   （继续） 请求者应当继续提出请求。 服务器返回此代码表示已收到请求的第一部分，正在等待其余部分。 <br>
+			200   （成功）  服务器已成功处理了请求。 通常这表示服务器提供了请求的网页。 <br>
+			300   （多种选择,重定向）  针对请求，服务器可执行多种操作。 服务器可根据请求者 (user agent) 选择一项操作，或提供操作列表供请求者选择。 <br>
+			400   （错误请求,请求可能出错） 服务器不理解请求的语法。 <br>
+			500   （服务器内部错误）  服务器遇到错误，无法完成请求。<br>
+			404 - 请求的网页不存在、503 - 服务不可用<br>
+			</p>
+		</section>
+		<section>
+			<h3>3.常见问题</h3>
+		</section>
+		<section>
+			<p>AJAX请求的五个步骤</p>
+		</section>
+		<section>
+			<p style="text-align:left; ">1.创建xmlHttpRequest对象<br>
+			xmlHttp = new XMLHttpRequest();</p>
+		</section>
+		<section>
+			<p style="text-align:left; ">2.设置回调函数<br>
+			xmlHttp.onreadystatechange= callback;<br>
+				function callback(){}</p>
+		</section>
+		<section>
+			<p style="text-align:left; ">3.使用OPEN方法与服务器建立连接<br>
+			xmlhttp.open("POST","www.baidu.com",true);<br>
+				参数：1.方式；2.url；3.是否异步，默认为true，也就是异步</p>
+		</section>
+		<section>
+			<p style="text-align:left; ">4.向服务器端发送数据<br>
+			xmlHttp.send(null);  &nbsp;&nbsp;发送空数据（get方式）<br>
+			xmlHttp.send(); &nbsp;&nbsp;&nbsp;默认（get方式）<br>
+			xmlHttp.send(data);  &nbsp;&nbsp;带参数发送（post方式必须带参数）<br>
+							
+			</p>
+			
+		</section>
+		<section>
+			<p style="text-align:left; ">5.在回调函数中针对不同的响应状态进行处理<br>
+			if(xmlhttp.readyState==4)<br>
+{<br>
+document.getElementByIdx("user1").innerHTML="数据正在加载...";<br>
+if(xmlhttp.status==200)<br>
+{<br>
+document.write(xmlhttp.responseText);<br>
+}<br>
+			</p>
+		</section>
+		<section>			
+			<p style="text-align:left; ">
+			6.(附加)使用JavaScript和DOM实现局部刷新.
+			<br>			
+			</p>
+		</section>
+		
+		<section>
+			<h3>4.编码实战</h3>
+			<p></p>	   			
+		</section>
+		<section>
+			<h3>5.扩展思考</h3>			
+			<p>使用JQuery实现ajax</p>
+		</section>
+		<section>		
+			<p>ajax的优点</p>
+			<p style="text-align:left; ">1、最大的一点是页面无刷新，在页面内与服务器通信，给用户的体验非常好。 <br>2、使用异步方式与服务器通信，不需要打断用户的操作，具有更加迅速的响应能力。 <br>3、可以把以前一些服务器负担的工作转嫁到客户端，利用客户端闲置的能力来处理，减轻服务器和带宽的负担，节约空间和宽带租用成本。并且减轻服务器的负担，ajax的原则是“按需取数据”，可以最大程度的减少冗余请求，和响应对服务器造成的负担。<br>4、基于标准化的并被广泛支持的技术，不需要下载插件或者小程序。<br>5、界面与应用分离。 </p>
+		</section>
+		<section>		
+			<p>ajax的缺点</p>			
+			<p style="text-align:left; ">1、ajax取代了返回和历史选项，即对浏览器后退机制的破坏。 <br>			2、安全问题,ajax的逻辑可以对客户端的安全扫描技术隐藏起来，允许黑客从远端服务器上建立新的攻击。还有ajax也难以避免一些已知的安全弱点，诸如跨站点脚本攻击、SQL注入攻击和基于credentials的安全漏洞等。<br>
+			3、对搜索引擎的支持比较弱。<br>
+			4、破坏了程序的异常机制。比如对于和使用from表单提交相比，使用ajax提交更难调试。<br>
+			5、违背了url和资源定位的初衷。<br>
+			</p>
+		</section>
+		<section>
+			<h3>6.参考文献</h3>
+			<p>ajax w3c教程</p>
+			<p>XMLHttpRequest API 接口：https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest</p>
+			<p>https://www.cnblogs.com/fanshaokun/p/6272816.html</p>
+		</section>        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>谢谢大家！</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
