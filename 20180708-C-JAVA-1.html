@@ -1,0 +1,273 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>深入浅出String</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：王琦超</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+         <section>
+            <p style="text-align:left">首先问自己：</p>
+　　        <p style="text-align:left">什么是String？它有什么特点？</p>
+            <p style="text-align:left">它和int这些数据类型有什么区别？</p>
+            <p style="text-align:left">和其他具体对象又有什么区别？</p>
+        </section>
+        
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">String实质是字符数组，其具有两个基本特点：</p>
+            <p style="text-align:left">①不可变性</p>
+            <p style="text-align:left">②不可被继承</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <p style="text-align:left">为什么我们说String是不可变的呢？我们使用时明明记得它是可以随意组合修改啊？</p>
+            <p style="text-align:left">首先来看一个demo1—1</p>
+            <p style="text-align:left"></p>
+            
+        </section>
+
+        <section>
+		     <p style="text-align:left">在demo中，看起来好像s1的值改变了，但是实际上，变的并不是String，而是其一个引用的指向</p>
+            <p style="text-align:left">String s1="Hello"这段代码中，s1只是一个地址的引用，我们将其声明成String类型，代表它的指向只能是String类型的数据，不能指向其他。但实际上String的具体内容是“Hello"</p>
+            <p style="text-align:left">所以我们执行String s1=s1+s2这段代码时，实际上是将s1和s2组合起来，创建了一个新数组，然后将其内存地址赋值给s1，所以改变的并不是String，而是s1这个引用的地址</p>
+            <p style="text-align:left">要深究其原理我们可以看一下源码。</p>
+            <p style="text-align:left">我们重点关注的应该是修饰词，构造函数，contact方法</p>
+        </section>
+		<section>
+		     <p style="text-align:left">从修饰词我们可以知道其值被修饰为private,final</p>
+            <p style="text-align:left">从构造方法我们看到其赋值过程是复制一个新数组，而不是指向原来的数组，具体差别是什么呢？</p>
+            <p style="text-align:left">我们可以看demo1-3</p>
+            <p style="text-align:left">从这里我们就能看出直接赋值指向同一空间和复制指向不同空间的区别就是前者一个改变两个都变，后者一个改变另外一个不受影响</p>
+            <p style="text-align:left"></p>
+        </section>
+		 <section>
+		     <p style="text-align:left">contact方法源码分析，首先看一下demo1-2,看看contact有什么用：</p>
+            <p style="text-align:left">public static void arraycopy(Object src, int srcPos, Object dest, int destPos, int length)</p>
+            <p style="text-align:left">代码解释:</p>
+            <p style="text-align:left">Object src : 原数组</p>
+            <p style="text-align:left">int srcPos : 从元数据的起始位置开始</p>
+			<p style="text-align:left">Object dest : 目标数组</p>
+            <p style="text-align:left">int destPos : 目标数组的开始起始位置</p>
+			<p style="text-align:left">int length  : 要copy的数组的长度</p>
+            <p style="text-align:left"></p>
+        </section>
+		 <section>
+		     <p style="text-align:left">从源码中我们可以看到，其contact方法最后是创建了一个新的数组，将之前两个数组的值copy进去，并将其返回</p>
+            <p style="text-align:left">所以，String并没有改变，因为现在的s1指向的并不是之前的s1指向，而是新建了一个String,指向了新的String</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+		
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">String的内存储存是怎么样的？</p>
+            <p style="text-align:left">String里面的intern()方法有什么用？</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+         
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		
+		 <section>
+		     <p style="text-align:left">为了解决第一个问题我们首先看demo2</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+        <section>
+            <p style="text-align:left">那么问题来了，为什么答案会是true,false,true,true呢？</p>
+            <p style="text-align:left">首先我们需要知道==和equals()的区别</p>
+            <p style="text-align:left">==比较的是其左右两个变量的字面值，如果是引用就比较引用地址的值</p>
+            <p style="text-align:left">equals()则是比较其变量最终指向的内容</p>
+            <p style="text-align:left">弄清楚这个，那么第三个为什么是true我们也就知道了，因为其最终指向的值都是一样的</p>
+        </section>
+		 <section>
+            <p style="text-align:left">要弄清楚第一个为什么是true，我们得知道：</p>
+            <p style="text-align:left">JVM为了提高性能和减少内存开销，在实例化字符串常量的时候进行了一些优化。为了减少在JVM中创建的字符串的数量，字符串类维护了一个字符串常量池，其主要用来存储编译器生成的各种字面量和符号引用。。</p>
+            <p style="text-align:left">常量池中的“对象”是在编译期就确定好了的，在类被加载的时候创建的，如果类加载时，该字符串常量在常量池中已经有了，那这一步就省略了。不用创建，直接指向同一个地址就可以，所以第一个是true</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+		 <section>
+            <p style="text-align:left">需要注意的是，其在类加载时，会加载进常量池的都是确定的常量，即我一眼就知道答案是什么的才会被加载进去，所以String s3=s1+s2这个式子，只有在运行时，进行到这一步才会得到结果的</p>
+            <p style="text-align:left">它的内容不会直接加载进常量池，而是在运行时创建一个对象，所以也就不存在去常量池中寻找有没有这个常量的存在，自然，s==s3答案就是false了</p>
+            <p style="text-align:left">同理，我一眼就能看出”Hello“+”World"的值，因此JVM也能一眼看出来，所以s4就会被加载进常量池，因为常量池中已经存在“HelloWorld"了，所以自然第四个答案就是true</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+		 <section>
+            <p style="text-align:left">这时有人就会问了，那么这个字符串常量池是不是在过了编译期之后里面就不能新增值了呢？注意我前面的概念中说的是”主要“，有主要自然就有其他</p>
+            <p style="text-align:left">而这个intern()方法就是其他</p>
+            <p style="text-align:left">在这之前，我们先看demo3</p>
+			 <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+		 <section>
+            <p style="text-align:left">同样是new String ,为什么s3==s4是true,s1==s3却是false呢</p>
+            <p style="text-align:left">这是因为new操作是在运行时在堆上建立一个对象，将s1指向这个对象，然后这个对象指向常量池中一开始就加载好的”HelloWorld"</p>
+            <p style="text-align:left">所以其实s1和s2存储的是值是堆中对象的地址，因此第一个操作实际上创建了两个对象，虽然并不是同时创建的，而第二个操作则只创建了一个对象，因为第一个操作已经在常量池创建了对象，它拿来用就好</p>
+			 <p style="text-align:left">所以此时实际上si和s2指向的是堆中对象的值，因此s1==s2是false</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+		 <section>
+            <p style="text-align:left">而intern()被String实例调用时则会去常量池中寻找是否有一样的，如果有，就直接返回地址，如果没有就创建一个然后返回</p>
+            <p style="text-align:left">所以它是会直接返回常量池中的地址，并将其赋值给s4,而且，其可以做到在运行期扩充常量池</p>
+            <p style="text-align:left">虽然new String也是去常量池中寻找，如果有就返回，但是这个返回是给堆中对象</p>
+			 <p style="text-align:left">因此s3==s4是true，但是s1==s4即s1==s3就是false</p>
+            <p style="text-align:left">为了加深印象，可以看一下demo4</p>
+            <p style="text-align:left">此例说明调用intern方法后，其指向地址就是常量区</p>
+        </section>
+        <section>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+     
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">如果说String是不可变的，是不是我们不应该对其经常修改？</p>
+			<p style="text-align:left">那如果要经常修改应该怎么办呢？</p>
+            <p style="text-align:left">StringBuffer和StringBuilder有什么区别？</p>
+        </section>
+
+      
+
+
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>https://blog.csdn.net/xiabing082/article/details/49759071</p>
+            <p>https://www.cnblogs.com/think-in-java/p/6127804.html</p>
+            <p>https://blog.csdn.net/u010001192/article/details/45460971</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 王琦超</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
