@@ -1,0 +1,237 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>nginx简单介绍</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：王庸之</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+
+            <h3>什么是Nginx？</h3>
+            <p>Nginx ("engine x") 是一个高性能的 HTTP 和 反向代理 服务器，也是一个IMAP/POP3/SMTP 代理服务器。由俄罗斯的程序设计师IgorSysoev所开发，供俄国大型的入口网站及搜索引擎Rambler（俄文：Рамблер）使用。</p>
+            <p>其特点是占有内存少，并发能力强，事实上nginx的并发能力确实在同类型的网页服务器中表现较好。</p>
+            <p>目前中国互联网企业 70%以上公司包括主流公司360、百度、新浪、腾讯、阿里等都在使用 nginx 作为自己的 web 服务器。</p>			
+			
+            
+        </section>
+       
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+				
+		<section>
+
+            <h3>Nginx工作原理及组成</h3>
+            <p>Nginx 由内核和模块组成，其中，内核的设计非常微小和简洁，完成的工作也非常简单，仅仅通过查找配置文件将客户端请求映射到一个 location block（location 是 Nginx配置中的一个指令，用于 URL 匹配），而在这个 location 中所配置的每个指令将会启动不同的模块去完成相应的工作。</p>
+            <p>核心模块：HTTP 模块、 EVENT 模块和 MAIL 模块。</p>
+            <p>基础模块：HTTP Access 模块、HTTP FastCGI 模块、HTTP Proxy 模块和 HTTP Rewrite模块。</p>
+			<p>第三方模块：HTTP Upstream Request Hash 模块、 Notice 模块和 HTTP Access Key模块。</p>
+			
+
+        </section>
+		
+		<section>
+
+            <h3>Nginx虚拟主机</h3>
+            <p>虚拟主机使用的是特殊的软硬件技术，它把一台运行在因特网上的服务器主机分成一台台“虚拟”的主机，每台虚拟主机都可以是一个独立的网站，可以具有独立的域名，具有完整的Intemet服务器功能（WWW、FTP、Email等），同一台主机上的虚拟主机之间是完全独立的。从网站访问者来看，每一台虚拟主机和一台独立的主机完全一样。</p>
+			<p>利用虚拟主机，不用为每个要运行的网站提供一台单独的Nginx服务器或单独运行一组Nginx进程。虚拟主机提供了在同一台服务器、同一组Nginx进程上运行多个网站的功能。</p>
+			
+
+            
+        </section>
+		
+	    <section>
+
+            <h3>Nginx动静分离</h3>
+            <p>Nginx 动静分离简单来说就是把动态跟静态请求分开，不能理解成只是单纯的把动态页面和静态页面物理分离。严格意义上说应该是动态请求跟静态请求分开，可以理解成使用Nginx 处理静态页面，Tomcat、 Resin 出来动态页面。动静分离从目前实现角度来讲大致分为两种。</p>
+			<p>一种是纯粹把静态文件独立成单独的域名，放在独立的服务器上，也是目前主流推崇的方案。</p>
+			<p>另外一种方法就是动态跟静态文件混合在一起发布，通过 nginx 来分开。</p>
+			<p>通过 expires 参数设置，可以使浏览器缓存过期时间，减少与服务器之前的请求和流量。</p>
+
+
+            
+        </section>
+		
+		<section>
+
+            <h3>Nginx反向代理</h3>
+			<p>正向代理 是一个位于客户端和原始服务器(origin server)之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并指定目标(原始服务器)，然后代理向原始服务器转交请求并将获得的内容返回给客户端。客户端必须要进行一些特别的设置才能使用正向代理。</p>
+			<p>正向代理的用途：（1）访问原来无法访问的资源，如google；（2） 可以做缓存，加速访问资源；（3）对客户端访问授权，上网进行认证；（4）代理可以记录用户访问记录（上网行为管理），对外隐藏用户信息</p>
+
+            
+        </section>
+		
+		<section>
+
+            <h3>Nginx反向代理</h3>
+			<p>反向代理（Reverse Proxy）实际运行方式是指以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个服务器。</p>
+			<p>反向代理的作用：（1）保证内网的安全，可以使用反向代理提供WAF功能，阻止web攻击；（2）负载均衡，通过反向代理服务器来优化网站的负载；</p>
+							
+            
+        </section>
+		
+		
+        <section>
+		
+             <h3>Nginx负载均衡</h3>
+		     <p>客户端发送的、nginx反向代理服务器接收到的请求数量，就是我们说的负载量。</p>
+		     <p>请求数量按照一定的规则进行分发到不同的服务器处理的规则，就是一种均衡规则。</p>
+		     <p>负载均衡在实际项目操作过程中，有硬件负载均衡和软件负载均衡两种，硬件负载均衡也称为硬负载，如F5负载均衡，相对造价昂贵成本较高，但是数据的稳定性安全性等等有非常好的保障，如中国移动中国联通这样的公司才会选择硬负载进行操作；更多的公司考虑到成本原因，会选择使用软件负载均衡，软件负载均衡是利用现有的技术结合主机硬件实现的一种消息队列分发机制。</p>
+             
+		
+        </section>
+		
+		<section>
+		
+             <h3>Nginx负载均衡调度算法</h3>
+		     <p>weight轮询（默认）：接收到的请求按照顺序逐一分配到不同的后端服务器。这种方式下，可以给不同的后端服务器设置一个权重值（weight），用于调整不同的服务器上请求的分配率；权重数据越大，被分配到请求的几率越大；该权重值，主要是针对实际工作环境中不同的后端服务器硬件配置进行调整的。</p>
+		     <p>ip_hash：每个请求按照发起客户端的ip的hash结果进行匹配，这样的算法下一个固定ip地址的客户端总会访问到同一个后端服务器，这也在一定程度上解决了集群部署环境下session共享的问题。即同一Ip每次都访问同一个服务器，其session肯定是储存在同一服务器中，就可以避免因为更换服务器导致的需要每次重新输入登陆信息的尴尬。</p>
+			
+		   
+        </section>
+
+
+        <section>
+		
+           <h3>Nginx负载均衡调度算法</h3>
+		     <p>fair：智能调整调度算法，动态的根据后端服务器的请求处理到响应的时间进行均衡分配，响应时间短处理效率高的服务器分配到请求的概率高，响应时间长处理效率低的服务器分配到的请求少；结合了前两者的优点的一种调度算法。但是需要注意的是nginx默认不支持fair算法，如果要使用这种调度算法，请安装upstream_fair模块。</p>
+		     <p>url_hash：按照访问的url的hash结果分配请求，每个请求的url会指向后端固定的某个服务器，可以在nginx作为静态服务器的情况下提高缓存效率。同样要注意nginx默认不支持这种调度算法，要使用的话需要安装nginx的hash软件包。</p>
+
+
+			
+        </section>
+        
+
+        <section>
+		
+            <h3>Nginx日志管理</h3>
+            <p>通过访问日志，你可以得到用户地域来源、跳转来源、使用终端、某个URL访问量等相关信息；通过错误日志，你可以得到系统某个服务或server的性能瓶颈等。因此，将日志好好利用，你可以得到很多有价值的信息。</p>
+            
+			
+        </section>
+		
+		
+        <section>
+		
+            <h3>3.编码实战</h3>
+			
+        </section>
+
+        <section>
+		
+            <h3>4.常见问题</h3>
+			
+        </section>		
+
+        <section>		
+		
+           <h3></h3>		   
+           <p>匹配的url后面带不带/区别</p> 
+		   <p>给出的url后面呢带不带/区别</p>
+		   
+        </section>
+		
+
+        <section>
+		
+            <h3>5.参考资料</h3>
+            
+            <p>http://www.cnblogs.com/xdp-gacl/category/574705.html</p>
+
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+		
+            <h3>鸣谢</h3>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
