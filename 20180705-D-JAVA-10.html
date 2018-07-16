@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Shiro-项目 开发中的权限管理</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：常雷雷</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+        </section>
+        <section>
+            <p>什么是权限管理？</p>
+            <p>权限管理，一般指根据系统设置的安全规则或者安全策略，用户可以访问而且只能访问自己被授权的资源，不多不少。</p>
+            <p>权限管理体系几乎可以出现在任何系统里面，只要项目存在有用户和密码的相关概念。</p>
+            <p>很多人常将“用户身份认证”、“密码加密”、“系统管理”等概念与权限管理概念混淆。</p>
+        </section>
+        <section>
+            <p>权限管理就是管理用户对于资源的操作。</p>
+            <p>本 CRM 系统的权限（也称作资源）是基于角色操作权限来实现的，即RBAC（Role-Based Access Control，基于角色的访问控制），就是用户通过角色与权限进行关联。</p>
+            <p>简单地说，一个用户拥有若干角色，每一个角色拥有若干权限。这样，就构造成“用户-角色-权限”的授权模型。</p>
+            <p>在这种模型中，用户与角色之间，角色与权限之间都是多对多的关系，为了实现表之间多对多的关系，必须将一个多对多的关系通过一个中间表分为两个一对多的关系。</p>
+            <p>因此引入中间表，用户角色表和角色权限表。</p>
+        </section>
+        <section>
+            <img src="权限管理.png">
+        </section>
+        <section>
+            <p>PRAC模型： 基于角色的权限访问控制（Role-Based Access Control）作为传统访问控制（自主访问，强制访问）的有前景的代替受到广泛的关注。</p>
+            <p>在RBAC中，权限与角色相关联，用户通过成为适当角色的成员而得到这些角色的权限。 这就极大地简化了权限的管理。</p>
+            <p> 在一个组织中，角色是为了完成各种工作而创造，用户则依据它的责任和资格来被指派相应的角色，用户可以很容易地从一个角色被指派到另一个角色。</p>
+            <p>角色可依新的需求和系统的合并而赋予新的权限，而权限也可根据需要而从某角色中回收。角色与角色的关系可以建立起来以囊括更广泛的客观情况。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>Shiro架构</p>
+        </section>
+        <section>
+            <p>两条重要的英文</p>
+            <p>AuthorizationInfo: Authentication： 身份认证/登录，验证用户是不是拥有相应的身份；</p>
+            <p>AuthenticationInfo：Authorization： 授权，即权限验证，验证某个已认证的用户是否拥有某个权限；即判断用户是否能做事情，</p>
+            <p>在解释它们前首先必须要描述一下Shiro对于安全用户的界定：和大多数操作系统一样。用户具有角色和权限两种最基本的属性。</p>
+            <p>例如，我的Windows登陆名称是learnhow，它的角色是administrator，而administrator具有所有系统权限。</p>
+        </section>
+        <section>
+            <p>这样learnhow自然就拥有了所有系统权限。那么其他人需要登录我的电脑怎么办，我可以开放一个guest角色，</p>
+            <p>任何无法提供正确用户名与密码的未知用户都可以通过guest来登录，而系统对于guest角色开放的权限极其有限。</p>
+            <p>同理，Shiro对用户的约束也采用了这样的方式。AuthenticationInfo代表了用户的角色信息集合，AuthorizationInfo代表了角色的权限信息集合。</p>
+            <p>如此一来，当设计人员对项目中的某一个url路径设置了只允许某个角色或具有某种权限才可以访问的控制约束的时候，Shiro就可以通过以上两个对象来判断。</p>
+        </section>
+        <section>
+            <p>Subject： 主体，代表了当前“用户”。</p>
+            <p>所有Subject都绑定到SecurityManager，与Subject的所有交互都会委托给SecurityManager；</p>
+            <p>SecurityManager： 安全管理器；即所有与安全有关的操作都会与SecurityManager交互；且它管理着所有Subject；</p>
+            <p>它是Shiro的核心，它负责与后边介绍的其他组件进行交互</p>
+            <p>可以把Subject认为是一个门面；SecurityManager才是实际的执行者；</p>
+            <p>Realm： 域，Shiro从从Realm获取安全数据（如用户、角色、权限），就是说SecurityManager要验证用户身份，</p>
+        </section>
+        <section>
+            <p>Session Manager： 会话管理，即用户登录后就是一次会话，在没有退出之前，它的所有信息都在会话中；</p>
+            <p>Caching： 缓存，比如用户登录后，其用户信息、拥有的角色/权限不必每次去查，这样可以提高效率；</p>
+            <p>Remember Me： 记住我，这个是非常常见的功能，即一次登录后，下次再来的话不用登录了。</p>
+            <p>会话可以是普通JavaSE环境的，也可以是如Web环境的；</p>
+            <p>Cryptography： 加密，保护数据的安全性，如密码加密存储到数据库，而不是明文存储；</p>
+            <p>那么它需要从Realm获取相应的用户进行比较以确定用户身份是否合法；也需要从Realm得到用户相应的角色/权限进行验证用户是否能进行操作；可以把Realm看成DataSource，即安全数据源。</p>
+            <p>Concurrency： shiro支持多线程应用的并发验证，即如在一个线程中开启另一个线程，能把权限自动传播过去；</p>
+            <p>Testing： 提供测试支持；</p>
+            <p>Run As： 允许一个用户假装为另一个用户（如果他们允许）的身份进行访问；</p>
+            <p>Web Support： Web支持，可以非常容易的集成到Web环境；</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1.Shiro是使用INI文件来管理相关内容的，我不喜欢这样，要怎么做？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+            <p>1、对象名=全限定类名 相对于调用 public 无参构造器创建对象</p>
+            <p>2、对象名.属性名=值 相当于调用 setter 方法设置常量值</p>
+            <p>3、对象名.属性名=$对象引用 相当于调用 setter 方法设置对象引用</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p></p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>链接地址：http://jinnianshilongnian.iteye.com/blog/2018936/</p>
+            <p>作者：张开涛</p>
+            <p>链接地址：https://www.sojson.com/blog/115.html</p>
+            <p>作者：散仙一枚</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p>
+                <small>BY : 常雷雷</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。</p>
+
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。</p>
+
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
