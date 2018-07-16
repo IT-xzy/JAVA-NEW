@@ -1,0 +1,212 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>jetty,resin,tomcat的差别在哪里，在线上服务应该选择哪一种WEB服务器？</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：杨棋</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>Tomcat服务器</p>
+			<p>TomcatTomcat是一个实现了JAVA EE标准的最小的WEB服务器，是Apache 软件基金会的Jakarta 项目中的一个核心项目，由Apache、Sun 和其他一些公司及个人共同开发而成。因为Tomcat 技术先进、性能稳定，而且开源免费，因而深受Java 爱好者的喜爱并得到了部分软件开发商的认可，成为目前比较流行的Web 应用服务器。学习JavaWeb开发一般都使用Tomcat服务器，该服务器支持全部JSP以及Servlet规范</p>
+        </section>
+        <section>
+            <p>Tomcat 特点</p>
+            <p>1、提供了可被服务器加载并执行的程序代码，并服务于来自客户端的请求。</p>
+            <p>2、Servlet不依赖浏览器，是允许在服务器端，所以不管浏览器是否支持java，都能请求访问servlet。</p>
+        </section>
+        <section>
+            <p>Resin服务器</p>
+            <p>Resin是CAUCHO公司的产品，是一个非常流行的application server，对servlet和JSP提供了良好的支持，性能也比较优良，resin自身采用JAVA语言开发。支持负载均衡。</p>
+        </section>
+        <section>
+            <p>Resin特点</p>
+            <p>1、Resin包含了很多可靠的特性，包括服务器自动重启、检测并重启死锁的服务器、管理JVM内存以防止内存泄露等。</p>
+            <p>2、Resin可以将多个服务器作为一个服务器来对客户进行响应，从而增强服务器的扩展能力。</p>
+            <p>3、Resin可实现持久和分布的sessions：持久的session能够在服务器重启的时候保持现有的Http会话，分布式的session可以在多个服务器之间共享Http会话的状态。</p>
+        </section>
+        <section>
+            <p>Jetty服务器</p>
+            <p>Jetty 是一个开源的servlet容器，它为基于Java的web内容，例如JSP和servlet提供运行环境。Jetty是使用Java语言编写的，它的API以一组JAR包的形式发布。开发人员可以将Jetty容器实例化成一个对象，可以迅速为一些独立运行（stand-alone）的Java应用提供网络和web连接。</p>
+        </section>
+        <section>
+            <p>Jetty特点</p>
+            <p>1、Jetty的指导原则是“简单不复杂“。Jetty容易理解和使用：  通过API或者XML文件配置；  XML文件语法直接了当地在POJOs上影射API操作；  默认的配置文件可以使Jetty作为外盒（out-of-the-box）；  只需少量的行数就可以嵌入一个Jetty实例。</p>
+            <p>2、可扩展性在异步的WEB2.0类型的应用程序使用的技术，例如AJAX，连接停留时间要比处理一个静态页长，线程和内存需求可能急剧增长。
+                底层必须优雅地处理这些问题，一个低速的数据库连接可能造成站点瘫痪，因为线程被占满了。使用Jetty...</p>
+        </section>
+        <section>
+            <p>3、高效大量的努力用来优化代码，精炼的代码以至于漏洞尽可能少：相关性尽可能少； 核心保持最小，附加函数放在可选包中;可扩展性是一个关键问题;高强度下性能衰减平缓。</p>
+            <p>4、嵌入性 Jetty是一个非常好的组件。这意味着很容易嵌入到一个应用程序中，而不需要应用程序去适应它： 使用依赖注射和反转的控制模式</p>
+            <p>5、Jetty内建插入性。所有Jetty核心组件的实现允许不同的选择，至少一个或者更多，组件的实现总是会提供的。如果这些仍然不能满足你的要求，你可以自由的编写底层接口和抽象类最为基础。这意味着Jetty能够容易地用在一个特别的应用环境中。当Jetty在一个 JavaEE服务器中作为web容器时，这是相当有用的，Jetty的插入性保证了它和主机容器的一个紧密的集成。</p>
+        </section>
+	
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+				<p>Tomcat和Resin的区别</p>
+				<p>相同点：他们都是用java编写的，都是web服务器，并且支持集群部署。 </p>
+				<p>不同点:1、速度方面，Resin比Tomcat快2倍以上，不过Tomcat也很快，所以这个差别几乎感受不到。</p>
+                <p>2、开关机制上方面,Resin要比Tomcat好,比如修改了配置文件之后,Resin是会自动重启的,而Tomcat需要人工手动关闭并重启。</p>
+                <p>3、报错方面，Tomcat比较详细，一个小小的错误也会用大篇幅来描述，而Resin则相对简洁明确一些</p>
+		</section>
+        <section>
+            <p>Tomcat和Jetty的区别</p>
+            <p>相同点:tomcat与jetty都是一种servlet引擎，他们都支持标准的servlet规范和javaEE规范</p>
+            <p>不同点:1.架构方面,jetty相比tomcat更为简单jetty架构是基于Handler来实现的，主要的扩展功能都可以用Handler来实现，扩展简单tomcat的框架是基于容量设计的，进行扩展是需要了解tomcat的整体设计结构，不易扩展</p>
+            <p>2.jetty的应用更加快捷，修改简单，对新的servlet规范的支持更好,tomcat目前应用比较广泛，对javaEE和servlet的支持更加全面，很多特性会直接集成进来</p>
+        </section>
+        <!--
+			<section>
+                <p>MySQL中的bigint类型</p>
+                <p>bignit，表示从-2^63到2^63-1(即从-9,223,372,036,854,775,808到9,223,372,036,854,775,807)之间的整数，它占用了八个字节的存储空间.</p>
+                <p>java中的long类型</p>
+                <p>基本数据类型，8个字节</p>
+           
+        </section>
+        -->
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>在线上服务应该选择哪一种web服务器？</p>
+        </section>
+        <!--
+		<section>
+            <p>2.时区</p>
+            <p>精度,将java.util.Date转为java.sql.Date时候，日期的时分秒
+                会被去掉，数据的精度发生变化了。这是两个上下级类之间
+                很不合理的问题。 而JDBC中定义接口时候，用的是
+                java.sql.Date，而我们常常用到的Date都是java.util.Date，这
+                往往导致一些转换过程中发生误差。
+                java.sql.Timestamp类，它保持了日期数据原有的精度。可以
+                实现和java.util.Date的无损转换。但是Timestamp这个类在一
+                些预定义SQL中常常会出问题，</p>
+        </section>
+        <section>
+            <p>3.java.sql.Date，在JDBC接口中使用了，如果对其进行修改，
+                JDBC接口规范也要改，那么将引发各个数据库厂商对数据库
+                驱动也要改，这是不可接受的。[1]</p>
+            </section>
+		-->
+        
+        <section>
+            <h3>4.解决方案</h3>
+        </section> 
+        <section>
+            <p>这些服务器各有优劣，选择服务器时应该先参考项目，预估规模大小等。比如大规模的企业级应用，Tomcat自身扩展了大量JEE特性可满足企业级应用的需求， 所以这种情况下应选用Tomcat。</p>
+		</section>
+        
+
+
+
+
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        
+        <section>
+            <h3>6.扩展思考</h3>
+<p></p>
+<p></p>
+<p></p>
+
+        </section>
+
+        
+        <section>
+            <h3>7.参考文献</h3>
+           <p>文献一:&nbsp http://www.jnshu.com/daily/65399?dailyType=others&total=37&page=2&uid=25812&sort=0&orderBy=3</P>
+           <p>文献二:&nbsp https://blog.csdn.net/xinxin19881112/article/details/5870677<</P>
+<!--           <p>文献三:&nbsp https://blog.csdn.net/xinxin19881112/article/details/5870677</P>-->
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 杨棋</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
