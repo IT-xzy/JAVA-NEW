@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html>
 <head>
@@ -32,10 +31,10 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h3></h3>
-			<p>几种排序 </P>
-            <h4>Java小课堂</h4>
-            <p>分享人：隆航</p>
+            <h2>什么是rmi，为什么要使用rmi框架</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：石奥林</p>
         </section>
         <section>
             <p>1.背景介绍</p>
@@ -50,71 +49,91 @@
         <section>
             <h3>1.背景介绍</h3>
         </section>
+		
+	
+			<section>
+          <p>Java远程方法调用，即Java RMI（Java Remote Method Invocation）是Java编程语言里，一种用于实现远程过程调用的应用程序编程接口。
+		  它使客户机上运行的程序可以调用远程服务器上的对象。
+		  远程方法调用特性使Java编程人员能够在网络环境中分布操作。
+		  RMI全部的宗旨就是尽可能简化远程接口对象的使用。</p>
+		  
+			</section>
+			
+		 
         <section>
-            <p style="text-align:left">排序是计算机内经常进行的一种操作，其目的是将一组“无序”的记录序列调整为“有序”的记录序列。分内部排序和外部排序，若整个排序过程不需要访问外存便能完成，则称此类排序问题为内部排序。反之，若参加排序的记录数量很大，整个序列的排序过程不可能在内存中完成，则称此类排序问题为外部排序。内部排序的过程是一个逐步扩大记录的有序序列长度的过程。</p></section>
-		<section>
-            <p style="text-align:left">内部排序是指待排序列完全存放在内存中所进行的排序过程，适合不太大的元素序列。其中快速排序的是目前排序方法中被认为是最好的方法。</p>
-        </section>
-		<section>
             <h3>2.知识剖析</h3>
         </section>
-        <section>
-            <p style="text-align:left">基本排序：</p>
-   
-        
-<p style="text-align:left">1.选择排序。</p> 
-<p style="text-align:left">2.冒泡排序。 </p>
-<p style="text-align:left">3.希尔排序。</p>
-<p style="text-align:left">4.直接插入排序。</p>
-<p style="text-align:left">5.快速排序</p>
-<p style="text-align:left">6.堆排序。</p>
-<p style="text-align:left">7.归并排序。</p>
-<p style="text-align:left">8.基数排序 。</p>
-        </section>
-        <section>
-             <p style="text-align:left">排序定义</p>
-                <p style="text-align:left">1.选择排序，工作原理是每一次从待排序的数据元素中选出最小（或最大）的一个元素，存放在序列的起始位置，直到全部待排序的数据元素排完。</p>
-                  <p style="text-align:left">2.冒泡排序，比较相邻的元素。如果第一个比第二个大，就交换他们两个。对每一对相邻元素做同样的工作，直到没有任何一对数字需要比较。</p>
-                  <p style="text-align:left">3.希尔排序(Shell's Sort)是插入排序的一种又称“缩小增量排序”（Diminishing Increment Sort），是直接插入排序算法的一种更高效的改进版本。希尔排序是非稳定排序算法</p>
-                  <p style="text-align:left">4.直接插入排序，有一个已经有序的数据序列，要求在这个已经排好的数据序列中插入一个数，但要求插入后此数据序列仍然有序这个时候就要用到一种新的排序方法——插入排序法</p>
-                    <p style="text-align:left">5.快速排序，通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。</p>
-
- </section>
-           <section>
+		<section>
+			<p>Spring rmi 服务端</p>
+		     <p>在Web工程中添加接口，普通接口，这里无需继承其他public interface 接口的实现类</p>
+			 <p>该服务端Web工程中添加Spring的bean配置文件，比如命名为rmiServer.xml 主函数 启动</p>
+		</section>
+			<section>
+			<p>客户端 在源文件src下建立一个rmiClient.xml</p>
+			<p>客户端程序:在maven clean package 把客户端打成jar包然后在服务端引入</p>
+		</section>
+         <section>
             <h3>3.常见问题</h3>
         </section>
-         <section>
-            <p style="text-align:left">排序过程中主要是数组越界，和空指针异常。</p>
-         </section>
 		
+		<section>
+            <p>1.连接超时问题</p>
+			<p>3.链接被拒绝</p>
+		</section>
+		
+        
         <section>
             <h3>4.解决方案</h3>
         </section>
-		
-       
-        <section>
-            <p style="text-align:left">仔细查看排序逻辑。
-        </p>
+
+		<section>
          
- </section>
-         
-     
-       
+            <p>bean id="rmiClientSocketFactory" class="com.macrohuang.rmi.client.RMICustomClientSocketFactory"</p>
+            <p>property name="timeout" value="5000"</p>
+			<p>property--这里配置的是client的读超时</P> 
+            <p>bean</p>
+		</section>
+	
+        
         <section>
             <h3>5.编码实战</h3>
         </section>
-		 <section>
+	
+		
+        <section>
             <h3>6.扩展思考</h3>
-        </section>        
+			spring对rmi的封装有什么好处？
+        </section>
+              
+        <section>
+            <p></p>
+        </section>
+		
+      
+		
+        </section>
         <section>
             <h3>7.参考文献</h3>
-			<p style="text-align:center">百度，CSDN博客</p>
+            <p>https://blog.csdn.net/lmy86263/article/details/72594760</p>
+			<p>https://www.cnblogs.com/xt0810/p/3640167.html</p>
+		
         </section>
 		
         <section>
             <h3>8.更多讨论</h3>
-            <p>今天的分享就到这里啦，欢迎大家提问和探讨。</p>
+            <p></p>
         </section>
+		
+		<section>
+			<p></p>
+		</section>		
+		
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 石奥林</small></p>
+        </section>
+
     </div>
 </div>
 

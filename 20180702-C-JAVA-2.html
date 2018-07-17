@@ -32,10 +32,10 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h3></h3>
-			<p>几种排序 </P>
+            <h3>为什么推荐使用JsonTaglib来处理Json</h3>
+			<p></P>
             <h4>Java小课堂</h4>
-            <p>分享人：隆航</p>
+            <p>分享人：韩要贺</p>
         </section>
         <section>
             <p>1.背景介绍</p>
@@ -51,69 +51,89 @@
             <h3>1.背景介绍</h3>
         </section>
         <section>
-            <p style="text-align:left">排序是计算机内经常进行的一种操作，其目的是将一组“无序”的记录序列调整为“有序”的记录序列。分内部排序和外部排序，若整个排序过程不需要访问外存便能完成，则称此类排序问题为内部排序。反之，若参加排序的记录数量很大，整个序列的排序过程不可能在内存中完成，则称此类排序问题为外部排序。内部排序的过程是一个逐步扩大记录的有序序列长度的过程。</p></section>
-		<section>
-            <p style="text-align:left">内部排序是指待排序列完全存放在内存中所进行的排序过程，适合不太大的元素序列。其中快速排序的是目前排序方法中被认为是最好的方法。</p>
+            <p style="text-align:left">json因为其高效,易读的原因而成为前后端交互数据的主要方式.而我们在项目中大部分都是通过json-taglib标签实现从java的各种对象到json的转换.</p>
+             <p style="text-align:left">json-taglib最早是在2007年2月发布第一版,最近一次发布是在2008年1月,是一个比较成熟的技术</p>
         </section>
-		<section>
+      
+        <section>
+            <p style="text-align:left">那么为什么我们要在项目中使用json-taglib来获取json数据呢?</p>
+            
+         </section>
+         <section>
+         	<p style="text-align:left">该标签被设计的初衷就是使用简单.它只做一件事,那就是从jsp中提取json数据.</p>
+            
+         </section>
+          <section>
             <h3>2.知识剖析</h3>
         </section>
-        <section>
-            <p style="text-align:left">基本排序：</p>
-   
-        
-<p style="text-align:left">1.选择排序。</p> 
-<p style="text-align:left">2.冒泡排序。 </p>
-<p style="text-align:left">3.希尔排序。</p>
-<p style="text-align:left">4.直接插入排序。</p>
-<p style="text-align:left">5.快速排序</p>
-<p style="text-align:left">6.堆排序。</p>
-<p style="text-align:left">7.归并排序。</p>
-<p style="text-align:left">8.基数排序 。</p>
-        </section>
-        <section>
-             <p style="text-align:left">排序定义</p>
-                <p style="text-align:left">1.选择排序，工作原理是每一次从待排序的数据元素中选出最小（或最大）的一个元素，存放在序列的起始位置，直到全部待排序的数据元素排完。</p>
-                  <p style="text-align:left">2.冒泡排序，比较相邻的元素。如果第一个比第二个大，就交换他们两个。对每一对相邻元素做同样的工作，直到没有任何一对数字需要比较。</p>
-                  <p style="text-align:left">3.希尔排序(Shell's Sort)是插入排序的一种又称“缩小增量排序”（Diminishing Increment Sort），是直接插入排序算法的一种更高效的改进版本。希尔排序是非稳定排序算法</p>
-                  <p style="text-align:left">4.直接插入排序，有一个已经有序的数据序列，要求在这个已经排好的数据序列中插入一个数，但要求插入后此数据序列仍然有序这个时候就要用到一种新的排序方法——插入排序法</p>
-                    <p style="text-align:left">5.快速排序，通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。</p>
+         <section>
+         	<p style="text-align:center">如何使用json-taglib标签。</p>
+             <p style="text-align:left">首先,要下载jar包到你的项目中.该标签的jar包在maven仓库中没有,我们需要手动将它添加进项目中.</p>
+             <p style="text-align:left">其次,在jsp页面中声明标签
 
- </section>
+"<%@ taglib prefix="json" uri="http://www.atg.com/taglibs/json" %>"</p>
+             </section>
+             <section>
+         	<p style="text-align:center"></p>
+             <p style="text-align:left">该标签包含了三个简单的标签,json:object,表示json数据对象;json:property,表示json对象中的属性;json:array,表示json数组,对象中可以有数组,数组中也可以有对象,可以使用这三个标签的嵌套生成各种格式的json数据,完全可以满足我们开发的需求，看json页面</p>
+             </section>
+            
+          
+          
            <section>
             <h3>3.常见问题</h3>
         </section>
          <section>
-            <p style="text-align:left">排序过程中主要是数组越界，和空指针异常。</p>
+            <p style="text-align:left">1、在此之前我们是使用哪种方式在前后端传递json数据呢?</p>
+            <p style="text-align:left">2、几种方式到底有何区别,官网说json-taglib简单,那么到底简单在哪里?</p>
+       
+       
+          
+           
          </section>
 		
         <section>
             <h3>4.解决方案</h3>
         </section>
-		
+		<section>
+			<p style="text-align:left">通过@ResponseBody注解的方式
+
+如果在控制器方法上标注该注解,那么方法返回的对象不会经过视图解析器的渲染,而是根据HTTP Request Header的Accept字段的内容,转换为指定的格式,写入到Response对象的body数据区中,如果没有额外的配置,那么就会返回json格式的数据
+</p>
+            
+         </section>
        
+             </p>
+
+        </section>
         <section>
-            <p style="text-align:left">仔细查看排序逻辑。
+            <p style="text-align:left">1.使用json-taglib,在控制器中的代码更加简洁,易读
         </p>
-         
- </section>
-         
-     
-       
+         <p style="text-align:left">2.使用json-taglib更加灵活,如果以后需要更改json数据格式,只需要更改jsp页面即可,不需要改动控制器代码
+        </p>
+
+        </section>
         <section>
             <h3>5.编码实战</h3>
         </section>
 		 <section>
             <h3>6.扩展思考</h3>
-        </section>        
+        </section>
+       <section>
+            <p style="text-align:left">为什么使用json-taglib的效率要低于@ResponseBody这种方式呢</p>  
+			<p style="text-align:left">jmeter测试</p>
+		 </section>
+		 
+		
+        
         <section>
             <h3>7.参考文献</h3>
-			<p style="text-align:center">百度，CSDN博客</p>
+			<p style="text-align:center">知乎，CSDN</p>
         </section>
 		
         <section>
             <h3>8.更多讨论</h3>
-            <p>今天的分享就到这里啦，欢迎大家提问和探讨。</p>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
         </section>
     </div>
 </div>
