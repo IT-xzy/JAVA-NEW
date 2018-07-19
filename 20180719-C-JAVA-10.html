@@ -19,12 +19,12 @@
         var link = document.createElement( 'link' );
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
         document.getElementsByTagName( 'head' )[0].appendChild( link );
     </script>
 </head>
 <body>
-<img src=./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
 <map name="pttmap">
     <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
 </map>
@@ -173,8 +173,8 @@
     </div>
 </div>
 
-<script src=./lib/reveal/js/head.min.js"></script>
-<script src=./lib/reveal/reveal.js"></script>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
 
 <script>
 
@@ -201,10 +201,10 @@
     Reveal.initialize({
         history: true,
         dependencies: [
-            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
-            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
-            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
-            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
         ]
     });
 </script>
