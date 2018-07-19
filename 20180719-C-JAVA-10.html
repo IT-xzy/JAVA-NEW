@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href=./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href=./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href=./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src=./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>浅谈Hibernate</h2>
+            <p>分享人：韩亚博</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+        
+		<section>
+			<h3>1.背景介绍</h3>	
+			<p>2001年，澳大利亚墨尔本一位名为Gavin King的27岁的程序员，上街买了一本SQL编程的书，他厌倦了实体bean，认为自己可以开发出一个符合  对象关系映射  理论，并且真正好用的Java持久化层框架，因此他需要先学习一下SQL。这一年的11月，Hibernate的第一个版本发布了。</p>
+			<p>持久化层框架</p>			
+		</section>		
+		
+		<section>
+			<h3>2.知识剖析</h3>
+			<p>2.1 Hibernate是什么？能做什么？</p>
+			<p>2.2 核心API</p>
+		</section>	
+		
+		<section>
+			<p>2.1 Hibernate是什么？能做什么？</p>
+			<p>Hibernate是一个开放源代码的对象关系映射框架，</p>
+			<p>它对JDBC进行了非常轻量级的对象封装，</p>
+			<p>它将POJO与数据库表建立映射关系，</p>
+			<p>是一个全自动的orm框架，hibernate可以自动生成SQL语句，自动执行，</p>
+			<p>使得Java程序员可以随心所欲的使用对象编程思维来操纵数据库。</p>
+			<p>Hibernate可以应用在任何使用JDBC的场合，既可以在Java的客户端程序使用，也可以在Servlet/JSP的Web应用中使用。</p>	
+		</section>
+		
+		<section>
+			<p>2.2 核心API</p>
+			<p>Hibernate的API一共有6个，分别为:Session、SessionFactory、Transaction、Query、Criteria和Configuration。通过这些接口，可以对持久化对象进行存取、事务控制。</p>				
+		</section>
+		
+		
+		<section>
+			<p>Session</p>
+			<p>Session接口负责执行被持久化对象的CRUD操作(CRUD的任务是完成与数据库的交流，包含了很多常见的SQL语句)。Hibernate的session不同于JSP应用中的HttpSession。这里当使用session这个术语时，其实指的是Hibernate中的session，而以后会将HttpSession对象称为用户session。</p>		
+		</section>
+		
+		<section>
+			<p>SessionFactory</p>
+			<p>SessionFactory接口负责初始化Hibernate。它充当数据存储源的代理，并负责创建Session对象。这里用到了工厂模式。需要注意的是SessionFactory并不是轻量级的，因为一般情况下，一个项目通常只需要一个SessionFactory就够，当需要操作多个数据库时，可以为每个数据库指定一个SessionFactory。</p>			
+		</section>
+		<section>
+			<p>Transaction</p>
+			<p>Transaction 接口是一个可选的API，可以选择不使用这个接口，取而代之的是Hibernate的设计者自己写的底层事务处理代码。Transaction接口是对实际事务实现的一个抽象，这些实现包括JDBC的事务、JTA中的UserTransaction、甚至可以是CORBA事务。之所以这样设计是能让开发者能够使用一个统一事务的操作界面，使得自己的项目可以在不同的环境和容器之间方便地移植。</p>		
+		</section>
+		
+		<section>
+			<p>Query</p>
+			<p>Query接口让你方便地对数据库及持久对象进行查询，它可以有两种表达方式：HQL语言或本地数据库的SQL语句。Query经常被用来绑定查询参数、限制查询记录数量，并最终执行查询操作。</p>			
+		</section>
+		<section>
+			<p>Criteria</p>
+			<p>Criteria接口与Query接口非常类似，允许创建并执行面向对象的标准化查询。值得注意的是Criteria接口也是轻量级的，它不能在Session之外使用。</p>		
+		</section>
+		
+		<section>
+			<p>Configuration</p>
+			<p>Configuration 类的作用是对Hibernate进行配置，以及对它进行启动。在Hibernate的启动过程中，Configuration类的实例首先定位映射文档的位置，读取这些配置，然后创建一个SessionFactory对象。虽然Configuration类在整个Hibernate项目中只扮演着一个很小的角色，但它是启动hibernate 时所遇到的第一个对象。</p>			
+		</section>
+		
+		
+		
+		<section>
+			<h3>3.常见问题</h3>
+			<p>缓存</p>
+			<p>Session</p>		
+		</section>
+		
+		<section>					
+			<p>缓存</p>
+			<p>一级缓存(session级别)，缓存只停留在这个session中，如果session关闭或者其他session需要这些数据，都是不能从缓存中取出来的</p>
+			<p>二级缓存(sessionFactory级别)，就算某个session(第一次需要去数据库查数据的session)关闭了，仍旧不影响缓存中数据的取用</p>
+			<p>一级缓存默认开启，二级缓存需要配置以及第三方支持</p>				
+		</section>	
+
+		<section>					
+			<p>Session</p>					
+			<p>Hibernate有两种方式获得session,分别是：openSession和getCurrentSession </p> 
+			<p>1. 获取的是否是同一个session对象</p>			
+			<p>2. 事务提交的必要性 </p>
+		</section>	
+		
+		<section>			
+			<p>获取的是否是同一个session对象</p>
+			<p>openSession每次都会得到一个新的Session对象</p>
+			<p>getCurrentSession在同一个线程中，每次都是获取相同的Session对象，但是在不同的线程中获取的是不同的Session对象</p>
+		</section>	
+		
+		<section>					
+			<p>事务提交的必要性 </p>
+			<p>openSession只有在增加，删除，修改的时候需要事务，查询时不需要的</p>
+			<p>getCurrentSession是所有操作都必须放在事务中进行，并且提交事务后，session就自动关闭，不能够再进行关闭</p>
+		</section>			
+
+		<section>
+			<h3>4.编码实战</h3>
+			<p>缓存对比</p>
+			<p>Session对比</p>
+			<p>语句对比</p>			
+		</section>
+		
+		<section>			
+			<p>语句对比</p>
+			<p>HQL（Hibernate Query Language）是hibernate专门用于查询数据的语句，有别于SQL，HQL 更接近于面向对象的思维方式。</p>
+			<p>Criteria,与HQL和SQL的区别是Criteria 完全是 面向对象的方式在进行数据查询，将不再看到有sql语句的痕迹</p>
+			<p>Hibernate依然保留了对标准SQL语句的支持，在一些场合，比如多表联合查询，并且有分组统计函数的情况下，标准SQL语句依然是效率较高的一种选择</p>
+		</section>
+	
+		<section>
+			<h3>5.扩展思考</h3>
+			<p>hibernate应用场景</p>	
+			<p>对于数据量大，性能要求高系统，不太使用hiberante。主要用于事务操作比较多的项目OA/某个行业软件（石油、税务、crm, 财务系统。）</p>
+			
+		</section>
+		
+		<section>
+			<h3>6.参考文献</h3>			
+			<p>https://baike.baidu.com/item/Hibernate/206989?fr=aladdin</p>
+			<p>http://how2j.cn/k/hibernate/hibernate-tutorial/31.html</p>					
+		</section>
+        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>欢迎大家讨论</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src=./lib/reveal/js/head.min.js"></script>
+<script src=./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
