@@ -143,7 +143,19 @@
 +        </section>
 +        <section>
 +            <h3>6.扩展思考</h3>
-+            <p></p>
++            <p>6.1	springMVC和struts2的区别有哪些?</p>
+				<p>（1）springmvc的入口是一个servlet即前端控制器（DispatchServlet），而struts2入口是一个filter过虑器（StrutsPrepareAndExecuteFilter）。
+（2）springmvc是基于方法开发(一个url对应一个方法)，请求参数传递到方法的形参，可以设计为单例或多例(建议单例)，struts2是基于类开发，传递参数是通过类的属性，只能设计为多例。
+（3）Struts采用值栈存储请求和响应的数据，通过OGNL存取数据，springmvc通过参数解析器是将request请求内容解析，并给方法形参赋值，将数据和视图封装成ModelAndView对象，最后又将ModelAndView中的模型数据通过reques域传输到页面。Jsp视图解析器默认使用jstl。
+</p>
++        </section>
++            <p>6.2	Springmvc的优点都有哪些:</p>
+				<p>（（1）它是基于组件技术的。全部的应用对象,无论控制器和视图,还是业务对象之类的都是 java组件.并且和Spring提供的其他基础结构紧密集成.
+（2）不依赖于Servlet API(目标虽是如此,但是在实现的时候确实是依赖于Servlet的)
+（3）可以任意使用各种视图技术,而不仅仅局限于JSP
+（4） 支持各种请求资源的映射策略
+（5）它应是易于扩展的
+</p>
 +        </section>
 +        <section>
 +            <h3>7.参考文献</h3>
