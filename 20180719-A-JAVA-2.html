@@ -127,13 +127,17 @@
 +         </section> 
 +		 
 +         <section>
-+            <h3>3.常见问题</h3>
-+            <p>Controller返回值设置与jsp文件名不符，导致跳转失败</p>
-+        </section>
-+        <section>
-+            <h3>4.解决方案</h3>
-+            <p>规范返回值，并在编写代码时进行测试</p>
-+        </section>
+            <h3>3.常见问题</h3>
+            <p>1、Controller返回值设置与jsp文件名不符，导致跳转失败</p>
+		    <p>2、如何解决POST请求中文乱码问题。</p>
+		    <p>3、运行mvn jetty run报错，多了一个文件</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+            <p>1、规范返回值，并在编写代码时进行测试</p>
+		  <p>2、	在web.xml中加入过滤器，具体见代码</p>
+		  <p>3、spring-web和org.springframework.web.servlet中都有一个web-fragment.xml文件，导致jetty读取时报错</p>
+        </section>
 +        <section>
 +            <h3>5.编码实战</h3>
 +        </section>
