@@ -1,0 +1,248 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是session？什么是cookie？session和cookie有什么区别？什么场景适用于session？什么场景适用于cookie？</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：杨棋</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>生活中的小例子</p>
+			<p>我们去火车站或者通过手机app买到的火车票都会用到身份证，然后根据身份证取票上车，在你进入车站上车到站下车等等一系列的任何操作，都只是出示了火车票，列车员也是通过查看火车票，让不让你上车，这个火车票就类似于cookie，（买奶茶，地铁票，等等等）</p>
+        </section>
+        <section>
+            <p>由于HTTP是一种无状态协议,服务器没有办法单单从网络连接上面知道访问者的身份,为了解决这个问题,就诞生了Cookie，</p>
+            <p>Cookie实际上是一小段的文本信息。客户端请求服务器，如果服务器需要记录该用户状态，就使用response向客户端浏览器颁发一个Cookie</p>
+            <p>客户端浏览器会把Cookie保存起来。当浏览器再请求该网站时，浏览器把请求的网址连同该Cookie一同提交给服务器。服务器检查该Cookie，以此来辨认用户状态。服务器还可以根据需要修改Cookie的内容。实际就是颁发一个通行证，每人一个，无论谁访问都必须携带自己通行证。这样服务器就能从通行证上确认客户身份了。这就是Cookie的工作原理，</p>
+        </section>
+        <section>
+            <p></p>
+            <p>cookie可以让服务端程序跟踪每个客户端的访问，但是每次客户端的访问都必须传回这些 Cookie，如果 Cookie很多，这无形地增加了客户端与服务端的数据传输量，而 Session的出现正是为了解决这个问题。同一个客户端每次和服务端交互时，不需要每次都传回所有的 Cookie值，而是只要传回一个 ID，这个 ID是客户端第一次访问服务器的时候生成的，而且每个客户端是唯一的。这样每个客户端就有了一个唯一的 ID，客户端只要传回这个 ID就行了，这个 ID通常是 NANE为 JSESIONID的一个 Cookie。</p>
+        </section>
+<!--        <section>
+            <p>Resin特点</p>
+            <p>1、Resin包含了很多可靠的特性，包括服务器自动重启、检测并重启死锁的服务器、管理JVM内存以防止内存泄露等。</p>
+            <p>2、Resin可以将多个服务器作为一个服务器来对客户进行响应，从而增强服务器的扩展能力。</p>
+            <p>3、Resin可实现持久和分布的sessions：持久的session能够在服务器重启的时候保持现有的Http会话，分布式的session可以在多个服务器之间共享Http会话的状态。</p>
+        </section>
+        <section>
+            <p>Jetty服务器</p>
+            <p>Jetty 是一个开源的servlet容器，它为基于Java的web内容，例如JSP和servlet提供运行环境。Jetty是使用Java语言编写的，它的API以一组JAR包的形式发布。开发人员可以将Jetty容器实例化成一个对象，可以迅速为一些独立运行（stand-alone）的Java应用提供网络和web连接。</p>
+        </section>
+        <section>
+            <p>Jetty特点</p>
+            <p>1、Jetty的指导原则是“简单不复杂“。Jetty容易理解和使用：  通过API或者XML文件配置；  XML文件语法直接了当地在POJOs上影射API操作；  默认的配置文件可以使Jetty作为外盒（out-of-the-box）；  只需少量的行数就可以嵌入一个Jetty实例。</p>
+            <p>2、可扩展性在异步的WEB2.0类型的应用程序使用的技术，例如AJAX，连接停留时间要比处理一个静态页长，线程和内存需求可能急剧增长。
+                底层必须优雅地处理这些问题，一个低速的数据库连接可能造成站点瘫痪，因为线程被占满了。使用Jetty...</p>
+        </section>
+        <section>
+            <p>3、高效大量的努力用来优化代码，精炼的代码以至于漏洞尽可能少：相关性尽可能少； 核心保持最小，附加函数放在可选包中;可扩展性是一个关键问题;高强度下性能衰减平缓。</p>
+            <p>4、嵌入性 Jetty是一个非常好的组件。这意味着很容易嵌入到一个应用程序中，而不需要应用程序去适应它： 使用依赖注射和反转的控制模式</p>
+            <p>5、Jetty内建插入性。所有Jetty核心组件的实现允许不同的选择，至少一个或者更多，组件的实现总是会提供的。如果这些仍然不能满足你的要求，你可以自由的编写底层接口和抽象类最为基础。这意味着Jetty能够容易地用在一个特别的应用环境中。当Jetty在一个 JavaEE服务器中作为web容器时，这是相当有用的，Jetty的插入性保证了它和主机容器的一个紧密的集成。</p>
+        </section>-->
+	
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+				<p>cookie机制</p>
+				<p></p>
+				<p></p>
+                <p></p>
+                <p></p>
+		</section>
+        <section>
+            <p>cookie的内容主要包括name(名字)、value(值)、maxAge(失效时间)、path(路径),domain(域)和secure，</p>
+            <p>name：cookie的名字，一旦创建，名称不可更改。</p>
+            <p>value：cookie的值，如果值为Unicode字符，需要为字符编码。如果为二进制数据，则需要使用BASE64编码.</p>
+            <p>maxAge：cookie失效时间，单位秒。如果为正数，则该cookie在maxAge后失效。如果为负数，该cookie为临时cookie，关闭浏览器即失效，浏览器也不会以任何形式保存该cookie。如果为0，表示删除该cookie。默认为-1</p>
+            <p>path：该cookie的使用路径。如果设置为"/sessionWeb/"，则只有ContextPath为“/sessionWeb/”的程序可以访问该cookie。如果设置为“/”，则本域名下ContextPath都可以访问该cookie。</p>
+            <p>domain:域.可以访问该Cookie的域名。第一个字符必须为".",如果设置为".google.com",则所有以"google.com结尾的域名都可以访问该cookie",如果不设置,则为所有域名</p>
+        </section>
+			<section>
+                <p>Session机制</p>
+                <p>Session机制是一种服务端的机制，服务器使用一种类似散列表的结构来保存信息。</p>
+                <p>当程序需要为某个客户端的请求创建一个session的时候，服务器首先检查这个客户端里的请求里是否已包含了一个session标识--sessionID，如果已经包含一个sessionID，则说明以前已经为此客户端创建过session，服务器就按照sessionID把这个session检索出来使用</p>
+                <p>如果客户端请求不包含sessionID，则为此客户端创建一个session并且声称一个与此session相关联的sessionID，sessionID的值应该是一个既不会重复，又不容易被找到规律以仿造的字符串(服务器会自动创建),这个sessionID将被在本次响应中返回给客户端保存。</p>
+        </section>
+        <section>
+            <p>cookie和session适用的场景</p>
+            <p>从能实现的功能来说，cookie，session差不多，但是cookie可以伪造，session保存在服务器，除非被黑了，否则不会被非法修改。因此一般来说认证数据放在session，sessionid存在cookie上。但是利用加密技术，也有人把认证数据放在cookie，对cookie加密验证。 cookie最典型的应用是： （一）：判断用户是否登陆过网站，以便下次登录时能够直接登录。如果我们删除cookie，则每次登录必须从新填写登录的相关信息。 （二）：另一个重要的应用是“购物车”中类的处理和设计。用户可能在一段时间内在同一家网站的不同页面选择不同的商品，可以将这些信息都写入cookie，在最后付款时从cookie中提取这些信息，当然这里面有了安全和性能问题需要我们考虑了。
+            </p>
+        </section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>Cookie的优缺点有哪些？</p>
+            <p>Session的优缺点有哪些？</p>
+            <p></p>
+        </section>
+        <!--
+		<section>
+            <p>2.时区</p>
+            <p>精度,将java.util.Date转为java.sql.Date时候，日期的时分秒
+                会被去掉，数据的精度发生变化了。这是两个上下级类之间
+                很不合理的问题。 而JDBC中定义接口时候，用的是
+                java.sql.Date，而我们常常用到的Date都是java.util.Date，这
+                往往导致一些转换过程中发生误差。
+                java.sql.Timestamp类，它保持了日期数据原有的精度。可以
+                实现和java.util.Date的无损转换。但是Timestamp这个类在一
+                些预定义SQL中常常会出问题，</p>
+        </section>
+        <section>
+            <p>3.java.sql.Date，在JDBC接口中使用了，如果对其进行修改，
+                JDBC接口规范也要改，那么将引发各个数据库厂商对数据库
+                驱动也要改，这是不可接受的。[1]</p>
+            </section>
+		-->
+        
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>cookie优缺点</h3>
+            <p>优点： 极高的扩展性和可用性</p>
+            <p>1) 数据持久性。2) 不需要任何服务器资源。 Cookie 存储在客户端并在发送后由服务器读取。3) 可配置到期规则。 控制 cookie 的生命期，使之不会永远有效。偷盗者很可能拿到一个过期的 cookie 。4) 简单性。 基于文本的轻量结构。5) 通过良好的编程，控制保存在 cookie 中的 session 对象的大小。6) 通过加密和安全传输技术（ SSL ），减少 cookie 被破解的可能性。7) 只在 cookie 中存放不敏感数据，即使被盗也不会有重大损失。</p>
+        </section>
+        <section>
+            <p>1) Cookie数量和长度的限制</p>
+            <p>数量:每个域的cookie总数有限, IE6 或更低版本最多20个cookie，IE7和之后的版本最多20个cookie，Fiefox最多50个cookie，chrome和safari没有做硬性限制,长度:每个 cookie 长度不超过 4KB （ 4096B ），否则会被截掉。</p>
+            <p>2) 潜在的安全风险 。Cookie 可能被拦截、篡改。如果 cookie 被拦截，就有可能取得所有的 session 信息。</p>
+            <p>3) 用户配置为禁用 。有些用户禁用了浏览器或客户端设备接受 cookie 的能力，因此限制了这一功能。</p>
+            <p>4) 有些状态不可能保存在客户端 。例如，为了防止重复提交表单，我们需要在服务器端保存一个计数器。如果我们把这个计数器保存在客户端，那么它起不到任何作用。</p>
+		</section>
+        <section>
+            <h3>Session优缺点</h3>
+            <p>优点:session用新的机制保持与客户端的同步，不依赖于客户端设置</p>
+            <p>1、与cookie相比，session是存储在服务器端的信息，因此显得更为安全，因此可将身份标示，购物等信息存储在session中；</p>
+        </section>
+        <section>
+            <p></p>
+            <p>一般是寄生在Cookie下的，当Cookie被禁止，Session也被禁止 当然可以通过url重写来摆脱cookie,当用户访问量很大时，对服务器压力大</p>
+            <p>我们现在知道session是将用户信息储存在服务器上面,如果访问服务器的用户越来越多,那么服务器上面的session也越来越多, session会对服务器造成压力，影响服务器的负载.如果Session内容过于复杂，当大量客户访问服务器时还可能会导致内存溢出。</p>
+            <p>用户信息丢失, 或者说用户访问的不是这台服务器的情况下,就会出现数据库丢失.</p>
+        </section>
+        <section>
+            <p>不要混淆 session 和 session 实现。</p>
+            <p>本来 session 是一个抽象概念，开发者为了实现中断和继续等操作，将 user agent(代理人) 和 server (服务器）之间一对一的交互，抽象为“会话”，进而衍生出“会话状态”，也就是 session 的概念。</p>
+            <p>而 cookie 是一个实际存在的东西，http 协议中定义在 header 中的字段。可以认为是 session 的一种后端无状态实现。</p>
+            <p>而我们今天常说的 “session”，是为了绕开 cookie 的各种限制，通常借助 cookie 本身和后端存储实现的，一种更高级的会话状态实现。</p>
+            <p></p>
+        </section>
+        <section>
+            <p>所以 cookie 和 session，你可以认为是同一层次的概念，也可以认为是不同层次的概念。具体到实现，session 因为 session id 的存在，通常要借助 cookie 实现，但这并非必要，只能说是通用性较好的一种实现方案。</p>
+        </section>
+        
+
+
+
+
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        
+        <section>
+            <h3>6.扩展思考</h3>
+<p></p>
+<p></p>
+<p></p>
+
+        </section>
+
+        
+        <section>
+            <h3>7.参考文献</h3>
+           <p>文献一:&nbsp https://segmentfault.com/a/1190000013258488</P>
+           <p>文献二:&nbsphttps://www.zybuluo.com/Dukebf/note/856502<</P>
+<!--           <p>文献三:&nbsp https://blog.csdn.net/xinxin19881112/article/details/5870677</P>-->
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 杨棋</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
