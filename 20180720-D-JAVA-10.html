@@ -1,0 +1,288 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>联表查询的几种JOIN介绍</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：王琦超</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+         <section>
+            <p style="text-align:left">MySQL是一种关系数据库管理系统，关系数据库将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样就增加了速度并提高了灵活性。</p>
+　　        <p style="text-align:left">因为是分开储存，所以怎么拆分，怎么关联就涉及到了数据库的三范式</p>
+            <p style="text-align:left"></p>
+
+        </section>
+
+        <section>
+            <p style="text-align:left">数据库三范式：</p>
+            <p style="text-align:left">第一范式(1NF)：字段值具有原子性,不能再分(所有关系型数据库系统都满足第一范式);</p>
+            <p style="text-align:left">第二范式(2NF)：一个表必须有主键,即每行数据都能被唯一的区分;备注：必须先满足第一范式;主键可以将表格变为一个聚集索引</p>
+            <p style="text-align:left">第三范式(3NF)：一个表中不能包涵其他相关表中非关键字段的信息,即数据表不能有冗余字段;备注：必须先满足第二范式;往往我们在设计表中不能遵守第三范式,因为合理的沉余字段将会给我们减少join的查询;典型的以空间换时间思想</p>
+            <p style="text-align:left"></p>
+        </section>
+		 <section>
+            <p style="text-align:left">因为第三范式和关系型数据库的原因，所以，我们在查询一张表时往往不能得到所有我们需要的数据，这时候，就需要使用联查。</p>
+            <p style="text-align:left">当然，你说我不想用联查，也没关系，可以分步单表查询，如果事先知道关系字段的值，可以直接两步就查询到结果，如果不知道的话，就需要先查出来，再用循环来查询第二张表，就会很麻烦</p>
+            <p style="text-align:left">但是，Mysql可以直接帮我们联查两张表，只需要你知道两张表的共同字段是什么。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">JOIN：select语句的条件之一，可以根据某些连接条件从其他表中获取数据。</p>
+            <p style="text-align:left">JOIN的含义就如英文单词“join”一样，连接两张表，大致分为内连接，外连接，右连接，左连接，自然连接等。</p>
+            <p style="text-align:left">当然你也可以连接三张表四张表，但是这将大大降低数据库性能，为什么这么说呢？</p>
+            <p style="text-align:left">这是因为所有的连接在筛选之前都会先计算所有表的笛卡尔积</p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <p style="text-align:left">笛卡尔积，也叫交叉连接：CROSS JOIN</p>
+            <p style="text-align:left">要理解各种JOIN首先要理解笛卡尔积。笛卡尔积就是将A表的每一条记录与B表的每一条记录强行拼在一起。所以，如果A表有n条记录，B表有m条记录，笛卡尔积产生的结果就会产生n*m条记录。下面的例子，book有10条记录，book_type有5条记录，所有他们俩的笛卡尔积有50条记录。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <p style="text-align:left">孔乙己曾说过：茴香豆的茴有四种写法，我们的笛卡尔积也有四种方法得到，分别是：</p>
+            <p style="text-align:left">SELECT * FROM book CROSS JOIN book_type;</p>
+            <p style="text-align:left">SELECT * FROM book INNER JOIN book_type;</p>
+			<p style="text-align:left">SELECT * FROM book,book_type;</p>
+			<p style="text-align:left">SELECT * FROM t_blog NATURE JOIN book_type;</p>
+        </section>
+		  <section>
+            <p style="text-align:left">可以看到这四种方法都会产生同样的结果，如果此时我用数学上的一个圆表示一张表，圆相交的部分标识两张表重合数据的话，那么笛卡尔积cross join就是下图中的第几张图？其实都不是，下图中并没有corss join适合的图</p>
+            <p style="text-align:left"><img src="https://jnshuphoto.oss-cn-hangzhou.aliyuncs.com/headphoto/823.png"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+		  <section>
+            <p style="text-align:left">但是事实上我们一般不会直接来求这个，因为当两张表数据量都很大的情况下，直接求这个数据量就非常惊人了。</p>
+            <p style="text-align:left">接下来，就是我们最常用的内连接</p>
+            <p style="text-align:left">内连接：INNER JOIN</p>
+            <p style="text-align:left">内连接INNER JOIN是最常用的连接操作。从数学的角度讲就是求两个表的交集，从笛卡尔积的角度讲就是从笛卡尔积中挑出ON子句条件成立的记录。有INNER JOIN，WHERE（等值连接），STRAIGHT_JOIN,JOIN(省略INNER)四种写法。</p>
+        </section>
+		 <section>
+            <p style="text-align:left">SELECT * FROM book INNER JOIN book_type ON book.type_id=book_type.type_id;</p>
+            <p style="text-align:left">SELECT * FROM book,book_type WHERE book.type_id=book_type.type_id;</p>
+            <p style="text-align:left">SELECT * FROM book STRAIGHT_JOIN book_type ON book.type_id=book_type.type_id; --注意STRIGHT_JOIN有个下划线</p>
+            <p style="text-align:left">SELECT * FROM book JOIN book_type ON book.type_id=book_type.type_id;</p>
+        </section>
+
+		 <section>
+            <p style="text-align:left">左连接：LEFT JOIN</p>
+            <p style="text-align:left">左连接LEFT JOIN的含义就是求两个表的交集外加左表剩下的数据。依旧从笛卡尔积的角度讲，就是先从笛卡尔积中挑出ON子句条件成立的记录，然后加上左表中剩余的记录。</p>
+            <p style="text-align:left">SELECT * FROM book LEFT JOIN book_type ON book.type_id=book_type.type_id;</p>
+            <p style="text-align:left">需要注意，相比cross join，后面的三条连接后面一张表的数据是没有的，而不像cross join的是全部显示的</p>
+			<p style="text-align:left">左连接就是上图的图1，其实仔细想想也就知道为什么会这样</p>
+        </section>
+        <section>
+            <p style="text-align:left">右连接：RIGHT JOIN</p>
+            <p style="text-align:left">同理右连接RIGHT JOIN就是求两个表的交集外加右表剩下的数据。再次从笛卡尔积的角度描述，右连接就是从笛卡尔积中挑出ON子句条件成立的记录，然后加上右表中剩余的记录。</p>
+            <p style="text-align:left">SELECT * FROM book RIGHT JOIN book_type ON book.type_id=book_type.type_id;</p>
+            <p style="text-align:left">其实在两表联查时可以用左连接的情况都可以使用右连接来代替，同理亦然，只不过将表的顺序换一下罢了</p>
+        </section>
+		<section>
+            <p style="text-align:left">外连接：OUTER JOIN</p>
+            <p style="text-align:left">外连接就是求两个集合的并集。从笛卡尔积的角度讲就是从笛卡尔积中挑出ON子句条件成立的记录，然后加上左表中剩余的记录，最后加上右表中剩余的记录。另外MySQL不支持OUTER JOIN，但是我们可以对左连接和右连接的结果做UNION操作来实现。</p>
+            <p style="text-align:left">SELECT * FROM book LEFT JOIN book_type ON book.type_id=book_type.type_id
+UNION
+SELECT * FROM book RIGHT JOIN book_type ON book.type_id=book_type.type_id;</p>
+ </section>
+		<section>
+            <p style="text-align:left">首先说一下union相当于是where子句中的or，但是如果使用or的话，最好还是使用union来代替，其速度会比or子句快</p>
+			<p style="text-align:left">可以看到，其结果是有两种null情况的，也就是说，是左连接和右连接的特有部分加上共有部分，因此，其和cross join是完全不一样的，一定要注意！</p>
+        </section>
+		<section>
+            <p style="text-align:left">USING子句</p>
+            <p style="text-align:left">MySQL中连接SQL语句中，ON子句的语法格式为：table1.column_name = table2.column_name。当模式设计对联接表的列采用了相同的命名样式时，就可以使用 USING 语法来简化 ON 语法，格式为：USING(column_name)。</p>
+            <p style="text-align:left">所以，USING的功能相当于ON，区别在于USING指定一个属性名用于连接两个表，而ON指定一个条件。另外，SELECT *时，USING会去除USING指定的列，而ON不会。</p>
+            <p style="text-align:left">select * from book inner join book_type using(type_id);</p>
+        </section>
+		<section>
+            <p style="text-align:left">自然连接：NATURAL JOIN</p>
+            <p style="text-align:left">自然连接就是USING子句的简化版，它找出两个表中相同的列作为连接条件进行连接。有左自然连接，右自然连接和普通自然连接之分。</p>
+            <p style="text-align:left">select * from book natural join book_type;</p>
+            <p style="text-align:left">select * from book natural left join book_type;</p>
+			<p style="text-align:left">select * from book natural right join book_type;</p>
+			<p style="text-align:left">但是除非你也像我一样把其中的一个id列换名字或者都换名字，否则尽量不要用自然连接。</p>
+        </section>
+		<section>
+            <p style="text-align:left">补充</p>
+            <p style="text-align:left">从之前的图我们可以看到还有三种情况我们没有讲到，分别是4.5.7</p>
+            <p style="text-align:left">要怎么做才能达到筛选出4.5.7的效果呢？</p>
+            <p style="text-align:left">4是使用where子句来在左连接的基础上筛选where book_type.type_id is null;</p>
+			 <p style="text-align:left">SELECT * FROM book LEFT JOIN book_type ON book.type_id=book_type.type_id where book_type.type_id is null;</p>
+            <p style="text-align:left"></p>
+        </section>
+		<section>
+            <p style="text-align:left">5同理，只是在右连接基础上换一下就好</p>
+            <p style="text-align:left">select * from book right join book_type on book.type_id=book_type.type_id where book.id is null;</p>
+            <p style="text-align:left">7的话，使用union拼接上面两句即可</p>
+            <p style="text-align:left">SELECT * FROM book LEFT JOIN book_type ON book.type_id=book_type.type_id where book_type.type_id is null union select * from book right join book_type on book.type_id=book_type.type_id where book.id is null;</p>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">join联表查询和单表查询，效率上究竟有多大差距?</p>
+            <p style="text-align:left">怎么优化呢？</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+     
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+         <section>
+            <p style="text-align:left">其实在数据量比较小的情况下，而且联表的数据都有索引的情况下，联表查询肯定是更快的，因为分表查询还要考虑网络开销，多次调用数据库等情况。</p>
+            <p style="text-align:left">但是在数据量特别大的情况下，而且索引优化也做的不好的话，还是单表会快一点。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+		<section>
+            <p style="text-align:left">所以，总的来说，还是要综合考虑各种情况。然后需要注意的是sql内联时的一个顺序</p>
+            <p style="text-align:left">1、执行FROM语句 
+2、执行ON过滤 
+3、添加外部行 
+4、执行where条件过滤 
+5、执行group by分组语句 
+6、执行having 
+7、select列表 
+8、执行distinct去重复数据 
+9、执行order by字句 
+10、执行limit字句</p>
+            <p style="text-align:left">因为内联之后数据量是几何倍的增加，所以如果可以，有些分语句可以在单表的时候执行。</p>
+            <p style="text-align:left">我们以后的重点其实还是在优化性能上，毕竟联表查询肯定是要方便很多的。</p>
+            <p style="text-align:left"></p>
+        </section>
+      
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+     
+
+
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>https://blog.csdn.net/Tim_phper/article/details/78344444?locationNum=9&fps=1</p>
+            <p>https://www.cnblogs.com/fudashi/p/7491039.html</p>
+            <p></p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 王琦超</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
