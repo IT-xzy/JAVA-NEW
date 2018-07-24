@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是压测，为什么要进行压力测试？Jmeter工具的使用</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：翁涵</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p style="text-align:left">性能测试、负载测试、压力测试</p>
+            <p style="text-align:left">负载测试：负载测试是一种性能测试，指数据在超负荷环境中运行，程序是否能够承担。在一定的工作负荷下，给系统造成的负荷及系统响应的时间。</p>
+            <p style="text-align:left">压力测试：压力测试是一种性能测试，他在系统资源特别低的情况下软件系统运行情况，目的是找到系统在哪里失效以及如何失效的地方。在一定的负荷条件下，长时间连续运行系统给系统性能造成的影响。包括：</p>
+            <p style="text-align:left">Spike testing（尖峰冲击测试）：短时间的极端负载测试</p>
+            <p style="text-align:left">Extreme testing（极端测试）：在过量用户下的负载测试</p>
+            <p style="text-align:left">Hammer testing（锤击测试）：连续执行所有能做的操作</p>
+        </section>
+
+        <section>
+         	<p style="text-align:left">举个跑步的例子进行解释</p>
+         	<p style="text-align:left">1.性能测试，表示在一个给定的基准下，能执行的最好情况。例如，在没有负重的情况下，你跑100米需要花多少时间（这边，没有负重是基准）</p>
+         	<p style="text-align:left">2.负载测试，也是性能测试，但是他是在不同的负载下的。对于刚才那个例子，如果扩展为：在50公斤、100公斤……等情况下，你跑100米需要花多少时间</p>
+         	<p style="text-align:left">3.压力测试，是在压力情况下的性能测试。对于刚才那个例子，如果改为：在一阵强风的情况下，你在负重或没有负重的情况下，跑100米需要花多少时间</p>
+		</section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+        <p>JMeter怎么使用</p>
+            <p style="text-align:left">重要的组件：</p>
+            <p style="text-align:left">线程组：</p>
+            <p style="text-align:left">它的作用其实是为了模拟用户，所以也叫Users。一个线程组模块可以包含多个线程，每个线程代表一个用户，这样可以模拟高并发下的请求，并根据网站的响应信息来判断网站的相关性能。
+可以设置线程数，实现并发，设置启动时间，实现瞬发；设置循环时间，实现持续长度；
+			</p>
+             <p style="text-align:left">HTTP请求：</p>
+             <p style="text-align:left">可以通过设置ip、端口、方法、路径已经参数访问服务器</p>
+        </section>
+
+        <section>
+             <p style="text-align:left">查看结果树：</p>
+             <p style="text-align:left">可以请求信息以及服务器响应数据</p>
+            <p style="text-align:left">聚合报告：</p>
+            <p style="text-align:left">可以查看所有请求的综合情况。主要参数：Samples（请求次数）、Average（平均响应时间）、Error%(错误比率)、Throughput（每秒处理的请求数）</p>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">1.JMeter的使用步骤</p>
+            <p style="text-align:left">2.压测任务需求的确认</p>
+            <p style="text-align:left">3.压测设置</p>
+            <p></p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+        	 <p style="text-align:left">JMeter的使用步骤</p>
+             <p style="text-align:left">（1）添加线程组 </p>
+             <p style="text-align:left">（2）添加http请求</p>
+             <p style="text-align:left">（3）在http请求中写入接入url、路径、请求方式和参数 </p>
+             <p style="text-align:left">（4）添加查看结果树 </p>
+             <p style="text-align:left">（5）调用接口、查看返回值</p>
+        </section>
+
+        <section>
+        	 <p style="text-align:left">压测任务需求的确认</p>
+             <p style="text-align:left">压测前要明确压测功能和压测指标，一般需要确定的几个问题：</p>
+             <p style="text-align:left">1.	固定接口参数进行压测还是进行接口参数随机化压测？</p>
+             <p style="text-align:left">2.	要求支持多少并发数？</p>
+             <p style="text-align:left">3.	TPS（每秒钟处理事务数）目标多少？响应时间要达到多少？ </p>
+             <p style="text-align:left">4.	压服务器名称还是压服务器IP，一般都是压测指定的服务器</p>
+        </section>
+
+        <section>
+        	 <p style="text-align:left">压测设置</p>
+             <p style="text-align:left">1.	线程数：并发数量，能跑多少量。具体说是一次存在多少用户同时访问 </p>
+             <p style="text-align:left">2.	Rame-Up Period(in seconds):表示JMeter每隔多少秒发动并发。理解成准备时长：设置虚拟用户数需要多长时间全部启动。如果线程数是20，准备时长为10，那么需要10秒钟启动20个数量，也就是每秒钟启动2个线程。</p>
+             <p style="text-align:left">3.	循环次数：这个设置不会改变并发数，可以延长并发时间。总请求数=线程数*循环次数 </p>
+             <p style="text-align:left">4.	调度器：设置压测的启动时间、结束时间、持续时间和启动延迟时间。 </p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>压测结果的分析</p>
+            <p>1.	有错误率同开发确认，确定是否允许错误的发生或者错误率允许在多大的范围内；</p>
+            <p>2.	Throughput吞吐量每秒请求的数大于并发数，则可以慢慢的往上面增加；若在压测的机器性能很好的情况下，出现吞吐量小于并发数，说明并发数不能再增加了，可以慢慢的往下减，找到最佳的并发数；</p>
+            <p>3.	压测结束，登陆相应的web服务器查看CPU等性能指标，进行数据的分析;</p>
+            <p>4.	一般不断增加并发数，达到一个值后，服务器出现请求超时，则可认为该值为最大的并发数。</p>
+            <p>5.	影响性能考虑点包括：数据库、应用程序、中间件（tomact、Nginx）、网络和操作系统等方面。</p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p style="text-align:left">https://zhidao.baidu.com/question/498084507.html</p>
+            <p style="text-align:left">http://www.51testing.com/html/56/n-3723356-2.html</p>
+            <p style="text-align:left">https://blog.csdn.net/github_27109687/article/details/71968662</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>翁涵</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
