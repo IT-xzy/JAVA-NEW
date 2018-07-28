@@ -1,0 +1,275 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>aop简单介绍</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：岳晓鹏</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+
+            <h3>什么是aop</h3>
+            <p>AOP（Aspect Oriented Programming），即面向切面编程，可以说是OOP（Object Oriented Programming，面向对象编程）的补充和完善。
+                OOP引入封装、继承、多态等概念来建立一种对象层次结构，用于模拟公共行为的一个集合。不过OOP允许开发者定义纵向的关系，但并不适合定义横向的关系，例如日志功能。
+                日志代码往往横向地散布在所有对象层次中，而与它对应的对象的核心功能毫无关系。对于其他类型的代码，如安全性、异常处理和透明的持续性也都是如此，
+                这种散布在各处的无关的代码被称为横切（cross cutting），在OOP设计中，它导致了大量代码的重复，而不利于各个模块的重用。
+
+            <p> </p>
+
+        </section>
+        <section>
+
+            <!--<h3>什么是aop</h3>-->
+            <p>AOP技术利用一种称为"横切"的技术，剖解开封装的对象内部，
+                并将那些影响了多个类的公共行为封装到一个可重用模块，并将其命名为"Aspect"，即切面。
+                所谓"切面"，简单说就是那些与业务无关，却为业务模块所共同调用的逻辑或责任封装起来，便于减少系统的重复代码，
+                降低模块之间的耦合度，并有利于未来的可操作性和可维护性。
+
+            </p>
+
+        </section>
+        <section>
+            <img src="业务图.png"/>
+            <!--<h3>什么是aop</h3>-->
+            <p>使用"横切"技术，AOP把软件系统分为两个部分：核心关注点和横切关注点。
+                业务处理的主要流程是核心关注点，与之关系不大的部分是横切关注点。
+                横切关注点的一个特点是，他们经常发生在核心关注点的多处，而各处基本相似，
+                比如权限认证、日志、事物。AOP的作用在于分离系统中的各种关注点，将核心关注点和横切关注点分离开来。
+
+
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+				
+		<section>
+
+            <h3>AOP</h3>
+			<ol>
+			<li>AOP核心概念</li>
+			<li>Advice类型</li>
+            <li>Spring对AOP的支持</li>
+
+			</ol>
+
+        </section>
+		
+		<section>
+
+            <h3>AOP核心概念</h3>
+            <p>1、横切关注点：
+
+    对哪些方法进行拦截，拦截后怎么处理，这些关注点称之为横切关注点
+
+            <p>2、切面（aspect）：
+
+    类是对物体特征的抽象，切面就是对横切关注点的抽象
+
+            <p>3、连接点（joinpoint）：
+
+        被拦截到的点，因为Spring只支持方法类型的连接点，所以在Spring中连接点指的就是被拦截到的方法，实际上连接点还可以是字段或者构造器
+
+            <p>4、切入点（pointcut）：
+
+    对连接点进行拦截的定义
+        </section>
+            <section>
+                <h3>AOP核心概念</h3>
+            <p>5、通知或增强（advice）：
+
+                指的就是指拦截到连接点之后要执行的代码，通知分为前置、后置、异常、最终、环绕通知五类
+
+            <p>6、目标对象（Target Object）：
+
+            代理的目标对象
+
+            <p>7、织入（weave）：
+
+            将切面应用到目标对象并导致代理对象创建的过程
+
+            <p>8、引入（introduction）：
+
+            在不修改代码的前提下，引入可以在运行期为类动态地添加一些方法或字段
+
+        </section>
+
+
+
+		<section>
+
+            Advice增强类型
+
+            <p>前置增强（Before advice）
+        在某连接点之前执行的增强，但这个增强不能阻止连接点前的执行（除非它抛出一个异常）
+
+            <p>后置返回增强（After returning advice）
+在某连接点正常完成后执行的增强：例如，一个方法没有抛出任何异常，正常返回
+
+            <p>后置异常增强（After throwing advice）
+在方法抛出异常退出时执行的增强
+
+            <p>后置最终增强（After (finally) advice）
+当某连接点退出的时候执行的增强（不论是正常返回还是异常退出）
+
+            <p>环绕增强（Around Advice）
+围绕一个连接点的增强，如方法调用。这是最强大的一种增强类型。环绕增强可以在方法调用前后完成自定义的行为。
+            <!--它也负责选择是继续执行连接点，还是直接返回它们自己的返回值或者抛出异常来结束执行-->
+
+            <!--<p>需要注意的是AfterThrowing与AroundAdvice的区别，业务逻辑发生异常后，会触发前者，-->
+            <!--但拿不到异常对象，只知道关注的方法发生异常了，意义不大。而后者是把业务逻辑完全包裹起来，-->
+            <!--所以可以捕获异常信息（暂不讨论异步回调异常）。-->
+            <!--其它几种Advice都是字面意思，很容易理解-->
+
+        </section>
+
+       <section>
+            <h3>Spring对AOP的支持</h3>
+            <p>Spring中AOP代理由Spring的IOC容器负责生成、管理，其依赖关系也由IOC容器负责管理。
+                因此，AOP代理可以直接使用容器中的其它bean实例作为目标，这种关系可由IOC容器的依赖注入提供。
+                Spring创建代理的规则为：
+
+            <p>1、默认使用Java动态代理来创建AOP代理，这样就可以为任何接口实例创建代理了
+
+            <p>2、当需要代理的类不是代理接口的时候，Spring会切换为使用CGLIB代理，也可强制使用CGLIB
+       </section>
+        <section>
+            <p>AOP编程其实是很简单的事情，程序员只需要参与三个部分：
+
+            <p>1、定义普通业务组件
+
+            <p>2、定义切入点，一个切入点可能横切多个业务组件
+
+            <p>3、定义增强处理，增强处理就是在AOP框架为普通业务组件织入的处理动作
+
+            <p>所以进行AOP编程的关键就是定义切入点和定义增强处理，一旦定义了合适的切入点和增强处理，
+            AOP框架将自动生成AOP代理，即：代理对象的方法=增强处理+被代理对象的方法。
+        </section>
+
+
+		<section>
+		
+            <h3>3.编码实战</h3>
+            <p>在spring中使用aop的两种方式，xml和注解配置，进行各类增强</p>
+        </section>
+
+        <section>
+		
+            <h3>4.常见问题</h3>
+            <p>1.aop注解在context和servlet的区别
+            web.xml加载时，先加载context，然后才加载controller类，
+                放在context的时候，加载切面的时候，controller没有加载，所以没有织入到一块
+            <p>2.使用Java动态代理和cglib代理的区别
+            <p>JDK的动态代理机制只能代理实现了接口的类，而不能实现接口的类就不能实现JDK的动态代理，cglib是针对所有类来实现代理的，
+            他的原理是对指定的目标类生成一个子类，并覆盖其中方法实现增强，但因为采用的是继承，所以不能对final修饰的类进行代理。
+            <p>3.在spring中，service和controller类，service就是实现了接口的类，
+            controller类没有实现接口，为什么代理的方式还是一样的？
+            <p>Spring使用动态代理或是CGLIB生成代理是有规则的，
+            高版本的Spring会自动选择是使用动态代理还是CGLIB生成代理内容。
+        </section>		
+
+
+		
+
+        <section>
+		
+            <h3>5.参考资料</h3>
+            
+            <p>http://www.cnblogs.com/xrq730/p/4919025.html</p>
+            <p>https://github.com/ayqy/aop/blob/master/README.md</p>
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+		
+            <h3>鸣谢</h3>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
