@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>RMI的简单介绍</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：白晨松</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+           <p>RMI全称是Remote Method Invocation－远程方法调用，Java RMI在JDK1.1中实现的，其威力就体现在它强大的开发分布式网络应用的能力上，是纯Java的网络分布式应用系统的核心解决方案之一。其实它可以被看作是RPC的Java版本。但是传统RPC并不能很好地应用于分布式对象系统。而Java RMI 则支持存储于不同地址空间的程序级对象之间彼此进行通信，实现远程对象之间的无缝远程调用。</p>
+
+           <p>RMI目前使用Java远程消息交换协议JRMP（Java Remote Messaging Protocol）进行通信。由于JRMP是专为Java对象制定的，Java RMI具有Java的"Write Once,Run Anywhere"的优点，是分布式应用系统的百分之百纯Java解决方案。用Java RMI开发的应用系统可以部署在任何支持JRE（Java Run Environment Java，运行环境）的平台上。但由于JRMP是专为Java对象制定的.</p>
+        </section>
+	
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+				<p>RMI的组成</p>
+                <p>一个正常工作的RMI系统由下面几个部分组成:</P>
+				<p>1.远程服务的接口定义</p>
+				<p>2.远程服务接口的具体实现 </p>
+                <p>3.桩（Stub）和框架（Skeleton）文件</p>
+                <p>4.一个运行远程服务的服务器 </p>
+                <p>5.一个RMI命名服务，它允许客户端去发现这个远程服务</p>
+                <p>6.类文件的提供者（一个HTTP或者FTP服务器）</p>
+                <p>7.一个需要这个远程服务的客户端程序 </p>
+                
+		</section>
+        <!--
+         <section>
+        <p>5、断言：用于来判断请求响应的结果是否如用户所期望，是否正确。它可以用来隔离问题域，即在确保功能正确的前提下执行压力测试。这个限制对于有效的测试是非常有用的。</p>
+            <p>6、定时器：负责定义请求（线程）之间的延迟间隔，模拟对服务器的连续请求。</p>
+            <p>7、逻辑控制器：允许自定义JMeter发送请求的行为逻辑，它与Sampler结合使用可以模拟复杂的请求序列。</p>
+            <p>8、前置处理器和后置处理器负责在生成请求之前和之后完成工作。前置处理器常常用来修改请求的设置，后置处理器则常常用来处理响应的数据。</p>
+
+        </section>-->
+        
+        <section>
+            <p>调用远程RMI的步骤：</p>
+           <p>1，客户调用客户端辅助对象stub上的方法 </p>
+           <p>2，客户端辅助对象stub打包调用信息（变量，方法名），通过网络发送给服务端辅助对象skeleton</p>
+           <p>3，服务端辅助对象skeleton将客户端辅助对象发送来的信息解包，找出真正被调用的方法以及该方法所在对象</p>
+           <p>4，调用真正服务对象上的真正方法，并将结果返回给服务端辅助对象skeleton </p>
+           <p>5，服务端辅助对象将结果打包，发送给客户端辅助对象stub</p>
+           <p>6，客户端辅助对象将返回值解包，返回给调用者</p>
+           <p>7，客户获得返回值</p>
+        </section>
+        
+        
+        <section>
+            <h3>3.常见的问题</h3>
+           <p>1.RMI远程方法调用的优点。 </P>
+          
+        </section>
+ <section>
+            <h3>4.解决办法</h3>
+ </section>
+         <section>
+         <p>RMI的主要优点：</p>
+         <p>面向对象：RMI可将完整的对象作为参数和返回值进行传递，而不仅仅是预定义的数据类型。也就是说，您可以将类似Java哈希表这样的复杂类型作为一个参数进行传递。</p>
+        <p>可移动属性:RMI可将属性(类实现程序)从客户机移动到服务器，或者从服务器移到客户机。这样就能具备最大的灵活性，因为政策改变时只需要您编写一个新的Java类，并将其在服务器主机上安装一次即可。 </p>
+       <p>安 全：RMI使用Java内置的安全机制保证下载执行程序时用户系统的安全。</p>
+       </section>
+       <section>
+       <p>便于编写和使用：编写RMI实际上就是 编写java接口</p>
+       <p>可连接现有/原有的系统:  RMI可利用标准Java本机方法接口JNI与现有的和原有的系统相连接</p>
+       <p>编写一次，到处运行</p>
+       <p>分布式垃圾收集: RMI采用其分布式垃圾收集功能收集不再被网络中任何客户程序所引用的远程服务对象。</p>
+       <p>并行计算：RMI采用多线程处理方法，可使您的服务器利用这些Java线程更好地并行处理客户端的请求。</p>
+       </section>
+		<section>
+            <h3>5.编码实战</h3>
+        </section>
+        
+		 <section>
+            <h3>6.扩展思考</h3>
+		</section>
+		<section>
+            <p>RMI有什么劣势</p>
+            <p>RMI的局限性之一是RMI是Java语言的远程调用，两端的程序语言必须是Java实现，对于不同语言间的通讯可以考虑用Web Service或者公用对象请求代理体系（CORBA）来实现。</p>
+            <p>I对服务器的IP地址和端口依赖很紧密，但是在开发的时候不知道将来的服务器IP和端口如何，但是客户端程序依赖这个IP和端口。这也是RMI的局限性之一。这个问题有两种解决途径：一是通过DNS来解决，二是通过封装将IP暴露到程序代码之外。</p>
+     </section>
+ 
+            <section>
+            <h3>7.参考文献</h3>
+           <p>RMI的基本使用知识</p>
+		   <p>http://www.blogjava.net/zhenyu33154/articles/320245.html</P>
+           <p>RMI 优劣势总结</p>
+           <p>https://blog.csdn.net/mingtianhaiyouwo/article/details/50513577</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 白晨松</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

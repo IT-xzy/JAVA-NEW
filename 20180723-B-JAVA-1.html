@@ -1,0 +1,246 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是RMI，为什么使用RMI</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：杨棋</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>RMI全称是Remote Method
+                Invocation－远程方法调用，是纯Java的网络分布式应用系统的核心解决方案之一。Java RMI
+                支持存储于不同地址空间的程序级对象之间彼此进行通信，实现远程对象之间的无缝远程调用。</p>
+			<p></p>
+        </section>
+        <section class="present" style="top: 175px; display: block;">
+            <p style="text-align:left">
+                RMI目前使用Java远程消息交换协议JRMP进行通信。由于JRMP是专为Java对象制定的，用Java
+                RMI开发的应用系统可以部署在任何支持JRE的平台上。但由于JRMP是专为Java对象制定的，因此，RMI对于用非Java语言开发的应用系统的支持不足。不能与用非Java语言书写的对象进行通信。</p>
+        </section>
+<!--        <section>
+            <p>Resin特点</p>
+            <p>1、Resin包含了很多可靠的特性，包括服务器自动重启、检测并重启死锁的服务器、管理JVM内存以防止内存泄露等。</p>
+            <p>2、Resin可以将多个服务器作为一个服务器来对客户进行响应，从而增强服务器的扩展能力。</p>
+            <p>3、Resin可实现持久和分布的sessions：持久的session能够在服务器重启的时候保持现有的Http会话，分布式的session可以在多个服务器之间共享Http会话的状态。</p>
+        </section>
+        <section>
+            <p>Jetty服务器</p>
+            <p>Jetty 是一个开源的servlet容器，它为基于Java的web内容，例如JSP和servlet提供运行环境。Jetty是使用Java语言编写的，它的API以一组JAR包的形式发布。开发人员可以将Jetty容器实例化成一个对象，可以迅速为一些独立运行（stand-alone）的Java应用提供网络和web连接。</p>
+        </section>
+        <section>
+            <p>Jetty特点</p>
+            <p>1、Jetty的指导原则是“简单不复杂“。Jetty容易理解和使用：  通过API或者XML文件配置；  XML文件语法直接了当地在POJOs上影射API操作；  默认的配置文件可以使Jetty作为外盒（out-of-the-box）；  只需少量的行数就可以嵌入一个Jetty实例。</p>
+            <p>2、可扩展性在异步的WEB2.0类型的应用程序使用的技术，例如AJAX，连接停留时间要比处理一个静态页长，线程和内存需求可能急剧增长。
+                底层必须优雅地处理这些问题，一个低速的数据库连接可能造成站点瘫痪，因为线程被占满了。使用Jetty...</p>
+        </section>
+        <section>
+            <p>3、高效大量的努力用来优化代码，精炼的代码以至于漏洞尽可能少：相关性尽可能少； 核心保持最小，附加函数放在可选包中;可扩展性是一个关键问题;高强度下性能衰减平缓。</p>
+            <p>4、嵌入性 Jetty是一个非常好的组件。这意味着很容易嵌入到一个应用程序中，而不需要应用程序去适应它： 使用依赖注射和反转的控制模式</p>
+            <p>5、Jetty内建插入性。所有Jetty核心组件的实现允许不同的选择，至少一个或者更多，组件的实现总是会提供的。如果这些仍然不能满足你的要求，你可以自由的编写底层接口和抽象类最为基础。这意味着Jetty能够容易地用在一个特别的应用环境中。当Jetty在一个 JavaEE服务器中作为web容器时，这是相当有用的，Jetty的插入性保证了它和主机容器的一个紧密的集成。</p>
+        </section>-->
+	
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section class="present" style="top: 36px; display: block;">
+				<p style="text-align:left">一个正常工作的RMI系统由下面几个部分组成：</p>
+				<p style="text-align:left"> 1·远程服务的接口定义</p>
+            <p style="text-align:left"> 2·远程服务接口的具体实现 </p>
+            <p style="text-align:left"> 3·桩（Stub）和框架（Skeleton）文件 </p>
+            <p style="text-align:left"> 4·一个运行远程服务的服务器 </p>
+            <p style="text-align:left"> 5·一个RMI命名服务，它允许客户端去发现这个远程服务</p>
+            <p style="text-align:left"> 6·类文件的提供者（一个HTTP或者FTP服务器）</p>
+            <p style="text-align:left"> 7·一个需要这个远程服务的客户端程序 </p>
+		</section>
+        <section class="present" style="top: 0px; display: block;">
+            <p style="text-align:left">RMI的主要优点： </p>
+            <p style="text-align:left"> 1. RMI是Java编写的, 具有 “编写一次，到处运行 ” 的特性。任何基于RMI的系统均可100%地移植到 任何Java虚拟机上 </p>
+            <p style="text-align:left">
+                2. 面向对象：RMI可将完整的对象作为参数和返回值进行传递直接通过网络传输对象数据。</p>
+            <p style="text-align:left">
+                3.可移动属性：RMI可将属性从客户机移动到服务器，或者从服务器移到客户机。 </p>
+            <p style="text-align:left">
+                4.设计方式：对象传递功能使您可以在分布式计算中充分利用面向对象技术的强大功能。</p>
+            <p style="text-align:left">
+                5.安　　全：RMI使用Java内置的安全机制保证下载执行程序时用户系统的安全。</p>
+        </section>
+        <section class="present" style="top: 0px; display: block;">
+            <p style="text-align:left">以Java原生态的方法编写 RMI分布式应用程序的步骤主要包括以下几步：</p>
+            <p style="text-align:left"> (1) 将远程类的功能定义为Java接口。在Java中，远程对象是实现远程接口的类的实例。在远程接口中声明每个要远程调用的方法。远程接口具有如下特点：1) 远程接口必须声明为public。如果不这样，则除非客户端与远程接口在同一个包内，否则当试图装入实现该远程接口的远程对象时会得到错误结果。2) 远程对象扩展java.rmi.Remote接口。3) 除了所有应用程序特定的例外之外，每个方法还必须抛出java.rmi.RemoteException </p>
+            <p style="text-align:left">
+                　　(2) 编写和实现服务器类。该类是实现(1)中定义的远程接口。所以在该类中至少要声明实现一个远程接口，并且必须具有构造方法。在该类中还要实现远程接口中所声明的各个远程方法。</p>
+
+<!--            <p style="text-align:left">
+                4.设计方式：对象传递功能使您可以在分布式计算中充分利用面向对象技术的强大功能。</p>
+            <p style="text-align:left">
+                5.安　　全：RMI使用Java内置的安全机制保证下载执行程序时用户系统的安全。</p>-->
+        </section>
+        <section class="present" style="top: 0px; display: block;">
+            <p style="text-align:left">(3) 编写使用远程服务的客户机程序。在该类中使用java.rmi.Naming中的lookup()方法获得对远程对象的引用，依据需要调用该引用的远程方法，其调用方式和对本地对象方法的调用相同。</p>
+            <p style="text-align:left"> </p>
+            <p style="text-align:left"> </p>
+        </section>
+        <section class="present" style="top: 0px; display: block;">
+            <p style="text-align:left"> 实现了服务器和客户机的程序后，就是编译和运行该RMI系统。其步骤有：</p>
+            <p style="text-align:left"> (1) 使用javac编译远程接口类，远程接口实现类和客户机程序。</p>
+            <p style="text-align:left"> (2) 使用rmic编译器生成实现类的stub和skeleton。</p>
+            <p style="text-align:left"> (3) 启动RMI注册服务程序rmiregistry。</p>
+            <p style="text-align:left"> (4) 启动服务器端程序。</p>
+            <p style="text-align:left"> (5) 启动客户机程序。</p>
+        </section>
+        <section class="present" style="top: 0px; display: block;">
+            <p style="text-align:left">请记住以下三点，</p>
+            <p style="text-align:left"> 1. 利用Spring来实现RMI非常简单,不用实现remote接口,也不用调用rmic编译stub和skeleton。</p>
+            <p style="text-align:left"> 2. 服务端可以定义org.springframework.remoting.rmi.RmiServiceExporter类完成RMI服务器实现。</p>
+            <p style="text-align:left"> 3. 客户端只要定义org.springframework.remoting.rmi.RmiProxyFactoryBean,告知rmi的url和接口。</p>
+        </section>
+        <section class="present" style="top: 178px; display: block;">
+            <p style="text-align:left">分布式和集群</p>
+            <p style="text-align:left">
+                分布式：一个业务分拆多个子业务，部署在不同的服务器上。</p>
+            <p style="text-align:left">
+                集群：同一个业务，部署在多个服务器上</p>
+        </section>
+        <section class="present" style="top: 178px; display: block;">
+            <p style="text-align:left">分布式一般是指将一个大的任务划分成不同的小的任务来完成，每一个小的任务是不相同的，也可以称为一个分布式的节点，这些节点可以是在同一台物理机上，也可以在不同的物理机上，分布式的节点之间利用rmi   http  webservice ebj, jms等等方式来完成通信。</p>
+            <p style="text-align:left">
+                集群是将同样应用部署多个，每一个应用完成同样的任务。 所以说 分布式的每一个节点都可以做集群，这样就可以保存高稳定性，因为光是分布式，一旦其中一个节点死掉，那整个任务就完成不了了。如果分布式的用来完成不同任务的节点有多个相同的在同时运行，这样就不用担心节点死掉的问题了。</p>
+        </section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section class="present" style="top: 267px; display: block;">
+            <p style="text-align:left">如何使用Spring RMI发布服务</p>
+        </section>
+        <!--
+		<section>
+            <p>2.时区</p>
+            <p>精度,将java.util.Date转为java.sql.Date时候，日期的时分秒
+                会被去掉，数据的精度发生变化了。这是两个上下级类之间
+                很不合理的问题。 而JDBC中定义接口时候，用的是
+                java.sql.Date，而我们常常用到的Date都是java.util.Date，这
+                往往导致一些转换过程中发生误差。
+                java.sql.Timestamp类，它保持了日期数据原有的精度。可以
+                实现和java.util.Date的无损转换。但是Timestamp这个类在一
+                些预定义SQL中常常会出问题，</p>
+        </section>
+        <section>
+            <p>3.java.sql.Date，在JDBC接口中使用了，如果对其进行修改，
+                JDBC接口规范也要改，那么将引发各个数据库厂商对数据库
+                驱动也要改，这是不可接受的。[1]</p>
+            </section>
+		-->
+        
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section class="present" style="top: 244px; display: block;">
+            <p style="text-align:left">1. 服务端使用Spring 配置来注入RmiServiceExporter对象来发布服务</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section class="present" style="top: 244px; display: block;">
+            <p style="text-align:left">服务器重启之后，客户端再连接就报错了</p>
+        </section>
+        <section class="present" style="top: 244px; display: block;">
+            <p style="text-align:left">RMI客户客户端与服务端第一次建立连接的时候会在客户端生成一个stub,我们称之为存根，并且在服务端注册，以后RMI服务端与客户端都会基于这个文件进行通讯，当客户端需要访问服务端的时候会首先扫描这个文件，然后访问客户端，当客户端验证的时候发现注册了就会通过，如果发现没有注册就会拒绝本次访问，所以当服务端重启之后，曾经所有stub注册都会失效，所以客户端会一直访问不到客户端，必须重新启动，以获取新的stub，不过RMI接口下有避免这种情况的相关配置.</p>
+        </section>
+
+        
+        <section>
+            <h3>7.参考文献</h3>
+           <p>文献一:&nbsp http://www.blogjava.net/zhenyu33154/articles/320245.html/P>
+           <p>文献二:&nbsp https://blog.csdn.net/QB2049_XG/article/details/3278672<</P>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 杨棋</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
