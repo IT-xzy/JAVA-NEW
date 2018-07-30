@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>国际化-项目开发中的自定义回复消息</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：常雷雷</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+        </section>
+        <section>
+            <p>很多网站的用户分布在世界各地，</p>
+            <p>因此网站需要针对不同国家的用户展示不同语言的内容，</p>
+            <p>因此就有了国际化实现的需求，</p>
+            <p>大多数网站都会在网站的头部或尾部设置语言切换链接，</p>
+            <p>这样就可以直接切换成相应的内容。</p>
+        </section>
+        <section>
+            <p>国际化（Internationalization）指的是同一个网站可以支持多种不同的语言，以方便不同国家，不同语种的用户访问。</p>
+            <p>关于国际化我们想到的最简单的方案就是为不同的国家创建不同的网站，比如苹果公司，他的英文官网是：http://www.apple.com</p>
+            <p>而中国官网是 http://www.apple.com/cn</p>
+            <p>苹果公司这种方案并不适合全部公司，而我们希望相同的一个网站，</p>
+            <p>而不同人访问的时候可以根据用户所在的区域显示不同的语言文字，而网站的布局样式等不发生改变。</p>
+        </section>
+        <section>
+            <p>1. 在页面上能够根据浏览器的情况对文本 (不是内容), 时间, 数字进行本地化处理</p>
+            <p>2. 可以在 bean 中获取国际化资源文件 locale 对应的消息</p>
+            <p>3. 可以通过超链接获取 locale, 而不再依赖于浏览器的语言设置情况</p>
+            <p>国际化的英文 Internationalization，但是由于拼写过长，</p>
+            <p>有人想了一个简单的写法叫做 I18N，代表的是 Internationalization 这个单词，
+            <p> 以 I 开头，以 N 结尾，而中间是 18 个字母，所以简写为 I18N。</p>
+            <p>以后我们说 I18N 和国际化是一个意思</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>关于国际化的鸡汤解释</p>
+            <p>首先我们需要知道，用户使用的是哪种语言，这个问题最好解决，</p>
+            <p>因为浏览器在发送请求时会发送如下请求头: Accept-Language: zh-CN,en-US</p>
+            <p>下一步需要我们根据不同的语言显示不同的内容.</p>
+            <p>那我们想一下，如果说我们在页面中把这些诸如：用户名、密码等信息都写死了，那么，将不能再修改</p>
+            <p>所以在页面中这些需要国际化的内容都是需要动态获取的，也就是他们实际上都是变量。</p>
+        </section>
+        <section>
+            <p>我们一般采取的方式是将这些需要国际化的内容写到一个资源配置文件中，</p>
+            <p>然后程序根据不同的语言加载不同的文件，就达到了一个国际化的目的。</p>
+            <p>在国际化 Spring MVC 应用的时候，是将语言区域（Locale）相关的文本元素单独存在一个独立的属性文件中，</p>
+            <p>然后不同的 Locale 对应的属性文件就构成了一个 ResourceBundle，</p>
+            <p>在 Spring MVC 显示本地化的消息时就会根据所在的区域显示对应的文本</p>
+        </section>
+        <section>
+            <img src="QQ截图20171215132003.png"/>
+        </section>
+        <section>
+            <p>Java 程序的国际化主要通过如下三个类完成：</p>
+            <p>Ø java.util.ResourceBundle：用于加载一个国家、语言资源包。</p>
+            <p>Ø java.util.Locale：用于封装一个特定的国家 / 区域、语言环境。</p>
+            <p>Ø java.text.MessageFormat：用于格式化带占位符的字符串。</p>
+            <p>为了实现程序的国际化，必须先提供程序所需要的资源文件。资源文件的内容是很多 key-value 对。其中 key 是程序使用的部分，而 value 则是程序界面的显示字符串。</p>
+        </section>
+        <section>
+            <p>资源文件的命名可以有如下三种形式：</p>
+            <p>Ø baseName _ language _country.properties</p>
+            <p>Ø baseName _language.properties</p>
+            <p>Ø baseName.properties</p>
+            <p>其中 baseName 是资源文件的基本名，用户可以自由定义。</p>
+            <p>而 language 和 country 都不可随意变化，必须是 Java 所支持的语言和国家。</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>当程序报错的时候，但是我又不想将后台报错报给用户，同时返回给用户对应的提示信息，需要怎么做？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+            <P>使用Spring异常处理类动态捕获错误，然后在项目中返回对应的code码</P>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p> 需要依赖国际化的两个主要格式化类为 NumberFormat 和 DateFormat，它们在通过工厂方法获取其实现子类时，都会依赖参数 Locale 来决定最终被实例化的子类</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>链接地址：https://www.cnblogs.com/lixiaopan/p/6229118.html</p>
+            <p>作者：鬼男</p>
+            <p>链接地址：</p>
+            <p>作者：</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。</p>
+
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。</p>
+
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>spring事务</h2>
+            <p>分享人：张强</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>	       
+		<section>
+			<h3>1.背景介绍</h3>
+		</section>       
+		<section>
+			<p>事务的概念</p>
+			<p style="text-align:left; font-size:25px;" >我们在实际业务场景中，经常会遇到数据频繁修改读取的问题。在同一时刻，不同的业务逻辑对同一个表数据进行修改，这样就会造成数据库结果错乱，所以就需要有一种方法来保证数据在同一时刻不会被同时修改，这就要用事务来对数据进行管理。<br><br>
+			比如我们去ATM取钱，首先是从银行卡扣钱，然后是ATM机吐钱。这两个操作要么同时失败，要么同时成功。如果其中一步失败的话要么是银行卡扣了钱没出来，要么是钱出来了银行卡没扣，这样对双方都没有好处。如果使用事务就会避免这样的操作，特别是这种涉及金钱操作显得尤为重要。只要有一步出现错误，那么其它执行成功的操作都会回滚到初始化状态。这就是事务的作用。</p>
+		</section>
+		<section>
+			<h3>2.知识剖析</h3>
+		</section>
+		<section>			
+			<p>mysql中的事务</p>
+			<p style="text-align:left; font-size:25px;" >实际上Spring的事务并不是直接管理的，而是提供了多种事务管理器，将事务管理的职责委托给JDBC或者Hibernate等持久化机制所提供的相关平台框架的事务来实现。以jdbc来讲，在不结合其它持久化框架的时候一般会选择jdbc的事务管理（org.springframework.jdbc.datasource.DataSourceTransactionManager），它通过调用java.sql.Connection连接来管理事务。<br><br>做任务一的时候用的就是jdbc基础的连接，而myslq也有自己的事务管理，和java中的事务管理是一个概念，但是不是相互依赖的<br>
+			这里通过mysql的事务管理做一个对比。在mysql中使用事务需要先开启（有些储存引擎不支持事务，通常使用的innodb引擎是支持事务安全的）
+			再执行，然后提交。在jdbc中是相同的操作。
+			</p>
+		</section>
+		<section>			
+			<p>事务的特性</p>
+			<p style="text-align:left; font-size:25px;" >所有的事务都必须遵循ACID原则，也就是下面这些事务的特性:<br><br>
+			原子性(Atomicity)：事务是一个原子操作，由一系列动作组成。事务的原子性确保动作要么全部完成，要么完全不起作用。<br><br>
+			一致性（Consistency）：一旦事务完成（不管成功还是失败），系统必须确保它所建模的业务处于一致的状态，而不会是部分完成部分失败。在现实中的数据也不应该被破坏。<br><br>
+			隔离性（Isolation）：可能有许多事务会同时处理相同的数据，因此每个事务都应该与其他事务隔离开来，防止数据损坏。<br><br>
+			持久性（Durability）：一旦事务完成，无论发生什么系统错误，它的结果都不应该受到影响，这样就能从任何系统崩溃中恢复过来。通常情况下，事务的结果被写到持久化存储器中。
+			
+			</p>
+		</section>
+		<section>
+			<p>Spring中的事务</p>	
+			<p style="text-align:left; font-size:25px;" >Spring通过PlatformTransactionManager接口为各个平台提供对应的事务管理器，通过TransactionDefinition接口控制事务的属性。<br><br>
+			Spring事务管理有两种方式，一种是声明式事务管理，一种是编程式事务管理。<br><br>
+			声明式事务管理：在配置文件中配置属性声明，基于AOP方式实现事务操作。也就是将将事务管理作为一个切面，织入到目标方法实现事务的管理；<br>
+			声明式事务管理也可以通过直接注解来实现<br>
+			编程式事务管理：自己编写管理事务方式，即进行提交和异常回滚等操作。<br>
+			
+			</p>
+		</section>
+		<section>
+			<h3>3.常见问题</h3>
+			<p></p>	
+		</section>
+		<section>
+			<p>事务属性</p>	
+			<p style="text-align:left; font-size:25px;" >
+			Spring通过TransactionDefinition控制接口的属性，在TransactionDefinition里可以设置下面的属性：<br><br>
+			（1）传播行为  int getPropagationBehavior();  <br>返回int，数字代表不同的行为，共七种。当一个事务方法被另一个事务方法调用时，必须指定事务应该如何传播。方法可能继续在现有事务中运行，也可能开启一个新事务，在新事物中运行。 <br><br>
+			（2）隔离规则  getIsolationLevel(); <br>返回事务的隔离级别，事务管理器根据它来控制另外一个事务可以看到本事务内的哪些数据，也就是定义一个事务可能受其他并发事务影响的程度。<br><br>
+			（3）是否只读  boolean isReadOnly(); <br> 如果事务只对后端的数据库进行该操作，数据库可以利用事务的只读特性来进行一些特定的优化。通过将事务设置为只读，你就可以给数据库一个机会，让它应用它认为合适的优化措施。<br><br></p>	
+		</section>
+		<section>
+			
+			<p style="text-align:left; font-size:25px;" >
+			（4）事务超时  int getTimeout();<br>事务不能运行太长的时间。因为事务可能涉及对后端数据库的锁定，所以长时间的事务会不必要的占用数据库资源。事务超时就是事务的一个定时器，在特定时间内事务如果没有执行完毕，那么就会自动回滚，而不是一直等待其结束。<br><br>
+			（5）回滚规则 <br>默认情况下，事务只有遇到运行期异常时才会回滚，而在遇到检查型异常时不会回滚，但是可以声明事务在遇到特定的检查型异常时像遇到运行期异常那样回滚。同样还可以声明事务遇到特定的异常不回滚，即使这些异常是运行期异常。</p>	
+		</section>
+		<section>
+			<p>传播行为</p>	
+			<p style="text-align:left; font-size:25px;" >
+			int PROPAGATION_REQUIRED = 0;<br>
+			表示当前方法必须运行在事务中。如果当前事务存在，方法将会在该事务中运行。否则，会启动一个新的事务。<br><br>
+			int PROPAGATION_SUPPORTS = 1;<br>
+			表示当前方法不需要事务上下文，但是如果存在当前事务的话，那么该方法会在这个事务中运行。<br><br>
+			int PROPAGATION_MANDATORY = 2;<br>
+			表示该方法必须在事务中运行，如果当前事务不存在，则会抛出一个异常<br><br>
+			int PROPAGATION_REQUIRES_NEW = 3;<br>			表示当前方法必须运行在它自己的事务中。一个新的事务将被启动。如果存在当前事务，在该方法执行期间，当前事务会被挂起。如果使用JTATransactionManager的话，则需要访问TransactionManager<br><br>
+			</p>
+		</section>
+		<section>
+			<p style="text-align:left; font-size:25px;" >
+			int PROPAGATION_NOT_SUPPORTED = 4;<br>			表示该方法不应该运行在事务中。如果存在当前事务，在该方法运行期间，当前事务将被挂起。如果使用JTATransactionManager的话，则需要访问TransactionManager
+			int PROPAGATION_NEVER = 5;<br>
+			表示当前方法不应该运行在事务上下文中。如果当前正有一个事务在运行，则会抛出异常。<br><br>
+			int PROPAGATION_NESTED = 6;<br>			表示如果当前已经存在一个事务，那么该方法将会在嵌套事务中运行。嵌套的事务可以独立于当前事务进行单独地提交或回滚。如果当前事务不存在，那么其行为与PROPAGATION_REQUIRED一样。注意各厂商对这种传播行为的支持是有所差异的。可以参考资源管理器的文档来确认它们是否支持嵌套事务</p>
+			
+		</section>
+		<section>
+			<p>隔离规则</p>	   			
+			<p style="text-align:left; font-size:25px;" >多个事务并发运行，经常会操作相同的数据来完成各自的任务，所以可能会导致一些数据错乱的问题，隔离规则就是规定事务之间隔离的级别。数据中错乱的现象大致为下面这些：<br><br>
+			脏读（Dirty reads） <br>脏读是指在一个事务处理过程里读取了另一个未提交的事务中的数据，当一个事务正在多次修改某个数据，而在这个事务中这多次的修改都还未提交，这时一个并发的事务来访问该数据，就会造成两个事务得到的数据不一致<br><br>
+			不可重复读（Nonrepeatable read）<br> 不可重复读是指在对于数据库中的某个数据，一个事务范围内多次查询却返回了不同的数据值，这是由于在查询间隔，被另一个事务修改并提交了。不可重复读和脏读的区别是，脏读是某一事务读取了另一个事务未提交的脏数据，而不可重复读则是读取了前一事务提交的数据。<br><br>
+			幻读（Phantom read） <br>
+幻读与不可重复读类似。它发生在一个事务（T1）读取了几行数据，接着另一个并发事务（T2）插入了一些数据时。在随后的查询中，第一个事务（T1）就会发现多了一些原本不存在的记录。<br><br> 
+			</p>
+		</section>
+		<section>
+			<p>隔离级别</p>	   			
+			<p style="text-align:left; font-size:25px;" >ISOLATION_DEFAULT<br>
+			使用后端数据库默认的隔离级别<br><br>
+			ISOLATION_READ_UNCOMMITTED<br>
+			最低的隔离级别，允许读取尚未提交的数据变更。可能会导致脏读、幻读或不可重复读<br><br>
+			ISOLATION_READ_COMMITTED 允许读取并发事务已经提交的数据。可以阻止脏读，但是幻读或不可重复读仍有可能发生<br><br>ISOLATION_REPEATABLE_READ 对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，可以阻止脏读和不可重复读，但幻读仍有可能发生<br><br>ISOLATION_SERIALIZABLE 最高的隔离级别，完全服从ACID的隔离级别，确保阻止脏读、不可重复读以及幻读，也是最慢的事务隔离级别，因为它通常是通过完全锁定事务相关的数据库表来实现的 
+			</p>	   			
+		</section>
+		<section>
+			<h3>4.编码实战</h3>
+			<p></p>	   			
+		</section>
+		<section>
+			<h3>5.扩展思考</h3>
+		</section>
+		<section>
+			<p>Spring事务管理器对事务的支持</p>
+			<p style="text-align:left; font-size:25px;" >Spring本身并不管理事务，而是把管理事务的职责分离到针对具体的平台框架，对各个常用的框架添加了对应的事务管理器。前面说了，spring对事务的支持是通过事务管理器接口PlatformTransactionManager实现的，spring又针对各个框架平台提供了对应的事务管理器<br>			
+			</p>
+		</section>
+		<section>
+			<p style="text-align:left; font-size:25px;" >
+			JDBC事务<br>	org.springframework.jdbc.datasource.DataSourceTransactionManager<br>
+			Hibernate事务<br>org.springframework.orm.hibernate5.HibernateTransactionManager<br>
+			Java持久化API事务（JPA:Java Persistence APIjava持久层API，sun自己的orm映射）<br>org.springframework.orm.jpa.JpaTransactionManager<br>
+			Java原生API事务<br>org.springframework.transaction.jta.JtaTransactionManager
+			</p>
+		</section>
+		<section>
+			<h3>6.参考文献</h3>
+			<p>https://blog.csdn.net/trigl/article/details/50968079</p>
+			<p>https://blog.csdn.net/chinacr07/article/details/78817449</p>
+		</section>        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>谢谢大家</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

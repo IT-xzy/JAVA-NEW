@@ -1,0 +1,263 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>cookie和session</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：王庸之</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+
+            <h3>什么是会话？</h3>
+            <p>在程序中，会话跟踪是很重要的事情。理论上，一个用户的所有请求操作都应该属于同一个会话，而另一个用户的所有请求操作则应该属于另一个会话，二者不能混淆。</p>
+            <p>简单理解：用户开一个浏览器，点击多个超链接，访问服务器多个web资源，然后关闭浏览器，整个过程称之为一个会话。</p>
+            <p>有状态会话：一个同学来过教室，下次再来教室，我们会知道这个同学曾经来过，这称之为有状态会话。</p>			
+			
+            
+        </section>
+		
+		<section>
+
+            <h3>为什么需要cookie和session？</h3>
+            <p>Web应用程序是使用HTTP协议传输数据的。HTTP协议是无状态的协议。一旦数据交换完毕，客户端与服务器端的连接就会关闭，再次交换数据需要建立新的连接。这就意味着服务器无法从连接上跟踪会话。</p>
+            <p>所以需要某种机制来保存用户的登录状态等信息。</p>
+            <p>于是在服务器端和浏览器端分别引入了session和cookie机制。</p>			
+			
+            
+        </section>
+       
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+				
+		<section>
+
+            <h3>什么是Cookie？</h3>
+            <p>Cookie实际上是一小段的文本信息。客户端请求服务器，如果服务器需要记录该用户状态，就使用response向客户端浏览器颁发一个Cookie（写进响应头中）。客户端浏览器会把Cookie保存起来。当浏览器再请求该网站时，浏览器把请求的网址连同该Cookie一同提交给服务器。服务器检查该Cookie，以此来辨认用户状态。服务器还可以根据需要修改Cookie的内容。</p>
+			
+
+        </section>
+		
+		<section>
+
+            <h3>cookie的的基本属性</h3>
+            <p>String name：该Cookie的名称。Cookie一旦创建，名称便不可更改。</p>
+			<p>String value：该Cookie的值。如果值为Unicode字符，需要为字符编码。如果值为二进制数据，则需要使用BASE64编码。</p>
+			<p>String path：该Cookie的使用路径。如果设置为“/sessionWeb/”，则只有contextPath为“/sessionWeb”的程序可以访问该Cookie。如果设置为“/”，则本域名下contextPath都可以访问该Cookie。注意最后一个字符必须为“/”。</p>
+            			
+
+            
+        </section>
+		
+	    <section>
+
+            <h3>cookie的的基本属性</h3>
+            <p>int maxAge：该Cookie失效的时间，单位秒。如果为正数，则该Cookie在maxAge秒之后失效。如果为负数，该Cookie为临时Cookie，关闭浏览器即失效，浏览器也不会以任何形式保存该Cookie。如果为0，表示删除该Cookie，因为cookie没有删除的机制，response提供的操作cookie对象的方法只有addCookie(Cookie cookie),所以只能使用同名cookie覆盖，并设置时间为0来删除（注意，修改和删除时，除了value和maxage属性之外，其他属性都得相同，否则浏览器将其视为两个cookie从而导致修改删除失败）。MaxAge默认为–1。</p>
+			<p>String domain：可以访问该Cookie的域名。正常情况下cookie不可跨域名，但如果设置为“.google.com”，则所有以“google.com”结尾的域名都可以访问该Cookie。注意第一个字符必须为“.”</p>
+
+
+            
+        </section>
+		
+		<section>
+
+            <h3>cookie的的基本属性</h3>
+			<p>boolean secure：该Cookie是否仅被使用安全协议传输。HTTP协议不仅是无状态的，而且是不安全的。使用HTTP协议的数据不经过任何加密就直接在网络上传播，有被截获的可 能。使用HTTP协议传输很机密的内容是一种隐患。安全协议有HTTPS，SSL等，在网络上传输数据之前先将数据加密。默认为false。如果不希望Cookie在HTTP等非安全协议中传输，可以设置Cookie的secure属性为 true。浏览器只会在HTTPS和SSL等安全协议中传输此类Cookie。</p>
+			<p>String comment：该Cookie的用处说明。浏览器显示Cookie信息的时候显示该说明。</p>
+
+            
+        </section>
+		
+		<section>
+
+            <h3>什么是session？</h3>
+			<p>Session是另一种记录客户状态的机制，不同的是Cookie保存在客户端浏览器中，而Session保存在服务器上。客户端浏览器访问服务器的时候，服务器把客户端信息以某种形式记录在服务器上。这就是Session。客户端浏览器再次访问时只需要从该Session中查找该客户的状态就可以了。</p>
+			<p>Session相当于程序在服务器上建立的一份客户档案，客户来访的时候只需要查询客户档案表就可以了。</p>
+			<p>Session对应的类为javax.servlet.http.HttpSession类。每个来访者对应一个Session对象，所有该客户的状态信息都保存在这个Session对象里。Session对象是在客户端第一次请求服务器的时候创建的。</p>
+			
+							
+            
+        </section>
+		
+		
+        <section>
+		
+             <h3>session的基本方法</h3>
+		     <p>void setAttribute(String attribute, Object value)：设置Session属性。value参数可以为任何Java Object。通常为Java Bean。value信息不宜过大。</p>
+		     <p>Object getAttribute(String attribute)：返回Session属性。</p>
+		     <p>void removeAttribute(String attribute)：移除Session属性。</p>
+			 <p>String getId()：返回Session的ID。该ID由服务器自动创建，不会重复。可以尝试在cookie中保存session.getId()，其保存的值和自动创建的JSESSIONID相同。</p>
+			 <p>long getLastAccessedTime()：返回Session的最后活跃时间。返回类型为long。</p>
+             
+		
+        </section>
+		
+		<section>
+		
+             <h3>session的基本方法</h3>
+		     <p>long getCreationTime()：返回Session的创建日期。返回类型为long，常被转化为Date类型，例如：Date createTime = new Date(session.get CreationTime())。</p>
+		     <p>int getMaxInactiveInterval()：返回Session的超时时间。单位为秒。超过该时间没有访问，服务器认为该Session失效。</p>
+			 <p>void setMaxInactiveInterval(int second)：设置Session的超时时间。单位为秒。</p>
+			 <p>boolean isNew()：返回该Session是否是新创建的。</p>
+			 <p>void invalidate()：void invalidate()。</p>
+			
+		   
+        </section>
+
+
+       
+		
+		
+        <section>
+		
+            <h3>3.编码实战</h3>
+			
+        </section>
+
+        <section>
+		
+            <h3>4.常见问题</h3>
+			
+        </section>		
+
+        <section>		
+		
+           <h3></h3>		   
+		   <p>request.getSession()方法和request.getSession(ture)区别？</p>
+           <p>Cookie和Session的联系和区别？</p> 
+		   <p>如果浏览器禁用cookie后怎么办？</p>
+		   
+        </section>
+		
+		<section>
+		
+            <h3>5.解决方案</h3>
+			
+        </section>		
+
+         <section>		
+		
+           <h3>Cookie和Session的联系和区别？</h3>		   
+		   <p>1、session保存在服务器，客户端不知道其中的信息；cookie保存在客户端，服务器能够知道其中的信息</p>
+           <p>2、session中保存的是对象，cookie中保存的是字符串。</p> 
+		   <p>3、session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能。</p>
+		   <p>4、单个cookie在客户端的限制是4K。</p>
+		   
+		   
+        </section>
+		
+		<section>		
+		
+           <h3>如果浏览器禁用cookie后怎么办？</h3>		   
+		   <p>由于cookie可以被人为的禁止，必须有其它的机制以便在cookie被禁止时仍然能够把session id传递回服务器，经常采用的一种技术叫做URL重写。</p>
+           <p>就是把session id附加在URL路径的后面，附加的方式也有两种，一种是作为URL路径的附加信息，另一种是作为查询字符串附加在URL后面。</p> 
+		   <p>网络在整个交互过程中始终保持状态，就必须在每个客户端可能请求的路径后面都包含这个session id。缺点就是网页中不能有静态页面，否则就无法完成重写。</p>
+		   <p>还有一种是作为隐藏表单的形式携带sessionid，可以将两者理解为get和post的区别，此方法的缺点是仅当每个页面都是有表单提交而动态生成时，才能使用这种方法。</p>
+		   
+		   
+        </section>
+		
+
+        <section>
+		
+            <h3>5.参考资料</h3>
+            
+            <p>http://www.cnblogs.com/xdp-gacl/category/574705.html</p>
+			<p>王琦超师兄的日报</p>
+
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+		
+            <h3>鸣谢</h3>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

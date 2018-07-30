@@ -1,0 +1,233 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>Aop简单了解</h3>
+			<p></p>
+            <h4></h4>
+            <p>分享人：郑志航</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>小课堂讲解前言：</h3>
+            <p style="text-align:left">在任务三点时候碰了一下AOP，觉得挺有意思</p>
+            <p style="text-align:left">因此本节就我遇到的一点点AOP的东西交流交流</p>
+            <p style="text-align:left"> 讲解计划和提纲</p>
+            <p style="text-align:left"> -1AOP一些些理解讲讲，</p>
+            <p style="text-align:left"> -2结合代码对上面进行补充。</p>
+        </section>
+
+          <section> 
+            <h3>1.背景介绍</h3>
+            <h5>1、什么是AOP</h5>
+            <p style="text-align:left">在OOP中，正是这种分散在各处且与对象核心功能无关的代码（横切代码）的存在，使得模块复用难度增加。</p>
+            <p style="text-align:left">AOP则将封装好的对象剖开，找出其中对多个对象产生影响的公共行为，并将其封装为一个可重用的模块，这个模块被命名为“切面”（Aspect）</p>
+            <p style="text-align:left">切面将那些与业务无关，却被业务模块共同调用的逻辑提取并封装起来，减少了系统中的重复代码，降低了模块间的耦合度，同时提高了系统的可维护性和程序的可复用性，同时提高了开发的效率。</p>
+        </section>
+
+        <section> 
+            <h3>1.背景介绍</h3>
+            <h5>2、AOP与OOP</h5>
+            <p style="text-align:left">AOP可以说是OOP（面向对象编程）的补充和完善。OOP引入封装、继承、多态等概念来建立一种对象层次结构，用于模拟公共行为的一个集合。 </p>
+            <p style="text-align:left"> 不过OOP允许开发者定义纵向的关系，但并不适合定义横向的关系 </p>
+            <p style="text-align:left">例如日志功能。 日志代码往往横向地散布在所有对象层次中，而与它对应的对象的核心功能毫无关系。对于其他类型的代码，如安全性、异常处理和透明的持续性也都是如此，这种散布在各处的无关的代码被称为横切（cross cutting）。</p>
+            <p style="text-align:left">在OOP设计中，它导致了大量代码的重复，而不利于各个模块的重用。 </p>
+        </section>
+
+        <section> 
+            <h3>1.背景介绍</h3>
+            <h5>我对于AOP思想的理解</h5>
+            <p style="text-align:left">AOP的核心思想是帮助我们在扩展功能（方法）时可以不依靠修改源代码来实现。</p>
+            <p style="text-align:left"> 其采取横向抽取机制，规避了传统面向对象中纵向继承体系的重复性高耦合代码。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"> </p>
+        </section>
+            
+
+        <section>
+            <h3>.2知识剖析</h3>
+            <p style="text-align:left"> 1、为什么要使用aop</p> 
+            <p style="text-align:left"> 如下：</p> 
+            <p style="text-align:left"> 1:为了方便，用了aop能让你少写很多代码</p> 
+            <p style="text-align:left"> 2:为了更清晰的逻辑，可以让你的业务逻辑去关注自己本身的业务，而不去想一些其他的事情，这些其他的事情包括：安全，事物，日志等。</p> 
+            <p style="text-align:left"> 3:为了降低之前传统面向对象中采用纵向继承体系增强方法导致的耦合度过高的问题:</p> 
+            <p style="text-align:left"> 4:提高了代码的复用性</p> 
+        </section>
+
+        <section>
+            <h3>知识剖析</h3>
+            <h4>2、浅析AOP思想的发展及原理</h4>
+            <p style="text-align:left">发展：修改源代码————采用OOP纵向继承体系————采用AOP横向织入 </p> 
+            <p style="text-align:left"></p> 
+            <p style="text-align:left">实现原理：通过动态代理创建代理对象来实现 </p> 
+        </section>
+
+        <section>
+        <h3>知识剖析</h3>
+            <h4>3、aop专业术语</h4>
+            <p style="text-align:left">1.通知（Advice）*：通知定义了切面是什么以及何时使用；里面就是增强方法的逻辑，分为前置增强，后置增强，环绕增强，最终增强，异常增强。 </p> 
+            <p style="text-align:left"> 2.连接点（JoinPoint）：连接点是在应用执行过程中能够插入切面的一个点。这个点可以是调用方法时，抛出异常时，甚至修改一个字段时。切面代码可以利用这些点插入到应用的正常流程中，并添加新的行为。</p> 
+            <p style="text-align:left">3.切入点（Pointcut）*：切点有助于缩小切面所通知的连接点的范围。
+			（何处） </p> 
+        </section>
+        <section>
+
+        <h3>知识剖析</h3>
+            <h4>3aop专业术语</h4>
+            <p style="text-align:left"> 4.切面（Aspect）*：切面是通知和切点的结合。通知和切点定义了切面的全部内容——它是什么，在何时何处完成其功能。</p> 
+            <p style="text-align:left"> 5.目标（target）：被增强的方法所在的那个类，也就是真正的业务逻辑，他可以在毫不知情的情况下，被织入切面。而自己专注于业务本身的逻辑。</p> 
+            <p style="text-align:left"> 6.代理(proxy)：目标类被增强后产生的代理类</p> 
+        </section>
+        <section>
+        <h3>知识剖析</h3>
+            <h4>3aop专业术语</h4>
+            <p style="text-align:left"> 7.织入(weaving)：把增强应用到目标类的过程</p> 
+            <p style="text-align:left"> 8:引入（Introduction）　引入允许我们向现有的类添加新方法或属性，从而无需修改这些现有类的情况下，让他们具有新的行为和状态</p> 
+        </section>
+
+
+
+
+        <section>
+            <h3>3.常见问题</h3>
+            <p style="text-align:left">提问一：实现AOP的方式有哪些？</p>
+            <p style="text-align:left"> 提问二：实现增强的方法有那些？</p>
+            <p style="text-align:left">提问三：在确定好需要增强的方法之后，切入点的定位是如何完成的 </p> 
+            <p style="text-align:left">提问四：使用@Aspect对SSM进行切入，统计运行时间。 </p> 
+        </section>
+        
+         <section>
+            <h3>4.解决方案</h3>
+            <h4>1):实现AOP的方式有哪些？</h4>
+            <h4>在sring里面进行aop操作，使用aspectJ来实现。aspectJ本身是一个单独的面向切面的框架，里面定义了AOP语法，不是spring的一部分，和spring协同完成springAOP的操作，使用aspectJ来实现springAOP的操作有两种方式</h4>
+            <h4>1:继承的类的方式（不推荐）</h4>
+            <h4>2:基于aspectJ的xml文件</h4>
+            <h4>3.基于aspectJ注解</h4>
+         </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+            <h4>2):实现增强的方法有那些？</h4>
+            <p style="text-align:left">织入</p>
+            <p style="text-align:left">引入</p>
+            <p style="text-align:left">代码实战的时候我们统一讲讲。</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+            <h4>3):在确定好需要增强的方法之后，切入点的定位是如何完成的 </h4>
+            <p style="text-align:left">可以用execution表达式来解决（常用）</p>
+            <p style="text-align:left">也可以用xml配置，使用RegexpMethodPointcutAdvisor,来定义切点。</p>
+            <p style="text-align:left">1.execution（* com.aop.add(..))</p>
+            <p style="text-align:left">2.匹配所有save开头的方法：execution(* com*(..))</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+            <h4>4):使用@Aspect对SSM进行切入，统计运行时间。</h4>
+            <p style="text-align:left">在编码实战的时候讲讲。</p>
+        </section>
+		
+       
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+		 <section>
+            <h3>6.扩展思考</h3>
+            <p style="text-align:left">基于注解与基于配置文件的优缺点.</p>
+            <p style="text-align:left">优点：</p>
+            <p style="text-align:left">注解能减少配置的工作，而且配置信息和JAVA代码放在一起，有助于增强程序的内聚性。相对于XML配置文件进行配置文件和程序文件的切换，用注解方式，能提高开发的连贯性，和提成开发效率。</p>
+            <p style="text-align:left">缺点：</p>
+            <p style="text-align:left">程序复杂的话，还是使用xml配置文件的方式，这样可读性和可维护性比较强。</p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:center">百度，CSDN博客</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
