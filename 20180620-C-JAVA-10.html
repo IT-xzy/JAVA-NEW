@@ -32,7 +32,7 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>什么是压测，为什么要进行压力测试？Jmeter工具的使用</h2>
+            <h2>线程</h2>
 			<p></p>
             <h3>java小课堂</h3>
             <p>分享人：陈鑫</p>
@@ -49,59 +49,68 @@
         </section>
         <section>
             <h3>1.背景介绍</h3>
-        </section>
-
+        </section>	
+		
         <section>
-
-
-            <p>1.背景介绍</p>
-			<p style="text-align:left">负载测试（LoadTest）、压力测试（StressTest）、容量测试（CapabilityTest）与性能测试（PerformanceTest）是相互关系？</p>
-			<p style="text-align:left">简单讲性能测试包括负载测试、压力测试和容量测试三种主要测试类型和其他测试类型。</p>
-			<p style="text-align:left">性能测试就是用来测试软件在系统中的运行性能的。可以对单独模块测试，但只有整个系统集成后测试的性能才是真正的性能</p>
-			<p style="text-align:left">负载测试是为了检验系统在给定负载下是否能达到预期性能指标；</p>
-			<p style="text-align:left">容量测试针对数据库而言，是在数据库中有较大数量的数据记录情况下对系统进行的测试；</p>
-			</section>
-
+		
 			<section>
-			<p></p>
-			<p style="text-align:left">压力测试是通过不断向被测系统施加“压力”，测试系统在压力情况下的性能表现，考察当前软硬件环境下系统所能承受的最大负荷并帮助找出系统瓶颈所在，也就是我们可以模拟巨大的工作负荷以查看应用程序在峰值使用情况下如何执行操作。</p>
-			<p style="text-align:left">Web服务处于分布式计算的核心位置，它们之间的交互通常很难测试。分布式开发、大型的开发者团队以及对代码日益组件化的期望都有可能使Web服务的开发变得越来越容易隐藏错误。这些类型的错误极难检测出来。压力测试是检测这类代码错误的一种有效方法，但是只有在压力系统设计得比较有效的情况下才能发挥作用。</p>
+            <p>1.背景介绍</p>
+			
+			<p style="text-align:left">一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务。</p>
+			<p style="text-align:left">一个进程包括由操作系统分配的内存空间，包含一个或多个线程。一个线程不能独立的存在，它必须是进程的一部分。一个进程一直运行，直到所有的非守护线程都结束运行后才能结束。</p>
+			</section>
+			
+			<section>
+			<p style="text-align:left">一个线程是程序中的一个执行线程。JVM允许一个应用在运行时有多个执行线程。</p>
+			<p style="text-align:left">每个线程都有一个优先级。高优先级的线程先于低的执行。任何一个线程可能或不可能被标记为守护进程。当运行在同一个线程中的代码创建了一个新线程对象（Thread Object），那么这个新线程将它的优先级设置为与创建它的线程相同的优先级。当且仅当这个线程是守护进程时，新建的线程才是守护进程。</p>
+			<p style="text-align:left">当JVM启动时，通常只有一个非守护进程的线程，通常会调用某些类的main方法。</p>
+            <p style="text-align:left"></p>       		
             <p style="text-align:left"></p>
 			 <p style="text-align:left"></p>
-
-
+			 <p style="text-align:left"></p>
+			
 			</section>
-			<section>
-			<p style="text-align:left">压力测试考察当前软硬件环境下系统所能承受的最大负荷并帮助找出系统瓶颈所在。压测都是为了系统在线上的处理能力和稳定性维持在一个标准范围内，做到心中有数。</p>
-			<p style="text-align:left">使用压力测试，您有希望找到很多种用其他测试方法更难发现的错误。有两种错误类型是:内存泄漏，并发与同步。</p>
-			<p style="text-align:left">有效的压力测试系统将应用以下这些关键条件:重复，并发，量级</p>
+			<!--<section>
+			<p></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
 			<p style="text-align:left"></p>
 			<p></p>
-			</section>
+			</section>-->
 		</section>
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
-		<p>JMeter怎么使用</p>
-			<p style="text-align:left">测试计划（test plan）的各个部分：</p>
-			<p style="text-align:left">Test Plan：</p>
-            <p style="text-align:left">Thread Group；Controllers；Samplers；Logic Controllers；Test Fragments；Listeners；Timers；Assertions；Configuration Elements；Pre-Processor Elements；Post-Processor Elements；</p>
-			 <p style="text-align:left">执行顺序：</p>
-			 <p style="text-align:left">http://jmeter.apache.org/usermanual/test_plan.html#executionorder</p>
-			 <p style="text-align:left">Scoping Rules：</p>
-			 <p style="text-align:left">http://jmeter.apache.org/usermanual/test_plan.html#scoping_rules</p>
-			<p style="text-align:left"></p>
-			<p style="text-align:left"></p>
+			<p style="text-align:left">创建新Thread的两种方式。一个方式是声明一个Thread类的子类，这个子类需要重写Thread类的run方法。然后这个子类的实例可以被分配和启动。</p>
+			<p style="text-align:left">另外一个方式是声明一个类去实现Runnable接口。然后实现run方法。之后这个子类的实例作为创建Thread的参数可以被分配和启动。</p>
+			<p style="text-align:left">每个线程有一个用于指定它目的的名称，多个线程可以同样的名字。如果没有指定名字，会自动生成。除非额外注明，否则传递一个null参数给构造器或者方法，会造成NullPointerException。</p>
+			<br>
+			</section>
+        <section>
+            <p style="text-align:left">大多数情况，应该使用Runnable接口，因为应用只需要重写run()方法，而且如果不打算修改或增强类的基本行为不应该将类进行子类化。</p>       		
+            <p style="text-align:left">线程属性：线程优先级（不推荐使用），守护线程（为其他线程提供服务），处理未捕获异常的处理器（run方法不能抛出任何被检查，不被检测的异常会导致线程终止。在这种情况下，线程就死亡了。在这种情况下，我们需要实现一个Thread.UncaughtExceptionHandler。我们可以通过这种方式来知道，真正让我们的run意外死亡的问题在哪里。）。</p>
+			 <p style="text-align:left">线程状态（NEW, Runnable, Blocked, Waiting, Timed waiting, Terminated）。</p>
+			<p style="text-align:left">中断线程：自然终止或异常终止。</p>
 			<p style="text-align:left"></p>
         </section>
-
+		<section>
+		<p style="text-align:left">竞态条件：两个线程竞争同一资源时，如果对资源的访问顺序敏感，就称为存在竞态条件。导致竞态条件发生的代码区称为临界区。临界区使用适当的同步就可以避免竞态条件。</p>
+		<p style="text-align:left">允许被多个线程同时执行的代码称作线程安全的代码，线程安全的代码不包含竞态条件。</p>
+		</section>
+         <section>
+		 <p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+		 <p style="text-align:left"></p>
+		 </section>
          <section>
             <h3>3.常见问题</h3>
         </section>
         <section>
-            <p style="text-align:left">1.压力测试和性能测试的区别？</p>
-			<p style="text-align:left">2.JMeter怎么添加插件？</p>
+            <p style="text-align:left">调用 run()方法而非 start()方法？</p>
+			<p style="text-align:left">中断线程？</p>
 			<p style="text-align:left"></p>
 			<p></p>
         </section>
@@ -109,15 +118,16 @@
             <h3>4.解决方案</h3>
         </section>
         <section>
-			 <p style="text-align:left">1.压力测试：对系统不断施加压力的测试，是通过确定一个系统的瓶颈或者不能接收的性能点，来获得系统能提供的最大服务级别的测试。例如测试一个Web站点在大量的负荷下，何时系统的响应会退化或失败。</p>
-             <p style="text-align:left">性能测试：在交替进行负荷和强迫测试时常用的术语。性能测试关注的是系统的整体。它和通常所说的强度、压力/负载测试测试有密切关系。所以压力和强度测试应该于性能测试一同进行。</p>
+			 <p style="text-align:left">答：应该调用start()方法启动线程。直接调用run()方法不会创建一个新线程。</p>
+             <p style="text-align:left">答：执行完run()方法最后一句正常退出；出现了没有捕获的异常，终止run()方法，异常退出。</p>
 			 <p style="text-align:left"></p>
-			 <p></p>
-			 <p></p>
+			 <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
              <p></p>
 			 <p></p>
         </section>
-
+        
         <section>
             <h3>5.编码实战</h3>
         </section>
@@ -132,14 +142,14 @@
         <section>
             <p></p>
         </section>
-
+        
         <section>
             <h3>7.参考文献</h3>
-            <p style="text-align:left">https://www.cnblogs.com/imyalost/p/7062784.html?utm_source=itdadao&utm_medium=referral</p>
-			<p style="text-align:left">http://www.xmeter.net/wordpress/?p=445</p>
-			<p style="text-align:left">http://www.xmeter.net/wordpress/?p=391</p>
-			<p style="text-align:left">http://jmeter.apache.org/usermanual/test_plan.html#thread_group</p>
-			<p style="text-align:left">http://jmeter.apache.org/usermanual/build-web-test-plan.html#adding_cookie_support</p>
+            <p style="text-align:left">https://www.cnblogs.com/android-blogs/p/5765148.html</p>
+			<p style="text-align:left">https://blog.csdn.net/quinnnorris/article/details/55106626?utm_source=gold_browser_extension</p>
+			<p style="text-align:left">https://blog.csdn.net/quinnnorris/article/details/55522555</p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
         </section>
         <section>
             <h3>8.更多讨论</h3>

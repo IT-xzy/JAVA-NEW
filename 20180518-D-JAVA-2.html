@@ -32,7 +32,7 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>什么是压测，为什么要进行压力测试？Jmeter工具的使用</h2>
+            <h2>生成Json有几种方式，他们之间的好处和坏处分别是什么，为什么推荐使用JsonTaglib来处理Json？</h2>
 			<p></p>
             <h3>java小课堂</h3>
             <p>分享人：陈鑫</p>
@@ -49,75 +49,73 @@
         </section>
         <section>
             <h3>1.背景介绍</h3>
-        </section>
-
+        </section>	
+		
         <section>
-
-
+		
+			<section>
             <p>1.背景介绍</p>
-			<p style="text-align:left">负载测试（LoadTest）、压力测试（StressTest）、容量测试（CapabilityTest）与性能测试（PerformanceTest）是相互关系？</p>
-			<p style="text-align:left">简单讲性能测试包括负载测试、压力测试和容量测试三种主要测试类型和其他测试类型。</p>
-			<p style="text-align:left">性能测试就是用来测试软件在系统中的运行性能的。可以对单独模块测试，但只有整个系统集成后测试的性能才是真正的性能</p>
-			<p style="text-align:left">负载测试是为了检验系统在给定负载下是否能达到预期性能指标；</p>
-			<p style="text-align:left">容量测试针对数据库而言，是在数据库中有较大数量的数据记录情况下对系统进行的测试；</p>
-			</section>
-
-			<section>
-			<p></p>
-			<p style="text-align:left">压力测试是通过不断向被测系统施加“压力”，测试系统在压力情况下的性能表现，考察当前软硬件环境下系统所能承受的最大负荷并帮助找出系统瓶颈所在，也就是我们可以模拟巨大的工作负荷以查看应用程序在峰值使用情况下如何执行操作。</p>
-			<p style="text-align:left">Web服务处于分布式计算的核心位置，它们之间的交互通常很难测试。分布式开发、大型的开发者团队以及对代码日益组件化的期望都有可能使Web服务的开发变得越来越容易隐藏错误。这些类型的错误极难检测出来。压力测试是检测这类代码错误的一种有效方法，但是只有在压力系统设计得比较有效的情况下才能发挥作用。</p>
-            <p style="text-align:left"></p>
-			 <p style="text-align:left"></p>
-
-
-			</section>
-			<section>
-			<p style="text-align:left">压力测试考察当前软硬件环境下系统所能承受的最大负荷并帮助找出系统瓶颈所在。压测都是为了系统在线上的处理能力和稳定性维持在一个标准范围内，做到心中有数。</p>
-			<p style="text-align:left">使用压力测试，您有希望找到很多种用其他测试方法更难发现的错误。有两种错误类型是:内存泄漏，并发与同步。</p>
-			<p style="text-align:left">有效的压力测试系统将应用以下这些关键条件:重复，并发，量级</p>
+			<p style="text-align:left">JSON，全称是 JavaScript Object Notation，即 JavaScript 对象标记法。是一种轻量的数据交换格式。易于人阅读和编写。同时也易于机器解析和生成。所以使用json来传递数据可以达到简单，快捷的效果。</p>
 			<p style="text-align:left"></p>
 			<p></p>
+			</section>
+			
+			<section>
+			<p>JSON的两种形式：</p>
+            <p style="text-align:left">对象：是一个无序的“‘名称/值’对”集合。一个对象以“{”（左括号）开始，“}”（右括号）结束。每个“名称”后跟一个“:”（冒号）；“‘名称/值’ 对”之间使用“,”（逗号）分隔。</p>       		
+            <p style="text-align:left">数组：是值（value）的有序集合。一个数组以“[”（左中括号）开始，“]”（右中括号）结束。值之间使用“,”（逗号）分隔。</p>
+			 <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+			
+			</section>
+			<section>
+			<p>JSON的值</p>
+			<p style="text-align:left">值（value）可以是双引号括起来的字符串（string）、数值(number)、true、false、 null、对象（object）或者数组（array）。这些结构可以嵌套。</p>
+			<p style="text-align:left"></p>
+			<!--<p style="text-align:left"></p>
+			<p></p>-->
 			</section>
 		</section>
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
-		<p>JMeter怎么使用</p>
-			<p style="text-align:left">测试计划（test plan）的各个部分：</p>
-			<p style="text-align:left">Test Plan：</p>
-            <p style="text-align:left">Thread Group；Controllers；Samplers；Logic Controllers；Test Fragments；Listeners；Timers；Assertions；Configuration Elements；Pre-Processor Elements；Post-Processor Elements；</p>
-			 <p style="text-align:left">执行顺序：</p>
-			 <p style="text-align:left">http://jmeter.apache.org/usermanual/test_plan.html#executionorder</p>
-			 <p style="text-align:left">Scoping Rules：</p>
-			 <p style="text-align:left">http://jmeter.apache.org/usermanual/test_plan.html#scoping_rules</p>
+			<p style="text-align:left">生成的JSON字符串是用来做前后端交互的，当前端用ajax请求时，后端就返还一个JSON字符串。</p>
+            <p style="text-align:left">生成JSON的三种方式：</p>       		
+            <p style="text-align:left">适用json-taglib并在jsp页面来设置字段或嵌套。</p>
+			 <p style="text-align:left">同过注解ResponseBody返回Java对象或集合，可以自动转化为JSON字符串。</p>
+			 <p style="text-align:left">利用Gson转化。</p>
+			 <p></p>
+			 <p></p>
+            <p></p>
 			<p style="text-align:left"></p>
 			<p style="text-align:left"></p>
 			<p style="text-align:left"></p>
         </section>
-
+		
          <section>
             <h3>3.常见问题</h3>
         </section>
         <section>
-            <p style="text-align:left">1.压力测试和性能测试的区别？</p>
-			<p style="text-align:left">2.JMeter怎么添加插件？</p>
-			<p style="text-align:left"></p>
+            <p style="text-align:left">前端传过来的JSON转化为Java对象？</p>
+			<p style="text-align:left">JSON库性能比较？</p>
+			<p style="text-align:left">JSON和XML的优缺点JSON和XML的优缺点</p>
 			<p></p>
         </section>
         <section>
             <h3>4.解决方案</h3>
         </section>
         <section>
-			 <p style="text-align:left">1.压力测试：对系统不断施加压力的测试，是通过确定一个系统的瓶颈或者不能接收的性能点，来获得系统能提供的最大服务级别的测试。例如测试一个Web站点在大量的负荷下，何时系统的响应会退化或失败。</p>
-             <p style="text-align:left">性能测试：在交替进行负荷和强迫测试时常用的术语。性能测试关注的是系统的整体。它和通常所说的强度、压力/负载测试测试有密切关系。所以压力和强度测试应该于性能测试一同进行。</p>
-			 <p style="text-align:left"></p>
-			 <p></p>
-			 <p></p>
+			 <p style="text-align:left">答：传过来的是JSON字符串，不是JSON对象，需要先转化为JSON对象，然后解析为Java对象。转化为JSON对象，可以通过new JSONObject(jsonstr);或者调用JSONObject.fromObject(jsonstr);</p>
+             <p style="text-align:left">答：Java几种常用JSON库性能比较 https://www.xncoding.com/2018/01/09/java/jsons.html</p>
+			 <p style="text-align:left">答：xml优点：格式统一，符合标准；容易与其他系统进行远程交互，数据传输比较方便。</p>
+			 <p style="text-align:left">缺点：大，占带宽；客户端和服务端解析花费代码量大；不同浏览器解析方式不同，需要很多重复代码；解析花较多时间和资源。</p>
+			 <p style="text-align:left">JSON优点：格式简单，易读写，压缩格式；易解析；支持多种语言；可以直接作为服务端代码适用，减少代码量。</p>
+			 <p style="text-align:left">缺点：不如XML通用；推广比较少。</p>
              <p></p>
 			 <p></p>
         </section>
-
+        
         <section>
             <h3>5.编码实战</h3>
         </section>
@@ -132,14 +130,14 @@
         <section>
             <p></p>
         </section>
-
+        
         <section>
             <h3>7.参考文献</h3>
-            <p style="text-align:left">https://www.cnblogs.com/imyalost/p/7062784.html?utm_source=itdadao&utm_medium=referral</p>
-			<p style="text-align:left">http://www.xmeter.net/wordpress/?p=445</p>
-			<p style="text-align:left">http://www.xmeter.net/wordpress/?p=391</p>
-			<p style="text-align:left">http://jmeter.apache.org/usermanual/test_plan.html#thread_group</p>
-			<p style="text-align:left">http://jmeter.apache.org/usermanual/build-web-test-plan.html#adding_cookie_support</p>
+            <p style="text-align:left">json的生成方法 https://www.jianshu.com/p/002ef4cbcb2a</p>
+			<p style="text-align:left">介绍 JSON https://json.org/json-zh.html</p>
+			<p style="text-align:left">http://www.w3school.com.cn/tiy/t.asp?f=jquery_ajax_load</p>
+			<p style="text-align:left">https://github.com/google/gson</p>
+			<p style="text-align:left">Java中string字符串转json对象方法 http://www.51gjie.com/java/757.html</p>
         </section>
         <section>
             <h3>8.更多讨论</h3>

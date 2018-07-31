@@ -1,0 +1,259 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>Redis的5种数据结构和应用场景介绍</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：乔宝</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+		 <section>
+            <p style="text-align:left"> 在服务端为了减轻高并发下数据库的访问压力，经常要应用缓存。redis和memcached都可以作为缓存系统使用，redis与memcached一样，
+			为了保证效率，数据都是缓存在内存中,读写的性能差距不大。区别的是redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，
+			并且在此基础上实现了master-slave(主从)同步。而且相比memcache，redis还支持事务操作和多种储存结构，在分布式集群的架构下，redis的扩展性更强。</p>
+        </section>
+		
+		 <section>
+            <p style="text-align:left"> redis的简单认识</p>
+			<p style="text-align:left"> 作为缓存工具时的使用，我们经常将一些结构化的信息打包成集合，序列化后存储为一个字符串的值，比如用户的昵称、年龄、性别、
+			积分等。这时候在读取，需要将字符串取出来，然后进行反序列化。如果修改某一项的值，需要再序列化成字符串存储回去。简单修改一个属性就干这么多事情，
+			消耗必定是很大的，也不适用于一些可能并发操作的场合。因此我们可以例如redis支持数据类型的特性，根据业务用Redis直接存储数据，实现功能。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">redis是一个key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)
+			和zset(有序集合)、Hash(字典)。</p>
+			<p style="text-align:left">这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。在此基础上，
+			redis支持各种不同方式的排序。</p>
+			<p style="text-align:left"> 如果你是Redis中高级用户，还需要加上下面几种数据结构：</p>
+        </section>
+		
+		 <section>
+            <p style="text-align:left">HyperLogLog（基数）： 比如数据集 {1, 3, 5, 7, 5, 7, 8}， 那么这个数据集的基数集为 {1, 3, 5 ,7, 8}, 基数(不重复元素)为5。
+			基数估计就是在误差可接受的范围内，快速计算基数。</p>
+			<p style="text-align:left">GEO 特性在 Redis 3.2 版本推出， 这个功能可以将用户给定的地理位置信息储存起来， 并对这些信息进行操作（空间数据的储存格式，点线面关系）。</p>
+			<p style="text-align:left">Pub/Sub （发布订阅）是一种消息通信模式：发送者(pub)发送消息，订阅者(sub)接收消息。</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+			<p style="text-align:left">1. String</p>
+			<p style="text-align:left">常用命令:  set,get,decr,incr,mget 等。</p>
+			<p style="text-align:left">String数据结构是简单的key-value类型，value其实不仅可以是String，也可以是数字。 常规key-value缓存应用； 常规计数：微博数，粉丝数等。</p>
+			<p style="text-align:left">我们在nginx做负载均衡的时候，如果是基于权重的分配方式，切换web服务器时，会导致用户的session信息丢失我们可以将它保存在redis种。</p>
+			<p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <p style="text-align:left">2.Hash</p>
+            <p style="text-align:left">常用命令:  set,get,decr,incr,mget 等。</p>
+            <p style="text-align:left">edis中的哈希结构就如同java中的map一样，Hash是一个string类型的field和value的映射表，hash特别适合用于存储结构化数据。
+			Redis 的 Hash 结构可以使你像在数据库中 Update 一个属性一样只修改某一项属性值。它的使用方法就像它的别名字典，通过对应的字典名（key）和词条名（field）查询内容（value）</p>
+			<p style="text-align:left">比如我们可以Hash数据结构来存储用户信息，商品信息等等。例如修真院的首页的职业信息，只是简单的信息集合，
+			我们可以直接将它储存到redis中，在读取的过程中就不用序列化对象，直接操作。</p>
+        </section>
+
+		<section>
+            <p style="text-align:left">3.List</p>
+　　        <p style="text-align:left">常用命令: lpush,rpush,lpop,rpop,lrange等。</p>
+            <p style="text-align:left">list就是链表，Redis list的应用场景非常多，也是Redis最重要的数据结构之一，比如微博的关注列表，粉丝列表，最新消息排行等功能都可以用Redis的list结构来实现</p>
+            <p style="text-align:left">Redis list的实现为一个双向链表，即可以支持反向查找和遍历，更方便操作，不过带来了部分额外的内存开销。</p>
+	   </section>
+		
+		 <section>
+             <p style="text-align:left">4.Set<br>
+			 <p style="text-align:left">常用命令：sadd,spop,smembers,sunion 等</p>
+            <p style="text-align:left">set对外提供的功能与list类似是一个列表的功能，特殊之处在于set是可以自动排重的。 当你需要存储一个列表数据，又不希望出现重复数据时，set是一个很好的选择，
+			并且set提供了判断某个成员是否在一个set集合内的重要接口，这个也是list所不能提供的</p>
+			<p style="text-align:left">1.共同好友、二度好友</p>
+			<p style="text-align:left">2.利用唯一性，可以统计访问网站的所有独立 IP</p>
+            <p style="text-align:left">3.好友推荐的时候，根据 tag 求交集，大于某个 threshold 就可以推荐</p>
+		  </section>
+	
+	 <section>
+	        <p style="text-align:left">5.Sorted Set<br>
+            <p style="text-align:left">常用命令： zadd,zrange,zrem,zcard等</p>
+            <p style="text-align:left">和set相比，sorted set增加了一个权重参数score，使得集合中的元素能够按score进行有序排列。</p>
+			<p style="text-align:left">举例： 在直播系统中，实时排行信息包含直播间在线用户列表，各种礼物排行榜，弹幕消息（可以理解为按消息维度的消息排行榜）等信息，
+			适合使用Redis中的SortedSet结构进行存储。</p>
+        </section>
+			
+        <section>
+            <h3>3.常见问题 && 4.解决方案</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">1.缓存穿透和缓存雪崩是什么概念</p>
+            <p style="text-align:left">什么是缓存穿透？</p>
+            <p style="text-align:left">一般的缓存系统，都是按照key去缓存查询，如果不存在对应的value，就应该去后端系统查找（比如DB）。
+			如果key对应的value是一定不存在的，并且对该key并发请求量很大，就会对后端系统造成很大的压力。这就叫做缓存穿透</p>
+            <p style="text-align:left">如何避免？</p>
+			<p style="text-align:left">1：对查询结果为空的情况也进行缓存，缓存时间设置短一点，或者该key对应的数据insert了之后清理缓存。</p>
+			<p style="text-align:left">2：对一定不存在的key进行过滤。可以把所有的可能存在的key放到一个大的Bitmap中，查询时通过该bitmap过滤。</p>
+        </section>
+		
+   
+		<section>
+            <p style="text-align:left">缓存雪崩</p>
+			<p style="text-align:left">当缓存服务器重启或者大量缓存集中在某一个时间段失效，这样在失效的时候，也会给后端系统(比如DB)带来很大压力。</p>
+            <p style="text-align:left">如何避免？</p>
+			<p style="text-align:left">1：在缓存失效后，通过加锁或者队列来控制读数据库写缓存的线程数量。比如对某个key只允许一个线程查询数据和写缓存，其他线程等待。</p>
+			<p style="text-align:left">2：不同的key，设置不同的过期时间，让缓存失效的时间点尽量均匀。</p>
+			<p style="text-align:left">3：做二级缓存，A1为原始缓存，A2为拷贝缓存，A1失效时，可以访问A2，A1缓存失效时间设置为短期，A2设置为长期（此点为补充）</p>
+        </section>
+        
+		<section>
+            <p style="text-align:left">2.MySQL里有2000w数据，Redis中只存20w的数据，如何保证Redis中的数据都是热点数据（redis有哪些数据淘汰策略？？？）</p>
+            <p style="text-align:left">redis 内存数据集大小上升到一定大小的时候，就会施行数据淘汰策略（回收策略）。redis 提供 6种数据淘汰策略：
+volatile-lru：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰
+volatile-ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰
+volatile-random：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰<p>
+			<p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+		
+		<section>
+		    <p style="text-align:left">allkeys-lru：从数据集（server.db[i].dict）中挑选最近最少使用的数据淘汰
+allkeys-random：从数据集（server.db[i].dict）中任意选择数据淘汰
+no-enviction（驱逐）：禁止驱逐数据</</p>
+            <p style="text-align:left">使用策略规则：
+　1、如果数据呈现幂律分布，也就是一部分数据访问频率高，一部分数据访问频率低，则使用allkeys-lru
+　2、如果数据呈现平等分布，也就是所有的数据访问频率都相同，则使用allkeys-random
+</p>
+            <p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+		
+		<section>
+             <p style="text-align:left">3.redis的数据持久化的方式</p>
+			<p style="text-align:left">1.RDB方式持久化
+
+RDB方式是通过快照方式完成的,当符合一定条件时Redis会自动将内存中的所有数据进行快照并且存储到硬盘上。进行快照的条件在配置文件中指定,有2个参数构成:时间和改动键的个数,
+当在指定时间内被更改的键的个数大于指定数值时就会进行快照。RDB是Redis默认的持久化方式。</p>
+            <p style="text-align:left">2. AOF方式持久化
+
+Redis的AOF持久化策略是将发送到Redis服务端的每一条命令都记录下来,并且保存在硬盘的AOF文件中。可以通过参数appendonly来设置是否启用AOF。AOF文件的位置和RDB的位置相同,
+都是通过dir参数设置,默认的文件名是appendonly.aof,可以通过appendfilename参数修改。</p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+        </section>
+		
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>http://www.cleey.com/blog/single/id/808.html</p>
+            <p>https://zhuanlan.zhihu.com/p/28073983</p>
+            <p>https://www.cnblogs.com/fidelQuan/p/4543387.html</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 乔宝</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

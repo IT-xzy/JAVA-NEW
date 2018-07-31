@@ -1,0 +1,370 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是http协议？Get和post请求有什么区别？http请求content-Type有几种，有什么区别？http适合什么场景？http状态码有哪些？</h2>
+            <p></p>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p></p>
+            <p></p>
+            <p>分享人：杨聪聪</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+         <section>
+         	<h4>什么是http协议?</h4>
+        <p>在Web应用中，服务器把网页传给浏览器，实际上就是把网页的HTML代码发送给浏览器，让浏览器显示出来。因此，HTTP是在网络上传输HTML的协议（设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法，只是和MIME协议结合后才可以传送别的格式数据），用于浏览器和服务器的通信。</p>
+        <p>HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写,是用于从万维网（WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议。</p>
+        <p>HTTP是一个基于TCP/IP协议栈来传递数据（HTML 文件, 图片文件, 查询结果等）。</p>
+        <p>HTTP是一个属于应用层的面向对象的协议，由于其简捷、快速的方式，适用于分布式超媒体信息系统。</p>
+        </section>
+
+   <section>
+   	<h4>www简介</h4>
+   	<p>维基：万维网是一个由许多互相链接的超文本组成的系统，通过互联网访问。</p>
+   	<p>
+   	我们通常所说的web就是指万维网（world wide web）。一般来讲，这是一种通过浏览器来访问资源的技术。我们常说的上网，大部指的是上万维网(web)，但是我们经常将万维网和因特网(Internet)搞混。
+   	</p>
+   	<p>
+   	因特网是一种网络互连的技术，它更多指的是物理层面上的互连，具体来说就是：Internet 中包含了一组特定的硬件设备以及让这些设备可以相互连接的技术，如路由器，光纤，无线基站，手机，以太网等等。
+   	 </p>
+   </section>
+   <section>
+   	<p>而万维网应该算是跑在因特网上的一种服务(常见的因特网服务有：E-mail、WWW、FTP、远程登录、电子商务等)。因此WEB就是在 Internet 基础上，提供的一种信息共享服务。这种服务最直观的感受就是 访问网页资源（超文本、图片、音频）。在网页中点击一个连接，就可以跳转到另外的一个网页或网站。</p>
+   	<p>能够支持web的技术，首先是底层的网络，因为web就是建立在Internet之上，web的基本协议是HTTP协议，它跑在TCP上的协议之上，而TCP协议又需要IP协议的支持，IP协议又要由底层链路层来支撑，所以我们可以从上到下看到这样一个协议栈 http->tcp->ip->链路层协议。 </p>
+   </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+       <section>
+ 	<h4>HTTP主要特点</h4>
+ 	<p>①简单快速：客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。</p>
+ 	<p>②灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。</p>
+ 	<p>③无连接：无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。</p>
+
+       </section>
+
+       <section>
+       	<p>④无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。</p>
+ 	<p>⑤支持B/S及C/S模式。B/S即Browser/Server,浏览器/服务器，C/S即Client/Server,客户端/服务器</p>
+       </section>
+
+<section>
+	<h4>http协议：URL</h4>
+<p>
+我们之前讲的网络上的各种资源，都是通过一个叫做URI的东西进行标记的，当然了我们更常见是URL。URI（统一资源标识符）就相当于我们的身份证，能唯一标识出一个人。URL（同一资源定位符），我们可以做个比喻：<br>
+住址协议://地球/中国/浙江省/杭州市/西湖区/某大学/14号宿舍楼/525号寝/张三.人<br>
+可以看到这个字符串同样标识出了唯一的一个人，起到了URI的作用，因此URL是URI的子集。不管是利用身份证号进行唯一标识，还是利用定位的方式来进行唯一标识都是URI的一种体现，而URL就是用定位的方式来实现URI。
+</p>
+</section>
+
+       <section>
+       	<h5>介绍普通URL的组成部分</h5>
+       	<p>http://www.aspxfans.com:8080/news/index.asp?boardID=5&ID=24618&page=1#name</p>
+       	<p>(1)协议部分：该URL的协议部分为“http：”，这代表网页使用的是HTTP协议。在"HTTP"后面的“//”为分隔符。</p>
+       	<p>(2)域名部分：该URL的域名部分为“www.aspxfans.com”。一个URL中，也可以使用IP地址作为域名使用。</p>
+       	<p>(3)端口部分：域名后面的是端口，域名和端口之间使用“:”作为分隔符。端口不是URL必须的部分，如果省略端口部分，将采用默认端口</p>
+        </section>
+
+        <section>
+    
+        	<p>http://www.aspxfans.com:8080/news/index.asp?boardID=5&ID=24618&page=1#name</p>
+        	<p>(4)虚拟目录部分：从域名后的第一个“/”开始到最后一个“/”为止，是虚拟目录部分。虚拟目录也不是一个URL必须的部分。本例中的虚拟目录是“/news/”</p>
+        	<p>(5)文件名部分：从域名后的最后一个“/”开始到“？”为止，是文件名部分，如果没有“?”,则是从域名后的最后一个“/”开始到“#”为止，是文件部分；如果没有“？”和“#”，那么从域名后的最后一个“/”开始到结束，都是文件名部分。本例中的文件名是“index.asp”。文件名部分也不是一个URL必须的部分，如果省略该部分，则使用默认的文件名。
+	</p>
+        </section>
+        
+       <section>
+<p>http://www.aspxfans.com:8080/news/index.asp?boardID=5&ID=24618&page=1#name</p>
+	<p>
+	(6)锚部分（该位置的标识符）：从“#”（代表网页中的一个位置）开始到最后，都是锚部分。本例中的锚部分是“name”。锚部分也不是URL必须的部分。<br>
+
+	(7)参数部分：从“？”开始到“#”为止之间的部分为参数部分，又称搜索部分、查询部分。本例中的参数部分为“boardID=5&ID=24618&page=1”。参数可以允许有多个参数，参数与参数之间用“&”作为分隔符。
+</p>
+       </section>
+
+       <section>
+       	<h4>http协议：请求消息Request</h4>
+       	<p>客户端发送一个HTTP请求到服务器的请求消息包括以下格式：<br>
+
+请求行（request line）、请求头部（header）、空行和请求数据四个部分组成。</p>
+
+       </section>
+
+       <section>
+       	<p>第一部分：请求行，用来说明请求类型,要访问的资源以及所使用的HTTP版本.</p>
+	<p>第二部分：请求头部，紧接着请求行（即第一行）之后的部分，用来说明服务器要使用的附加信息，如Host: 主机名， Use-Agent: 浏览器基本资料， Accept: 浏览器能够识别的响应类型， Accept-Language: 浏览器默认语言， Accept-Encoding: 浏览器能够识别的压缩方式， Referer: 来路页面， Connecton：是否保持连接。</p>
+	<p>第三部分：空行，请求头部后面的空行是必须的。即使第四部分的请求数据为空，也必须有空行。</p>
+	<p>第四部分：请求数据也叫主体，可以添加任意的其他数据。可以为空。</p>
+       </section>
+
+       <section>
+       	<h4>http协议：响应消息Response</h4>
+       	<p>一般情况下，服务器接收并处理客户端发过来的请求后会返回一个HTTP的响应消息。<br>
+HTTP响应也由四个部分组成，分别是：状态行、消息报头、空行和响应正文。</p>
+       </section>
+       <section>
+       	<p>第一部分：状态行，由HTTP协议版本号， 状态码， 状态消息 三部分组成。
+（HTTP/1.1）表明HTTP版本为1.1版本，状态码为200，状态消息为（ok）</p>
+<p>第二部分：消息报头，用来说明客户端要使用的一些附加信息。<br>
+Date:生成响应的日期和时间；Content-Type:指示响应的内容，指定了MIME类型的HTML(text/html),编码类型是UTF-8</p>
+<p>第三部分：空行，消息报头后面的空行是必须的</p>
+<p>第四部分：响应正文，服务器返回给客户端的文本信息。
+空行后面的html部分为响应正文。</p>
+
+       </section>
+
+       <section>
+       	<h4>http协议：请求方法</h4>
+       	<p>根据HTTP标准，HTTP请求可以使用多种请求方法。<br>
+       	HTTP1.0定义了三种请求方法： GET, POST 和 HEAD方法。<br>
+       	HTTP1.1新增了五种请求方法：OPTIONS, PUT, DELETE, TRACE 和 CONNECT 方法。
+       </p>
+       <p>GET  请求指定的页面信息，并返回实体主体。</p>
+       <p>HEAD     类似于get请求，只不过返回的响应中没有具体的内容，用于获取报头。</p>
+       <p>POST     向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。</p>
+       <p>PUT  从客户端向服务器传送的数据取代指定的文档的内容。</p>
+       <p>DELETE   请求服务器删除指定的页面。</p>
+
+       </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+        	<p>1，http协议和https协议的区别？</p>
+        	<p>2，get和post的区别？</p>
+        	<p>3，http状态码有哪些？</p>
+        	<p>4，http请求content-Type有几种，有什么区别？</p>
+        	<p>5，HTTP与HTTPS有什么区别</p>
+        	<p>6，什么是Connection: Keep-Alive模式？</p>
+
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+       <section>
+       	<p>1，http协议和https协议的区别？</p>
+       	<p>https是一种由HTTP和SSL/TLS组合起来的应用，用以提供加密通信和对网络服务器的身份验证。</p>
+       </section>
+       
+        <section>
+	<p>2，get和post的区别？</p>
+<p style="text-align:left">
+			GET /books/?sex=man&name=Professional HTTP/1.1 
+			</p>
+            <p style="text-align:left">
+		Host: www.wrox.com 
+			</p>
+            <p style="text-align:left">
+			User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.6) 
+			</p>
+            <p style="text-align:left">
+		    Gecko/20050225 Firefox/1.0.1 
+			</p>
+            <p style="text-align:left">
+			Connection: Keep-Alive
+			</p><br/>
+            <p style="text-align:left">
+			注意最后一行是空行
+			</p>
+        </section>
+<section>
+		<p style="text-align:left">
+			POST / HTTP/1.1 
+			</p>
+            <p style="text-align:left">
+		Host: www.wrox.com 
+			</p>
+            <p style="text-align:left">
+			User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.6) 
+			</p>
+            <p style="text-align:left">
+		    Gecko/20050225 Firefox/1.0.1 
+			</p>
+            <p style="text-align:left">
+			<font >Content-Type: application/x-www-form-urlencoded </font>
+			</p>
+            <p style="text-align:left">
+			Content-Length: 40 
+			</p>
+			 <p style="text-align:left">
+			Connection: Keep-Alive 
+			</p> <br/>
+			<p style="text-align:left">
+			name=Professional%20Ajax&publisher=Wiley
+			</p>
+        </section>
+<section>
+	<p>（1）GET提交，请求的数据会附在URL之后（就是把数据放置在HTTP协议头中），如果数据是英文字母/数字，原样发送；如果是空格，转换为+；如果是中文/其他字符，则直接把字符串用BASE64加密，得出如： %E4%BD%A0%E5%A5%BD，其中％XX中的XX为该符号以16进制表示的ASCII。</p>
+	<p>
+	POST提交：把提交的数据放置在是HTTP包的包体中。上文示例中红色字体标明的就是实际的传输数据。<br>
+	因此，GET提交的数据会在地址栏中显示出来，而POST提交，地址栏不会改变。
+	</p>
+</section>
+<section>
+	<p>(2)传输数据的大小：首先声明：HTTP协议没有对传输的数据大小进行限制，HTTP协议规范也没有对URL长度进行限制。而在实际开发中存在的限制主要有：</p>
+	<p>GET:特定浏览器和服务器对URL长度有限制.</p>
+	<p>POST:由于不是通过URL传值，理论上数据不受 限。但实际各个WEB服务器会规定对post提交数据大小进行限制，Apache、IIS6都有各自的配置。</p>
+</section>
+<section>
+<p>
+(3)安全性:
+POST的安全性要比GET的安全性高。比如：通过GET提交数据，用户名和密码将明文出现在URL上，因为 (1)登录页面有可能被浏览器缓存；(2)其他人查看浏览器的历史纪录，那么别人就可以拿到你的账号和密码了，除此之外，使用GET提交数据还可能会造成Cross-site request forgery攻击。
+</p>
+<p>(4)GET方式需要使用Request.QueryString来取得变量的值，而POST方式通过Request.Form来获取变量的值。</p>
+
+</section>
+<section>
+	<p>然而，这些大多是Google出来的，很大一部分文章对get和post的描述都是如此。但是网上还是有不同的意见。具体内容：GET和POST没有什么除了语义之外的区别，他们就仅仅是个名字而已，如果服务器支持，完全可以把GET改个名字叫GET2；只有一点根本区别，一个用于获取数据，一个用于修改数据。</p>
+	<p>那么，网上流传甚广的这些个说法是从何而来的呢？来源：在HTML标准中，有相似的描述。但是这只是HTML标准对HTTP协议的用法的约定。不能当成GET和POST的区别。具体请Google：HTML标准、RFC文档（请求注解，被誉为网络知识圣经）</p>
+</section>
+
+        <section>
+        	<p>3，http状态码有哪些？</p>
+        	<p>状态代码有三位数字组成，第一个数字定义了响应的类别，共分五种类别:<br>
+
+1xx：指示信息--表示请求已接收，继续处理<br>
+2xx：成功--表示请求已被成功接收、理解、接受<br>
+3xx：重定向--要完成请求必须进行更进一步的操作<br>
+4xx：客户端错误--请求有语法错误或请求无法实现<br>
+5xx：服务器端错误--服务器未能实现合法的请求<br>
+</p>
+        </section>
+
+        <section>
+        	<p>
+        		200 OK                        //客户端请求成功<br>
+	400 Bad Request               //客户端请求有语法错误，不能被服务器所理解<br>
+	403 Forbidden                 //服务器收到请求，但是拒绝提供服务<br>
+	404 Not Found                 //请求资源不存在，eg：输入了错误的URL<br>
+	500 Internal Server Error     //服务器发生不可预期的错误<br>
+	503 Server Unavailable        //服务器当前不能处理客户端的请求，一段时间后可能恢复正常
+</p>
+        </section>
+
+<section>
+        	<p>4，http请求content-Type有几种，有什么区别？</p>
+	<p>网上查询了一下content-type有多少种：将近200种。</p>
+	<p>主要的三种：<br>
+		application/x-www-form-urlencoded：数据被编码为名称/值对。这是标准的编码格式。这种方式用的比较多。<br>
+		multipart/form-data： 数据被编码为一条消息，页上的每个控件对应消息中的一个部分。一般上传文件才会使用这种方式。<br>
+		text/plain： 数据以纯文本形式(text/json/xml/html)进行编码，其中不含任何控件或格式字符。一般向服务端发送json数据会使用这种方式。
+	</p>
+</section>
+
+<section>
+	<p>5，HTTP与HTTPS有什么区别？</p>
+	<p>HTTP协议传输的数据都是未加密的，也就是明文的，因此使用HTTP协议传输隐私信息非常不安全，为了保证这些隐私数据能加密传输，于是网景公司设计了SSL（Secure Sockets Layer）协议用于对HTTP协议传输的数据进行加密，从而就诞生了HTTPS。</p>
+</section>
+<section>
+        	<p>6，什么是Connection: Keep-Alive模式？</p>
+	<p>http 1.0中默认是：Connection: close；http 1.1中默认启用Keep-Alive。</p>
+	<p>HTTP协议采用“请求-应答”模式，为非KeepAlive模式时，每个请求/应答客户和服务器都要新建一个连接，完成 之后立即断开连接（HTTP协议为无连接的协议）；当使用Keep-Alive模式（又称持久连接、连接重用）时，Keep-Alive功能使客户端到服 务器端的连接持续有效，当出现对服务器的后继请求时，Keep-Alive功能避免了建立或者重新建立连接。启用Keep-Alive模式更高效，性能更高</p>
+</section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+ 
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>
+            链接：https://zh.wikipedia.org/zh-hans/%E8%B6%85%E6%96%87%E6%9C%AC%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE
+        </p>
+            <p>作者：维基百科</p>
+            <p>链接：https://blog.csdn.net/ergouge/article/details/8185219</p>
+            <p>作者：Kann0813</p>
+            <p>链接：https://www.jianshu.com/p/80e25cb1d81a</p>
+            <p>作者：RaphetS</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正。</p>
+            <p>
+               BY : 深圳分院 杨聪聪
+            </p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+
+ <dependency>
+            <groupId>net.sf.json-lib</groupId>
+             <artifactId>json-lib</artifactId>
+             <version>2.4</version>
+             <classifier>jdk15</classifier>
+         </dependency>

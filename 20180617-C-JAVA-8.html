@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt=""
+     usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt=""
+          target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3></h3>
+            <p>Spring rmi </P>
+            <h4>Java小课堂</h4>
+            <p>分享人：韩忠伟</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">RMI全称是Remote Method
+                Invocation－远程方法调用，是纯Java的网络分布式应用系统的核心解决方案之一。Java RMI
+                支持存储于不同地址空间的程序级对象之间彼此进行通信，实现远程对象之间的无缝远程调用。</p></section>
+        <section>
+            <p style="text-align:left">
+                RMI目前使用Java远程消息交换协议JRMP进行通信。由于JRMP是专为Java对象制定的，用Java
+                RMI开发的应用系统可以部署在任何支持JRE的平台上。但由于JRMP是专为Java对象制定的，因此，RMI对于用非Java语言开发的应用系统的支持不足。不能与用非Java语言书写的对象进行通信。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align:left">一个正常工作的RMI系统由下面几个部分组成：</p>
+            <p style="text-align:left"> 1·远程服务的接口定义</p>
+            <p style="text-align:left">2·远程服务接口的具体实现 </p>
+            <p style="text-align:left">3·桩（Stub）和框架（Skeleton）文件 </p>
+            <p style="text-align:left">4·一个运行远程服务的服务器 </p>
+            <p style="text-align:left">5·一个RMI命名服务，它允许客户端去发现这个远程服务</p>
+            <p style="text-align:left"> 6·类文件的提供者（一个HTTP或者FTP服务器）</p>
+            <p style="text-align:left"> 7·一个需要这个远程服务的客户端程序 </p>
+        </section>
+        <section>
+            <p style="text-align:left">RMI的主要优点： </p>
+            <p style="text-align:left"> 1. RMI是Java编写的, 具有 “编写一次，到处运行 ” 的特性。任何基于RMI的系统均可100%地移植到 任何Java虚拟机上 </p>
+            <p style="text-align:left">
+                2. 面向对象：RMI可将完整的对象作为参数和返回值进行传递直接通过网络传输对象数据。</p>
+            <p style="text-align:left">
+                3.可移动属性：RMI可将属性从客户机移动到服务器，或者从服务器移到客户机。 </p>
+            <p style="text-align:left">
+                4.设计方式：对象传递功能使您可以在分布式计算中充分利用面向对象技术的强大功能。</p>
+            <p style="text-align:left">
+                5.安　　全：RMI使用Java内置的安全机制保证下载执行程序时用户系统的安全。</p>
+        </section>
+        <section>
+            <p style="text-align:left">分布式和集群</p>
+            <p style="text-align:left">
+                分布式：一个业务分拆多个子业务，部署在不同的服务器上。</p>
+            <p style="text-align:left">
+                集群：同一个业务，部署在多个服务器上</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:left">如何使用Spring RMI发布服务</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+
+        <section>
+            <p style="text-align:left">1. 服务端使用Spring 配置来注入RmiServiceExporter对象来发布服务</p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <p style="text-align:left">服务器重启之后，客户端再连接就报错了</p>
+        </section>
+        <section>
+            <p style="text-align:left">RMI客户客户端与服务端第一次建立连接的时候会在客户端生成一个stub,我们称之为存根，并且在服务端注册，以后RMI服务端与客户端都会基于这个文件进行通讯，当客户端需要访问服务端的时候会首先扫描这个文件，然后访问客户端，当客户端验证的时候发现注册了就会通过，如果发现没有注册就会拒绝本次访问，所以当服务端重启之后，曾经所有stub注册都会失效，所以客户端会一直访问不到客户端，必须重新启动，以获取新的stub，不过RMI接口下有避免这种情况的相关配置.</p>
+        </section>
+        <section>
+            <p style="text-align:left">配置如下：在客户端的配置文件中，添加： !-- 连接出错时自动重连 --> property name="refreshStubOnConnectFailure" value="true" /> !-- 不在容器启动的时候创建与Server端的连接 --> property name="lookupStubOnStartup" value="false" /> 如上配置之后，当服务端重启之后，客户端访问不到服务端时，会自动去重新获取stub，这样就可以实现服务器端重启之后，不会影响到客户端了，这样可以给相关的系统减少很大的风险与麻烦。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p style="text-align:center">
+                RMI 说明: http://www.cnblogs.com/xt0810/p/3640167.html</p>
+            <p style="text-align:center">
+                RMI 优点: https://blog.csdn.net/tornado886/article/details/4540805</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js',
+                async: true
+            },
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

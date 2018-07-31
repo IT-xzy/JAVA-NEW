@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>在Linux服务器上部署的时候，一般都要有哪些脚本，这些脚本该怎么编写？--feign</h2>
+            <p></p>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p></p>
+            <p></p>
+            <p>分享人：陈泽铭</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        	<h4>shell简介</h4>
+        	<p>在计算机科学中，Shell俗称壳（用来区别于核），是指“提供使用者使用界面”的软件（命令解析器）。它类似于DOS下cmd.exe。它接收用户命令，然后调用相应的应用程序。<br>同时它又是一种程序设计语言。作为命令语言，它交互式解释和执行用户输入的命令或者自动地解释和执行预先设定好的一连串的命令；作为程序设计语言，它定义了各种变量和参数，并提供了许多在高级语言中才具有的控制结构，包括循环和分支。<br>
+        	</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+       
+	   <section>
+			<p>1.shell的历史演变</p>
+			<p>2.shell分类</p>
+			<p>3.交互式和非交互式shell</p>
+            <p>4.创建第一个脚本，输出hello world</p>
+            <p>5.解析如何书写任务二的开启关闭，重启</p>
+            <p>6.如何书写部署脚本</p>
+            <p></p>
+        </section>
+	   
+	   	<section>
+			<p>1.shell的历史演变<br>      	
+			首个重要的标准Unix Shell是1970年底在V7 Unix(AT&T第7版）中引入的，并且以它的创始科技部基础条件平台“国家气象网络计算应用节点建设”（2004DKA50730）资助者Stephen Bourne的名字命名。Bourne shell 是一个交换式的命令解释器和命令编程语言。<br>
+	   </p>
+	    </section>
+	   
+	    <section>	
+			C Shell，Bill Joy于20世纪80年代早期，在伯克利的加利福尼亚大学开发了C shell。它主要是为了让用户更容易的使用交互式功能，并把ALGOL风格的语法结构变成了C语言风格。它新增了命令历史、别名、文件名替换、作业控制等功能。<br>
+	    </section>
+	   
+	   	<section>	
+			有很长一段时间，只有两类shell供人们选择，Bourne shell用来编程，C shell用来交互。为了改变这种状况，AT&T的bell实验室David Korn开发了Korn shell。ksh结合了所有的C shell的交互式特性，并融入了Bourne shell的语法。因此，Korn shell广受用户的欢迎。它还新增了数学计算，进程协作（coprocess）、行内编辑（inline editing）等功能。<br>
+	    </section>
+	   
+	   	<section>	
+			Bourne Again Shell (bash)。bash是GNU计划的一部分，用来替代Bourne shell。它用于基于GNU的系统如Linux.大多数的Linux(Red Hat,Slackware,Caldera）都以bash作为缺省的shell，并且运行sh时，其实调用的是bash。<br>
+	    </section>
+	   
+	   	<section>	
+			各主要操作系统下缺省的shell:<br>
+			AIX下是Korn Shell.<br>
+			Solaris缺省的是Bourne shell.<br>
+			FreeBSD缺省的是C shell<br>
+			Linux是Bourne Again shell.<br>
+	    </section>
+		
+		
+	    <section>
+			<p>2.shell分类<br>
+		     shell分两大类：<br>
+		     一：图形界面shell<br>
+		     应用最为广泛的微软的windows系列操作系统，还有也包括广为人知的 Linux shell，其中linux shell 包括 X window manager ，以及功能更强大的CDE、GNOME、KDE、 XFCE。<br>
+		     二：命令行式shell<br>
+		     bash / sh / ksh / csh（Unix/linux 系统）<br>
+		    （MS-DOS系统）<br>
+		     cmd.exe/ 命令提示字符（Windows NT 系统）<br>
+		     Windows PowerShell（支持 .NET Framework 技术的 Windows NT 系统）<br>
+		     传统意义上的shell指的是命令行式的shell，以后如果不特别注明，shell是指命令行式的shell。<br>
+			</p>
+	    </section>
+	   
+	      <section>
+			<p>3.交互式和非交互式shell<br>      	交互式模式就是shell等待你的输入，并且执行你提交的命令。这种模式被称作交互式是因为shell与用户进行交互。这种模式也是大多数用户非常熟悉的：登录、执行一些命令、签退。当你签退后，shell也终止了。<br>
+			shell也可以运行在另外一种模式：非交互式模式。在这种模式下，shell不与你进行交互，而是读取存放在文件中的命令，并且执行它们。当它读到文件的结尾，shell也就终止了。<br>
+			</p>
+	    </section>
+	   
+        <section>
+        	<p>4.创建第一个脚本，输出hello world</p>
+        </section>
+   
+        <section>
+			<p>5.解析如何书写任务二的开启关闭，重启</p>
+        </section>
+		
+		 <section>
+			<p>6.如何书写部署脚本</p>
+        </section>
+		
+        						
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+  
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+  
+  
+		<section>
+       <p>  awk怎么使用<br>
+			1.awk '{[pattern] action}' {filenames}   # 行匹配语句 awk '' 只能用单引号<br>
+			2.awk -F  #-F相当于内置变量FS, 指定分割字符
+	   </p>
+	    </section>
+  
+  
+  		<section>
+       <p>  ps -ef和ps -aux的区别<br>
+			 ps -ef 是用标准的格式显示java这个进程<br>
+		     ps-ef执行出来是这样的:UID PID PPID C STIME TTY TIME CMD<br>
+			 ps aux 是用BSD的格式来显示 java这个进程<br>
+			 ps -aux执行出来是:USER , PID , %CPU , %MEM , VSZ , RSS , TTY , STAT , START , TIME , COMMAND​<br>
+	   </p>
+	    </section>
+		
+				
+ 
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+ 
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+           <p>百度、维基、CSDN</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正。</p>
+            <p>
+               BY : 深圳分院 陈泽铭
+            </p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+
+ <dependency>
+            <groupId>net.sf.json-lib</groupId>
+             <artifactId>json-lib</artifactId>
+             <version>2.4</version>
+             <classifier>jdk15</classifier>
+         </dependency>

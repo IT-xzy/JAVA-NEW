@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是restful？rest的请求方法有哪些，有什么区别？</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：郭超</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+    <section>
+
+            <h3>什么是RESTful?</h3>
+            <p>REST这个词，是Roy Thomas Fielding在他2000年的博士论文中提出的。</p>
+            <p>Fielding将他对互联网软件的架构原则，定名为REST，即Representational State Transfer的缩写。翻译过来是"表现层状态转化"。</p>
+            <p>如果一个架构符合REST原则，就称它为RESTful架构。</p>
+            <p>优点：结构清晰、符合标准、易于理解、扩展方便</p>
+        </section>
+
+            <section>
+
+            <h3>什么是web</h3>
+            <p>万维网（英语：World Wide Web），亦作“WWW”、“Web”
+            <p>统一资源标识符（URI），这是一个统一的为资源定位的系统。</p>
+            <p>超文本传送协议（HTTP），它负责规定客户端和服务器怎样互相交流。</p>
+            <p>超文本标记语言（HTML），作用是定义超文本文档的结构和格式。</p>
+            <p>REST本质上是一种分布式超媒体系统的应用层解决方案，它为资源互通和资源管理的分离提出了一系列架构约束和原则，得到一个功能强、性能好、适宜通信的以网络为基础的应用软件架构。</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <h3>RESTful要点</h3>
+            <p>资源（Resource）</p>
+            <p>资源标识符</p>
+            <p>表述（Representations）</p>
+            <p>状态转移</p>
+        </section>
+           <section>
+            <h3>区别</h3>
+            <p>http://127.0.0.1/user/query/1 GET  根据用户id查询用户数据</p>
+            <p>http://127.0.0.1/user/save POST 新增用户</p>
+            <p>http://127.0.0.1/user/update POST 修改用户信息</p>
+            <p>http://127.0.0.1/user/delete GET/POST 删除用户信息</p>
+            <p>RESTful用法：</p>
+            <p>http://127.0.0.1/user/1 GET  根据用户id查询用户数据</p>
+            <p>http://127.0.0.1/user  POST 新增用户</p>
+            <p>http://127.0.0.1/user  PUT 修改用户信息</p>
+            <p>http://127.0.0.1/user  DELETE 删除用户信息</p>
+        </section>
+    <section>
+            <h3>总结</h3>
+            <p>Resource Representational State Transfer，资源表述性状态转移，即就是：根据数据抽象出来的资源，以某种表现形式，通过某种手段，在网络中发生状态转移，以此来间接实现操作资源的目的。表述性状态转移（REST）架构风格是对分布式超媒体系统中的架构元素的一种抽象。 在web中，具体而言：</p>
+            <p>每一个URI代表一种资源；</p>
+            <p>客户端和服务器之间，传递这种资源的某种表现层；</p>
+            <p>客户端通过四个HTTP动词，对服务器端资源进行操作，实现"表现层状态转化"。</p>
+        </section>
+
+        <section>
+            <h3>3.编码实战</h3>
+           <p>GET——获取资源</p>
+           <p>POST——新建资源（也可以用于更新资源）</p>
+           <p>PUT——更新资源</p>
+           <p>DELETE——删除资源</p>
+        </section>
+
+        <section>
+            <h3>4.常见问题</h3>
+        </section>
+
+        <section>
+           <p>最常见的一种设计错误，就是URI包含动词。因为"资源"表示一种实体，所以应该是名词，URI不应该有动词，动词应该放在HTTP协议中。</p>
+        </section>
+        <section>
+           
+           <p>另一个设计误区，就是在URI中加入版本号</p>
+           <p>因为不同的版本，可以理解成同一种资源的不同表现形式，所以应该采用同一个URI。版本号可以在HTTP请求头信息的Accept字段中进行区分</p>
+        </section>
+
+        <section>
+            <h3>5.参考文献</h3>
+            <p>
+              http://www.ruanyifeng.com/blog/2011/09/restful.html?bsh_bid=1717507328
+            </p>
+            <p>
+                https://juejin.im/entry/59dc8771f265da430d56f8e4
+            </p>
+            <p>
+              http://www.runoob.com/w3cnote/restful-architecture.html
+            </p>
+           
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

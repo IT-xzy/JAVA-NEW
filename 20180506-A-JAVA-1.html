@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>多线程编程</h2>
+            <p></p>
+            <h3>java分享会</h3>
+            <p>分享人：常雷雷</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <P>多线程（英语：multithreading），是指从软件或者硬件上实现多个线程并发执行的技术。</P>
+            <P> 具有多线程能力的计算机因有硬件支持而能够在同一时间执行多于一个线程， 进而提升整体处理性能。</P>
+            <P>具有这种能力的系统包括对称多处理机、多核心处理器以及芯片级多处理（Chip-level multithreading）或同时多线程（Simultaneous multithreading）处理器。 </P>
+            <P>在一个程序中，这些独立运行的程序片段叫作“线程”（Thread），利用它编程的概念就叫作“多线程处理（Multithreading）”。</P>
+            <P>具有多线程能力的计算机因有硬件支持而能够在同一时间执行多于一个线程，进而提升整体处理性能。</P>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>Java中的线程实现：</p>
+            <p>1.继承Thread类</p>
+            <p>在java.lang包中定义, 继承Thread类必须重写run()方法。创建好了自己的线程类之后，就可以创建线程对象了，然后通过start()方法去启动线程。</p>
+            <p>注意，不是调用run()方法启动线程，run方法中只是定义需要执行的任务。</p>
+            <p>如果调用run方法，即相当于在主线程中执行run方法，跟普通的方法调用没有任何区别，此时并不会创建一个新的线程来执行定义的任务。</p>
+        </section>
+        <section>
+            <p>2.实现Runnable接口</p>
+            <p>在Java中创建线程除了继承Thread类之外，还可以通过实现Runnable接口来实现类似的功能。实现Runnable接口必须重写其run方法。</p>
+            <P>事实上，查看Thread类的实现源代码会发现Thread类是实现了Runnable接口的。</P>
+            <P>在Java中，这2种方式都可以用来创建线程去执行子任务，具体选择哪一种方式要看自己的需求。</p>
+            <p>直接继承Thread类的话，可能比实现Runnable接口看起来更加简洁，但是由于Java只允许单继承，所以如果自定义类需要继承其他类，则只能选择实现Runnable接口。</P>
+        </section>
+        <section>
+            <p>3.使用ExecutorService、Callable、Future实现有返回结果的多线程</p>
+        </section>
+        <section>
+            <p>线程的状态</p>
+            <p>创建（new）状态: 准备好了一个多线程的对象</p>
+            <p>就绪（runnable）状态: 调用了start()方法, 等待CPU进行调度</p>
+            <p>运行（running）状态: 执行run()方法</p>
+            <p>阻塞（blocked）状态: 暂时停止执行, 可能将资源交给其它线程使用</p>
+            <p>终止（dead）状态: 线程销毁</p>
+        </section>
+        <section>
+            <p><img src="http://img.blog.csdn.net/20150309140927553"></p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>进程与线程之间的区别</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>进程与线程</p>
+            <p>每个正在系统上运行的程序都是一个进程。每个进程包含一到多个线程。进程也可能是整个程序或者是部分程序的动态执行。</p>
+            <p>线程是一组指令的集合，或者是程序的特殊段，它可以在程序里独立执行。也可以把它理解为代码运行的上下文。</p>
+            <p>所以线程基本上是轻量级的进程，它负责在单个程序里执行多任务。通常由操作系统负责多个线程的调度和执行。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>Thread和Runnable的区别</p>
+            <p>因为Thread本来就是实现了Runnable，包含Runnable的功能是很正常的啊！！
+            <p>至于两者的真正区别最主要的就是一个是继承，一个是实现；其他还有一些面向对象的思想，Runnable就相当于一个作业，而Thread才是真正的处理线程。</p>
+            <p>我们需要的只是定义这个作业，然后将作业交给线程去处理，这样就达到了松耦合，也符合面向对象里面组合的使用。</p>
+            <p>另外也节省了函数开销，继承Thread的同时，不仅拥有了作业的方法run()，还继承了其他所有的方法。</p>
+            <p>综合来看，用Runnable比Thread好的多。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>文章链接：https://blog.csdn.net/u013755987/article/details/51855098</p>
+            <p>文章作者：开心coding开心playing</p>
+            <p>文章链接：https://www.cnblogs.com/yjd_hycf_space/p/7526608.html</p>
+            <p>文章作者：鸿燕藏锋</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+            <p></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p>BY : 常雷雷</p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

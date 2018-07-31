@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>数据库视图</h2>
+            <p>分享人：韩亚博</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+        
+		<section>
+			<h3>1.背景介绍</h3>	
+			<p>关系型数据库中的数据是由一张一张的二维关系表所组成，简单的单表查询只需要遍历一个表，而复杂的多表查询需要将多个表连接起来进行查询任务。对于复杂的查询事件，每次查询都需要编写MySQL代码效率低下。为了解决这个问题，数据库提供了视图（view）功能。</p>				
+		</section>
+		
+		<section>
+			<p>视图是什么？</p>		
+			<p>视图（View）是从一个或多个表（或视图）导出的表。视图与表（有时为与视图区别，也称表为基本表——Base Table）不同，视图是一个虚表，即视图所对应的数据不进行实际存储，数据库中只存储视图的定义，在对视图的数据进行操作时，系统根据视图的定义去操作与视图相关联的基本表。</p>
+		</section>	
+		
+		<section>
+			<h3>2.知识剖析</h3>
+			<p>2.1 视图作用是什么？</p>
+			<p>2.2 优点</p>	
+			<p>2.3 缺点</p>
+		</section>	
+		
+		<section>
+			<p>2.1 视图作用是什么？</p>
+			<p>视图不仅可以简化用户对数据的理解，也可以简化他们的操作。那些被经常使用的查询可以被定义为视图，从而使得用户不必为以后的操作每次指定全部的条件。</p>	
+		</section>
+		
+		<section>
+			<p>2.2 优点</p>
+			<p>1.简化了操作，把经常使用的数据定义为视图。</p>
+			<p>2.安全性，用户只能查询和修改能看到的数据。</p>
+			<p>3.逻辑上的独立性，屏蔽了真实表的结构带来的影响。</p>
+			<p>4.把从数据库中获取的数据返回给客户端，</p>							
+		</section>
+		
+		<section>			
+			<p>2.3 缺点</p>
+			<p>性能差</p>
+			<p>修改限制</p>						
+		</section>		
+		
+		<section>
+			<h3>3.常见问题</h3>
+			<p>3.1 视图与表格的联系</p>
+			<p>视图（view）是在基本表之上建立的表，它的结构（即所定义的列）和内容（即所有数据行）都来自基本表，它依据基本表存在而存在。一个视图可以对应一个基本表，也可以对应多个基本表。视图是基本表的抽象和在逻辑意义上建立的新关系</p>
+			
+		</section>
+
+		<section>					
+			<p>3.2视图与表格的区别</p>
+			<p>1、视图是已经编译好的sql语句。而表不是 </p>
+			<p>2、视图没有实际的物理记录。而表有。</p> 
+			<p>3、表是内容，视图是窗口 </p>
+			<p>4、表只用物理空间而视图不占用物理空间，视图只是逻辑概念的存在</p>
+		</section>			
+
+		<section>
+			<h3>4.编码实战</h3>
+			<p>创建、删除视图</p>
+		</section>
+	
+		<section>
+			<h3>5.扩展思考</h3>
+			<p>应用场景</p>				
+		</section>
+		
+		<section>
+			<h3>6.参考文献</h3>			
+			<p>https://blog.csdn.net/moxigandashu/article/details/63254901</p>
+			<p>https://blog.csdn.net/qq_35845339/article/details/78655326</p>		
+			<p>https://blog.csdn.net/buhuikanjian/article/details/53105416</p>
+		</section>
+        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>欢迎大家讨论</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
