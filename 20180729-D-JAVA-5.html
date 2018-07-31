@@ -1,0 +1,203 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>JWT简单介绍</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：陈鑫</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>	
+		
+        <section>
+		
+			<section>
+            <p>1.背景介绍</p>
+			<p style="text-align:left">JSON Web Token（JWT）是一个开放的标准（RFC 7519），它定义了一个紧凑且自包含的方式，用于在各方之间以JSON对象安全地传输信息。这些信息可以通过数字签名进行验证和信任。可以使用秘密即secret（使用HMAC算法）或使用RSA的公钥/私钥对(a public/private key pair using RSA or ECDSA)来对JWT进行签名。</p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p></p>
+			</section>
+			
+			<section>
+			<p></p>
+            <p style="text-align:left">JWT可以用来做什么？</p>       		
+            <p style="text-align:left">权限控制：是JWT最广泛的使用场景。一旦用户登录以后，之后的每次请求都会携带被授权的JWT，这样可以允许用户访问路由，服务和资源。</p>
+			 <p style="text-align:left">如今通过使用JWT，实现单点登录是一个特色，因为它占用小，并且可以跨越不同的域。</p>
+			 <p style="text-align:left">信息交互：采用JWT可以安全的信息交互。因为JWT可以被签名。比如采用私钥/公钥对，可以清楚的知道发送人是谁。另外，因为签名</p>
+			<p style="text-align:left">是通过头部和载荷计算出来的，所以可以自己验证计算，来确认内容是否被篡改。</p>
+			</section>
+			<!--<section>
+			<p></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p></p>
+			</section>-->
+		</section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+			<p style="text-align:left">JWT请求流程：</p>
+			<img src="img/demo/20180729-D-JAVA-5.png">
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<br>
+            <p style="text-align:left"></p>       		
+            <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+        </section>
+		<section>
+		<p style="text-align:left">JSON Web Token (JWT)的结构：</p>
+		<p style="text-align:left">Header(头部), Payload(载荷), Signature(签名)。</p>
+		<p style="text-align:left">通常jwt看起来是这样的：xxxxx.yyyyy.zzzzz。</p>
+		<br>
+		<p style="text-align:left">JWT头部通常由两部分组成：token的类型和需要使用的哈希算法。</p>
+		<p style="text-align:left">JWT载荷：包含关于用户的声明语句和其他数据。需要注意的时，载荷部分对所有人是可读的。签名只是为了防止篡改。</p>
+		<p style="text-align:left">JWT签名：由编码后的头部、编码后的载荷、私钥和头部指明的算法计算生成。签名用来辨别JWT内容是否被修改。</p>
+		</section>
+         <section>
+		 <p style="text-align:left">共有三种声明类型：registered, public, and private claims。</p>
+		 <p style="text-align:left">registered claims：是一系列非强制但推荐使用的预定义声明。提供了一些有用的，可互相操作的的声明。包括iss (issuer), exp (expiration time), sub (subject), aud (audience), and others.</p>
+			<p style="text-align:left">public claims：可以被自由定义但要防止冲突。</p>
+		 <p style="text-align:left">private claims：被用户创建的声明用来分享信息。当然只有允许这些private claims时，才有用。</p>
+		 </section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:left">1、什么是JWT?</p>
+			<p style="text-align:left">2、secret和private key的区别？</p>
+			<p style="text-align:left"></p>
+			<p></p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+			 <p style="text-align:left">1、答：JSON Web Token，用来做用户授权的和信息交互。</p>
+             <p style="text-align:left">2、答：前者用来用户授权，后者用来传递信息辨别发送人。</p>
+			 <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+             <p></p>
+			 <p></p>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+        <img src="">
+		<img src="">
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p></p>
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p style="text-align:left">什么是JWT https://segmentfault.com/a/1190000012874052</p>
+			<p style="text-align:left">官网 https://jwt.io/introduction/</p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 陈鑫</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
