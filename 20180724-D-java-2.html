@@ -1,0 +1,272 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>什么是tcp/ip协议？TCP的三次握手指的是什么</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：宋尚</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p>先介绍下背景</p>
+			<p>TCP/IP是什么？</p>
+			<p>TCP/IP不是一个协议，而是一个协议族的统称。里面包括了IP协议，IMCP协议，TCP协议等等。同时是Internet最基本的协议、Internet国际互联网络的基础，由网络层的IP协议和传输层的TCP协议组成。
+			TCP/IP 定义了电子设备如何连入因特网，以及数据如何在它们之间传输的标准。协议采用了4层的层级结构，每一层都呼叫它的下一层所提供的协议来完成自己的需求。</p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+			<p>先来看看今天的主角</p>
+			<p>TCP/IP协议的四层结构</p>
+			<p>请看图例</P>
+			<p></p>
+        </section>
+		 <section>
+			<p>第一层：链路层</p>
+			<p>包括操作系统中的设备驱动程序、计算机中对应的网络接口卡</P>
+			<p></p>
+        </section>
+		 <section>
+			<p>第二层：网络层</p>
+			<p>网络互连层是整个TCP/IP协议栈的核心。它的功能是把分组发往目标网络或主机。同时，为了尽快地发送分组，可能需要沿不同的路径同时进行分组传递。因此，分组到达的顺序和发送的顺序可能不同，这就需要上层必须对分组进行排序。　　
+　　网络互连层定义了分组格式和协议，即IP协议（Internet Protocol）。　　</P>
+			<p>特别注意：此时的IP包是不安全的，IP协议不会管送没送到</p>
+        </section>
+		<section>
+			<p>第三层：传输层</p>
+			<p>在TCP/IP模型中，传输层的功能是使源端主机和目标端主机上的对等实体可以进行会话。在传输层定义了两种服务质量不同的协议。即：传输控制协议TCP和用户数据报协议UDP.</P>
+			<p>TCP协议是一个面向连接的、可靠的协议。它将一台主机发出的字节流无差错地发往互联网上的其他主机。在发送端，
+			它负责把上层传送下来的字节流分成报文段并传递给下层。在接收端，它负责把收到的报文进行重组后递交给上层。
+			TCP协议还要处理端到端的流量控制，以避免缓慢接收的接收方没有足够的缓冲区接收发送方发送的大量数据.</p>
+			<p>UDP协议是一个不可靠的、无连接协议，主要适用于不需要对报文进行排序和流量控制的场合。</P>
+        </section>
+		<section>
+			<p>第四层：应用层</p>
+			<p>TCP/IP模型将OSI参考模型中的会话层和表示层的功能合并到应用层实现。这一层主要的代表有DNS域名解析/http协议</P>
+			<p></p>
+        </section>
+		
+		<section>
+			<p>运输层: tcp/udp</p>
+			
+        </section>
+		<section>
+			<p>UDP特点</p>
+			<p>  </p>
+			<p>1.面向无连接。发送数据前不需要建立连接</p>
+			<p>2.尽最大努力交付。即不保证可靠交付</p>
+			<p>3. 面向报文。对于应用层交下来的报文，既不合并也不拆分，添加首部后直接交付给IP层</p>
+        </section>
+		
+		<section>
+			<p>4.没有拥塞控制，网络出现拥塞不会使源主机发送速率降低，这对于某些实时应用是很重要的。tcp在网络拥塞是，依靠滑动窗口机制可以告诉发送方减缓发送速率</p>
+			<p>5.首部开销小，只有八个字节，比tcp的20个字节要短(20-60).</p>
+        </section>
+		
+		<section>
+			<p>首部格式</p>
+			<p>利用首部格式可以较好的理解协议</p>
+			图
+        </section>
+		
+		<section>
+			<p>TCP主要特点</p>
+			<p>  </p>
+			<p>1.面向面向连接的运输层协议。应用程序在使用tcp协议之前，要先建立tcp连接，数据传输完毕后，也要释放连接。</p>
+			<p>应用程序间的通信像是，通话前要先拨号建立连接，通话结束后要挂机释放连接。</p>
+			<p>2. 提供可靠交付。无差错，不丢失，不重复，并按序到达。</p>
+        </section>
+		
+			<section>
+			<p>首部格式</p>
+			<p>利用首部格式可以较好的理解协议</p>
+			图
+        </section>
+		
+		<section>
+		<p>  </p>
+			<p>3.采用全双工通信。通信双方在任何时候都可以发送和接受数据，且通信双方都设有发送缓存和接受缓存，用来临时存放双向通信的数据。</p>
+			<p>  </p>
+			<p>4.面向字节流。应用程序交下来的是数据块，但tcp把他们看成是无结构无意义的字节流</p>
+			
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">如何建立TCP/IP连接</p>
+          
+            <p style="text-align:left">到达目标地址的IP包如何检验完整性</p>
+          
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+			<p style="text-align:left">建立TCP/IP的过程就是要讲的三次握手。</p>
+			<p style="text-align:left">即三次握手就是为了解决连接的问题</p>
+			<p style="text-align:left">建立一个TCP连接时，需要客户端和服务端总共发送3个包以确认连接的建立。</p>
+			<p style="text-align:left"></p>
+        </section>
+
+        <section>
+			<p style="text-align:left">（1）第一次握手：Client将标志位SYN置为1，随机产生一个值seq=J，并将该数据包发送给Server，Client进入SYN_SENT状态，等待Server确认。</p>
+			<p style="text-align:left">（2）第二次握手：Server收到数据包后由标志位SYN=1知道Client请求建立连接，Server将标志位SYN和ACK都置为1，ack=J+1，随机产生一个值seq=K，并将该数据包发送给Client以确认连接请求，Server进入SYN_RCVD状态。</p>
+			<p style="text-align:left">（3）第三次握手：Client收到确认后，检查ack是否为J+1，ACK是否为1，如果正确则将标志位ACK置为1，ack=K+1，并将该数据包发送给Server，Server检查ack是否为K+1，ACK是否为1，如果正确则连接建立成功，Client和Server进入ESTABLISHED状态，完成三次握手，随后Client与Server之间可以开始传输数据了。</p>
+        </section>
+
+        <section>
+			<p style="text-align:left">IP包有固定的报文格式，报头有所需要参数</p>
+			<p style="text-align:left">如：源端口、目标端口、确认序号和标志域等。</p>
+			
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">当短时间大量不存在的IP不断发送SYN包会出现什么情况</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">在三次握手过程中，Server发送SYN-ACK之后，收到Client的ACK之前的TCP连接称为半连接（half-open connect），此时Server处于SYN_RCVD状态，当收到ACK后，Server转入ESTABLISHED状态。</p>
+            <p style="text-align:left">Client在短时间内伪造大量不存在的IP地址，并向Server不断地发送SYN包，Server回复确认包，并等待Client的确认，由于源地址是不存在的，因此，Server需要不断重发直至超时，这些伪造的SYN包将产时间占用未连接队列，导致正常的SYN请求因为队列满而被丢弃，从而引起网络堵塞甚至系统瘫痪。</p>
+            <p style="text-align:left">SYN攻击时一种典型的DDOS攻击，检测SYN攻击的方式非常简单，即当Server上有大量半连接状态且源IP地址是随机的，则可以断定遭到SYN攻击了</p>
+        </section>
+
+		<section>
+			<p style="text-align:left">为什么一定要三次握手</p>
+		</section>
+		
+		<section>
+   			<p style="text-align:left">当A想要建立连接时发送一个SYN，然后等待ACK，结果这个SYN因为网络问题没有及时到达B，
+			所以A在一段时间内没收到ACK后，再发送一个SYN，这次B顺利收到，接着A也收到ACK，这时A发送的第一个SYN终于到了B，
+			对于B来说这是一个新连接请求，然后B又为这个连接申请资源，返回ACK，然而这个SYN是个无效的请求，A收到这个SYN的ACK后也并不会理会它，
+			而B却不知道，B会一直为这个连接维持着资源，造成资源的浪费。</p>
+        </section>
+		
+		<section>
+			<p style="text-align:left">两次握手的问题在于服务器端不知道一个SYN是否是无效的，而三次握手机制因为客户端会给服务器回复第二次握手，
+			也意味着服务器会等待客户端的第三次握手，如果第三次握手迟迟不来，服务器便会认为这个SYN是无效的，释放相关资源。
+			但这时有个问题就是客户端完成第二次握手便认为连接已建立，而第三次握手可能在传输中丢失，服务端会认为连接是无效的，
+			这时如果Client端向Server写数据，Server端将以RST包响应，这时便感知到Server的错误。</p>
+			<p style="text-align:left">总之，三次握手可以保证任何一次握手的失败都是可感知的，不会浪费资源</p>
+		</section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+   			<p style="text-align:left">《计算机网络》(第六版)</p>
+			<p style="text-align:left">http://blog.csdn.net/u013344815/article/details/72134950</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 西安分院 宋尚</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
