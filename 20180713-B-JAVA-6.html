@@ -1,0 +1,255 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>memcache 简单介绍</h3>
+            
+            <p>分享人：李伟明</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h3>什么是memcache？</h3>
+            <p>MemCache是一个自由、源码开放、高性能、分布式的分布式内存对象缓存系统，用于动态Web应用以减轻数据库的负载。它通过在内存中缓存数据和对象来减少读取数据库的次数，从而提高了网站访问的速度。 MemCaChe是一个存储键值对的HashMap，在内存中对任意的数据（比如字符串、对象等）所使用的key-value存储，数据可以来自数据库调用、API调用，或者页面渲染的结果。
+			</p>
+        </section>
+
+		<section>
+            <p>Memcache和memcached区别？</p>
+			<p>Memcache是这个项目的名称，而memcached是它服务器端的主程序文件名。
+			   一个是项目名称，一个是主程序文件名（守护进程）。</p>
+        </section>
+		
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+        <section>
+            <h3>memcache 访问模型</h3>
+            <p>
+			<img src="http://img.ptcms.csdn.net/article/201603/16/56e8c992e136f_middle.jpg?_=31834">
+            </p>
+        </section>
+		
+        <section>
+            
+            <p align="left"> 
+                MemCache一次写缓存的流程：<br>
+
+
+				1、应用程序输入需要写缓存的数据<br>
+
+
+				2、API将Key输入路由算法模块，路由算法根据Key和MemCache集群服务器列表得到一台服务器编号<br>
+
+
+				3、由服务器编号得到MemCache及其的ip地址和端口号<br>
+
+
+				4、API调用通信模块和指定编号的服务器通信，将数据写入该服务器，完成一次分布式缓存的写操作<br>
+            </p>
+        </section>
+		
+        <section>
+            <h3>memcache 实现原理
+            </h3>
+            <p align="left">             
+			MemCache的数据存放在内存中，存放在内存中个人认为意味着几点：<br>
+
+
+			1、访问数据的速度比传统的关系型数据库要快，因为Oracle、MySQL这些传统的关系型数据库为了保持数据的持久性，数据存放在硬盘中，IO操作速度慢<br>
+
+			2、MemCache的数据存放在内存中同时意味着只要MemCache重启了，数据就会消失<br>
+
+			3、既然MemCache的数据存放在内存中，那么势必受到机器位数的限制，32位机器最多只能使用2GB的内存空间，64位机器可以认为没有上限<br>
+            </p>
+        </section>
+		<section>
+            MemCache的原理，MemCache最重要的莫不是内存分配的内容了，MemCache采用的内存分配方式是固定空间分配
+            <p>
+                <img src="http://img.ptcms.csdn.net/article/201603/16/56e8cb1b91a97_middle.jpg?_=30354">
+            </p>
+        </section>
+        <section>
+            <h3>
+            </h3>
+            <p align="left">
+                这张图片里面涉及了slab_class、slab、page、chunk四个概念，它们之间的关系是：<br>
+
+
+				1、MemCache将内存空间分为一组slab<br>
+
+
+				2、每个slab下又有若干个page，每个page默认是1M，如果一个slab占用100M内存的话，那么这个slab下应该有100个page<br>
+
+
+				3、每个page里面包含一组chunk，chunk是真正存放数据的地方，同一个slab里面的chunk的大小是固定的<br>
+
+
+				4、有相同大小chunk的slab被组织在一起，称为slab_class<br>
+
+
+				MemCache内存分配的方式称为allocator，slab的数量是有限的，这个和启动参数的配置相关。<br>
+            </p>
+        </section>
+        <section>
+		<p align="left">针对MemCache的内存分配及回收算法，总结三点：</p>
+		
+		<p align="left">1、MemCache的内存分配chunk里面会有内存浪费，88字节的value分配在128字节（紧接着大的用）的chunk中，就损失了30字节，但是这也避免了管理内存碎片的问题</p>
+
+		<p align="left">2、MemCache的LRU算法不是针对全局的，是针对slab的</p>
+
+		<p align="left">3、应该可以理解为什么MemCache存放的value大小是限制的，因为一个新数据过来，slab会先以page为单位申请一块内存，申请的内存最多就只有1M，所以value大小自然不能大于1M了</p>
+		
+		</section>
+        
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1.memcache如何储存java对象？</p>
+			<p>2.memcached对java客户端有哪几种，各有什么优缺点？</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>回答一：memcache是通过序列化和反序列化来储存java对象的</p>
+        </section>
+        <section>
+            <p>回答二：Memcached的客户端目前有3种：Memcached Client for Java, SpyMemcached, XMemcached。</p>
+        </section>
+		<section>
+            <p align="left">Memcached Client for Java：较早推出的memcached JAVA客户端API，应用广泛，运行比较稳定</p>
+			<p></p>
+            <p align="left">SpyMemcached：支持异步，单线程的memcached客户端，用到了java1.5版本的concurrent和nio，存取速度会高于前者，但是稳定性不好，测试中常报timeOut等相关异常。</p>
+        </section>
+		<section>
+            <p>XMemcached：</p>
+			<p>同样是基于java nio的客户端，java nio相比于传统阻塞io模型来说，有效率高（特别在高并发下）和资源耗费相对较少的优点。传统阻塞IO为了提高效率，需要创建一定数量的连接形成连接池，而nio仅需要一个连接即可（nio也是可以做池化处理），相对来说减少了线程创建和切换的开销，这一点在高并发下特别明显。因此XMemcached与Spymemcached在性能都非常优秀，在某些方面（存储的数据比较小的情况下）Xmemcached比Spymemcached的表现更为优秀。</p>
+        </section>
+        <section>
+		<h3>5.编码实战</h3>
+        </section>
+      
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>memcache和redis的区别</p>
+        </section>
+        <section>
+			<p>Redis</p>
+            <p>Redis是一个单线程, 开源的使用C语言编写、遵守BSD协议、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API。Redis最大的瓶颈是机器内存或者网络带宽。</p>
+        </section>
+        <section>
+            <p>区别</p>
+			<p align="left">1.Redis是单线程，而Memcached是多线程</p>
+			<p align="left">2. redis有部份存在硬盘上，这样能保证数据的持久性，支持数据的持久化.而memecache 把数据全部存在内存之中，断电后会挂掉，数据不能超过内存大小</p>
+			<p align="left">3.redis在数据支持上要比memecache多,Redis不仅仅支持简单的k/v类型的数据，同时还提供list，set，zset，hash等数据结构的存储。</p>
+        </section>
+		<section>
+            <p>总结</p>
+			<p>有持久化需求或者对数据结构和处理有高级要求的应用，选择redis，其他简单的key/value存储，选择memcache。</p>
+        </section>
+		
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>https://www.csdn.net/article/2016-03-16/2826609</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p></p><p></p>
+			<p>感谢大家观看</p>
+
+        </section>
+
+    </div>
+</div>
+
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

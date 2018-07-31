@@ -32,10 +32,11 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>什么是压测，为什么要进行压力测试？Jmeter工具的使用</h2>
-			<p></p>
+            <h2>排序方法</h2>
+            <h3>小课堂</h3>
+            <h2>服务器部署</h2>
             <h3>java小课堂</h3>
-            <p>分享人：陈鑫</p>
+            <p>分享人：方逾阳</p>
         </section>
         <section>
             <p>1.背景介绍</p>
@@ -48,76 +49,170 @@
             <p>8.更多讨论</p>
         </section>
         <section>
-            <h3>1.背景介绍</h3>
+
+            <h3>1.背景介绍	</h3>
+        </section>
+        <section>
+            <p align="left">
+                什么是排序
+            </p>
         </section>
 
         <section>
+            <p align="center">
+              排序方法
+           <img src="C:\Users\Administrator\Desktop\小方\1.jpg" alt=""/>
+            </p>
+			
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+     <section>
+            <p align="center">
+              直接插入
+           <img src="C:\Users\Administrator\Desktop\小方\2.jpg" alt=""/>
+            </p>
+ </section>
+  <section>
+            <p align="center">
+              希尔排序
+           <img src="C:\Users\Administrator\Desktop\小方\3.jpg" alt=""/>
+            </p>
+ </section>
+   <section>
+            <p align="center">
+              简单选择排序
+           <img src="C:\Users\Administrator\Desktop\小方\4.jpg" alt=""/>
+            </p>
+ </section>
+   <section>
+            <p align="center">
+              堆排序
+           <img src="C:\Users\Administrator\Desktop\小方\5.jpg" alt=""/>
+            </p>
+ </section>
+   <section>
+            <p align="center">
+              冒泡排序
+           <img src="C:\Users\Administrator\Desktop\小方\6.jpg" alt=""/>
+            </p>
+ </section>
+   <section>
+            <p align="center">
+              快速排序
+           <img src="C:\Users\Administrator\Desktop\小方\7.jpg" alt=""/>
+            </p>
+ </section>
+   <section>
+            <p align="center">
+              归并排序
+           <img src="C:\Users\Administrator\Desktop\小方\8.jpg" alt=""/>
+            </p>
+ </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+           
+        </section>
 
 
-            <p>1.背景介绍</p>
-			<p style="text-align:left">负载测试（LoadTest）、压力测试（StressTest）、容量测试（CapabilityTest）与性能测试（PerformanceTest）是相互关系？</p>
-			<p style="text-align:left">简单讲性能测试包括负载测试、压力测试和容量测试三种主要测试类型和其他测试类型。</p>
-			<p style="text-align:left">性能测试就是用来测试软件在系统中的运行性能的。可以对单独模块测试，但只有整个系统集成后测试的性能才是真正的性能</p>
-			<p style="text-align:left">负载测试是为了检验系统在给定负载下是否能达到预期性能指标；</p>
-			<p style="text-align:left">容量测试针对数据库而言，是在数据库中有较大数量的数据记录情况下对系统进行的测试；</p>
-			</section>
+            <h3>1.背景介绍</h3>
+        </section>	
+		
+        <section>
+		    <p>服务器部署原因</p>
+			<p style="text-align:left"></p>
+		</section>
 
-			<section>
+         <section>
+            <p>部署前</p>
+         </section>
+		<section>
+            <p style="text-align:left">1、小组名</p>
+            <p style="text-align:left">2、项目名</p>
+            <p style="text-align:left">3、前后台域名以及端口号（域名让运维配，端口号去Wiki里面登记）</p>
+            <p style="text-align:left">4、前后端所有代码位置</p>
+        </section>
+			<!--<section>
 			<p></p>
-			<p style="text-align:left">压力测试是通过不断向被测系统施加“压力”，测试系统在压力情况下的性能表现，考察当前软硬件环境下系统所能承受的最大负荷并帮助找出系统瓶颈所在，也就是我们可以模拟巨大的工作负荷以查看应用程序在峰值使用情况下如何执行操作。</p>
-			<p style="text-align:left">Web服务处于分布式计算的核心位置，它们之间的交互通常很难测试。分布式开发、大型的开发者团队以及对代码日益组件化的期望都有可能使Web服务的开发变得越来越容易隐藏错误。这些类型的错误极难检测出来。压力测试是检测这类代码错误的一种有效方法，但是只有在压力系统设计得比较有效的情况下才能发挥作用。</p>
-            <p style="text-align:left"></p>
-			 <p style="text-align:left"></p>
-
-
-			</section>
-			<section>
-			<p style="text-align:left">压力测试考察当前软硬件环境下系统所能承受的最大负荷并帮助找出系统瓶颈所在。压测都是为了系统在线上的处理能力和稳定性维持在一个标准范围内，做到心中有数。</p>
-			<p style="text-align:left">使用压力测试，您有希望找到很多种用其他测试方法更难发现的错误。有两种错误类型是:内存泄漏，并发与同步。</p>
-			<p style="text-align:left">有效的压力测试系统将应用以下这些关键条件:重复，并发，量级</p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
 			<p style="text-align:left"></p>
 			<p></p>
-			</section>
+			</section>-->
 		</section>
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
-		<p>JMeter怎么使用</p>
-			<p style="text-align:left">测试计划（test plan）的各个部分：</p>
-			<p style="text-align:left">Test Plan：</p>
-            <p style="text-align:left">Thread Group；Controllers；Samplers；Logic Controllers；Test Fragments；Listeners；Timers；Assertions；Configuration Elements；Pre-Processor Elements；Post-Processor Elements；</p>
-			 <p style="text-align:left">执行顺序：</p>
-			 <p style="text-align:left">http://jmeter.apache.org/usermanual/test_plan.html#executionorder</p>
-			 <p style="text-align:left">Scoping Rules：</p>
-			 <p style="text-align:left">http://jmeter.apache.org/usermanual/test_plan.html#scoping_rules</p>
-			<p style="text-align:left"></p>
-			<p style="text-align:left"></p>
-			<p style="text-align:left"></p>
+            <p style="text-align:left">第一件事：svn代码</p>
+            <p style="text-align:left">1、前端前台代码</p>
+            <p style="text-align:left">2、前端后台代码</p>
+            <p style="text-align:left">3、后端代码</p>
         </section>
 
          <section>
+		 <p>nginx的配置</p>
+            <p style="text-align:left">1、upstream文件</p>
+             <p style="text-align:left">2、server.conf文件</p>
+             <p style="text-align:left">3、前端前后台动静资源配置）</p>
+             <!-- <p style="text-align:left">利用HttpServletRequest的getCookie（）方法来读取客户端的Cookie，返回一个Cookie数组</p> -->
+     </section>
+<!--          <section>
+		 <p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+		 <p style="text-align:left"></p>
+		 </section> -->
+         <section>
             <h3>3.常见问题</h3>
+
         </section>
+		   <section>
+		 <p>打包</p>
+            <p style="text-align:left">1、jar包</p>
+             <p style="text-align:left">mvn install:install-file -Dfile=E:\commons-httpclient-3.1.jar 
+-DgroupId=finance.google -DartifactId=commons-httpclient -Dversion=1.0.0 -Dpackaging=jar</p>
+            
+     </section>
+	    <section>
+		 <p>脚本</p>
+            <p style="text-align:left">checkout代码</p>
+             <p style="text-align:left">打包</p>
+            <p style="text-align:left">启动jar包</p>
+     </section>
         <section>
-            <p style="text-align:left">1.压力测试和性能测试的区别？</p>
-			<p style="text-align:left">2.JMeter怎么添加插件？</p>
+          
 			<p style="text-align:left"></p>
 			<p></p>
         </section>
+
         <section>
             <h3>4.解决方案</h3>
         </section>
         <section>
-			 <p style="text-align:left">1.压力测试：对系统不断施加压力的测试，是通过确定一个系统的瓶颈或者不能接收的性能点，来获得系统能提供的最大服务级别的测试。例如测试一个Web站点在大量的负荷下，何时系统的响应会退化或失败。</p>
-             <p style="text-align:left">性能测试：在交替进行负荷和强迫测试时常用的术语。性能测试关注的是系统的整体。它和通常所说的强度、压力/负载测试测试有密切关系。所以压力和强度测试应该于性能测试一同进行。</p>
+
+            <p>
+              
+            </p>
+        </section>
+
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+
 			 <p style="text-align:left"></p>
-			 <p></p>
-			 <p></p>
+			 <p style="text-align:left"></p>
              <p></p>
 			 <p></p>
         </section>
-
+        
         <section>
             <h3>5.编码实战</h3>
         </section>
@@ -125,21 +220,37 @@
         <img src="">
 		<img src="">
         </section>
+
         <section>
             <h3>6.扩展思考</h3>
         </section>
 
+		  <section>
+         
+        </section>
+		
+  
+        <section>
+            <h3>7.参考文献</h3>
+            <p></p>
+			
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+
         <section>
             <p></p>
         </section>
-
+        
         <section>
             <h3>7.参考文献</h3>
-            <p style="text-align:left">https://www.cnblogs.com/imyalost/p/7062784.html?utm_source=itdadao&utm_medium=referral</p>
-			<p style="text-align:left">http://www.xmeter.net/wordpress/?p=445</p>
-			<p style="text-align:left">http://www.xmeter.net/wordpress/?p=391</p>
-			<p style="text-align:left">http://jmeter.apache.org/usermanual/test_plan.html#thread_group</p>
-			<p style="text-align:left">http://jmeter.apache.org/usermanual/build-web-test-plan.html#adding_cookie_support</p>
+           <p style="text-align:center">小课堂</p>
+		   <p style="text-align:center">百度</p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
@@ -148,7 +259,8 @@
         <section>
             <h4>鸣谢</h4>
             <p>感谢观看,如有出错,恳请指正</p>
-            <p><small>BY : 陈鑫</small></p>
+
+            <p><small>BY : 方逾阳</small></p>
         </section>
 
     </div>

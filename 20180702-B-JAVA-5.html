@@ -1,0 +1,236 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>cookie和session机制介绍</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：刘君健</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+            <p>HTTP协议本身是无状态的，这意味着服务端和客户端不知道彼此过去发生了什么，每次请求和响应是相互独立的；</p>
+            <p>当我们需要知道服务端和客户端之前发生了什么的时候，而我们又不希望去更改http协议为有状态的协议</p>
+            <p>所以需要引入一种方案，来实现这种功能</p>
+            <p></p>
+            <p></p>
+        </section>
+        <section>
+        	<h2>可选方案</h2>
+        	<p>1、发给客户端一个卡片</p>
+        	<P>上面记录着上一次请求发生的事情;</P>
+        	<P>当客户端再次发出请求的时候，携带上这张卡片</P>
+        	<P>服务端看了卡片之后就能知道上次请求发生的事情。</P>
+        	<P>这种方案称为客户端保持状态方案，客户端记录了上次发生的事情。</P>
+        	<p>cookie就是一种客户端保持状态的机制</p>
+        </section>
+        <section>
+        	<h2>可选方案</h2>
+        	<p>2、发给客户端一个卡片，上面除了记录卡片id，其他什么也没有</p>
+        	<P>同时服务端在自己的记事本上记录该id上次请求发生的事情；</P>
+        	<p>当客户端再次发出请求的时候，携带上这张卡片</p>
+        	<P>服务端就会根据卡片上的id去记事本上查找这个id上次请求发生的事情。</P>
+        	<p>这种方案称为服务端保持状态方案，服务端记录了上次发生的事情。</p>
+        	<p>session就是一种服务端保持状态的机制</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>1）cookie介绍</p>
+        </section>
+        <section>
+        	<p>cookie的生成</p>
+        	<p>cookie是由服务端创建的，Cookie cookie =new Cookie(name，value)；</p>
+        	<P>cookie其实就是一个能够记录key（name），value的实体</P>
+        	<P>其存在的意义就是他的value，value不存在则这个cookie就失去了存在的价值</P>
+        	<P>浏览器上的cookie，只是浏览器记录的从服务端传过来的cookie，而不是浏览器创建的，浏览器只是起一个保存cookie的作用。</P>
+        </section>
+        <section>
+        	<P>cookie的保存</P>
+        	<p>如果cookie定义了有效期，浏览器会将cookie保存在客户端本地磁盘,比如保存在C：cookies/cookie；</p>
+			<P>如果没有定义有效期，浏览器将cookie保存在内存里。</p>
+        </section>
+        <section>
+        	<p>cookie的删除</p>
+        	<P>1.给一个Cookie赋以空值。</P>
+        	<P>(严格意义上不是删除，只是让cookie记录的信息为空，也就意味着cookie失去意义，达到删除的目的)</P>
+        	<P>2.设置Cookie的失效时间为当前时间，让该Cookie在当前页面浏览完之后就失效</P>
+        	<P>3.通过浏览器删除Cookie。</P>
+        </section>
+        <section>
+        	<P>cookie是如何在客户端和服务端之间传递的</P>
+        	<P>服务器创建cookie之后，通过response.addCookie(cookie)把cookie添加到响应头，传递给浏览器</P>
+        	<P>浏览器在接收到cookie之后，对cookie进行保存，客户端进行下一次请求的时候，浏览器会自动将cookie添加到请求头，发送给服务端</P>
+        	<P>服务端接收到请求之后，通过request.getCookies()获得客户端发送过来的所有cookie</P>
+        	<P>F12查看</P>
+        </section>
+        <section>
+        	<p>2）session介绍</p>
+        </section>
+		<section>
+        	<p>session的生成</p>
+        	<p>常见的误解：有客户端访问服务端时session就被创建，客户端关闭浏览器时session就被删除。</p>
+        	<P>事实是直到某server端程序调用HttpServletRequest.getSession(true)这样的语句时session才被创建</P>
+        	<P>造成这个误解的主要原因在于jsp页面的内置session对象</P>
+        	<P>session生成以后，服务端会自动把session的JSESSIONID添加到cookie，来实现卡片记录id的功能，然后发给客户端</P>
+        </section>
+        <section>
+        	<P>session的保存</P>
+        	<P>session保存在服务端的内存中</P>
+        	<P>由于session会消耗内存资源，因此，如果不打算使用session，应该在所有的JSP中关闭它</P>
+        </section>
+        <section>
+        	<P>session的删除</P>
+        	<P>前面已经说过，一种误解是认为：客户端关闭浏览器时session就被删除。</P>
+        	<p>session删除的主要途径：</p>
+        	<P>1.程序调用HttpSession.invalidate()删除session;</P>
+        	<p>2.距离上一次收到客户端发送的session id时间间隔超过了session的超时设置,session会被删除;</p>
+        	<p>3.服务器进程被停止（非持久session）</p>
+        </section>
+        <section>
+				<p>3.常见问题</p>
+				
+		</section>
+		<section>
+                <p>1)cookie和session如何记录信息</p>
+                <p>2)关闭浏览器时删除session？</p>
+                <P>3)监听器HttpSessionListener和session关系？</P>
+        </section>
+        <section>
+            
+            <p>4.解决方案</p>
+        </section>
+        
+        <section>
+        	<P>cookie和session如何记录信息</P>
+            <P>Cookie cookie =new Cookie(name，value)</P>
+            <P>value就是cookie记录的信息</P>
+            <P>cookie.getName(),cookie.getValue()</P>
+            <P>分别获取cookie的名字和cookie记录的信息</P>
+            <P>session.setAttribute("name","value");</P>
+            <P>value就是session记录的信息</P>
+            <P>session.getAttribute("name");</P>
+            <P>获取session里名字为name的value的值</P>
+        </section>
+        <section>
+        	<P>关闭浏览器时删除session？</P>
+        	<P>严格的讲，做不到这一点。</P>
+        	<P>可以做一点努力的办法是在所有的客户端页面里使用javascript代码window.oncolose来监视浏览器的关闭动作，然后向服务器发送一个请求来删除session。</P>
+        	<P>但是对于浏览器崩溃或者强行杀死进程这些非常规手段仍然无能为力,无法删除session。</P>
+        </section>
+
+        <section>
+        	<P>监听器HttpSessionListener和session关系？</P>
+        	<P>session的创建和销毁动作触发listener对应的方法！</P>
+        	<p>request.getSession(true);此时触发sessionCreated(HttpSessionEvent se)；</p>
+        	<P>session.invalidate();此时触发sessionDestroyed(HttpSessionEvent se)</P>
+        </section>
+
+         <section>
+            <h3>5.编码实战</h3>
+        </section>
+        
+        <section>
+            <h3>6.拓展思考</h3>
+        </section>
+       
+       
+        <section>
+            <h3>7.参考文献</h3>
+            <p>https://blog.csdn.net/u011145904/article/details/77745777</p>
+            <p>https://www.cnblogs.com/lonelydreamer/p/6169469.html</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            
+        </section>
+        
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 刘君健</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
