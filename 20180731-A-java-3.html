@@ -205,7 +205,28 @@
         </section>
         <section>
             <h3>8.更多讨论</h3>
+			1.spring aop 拦截controller怎么传递request<br>
+			在到达controller之前拦截，有两种方法，一种AOP和一种Filter。都可以在到达Controller之前拦截。<br>
+			
+			
+			
         </section>
+		   <section>
+            <h3>8.更多讨论</h3>
+			2.Spring AOP 实现方式<br>
+			Spring有两种实现AOP的方式：Java动态代理 和 Cglib. 默认使用动态代理，当目标对象没有实现接口时，
+			就会使用后者. 我们这里使用Java的动态代理实现一个简单的AOP, 可以更深刻的理解Spring AOP<br>
+        </section>
+		
+			
+        </section>
+		   <section>
+            <h3>8.更多讨论</h3>
+			3.怎么开启JDK代理或CGLib代理？<br>
+			在Spring配置文件的切面驱动中加入proxy-target-class="true"字段，"true"表示开启CGLib代理，
+			"false"表示开启JDK代理，若不加入这一字段，则默认启用JDK代理<br>
+        </section>
+
 
         <section>
             <h4>鸣谢</h4>
