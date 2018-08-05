@@ -1,0 +1,201 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>nginx如何实现负载均衡？--feign</h2>
+            <p></p>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p></p>
+            <p></p>
+            <p>分享人：陈泽铭</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        	<h4>nginx简介</h4>
+        	<p>Nginx是一个高性能的HTTP和反向代理服务器。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的站点（俄文：Рамблер）开发的，第一个公开版本0.1.0发布于2004年10月4日。其将源代码以类BSD许可证的形式发布，因它的稳定性、丰富的功能集、示例配置文件和低系统资源的消耗而闻名。
+			<br>
+        	</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+       
+	   <section>
+			<p>1.nginx的使用情况</p>
+			<p>2.nginx的优点</p>
+			<p>3.正向代理</p>
+            <p>4.正向代理的用途</p>
+            <p>5.反向代理</p>
+            <p>6.反向代理的作用</p>
+			<p>7.负载均衡</p>
+            <p></p>
+        </section>
+	   
+	   	<section>
+			<p>1.nginx的使用情况<br>      	
+			Nginx是一款轻量级的Web 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器，并在一个BSD-like 协议下发行。其特点是占有内存少，并发能力强，事实上nginx的并发能力确实在同类型的网页服务器中表现较好，中国大陆使用nginx网站用户有：百度、京东、新浪、网易、腾讯、淘宝等。<br>
+	   </p>
+	    </section>
+	   
+		
+	    <section>
+			<p>2.nginx的优点<br>
+		     Nginx 是一个很强大的高性能Web和反向代理服务器，它具有很多非常优越的特性：
+			 在连接高并发的情况下，Nginx是Apache服务器不错的替代品：Nginx在美国是做虚拟主机生意的老板们经常选择的软件平台之一。能够支持高达 50,000 个并发连接数的响应。<br>
+			</p>
+	    </section>
+	   
+	      <section>
+			<p>3.正向代理<br>      	
+			正向代理类似一个跳板机，代理访问外部资源。<br>		我是一个用户，我访问不了某网站，但是我能访问一个代理服务器，这个代理服务器呢,他能访问那个我不能访问的网站，于是我先连上代理服务器,告诉他我需要那个无法访问网站的内容，代理服务器去取回来,然后返回给我。从网站的角度，只在代理服务器来取内容的时候有一次记录，有时候并不知道是用户的请求，也隐藏了用户的资料，这取决于代理告不告诉网站。<br>
+			</p>
+	    </section>
+	   
+        <section>
+        	<p>4.正向代理的用途</p>
+			
+　　		（1）访问原来无法访问的资源，如google<br>
+
+			（2） 可以做缓存，加速访问资源<br>
+
+　　		（3）对客户端访问授权，上网进行认证<br>
+
+　　		（4）代理可以记录用户访问记录（上网行为管理），对外隐藏用户信息<br>
+        </section>
+   
+        <section>
+			<p>5.反向代理</p>	反向代理,实际运行方式是指以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个服务器。<br>
+        </section>
+		
+		 <section>
+			<p>6.反向代理的作用</p>
+			（1）保证内网的安全，可以使用反向代理提供WAF功能，阻止web攻击<br>
+                 大型网站，通常将反向代理作为公网访问地址，Web服务器是内网。<br>
+			（2）负载均衡，通过反向代理服务器来优化网站的负载
+        </section>
+		
+		 <section>
+			<p>7.负载均衡</p>
+			负载均衡建立在现有网络结构之上，它提供了一种廉价有效透明的方法扩展网络设备和服务器的带宽、增加吞吐量、加强网络数据处理能力、提高网络的灵活性和可用性。负载均衡，英文名称为Load Balance，其意思就是分摊到多个操作单元上进行执行，例如Web服务器、FTP服务器、企业关键应用服务器和其它关键任务服务器等，从而共同完成工作任务。<br>
+        </section>
+        						
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+  
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+  
+  
+		<section>
+       <p>  nginx和tomcat有什么区别<br>
+			nginx常用做静态内容服务和代理服务器（不是你FQ那个代理），直面外来请求转发给后面的应用服务（tomcat，django什么的），tomcat更多用来做做一个应用容器，让java web app跑在里面的东西，对应同级别的有jboss,jetty等东西。<br>
+			
+	   </p>
+	    </section>
+  
+  
+  		<section>
+       <p> 什么是动静分离？动静分离的作用？<br>
+			
+			动静分离：运用Nginx的反向代理功能分发请求：所有动态资源的请求交给应用服务器，而静态资源的请求（例如图片、视频、CSS、JavaScript文件等）则直接由Nginx返回到浏览器<br>
+			动静分离的作用：主要是nginx处理静态页面的效率远高于tomcat的处理能力，使用c语言开发的nginx对静态资源每秒的吞吐量是使用Java语言开发的tomcat的6倍，也远高于其它应用服务器<br>
+	   </p>
+	    </section>
+		
+				
+ 
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+ 
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+           <p>百度、维基、CSDN</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正。</p>
+            <p>
+               BY : 深圳分院 陈泽铭
+            </p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+
+ <dependency>
+            <groupId>net.sf.json-lib</groupId>
+             <artifactId>json-lib</artifactId>
+             <version>2.4</version>
+             <classifier>jdk15</classifier>
+         </dependency>
