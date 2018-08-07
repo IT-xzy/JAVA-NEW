@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt=""
+     usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt=""
+          target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是session？什么是cookie</h2>
+            <h4>java分享会</h4>
+            <p>分享人：方广辉</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p>我们为什么要使用cookie和session </p>
+            <p style="text-align:left">
+                因为http请求是无状态的（不能记录用户的登录状态等），当用户在发送一个请求关得到返回信息之后，客户端与服务器端之间的网络连接就已经断开了，
+                在下一个请求发送时，服务器无法确定这次请求和上次的请求是否来自同一个客户端。 也就是说，服务器不能记住"记住"用户，这是hptp协议的限制。
+                在web应用程序中，实际上是经常需要记住每次请求的。那么，如何让服务器知道不同的请求是否来自同一个客户端，就是状态管理问题出现了session和cookie。</p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+
+        <section>
+            <p>什么是cookie？</p>
+            <p style="text-align:left">
+                Cookie 是在 HTTP 协议下，服务器或脚本可以维护客户工作站上信息的一种方式。
+                Cookie 是由 Web 服务器保存在用户浏览器（客户端）上的小文本文件，它可以包含有关用户的信息。
+                一个 Web 页面或服务器告知浏览器按照一定规范来储存这些信息，并在随后的请求中将这些信息发送至服务器，Web 服务器就可以使用这些信息来识别不同的用户。
+                大多数需要登录的网站在用户验证成功之后都会设置一个 cookie，只要这个 cookie 存在并可以，用户就可以自由浏览这个网站的任意页面。
+            </p>
+            <p style="text-align:left">cookie在一个域名下是一个全局的，只要设置它的存储路径在域名www.a.com下 ，
+                那么当用户用浏览器访问时，就可以从这个域名的任意页面读取cookie中的信息。</p>
+        </section>
+
+        <section>
+            <p>什么是session？</p>
+            <p>Session，在汉语中表示通话、会话、对话(期)、话路［对谈时间］的意思，其本来的含义一个终端用户与交互系统进行通信的时间(间隔),
+                通常是指从注册(进入系统)到注销(退出系统)之间所经过的时间。比如打电话时从拿起电话拨号到挂断电话这中间的一系列过程可以称之为一个Session。
+                有时候我们可以看到这样的话“在一个浏览器会话期间，…”，这里的会话一词用的就是这个意思，是指从一个浏览器窗口打开到关闭这个期间。
+                Session在我们的网络应用中就是一种客户端与服务器端保持状态的解决方案，有时候Session也用来指这种解决方案的存储结构</p>
+        </section>
+
+        <section>
+            <p>
+            Session对象，就是客户端浏览器与服务器之间建立的互动信息状态。每一个不同的用户连接将得到不同的Session，也就是说Session与用户之间是一种一对一的关系。
+            Session在用户进入网站时由服务器自动产生，并在用户正常离开站点时释放。使用Session的好处就在于，可以将很多与用户相关的信息，
+            例如用户的帐号、昵称等保存到Session中；利用Session，可以跟踪用户在网站上的活动。
+            例如：当你上网进入一个网站时，如果你没有登陆，无论你访问哪几个页面都会跳转回登陆页。还有就是你在购物时，
+            不可能把你的东西放到别人的购物车里去，这就得用一个信息变量来判断！ </p>
+        </section>
+
+
+        <section>
+            <p>session机制</p>
+            <p>
+                Session机制采用的是在服务器端保持状态的方案。
+                当用户访问到一个服务器，服务器就要为该用户创建一个SESSION，在创建这个SESSION的时候，服务器首先检查这个用户发来的请求里是否包含了一个SESSIONID，
+                如果包含了一个SESSIONID则说明之前该用户已经登陆过并为此用户创建过SESSION，那服务器就按照这个SESSIONID把这个SESSION在服务器的内存中查找出来
+                （如果查找不到，就有可能为他新创建一个），如果客户端请求里不包含有SESSIONID，则为该客户端创建一个SESSION并生成一个与此SESSION相关的SESSIONID。
+                这个SESSIONID将被在本次响应中返回到客户端保存， 而保存这个SESSIONID的正是COOKIE，这样在交互过程中浏览器可以自动的按照规则把这个标识发送给服务器。 </p>
+        </section>
+
+        <section>
+            <p>Cookie机制</p>
+            <p>
+                Cookie机制采用的是在客户端保持状态的方案。
+                Cookie机制，就是当服务器对访问它的用户生成了一个Session的同时服务器通过在HTTP的响应头中加上一行特殊的指示以提示浏览器按照指示生成相应的cookie，
+                保存在客户端，里面记录着用户当前的信息，当用户再次访问服务器时，浏览器检查所有存储的cookie，如果某个cookie所声明的作用范围大于等于将要请求的资源所在的位置也就是对应的Cookie文件。
+                若存在，则把该cookie附在请求资源的HTTP请求头上发送给服务器， cookie的保存有临时性的和持久性的，大多都是临时性的，也就是cookie只保存在客户端的内存中，而没有保存在硬盘上，
+                当关闭浏览器，cookie也就销毁。
+                  </p>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">session和cookie区别</p>
+        </section>
+
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">cookie和session区别
+            <p style="text-align:left">1）存储方式不同
+            cookie保存在客户端，session保存在服务器端</p>
+            <p style="text-align:left">2）存储内容
+                sesion能够存储任何对象，甚至包括java类
+                cookie只能保存ASCII字符串</p>
+            <p style="text-align:left">3）存储大小
+                session 没有大小限制
+                cookie 保存数据不能超过4kb</p>
+            <p style="text-align:left">4）有效期不同
+                运用Cookie可以持久的进行登录。只需要设置Cookie的过期时间属性为一个很大很大的数字。
+                由于Session依赖于名为JSESSIONID的Cookie，而Cookie JSESSIONID的过期时间默许为–1，
+                只需关闭了阅读器该Session就会失效，因而Session不能完成信息永世有效的效果。
+                </p>
+        </section>
+
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+
+        <section>
+            <h3>6.扩展思考</h3>
+            <p>
+                session何时创建？</p>
+        </section>
+
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p style="text-align:left">理解Cookie和Session机制</p>
+            <p style="text-align:left"> 百度 </p>
+
+
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p>
+                <small>方广辉</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js',
+                async: true
+            },
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

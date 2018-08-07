@@ -1,0 +1,224 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是Tuscany</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：孙壮壮</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>	
+		
+        <section>
+		
+			<section>
+            <p>1.背景介绍</p>
+			<p style="text-align:left">tuscany是Apache组织关于SOA实现的一个开放源码的工程项目 Apache组织关于SOA实现的一个开放源码的工程项目.该项目主要基于SCA,SDO,DAS等标准上实现的。</p>
+			<p style="text-align:left">什么是SOA?</p>
+			<p style="text-align:left">面向服务的架构（SOA）是一个组件模型，它将应用程序的不同功能单元（称为服务）通过这些服务之间定义良好的接口和契约联系起来。接口是采用中立的方式进行定义的，它应该独立于实现服务的硬件平台、操作系统和编程语言。这使得构建在各种各样的系统中的服务可以以一种统一和通用的方式进行交互。</p>
+			<p style="text-align:left">tuscany作为一个轻量级SCA框架是SOA实现的开放源码的工程项目。</p>
+			</section>
+			
+			<section>
+			<p></p>
+            <p style="text-align:left"></p>       		
+            <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+			
+			</section>
+			<!--<section>
+			<p></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p></p>
+			</section>-->
+		</section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+			<p style="text-align:left">什么是SCA</p>
+			<p style="text-align:left">SCA（Service Component Architecture）中文翻译为“服务组件架构”，是一种全新的软件架构思想。</p>
+			<p style="text-align:left">SCA是一个可执行的模型，用于将不同的 服务集成到一个业务解决方案。它简化了实现业务服务的组件编程模型，这些组件可以使用不同编程语言实现。</p>
+	
+			<br>
+            <p style="text-align:left">SCA是一种思想，SCA思想的具体实现是SCA标准和SCA的容器环境。</p>       		
+            <p style="text-align:left">SCA容器实现了将复杂的服务组件集成过程隐藏在容器内部，开发者之需要按照SCA的标准去开发和集成服务，最终部署到SCA的容器里面即可。</p>
+			 <p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+        </section>
+		<section>
+		<p style="text-align:left">服务组件是SCA里面最基本的功能单元，它主要包括接口、实现、引用、属性等部分。可以从一下侧面来描述服务组件。</p>
+		<p style="text-align:left">a)、是在一个模块（Composit）内的通过配置生成的一个实现的实例。</p>
+		<p style="text-align:left">b)、多个组件可以用同一个实现（思考：一个Java的对象可以同时实现多个接口）。</p>
+		<p style="text-align:left">c)、提供服务和消费服务（组件可以调用别的组件的服务）。</p>
+		<p style="text-align:left">d)、通过配置来实现对象的属性值（配置节点为property）。</p>
+		<p style="text-align:left">e)、组件通过连线（Wire）来设置服务引用。连线可以连接到别的组件的服务，也可以连接到模块的引用（模块的概念后面会详细讲述）。</p>
+		<p style="text-align:left"></p>
+		<p style="text-align:left"></p>
+		</section>
+         <section>
+		 <img src="01.jpg">
+		 <p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+		 </section>
+		 <section>
+		  <p style="text-align:left">分别讲述服务组成的各个部分：</p>
+			<p style="text-align:left">a)、服务（Service），用来让其他组件调用。是一个接口。如果是基于Java的SCA，它就是Java的接口；也可以是WSDL的ProtType接口，目前只有这两种形式。</p>
+			<p style="text-align:left">b)、组件实现(Implementation)，实现所创建的服务，对Java来说，就是接口的实现类。</p>
+<p style="text-align:left">c)、引用（Reference），一个组件可能需要调用其他组件，需要创建于igeqita组件的引用。对Java来说，就是其他组件的Java接口。</p>
+<p style="text-align:left">d)、属性（Property），对组件实现的一种属性参数注入。</p>
+			<p style="text-align:left">对一个服务组件来说，服务和实现时必须的，引用和属性是非必需的</p>
+
+		 </section>
+		 
+		 <section>
+		 	 <img src="02.jpg">
+		  <p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+		 </section>
+		 
+		 
+		 <section>
+		  <p style="text-align:left">模块从整体上也是个组件</p>
+			<p style="text-align:left">模块是通过SCA的配置文件配置组装形成的，不需要程序的硬编码。</p>
+			<p style="text-align:left">提升（Promote）：就是将组件的接口、属性、或引用装配为模块的对应的接口、属性或引用。</p>
+		 	<p style="text-align:left">连线（Wire）：就是在模块内部，组件之间的调用关系。比如组件A的实现调用了组件B，那么组件AB间就存在一个连线。</p>
+		 </section>
+
+   
+	     <section>
+            <h3>3.常见问题</h3>
+        </section>
+	
+        <section>
+            <p style="text-align:left">因为tuscany已经被放弃了，所以网上列子很少。</p>
+			<p style="text-align:left">最常见的就是在配置文件中标红</p>
+			<p style="text-align:left"></p>
+			<p></p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+			 <p style="text-align:left"></p>
+             <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+        </section>
+	
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		<!--<section>
+        <img src="">
+		<img src="">
+        </section>-->
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+		<p style="text-align:left"></p>
+        </section>
+		<section>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+        </section>
+		
+        <section>
+            <h3>7.参考文献</h3>
+            <p style="text-align:left">http://blog.51cto.com/lavasoft/163782</p>
+			<p style="text-align:left">https://blog.csdn.net/abigfrog/article/details/1812162</p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>工厂模式简单介绍</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：杨腾东</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section> 
+            <p>创建新对象最简单的办法是使用new关键字和具体类。在任何需要生成复杂对象的地方，都可以使用工厂方法模式。
+            构造函数有很多参数的情况，或者一个项目中需要在很多地方需要这个对象，那就比较复杂了，直接用new创建对象就不太合理了，不利于项目管理和变更，这样做可以降低代码的重复率和耦合性。创建的对象只需要在工厂类中进行管理即可；
+             </p>
+            <p>工厂模式（Factory Pattern）是Java中最常用的设计模式之一。在工厂模式中，我们在创建对象时不会对客户端暴露创建逻辑，并且是通过使用一个共同的接口来指向新创建的对象；
+            </p>
+        </section>
+        
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+			
+				<p>2.1使用目的</p>
+
+                <p>定义一个创建对象的接口，让其子类自己决定实例化哪一个工厂类，工厂模式使其创建过程延迟到子类进行。</p>
+				<p>2.2优点</p>
+				<p>(1)一个调用者想创建一个对象，只要知道其名称就可以了。(2)扩展性高，如果想增加一个产品，只要扩展一个工厂类就可以。(3)屏蔽产品的具体实现，调用者只关心产品的接口。</p>
+                </section>
+
+                <section><p>2.3缺点</p>
+                <p>每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。</p>
+                <p>2.4使用场景</p>
+                <p>任何需要生成复杂对象的地方，就可以运用工厂模式来进行创建，对项目整体起一个解耦作用。</p>
+            </section>
+                
+            
+           
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p>我这里主要用形状类来进行初步理解</p>
+            <p>   首先创建一个 Shape 接口和实现 Shape 接口的实现类；
+               然后再定义工厂类 ShapeFactory；
+               最后使用该工厂，通过传递类型信息来获取实体类的对象。</p>
+        </section>
+        
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+        	<p>工厂模式按照《Java与模式》中的提法分为三类：</p>
+            <p>1. 简单工厂模式(Simple Factory)
+               2. 工厂方法模式(Factory Method)
+               3. 抽象工厂模式(Abstract Factory)
+           </p>
+        	<p>这三种模式从上到下逐步抽象，并且更具一般性。还有一种分类法，就是将简单工厂模式看为工厂方法模式的一种特例，两个归为一类。最大的区别就是是否只有一个等级结构，具体描述请看文末参考文献</p>
+        	<p>简单来说，第一种扩展性差，不同的产品需要额外不同参数的时候不支持；
+            而使用工厂方法模式足以应付我们可能遇到的大部分业务需求。但是当产品种类非常多时，就会出现大量的与之对应的工厂类，所以在这种情况下使用简单工厂模式与工厂方法模式相结合的方式来减少工厂类：即对于产品树上类似的种类使用简单工厂模式来实现。</p>
+        </section>
+
+        <section>
+            <p>总结：</p>
+            <p>无论是什么工厂模式，他们都属于工厂模式，在形式和特点上也是极为相似的，在使用时，我们不必去在意这个模式到底是工厂方法模式还是抽象工厂模式，因为他们之间的演变常常是令人琢磨不透的。有时候你会发现，明明使用的工厂方法模式，当新需求来临，稍加修改，加入了一个新方法后，由于类中的产品构成了不同等级结构中的产品族，它就变成抽象工厂模式了；而对于抽象工厂模式，当减少一个方法使的提供的产品不再构成产品族之后，它就演变成了工厂方法模式。所以，在使用工厂模式时，只需要关心降低耦合度的目的是否达到了。</p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>https://www.cnblogs.com/zailushang1996/p/8601808.html</p>
+
+            <p>https://blog.csdn.net/southjeff/article/details/79877412</p>
+
+            <p>https://blog.csdn.net/bingducaijun/article/details/78686314</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 杨腾东</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
