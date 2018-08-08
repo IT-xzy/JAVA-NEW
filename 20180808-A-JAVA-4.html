@@ -1,0 +1,242 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>jsp内置对象</h3>
+               <p>分享人:乔名震</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+                <p>1.背景介绍</p>
+                </section>
+        <section>
+		<p>jsp（Java Server Pages）</p>
+		<p>JSP（Java Server Pages），即Java服务器界面；其根本是一个简化的Servlet设计，动态网页技术标准，它是在传统的网页HTML（标准通用标记语言的子集）文件（*.htm,*.html）中插入Java程序段（Scriptlet）和JSP标记（tag），从而形成JSP文件，后缀名为（*.jsp）。JSP是一种动态页面技术，它的主要目的是将表示逻辑从Servlet中分离出来。</p>
+		  </section>
+             <section>
+            <p>一个JSP页面可以被分为以下几部份：</p>
+            <p>（1）静态数据，如HTML---------前端写的静态页面</p>
+            <p>（2）JSP指令，如include指令----------page、include、taglib</p>
+            <p>（3）JSP动作------------jsp:useBean等动作元素</p>
+            <p>（4）用户自定义标签-----自定义标签：时间转换</p>
+        </section>
+		
+		    <section>
+            <p>（5）JSP脚本元素和变量-------------使用到对象</p>
+            <p>JSP中，Scriptlet称为脚本小程序， 所有嵌套在HTML代码中的Java程序都必须使用Scriptlet标记出来。</p>
+            <p><%%>：定义局部变量，编写语句</p>
+            <p><%!%>：定义全局变量，可以编写类、方法</p>
+            <p><%=%>：表达式输出，专门输出变量或一个具体值</p>
+        </section>
+		      <section>
+            <p>简化理解：</p>
+            <p>servlet-----java代码</p>
+            <p>jsp---------java代码+html代码------所以说jsp可以算是servlet（编译过程什么的，不说）</p>
+            <p>然后就是:jsp中的内置对象------在jsp的java代码部分使用-----jsp内置了9个servlet的对象</p>
+            <p>也就是说 在jsp中写java代码，out等对象反复用，jsp帮我们内置9个对象，不用去new</p>
+		</section>
+		 <section>
+            <p>问题：在任务中，完全可以不用jsp Scriptlet，通过EL表达式和jsp标签就能完成任务</p>
+            <p>相关：jsp产生的目的、原因</p>
+        </section>
+
+			    <section>
+            <p>javaweb的发展历程：</p>
+            <p>1、servlet的出现</p>
+            <p>为了实现动态页面；</p>
+            <p>2、jsp的出现-------纯jsp开发---<%%></p>
+            <p>java代码和html代码进行区分、out输出太多；</p>
+			</section>
+			<section>
+			  <p>3、model1：jsp+javaBean；---<%%></p>
+            <p>将部分java代码和jsp分离；</p>
+            <p>4、mvc思想的出现----model2：jsp+javaBean+servlet---<%%></p>
+            <p>mvc思想；</p>
+            <p>5、mvc各种框架的出现------struts、springmvc----任务4、5</p>
+			</section>
+			<section>
+			      <p>6、前后端分离----jsp中返回json---任务2</p>
+            <p>调接口、返回json----从页面变为数据</p>		
+        </section>
+		
+		
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+		<section>
+                <p>JSP九大内置对象</p>
+				<p>虽然现在基本上使用SpringMVC+AJAX进行开发了Java Web了，但是还是很有必要了解一下JSP的九大内置对象的。像request、response、session这些对象，即便使用其他框架也是会经常用到的。因此十分有了解的必要。</p>
+                </section>
+  
+		
+		
+		
+        <section>
+            <p>request内置对象</p>          
+            <p>response内置对象</p>          
+            <p>page内置对象</p>
+            <p>session内置对象</p>  
+            <p>application内置对象</p>  
+			<p>out内置对象</p>          
+            <p>exception内置对象</p>          
+            <p>config内置对象</p>
+            <p>pageContext内置对象</p>  
+            <p>在jsp开发当中使用比较多的就request、response、session和out对象</p>  
+        </section>
+        <section>
+            <p>request 对象是 javax.servlet.httpServletRequest类型的对象。 该对象代表了客户端的请求信息，主要用于接受通过HTTP协议传送到服务器的数据。（包括头信息、系统信息、请求方式以及请求参数等）。request对象的作用域为一次请求。</p>
+            <p>response 代表的是对客户端的响应，主要是将JSP容器处理过的对象传回到客户端。response对象也具有作用域，它只在JSP页面内有效。</p>
+            <p>session从一个客户打开浏览器并连接到服务器开始，到客户关闭浏览器离开这个服务器结束，被称为一个会话。当一个客户访问一个服务器时，可能会在这个服务器的几个页面之间反复连接，反复刷新一个页面，服务器应当通过某种办法知道这是同一个客户，这就需要session对象。</p>
+              </section>
+			 <section>
+			<p>application服务器启动后就产生了这个application对象，当客户在所访问的网站的各个页面之间浏览时，这个application对象都是同一个，直到服务器关闭。但是与session不同的是，所有客户的application对象都是同一个，即所有客户共享这个内置的application对象。</p>
+            <p>out 对象用于在Web浏览器内输出信息，并且管理应用服务器上的输出缓冲区。在使用 out 对象输出数据时，可以对数据缓冲区进行操作，及时清除缓冲区中的残余数据，为其他的输出让出缓冲空间。待数据输出完毕后，要及时关闭输出流。</p>
+  </section>
+			 <section>           
+		   <p>page 对象代表JSP本身，只有在JSP页面内才是合法的。 page隐含对象本质上包含当前 Servlet接口引用的变量，类似于Java编程中的 this 指针。</p>
+             </section>
+			<section>
+		   <p>config 对象的主要作用是取得服务器的配置信息。通过 pageContext对象的 getServletConfig() 方法可以获取一个config对象。当一个Servlet 初始化时，容器把某些信息通过 config对象传递给这个 Servlet。 开发者可以在web.xml 文件中为应用程序环境中的Servlet程序和JSP页面提供初始化参数。</p>          
+            <p>exception：java.lang.Throwable 的实例，该实例代表其他页面中的异常和错误。只有当页面是错误处理页面，即编译指令page 的isErrorPage 属性为true 时，该对象才可以使用。常用的方法有getMessage()和printStackTrace()等。</p>          
+              </section>
+			 <section>
+			<p>pageContext 对象的作用是取得任何范围的参数，通过它可以获取 JSP页面的out、request、reponse、session、application 等对象。pageContext对象的创建和初始化都是由容器来完成的，在JSP页面中可以直接使用 pageContext对象。</p>
+	   </section>
+ 
+        
+	<section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>pageContext对象和page</p>
+				
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+           <section>
+		   	<p>JSP网页本身，page对象是当前页面转换后的Servlet类的实例。从转换后的Servlet类的代码中，可以看到这种关系：Object page = this;在JSP页面中，很少使用page对象。</p>
+				<p>pageContext　　javax.servlet.jsp.PageContext 的实例，该对象代表该JSP 页面上下文，使用该对象可以访问页面中的共享数据。常用的方法有getServletContext和getServletConfig等.</p>
+					<p>
+总的来说，pageContext和page都是jsp中的隐含对象，pageContext代表jsp页面的上下文关系，能够调用、存取其他隐含对象；page代表处理当前请求的时候，这个页面的实现类的实例。</p>
+				</section>
+         
+ 
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+        	<h3>6.扩展思考</h3>
+                 
+		</section>
+        <section>
+				  <p>JSP隐式对象和EL表达式隐式对象的区别</p>
+           <p>
+				1.EL只能获取对象的属性、而不能改写、也不能直接调用方法<br>
+				2.EL不能访问局部变量，只能访问作用域中的属性,比如${applicationScope.total}访问的就是applicatopn对象中的属性<br>
+				3.jsp和EL表达式有一个共同的对象：pageContext 就是说<%pageContext%>和${pageContext}实际上是一个对象，余下的EL隐式对象都是Java映射（map），他们只是提供了更容易的途径来访问pageContext隐式对象的某些性质。<br>
+				</p>		
+        </section>
+		
+        <section>
+            <h3>7.参考文献</h3>
+            <p>https://blog.csdn.net/kyi_zhu123/article/details/54381221</p>
+            <p>https://www.cnblogs.com/xdp-gacl/p/3779872.html</p>
+            <p>https://blog.csdn.net/jrdgogo/article/details/52065267</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+		
+		<section>
+         <p></p>
+		</section>
+		
+        <section>
+            <h4>谢谢观看</h4>
+            <p></p>
+            <p><small>By:乔名震</small></p>
+        </section>
+        <section>
+         <p>鸣谢</p>
+         <p></p>
+		</section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
