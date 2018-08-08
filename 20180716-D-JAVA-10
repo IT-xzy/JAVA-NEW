@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>restTemplate的介绍和使用</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：万全林</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+		<section>
+            <p style="text-align:left">Spring Cloud简介</p>
+　　        <p style="text-align:left">Spring Cloud是一个基于Spring Boot实现的云应用开发工具，它为基于JVM的云应用开发中涉及的配置管理、服务发现、断路器、智能路由、微代理、控制总线、全局锁、决策竞选、分布式会话和集群状态管理等操作提供了一种简单的开发方式。</p>
+            <p style="text-align:left">另外说明spring cloud是基于springboot的，所以需要开发中对springboot有一定的了解。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">微服务简介</p>
+　　        <p style="text-align:left">什么是“微服务架构”呢？简单的说，微服务架构就是将一个完整的应用从数据存储开始垂直拆分成多个不同的服务，每个服务都能独立部署、独立维护、独立扩展，服务与服务间通过诸如RESTful API的方式互相调用。</p>
+			<p style="text-align:left">今天我希望通过一个简单的案例带小伙伴们来了解下如何使用Spring Cloud来实现服务治理。</p>
+		</section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">服务治理</p>
+            <p style="text-align:left">Spring Cloud应用中可以支持多种不同的服务治理框架，比如：Netflix Eureka、Consul、Zookeeper。在Spring Cloud服务治理抽象层的作用下，我们可以无缝地切换服务治理实现，并且不影响任何其他的服务注册、服务发现、服务调用等逻辑。</p>
+        </section>
+		
+		
+		<section>
+            <p style="text-align:left">Spring Cloud Eureka</p>
+            <p style="text-align:left">Spring Cloud Eureka是Spring Cloud Netflix项目下的服务治理模块。</p>
+			<p style="text-align:left">使用Eureka创建“服务注册中心”</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">创建“服务提供方”</p>
+            <p style="text-align:left">下面我们创建提供服务的客户端，并向服务注册中心注册自己。</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">创建“服务消费者”</p>
+            <p style="text-align:left">Spring cloud有两种服务调用（消费）方式，一种是ribbon+restTemplate，另一种是feign。</p>
+        </section>
+		
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+		<section>
+            <p style="text-align:left">feign和ribbon + RestTemplate的区别</p>
+        </section>
+		
+		<section>
+            <p style="text-align:left">Feign是Spring Cloud Netflix库，用于在基于REST的服务调用上提供更高级别的抽象。</p>
+			<p style="text-align:left">使用Feign时，我们在客户端编写声明式REST服务接口，并使用这些接口来编写客户端程序。开发人员不用担心这个接口的实现。这将在运行时由Spring动态配置。通过这种声明性的方法，开发人员不需要深入了解由HTTP提供的HTTP级别API的细节的RestTemplate。</p>
+			<p style="text-align:left">也就是说FeignClient简化了请求的编写，且通过动态负载进行选择要使用哪个服务进行消费，而这一切都由Spring动态配置实现，我们不用关心这些，只管使用方法即可。</p>
+		</section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
