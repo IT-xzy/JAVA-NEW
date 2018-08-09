@@ -1,0 +1,266 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是Quartz</h2>
+            <p>分享人：张强</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>1.背景介绍</h3>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:25px;">
+				什么是Quartz<br/><br/>
+				Quartz是一个开源任务调度框架。当前版本2.2.3<br/>
+				Quartz是OpenSymphony开源组织在Job scheduling（时间调度）领域一个开源项目，(OpenSymphony——开源组织的峨眉派，它的每个开源项目都有自己独特的特点)<br/>	任务调度：在某个有规律的时间点来执行某件事。时间的触发的条件可能非常复杂，有可能携带复杂的条件等。任务调度是操作系统的重要组成部分，而对于实时操作系统，任务调度直接影响其实时性能。<br/>	<br/>		JAVA中任务调度是指基于给定时间点，给定时间间隔或者给定执行次数自动执行任务。
+				实现方式有：<br/>
+				JDK原生定时工具：java.util.Time；<br/>
+				JDK对定时任务调度的线程池支持：ScheduledExecutor；<br/>
+				开源工具：Quartz；<br/>
+				开源工具：JCronTab。
+				</p>
+			</section>            
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>2.知识剖析</h3>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:25px;">
+				Quartz特点<br/><br/>
+				纯java实现，可以作为独立的应用程序，也可以嵌入在另一个独立式应用程序运行<br/><br/>
+				强大的调度功能，Spring默认的调度框架，灵活可配置；<br/><br/>
+				作业持久化，调度环境持久化机制，可以保存并恢复调度现场。系统关闭数据不会丢失；<br/>	<br/>			灵活的应用方式，可以任意定义触发器的调度时间表，支持任务和调度各种组合，组件式监听器、各种插件、线程池等功能，多种存储方式等；<br/><br/>
+			分布式和集群能力，可以被实例化，一个Quartz集群中的每个节点作为一个独立的Quartz使用，通过相同的数据库表来感知到另一个Quartz应用<br/>
+				</p>
+			</section> 
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				Quartz的三个核心概念<br/><br/>
+				任务 Job 具体要执行的业务逻辑<br/><br/>
+				触发器 Trigger 定义触发业务的时间规则<br/><br/>				
+				调度器 Scheduler 调度器去根据触发条件去调度任务执行<br/><br/>
+				</p>
+			</section> 
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				任务 Job和JobDetail<br/><br/>
+				Job 实现业务逻辑任务的接口。Job接口只有一个“execute”方法，执行具体的业务逻辑，只有一个参数：JobExecutionContext<br/><br/>
+				JobExecutionContext 储存Quartz运行时候的环境以及Job本身的数据
+				<br/><br/>
+				JobDetail 描述Job实例所包含的属性<br/><br/>
+				JobDetail中比较重要的属性：<br/>
+				name 必须 任务名称 JobDetail.getKey()<br/>
+				group 必须 任务所在的组，不设定的话按默认（default）<br/>
+				jobClass job实现类<br/>
+				jobDataMap job需要的参数<br/>
+				</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				JobDateMap<br/><br/>
+				进行任务调度的时候JobDateMap存储在JobExecutionContext中；<br/><br/>
+				JobDateMap用来装在任何可序列化的数据对象，job实例对象被执行的时候这些参数对象会传递给它；<br/><br/>
+				JobDateMap实现Map接口，支持键值对，添加存取基本类型数据类型的方法<br/><br/>
+				获取方式<br/>
+				1.从Map中直接获取<br/>
+				2.在Job实现类中添加setter方法赋值
+				<br/>
+				</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				Trigger<br/>
+				触发器 触发job的执行  <br/><br/>				
+				simplateTrigger 在一个指定时间段内执行一次作业任务或是在指定时间间隔内执行多次作业任务<br/>
+				CronTrigger 基于日历的作业调度器，基于cron表达式<br/><br/>
+				通用属性：<br/>
+				JobKey 标识Job实例，触发器根据此指定job实例执行<br/>
+				StartTime 触发器的时间表首次被触发的时间，值为Java.util.Date<br/>
+				EndTime 触发器不再被触发的时间，值同上<br/><br/>
+				
+				cron表达式，Linux定时任务经常用到，这里格式一样 <br/>
+				格式为 [秒] [分] [小时] [日] [月] [周] [年]
+				</p>
+			</section> 
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				Scheduler<br/>
+				调度器 <br/>
+				根据Trigger触发器调度Job，可以配置后台运行的线程、存储信息方式等，创建方式有两种：<br/><br/>	
+				StdSchedulerFactory可以通过xml或者properties进行声明式配置属性<br/>				
+				SchedulerFactory schedulerFactory = new StdSchedulerFactory();<br/>
+				Scheduler scheduler = schedulerFactory.getScheduler();<br/><br/>
+				
+				DirectSchedulerFactory 属性需要用代码配置<br/>
+				DirectSchedulerFactory factory = DirectSchedulerFactory.getInstance();<br/>
+				Scheduler scheduler = factory.getScheduler();<br/><br/>
+				<br/>
+				</p>
+			</section>			
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>3.常见问题</h3>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:center; font-size:25px;">1
+				Quartz体系结构<br/>
+				<img src="http://images.cnblogs.com/cnblogs_com/meijsuger/1216102/o_b84f2c82-dc72-3c24-9388-766dc415cdb8.gif">
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:25px;">
+				Quartz体系结构<br/><br/>
+				Job和JobDetail<br/>
+				任务的实现接口和绑定任务接口<br/><br/>
+				Trigger <br/>
+				触发器，决定什么时候调用，用来触发执行Job。Quartz的两种Trigger：<br/><br/>
+				SimpleTrigger <br/>简单触发器，在一个指定时间段内执行一次作业任务或是在指定时间间隔内执行多次作业任务<br/>
+				CronTrigger <br/>基于日历的作业调度器，而不是像SimpleTrigger那样精确指定间隔时间。它可以设定非常复杂的触发时间表，基于cron表达式，比SimpleTrigger复杂、常用。<br/><br/>
+				Scheduler<br/>
+				调度器，根据Trigger，定时定频率执行JobDetail信息，和Job绑定在一起
+				</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:25px;">
+				Quartz体系结构<br/><br/>
+				Quartz由300多个类组成，这里是其中的比较重要的，或者说需要了解的<br/><br/>
+				Job 执行业务，也就是实现业务逻辑任务的接口；<br/>
+				JobDetail 绑定Job，描述job信息，关联job监听器，储存特定job实例的状态信息；<br/>
+				JobDataMap JobDetail对象的一部分，储存包含不限量的（序列化的）数据对象，在job实例执行的时候，可以使用其中的数据；<br/>
+				JobBuilder 定义JobDetail实例，保存执行信息等；<br/>
+				JobStore job数据接口，保存job数据，可以保存在内存中或者数据库中；<br/><br/>
+				Trigger 触发器；<br/>
+				TriggerBuilder 创建Trigger实例；<br/>
+				ThreadPool Quartz用来解决并发等问题；<br/><br/>
+				Scheduler 调度器；<br/><br/>
+				Calender 可以一个或者多个Calender和Trigger关联，用于排除或者包含某个时间点； <br/><br/>
+				监听器：JobListener、TriggerListener、SchedulerListentr <br/>
+				</p>
+			</section>
+        </section>
+		<section>
+			<h3>4.编码实战</h3>
+			<p></p>	   			
+		</section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>5.扩展思考</h3>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				Quartz所用到的设计模式<br/><br/>
+				Bulider模式&nbsp;&nbsp;/&nbsp;&nbsp;工厂模式&nbsp;&nbsp;/&nbsp;&nbsp;组件模式&nbsp;&nbsp;/&nbsp;&nbsp;链式写法<br/><br/>组件模式:<br/>quarzt每个组件可插拔，组件耦合低，易于扩展<br/><br/>				
+				链式写法：<br/>	Trigger trigger = newTrigger().withIdentity("name","group").startNow().build();<br/><br/>
+				</p>
+			</section> 
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				Quartz配置文件<br/><br/>
+				组成：<br/>	
+				调度器属性<br/>
+				线程池属性<br/>
+				作业存储设置<br/>
+				插件配置<br/>
+
+				<br/>
+				Quartz+Spring整合 / Quartz集群 集群依赖于数据库，所以必须创建Quartz数据库表
+				<br/>
+				
+				</p>				
+			</section>			
+			
+		</section>
+		<section>
+			<h3>6.参考文献</h3>
+			<p>浅谈Trigger：https://www.cnblogs.com/qlqwjy/p/8721963.html</p>
+			<p>Quartz特性及其集群特性：https://blog.csdn.net/superli90/article/details/50054325</p>
+		</section>        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>谢谢大家</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
