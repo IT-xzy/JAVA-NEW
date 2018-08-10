@@ -1,0 +1,282 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>二叉查找树</h2>
+            <p></p>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p></p>
+            <p></p>
+            <p>分享人：杨聪聪</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+    		<p>作为初学者，我们大部分都是将数组作为主要数据结构来学习的，之后又会接触到哈希表、链表、队列和栈的数据结构。这些都被统称为线性的数据结构。</p>
+    		<p>数据结构中线性结构指的是数据元素之间存在着“一对一”的线性关系的数据结构。非线性结构的逻辑特征是一个结点元素可能对应多个直接前驱和多个后继。</p>
+    		<p>常用的线性结构有：线性表，栈，队列，双队列，数组，串。</p>
+    		<p>常见的非线性结构有：多维数组，广义表，树，图。</p>
+        </section>
+
+        <section>
+        	<p>树的定义</p>
+        	<p>树其实就是由有限n(n>=1)个节点组成的一个具有层次关系的、一对多的集合，它看起来像一棵倒挂的树，所以称之为“树”。</p>
+        	<p>
+        	n=0时称为空树。在任意一棵非空树中：<br>
+        	1、每个元素称为节点（node）；<br>
+    		2、有且仅有一个特定的称为根（Root）的结点；<br>
+            3、当n>1时，其余结点可分为m（m>0）个互不相交的有限集T1、T2、···、Tm，其中每一个集合本身又是一颗树，并且称为根的子树（SubTree），如图：<br>
+           </p>
+        </section>
+        <section>
+        	<p>树及根节点A的两颗子树</p>
+           <img src="F:\SmallClass\12-binary_tree_search\tree.png">
+           <img src="F:\SmallClass\12-binary_tree_search\sub1.png">
+           <img src="F:\SmallClass\12-binary_tree_search\sub2.png">
+        </section>
+        <section>
+        	<p>1、结点的分类</p>
+        	<p>树的结点包含一个数据元素，及若干指向其子树的分支。结点拥有的子树数称为结点的度。度为0的结点称为叶子结点或终端结点；度不为0的结点称为分支结点或非终端结点。。除了根结点外，分支结点也叫内部结点。树的度是树内各结点的度的最大值。</p>
+        </section>
+        <section>
+           <img src="F:\SmallClass\12-binary_tree_search\node-type.png">
+        </section>
+        <section>
+        	<p>2、结点间关系</p>
+        	<p>结点的子树的根称为该结点的孩子，相应地，该结点称为孩子的双亲。同一个双亲的孩子之间互称兄弟。</p>
+        	<p>结点的祖先是从根到该结点所经分支上的所有结点。反之，以某结点为根的子树中任一结点都称为该结点的子孙。</p>
+        </section>
+        <section>
+           <img src="F:\SmallClass\12-binary_tree_search\node-relationship.png">
+        </section>
+        <section>
+        	<p>3、树的其他概念</p>
+        	<p>结点的层次从根开始定义起，根为第一层，根的孩子为第二层。若某结点在第l层，则其子树的根就在第l+1层。其双亲在同一层的结点互称为堂兄弟。树中结点的最大层次称为树的深度或高度。</p>
+        	<p>如果将树中结点的各子树看成从左至右是有次序的，不能互换的，则称该树为有序树，否则称为无序树。</p>
+        </section>
+        <section>
+           <img src="F:\SmallClass\12-binary_tree_search\tree-depth.png">
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+        	<p>二叉树</p>
+        	<p>二叉树是一种特殊的树，它的子节点个数不超过两个，且分别称为该结点的左子树（left subtree）与右子树（right subtree），二叉树常被用作二叉查找树(BST)和二叉堆。</p>
+        </section>
+        <section>
+        	<p>二叉树的遍历</p>
+        	<p>树的遍历有两种选择，深度优先搜索（DFS）和广度优先搜索（BFS）。
+        	</p>
+        	<p>
+        		DFS：从根节点开始，在回溯之前沿着每一个分支尽可能远的探索。<br>
+        		BFS(利用队列实现)：从根节点开始，在探索下一层邻居节点前，首先探索同一层的邻居节点。
+        	</p>
+        </section>
+        <section>
+        	<p>DFS的类型：前根序、中根序和后根序</p>
+        	<p>二叉树是由根节点N，左孩子节点L，右孩子节点R组成，那么这三个节点一共有 6 种排序方式，而实际上只有 3 种，另外 3 种只是顺序倒过来而已。这三种排序方式是： NLR、LNR、LRN，分别对应 先根、中根、后根遍历，先根即 N 在最前，中跟即 N 在中间，后根即 N 在最后。</p>
+        </section>
+        <section>
+        	<p>DFS</p>
+        	<img 
+        	src="F:\SmallClass\12-binary_tree_search\binary-tree-traverse.png">
+        </section>
+        <section>
+        	<p>二叉搜索树(Binary Search Tree,BST),也称为二叉排序树或二叉查找树。</p>
+        	<p>相较于普通的二叉树，非空的二叉搜索树有如下性质：<br>
+        		1、非空左子树的所有键值小于其根结点的键值；<br>
+				2、非空右子树的所有键值大于其根结点的键值；<br>
+				3、左右子树均为二叉搜索树；<br>
+				4、树中没有键值相等的结点。<br>
+				也就是说，二叉排序树中，左子树都比节点小，右子树都比节点大，递归定义。
+        	</p>
+        </section>
+   
+        <section>
+        	<p>二叉搜索树图例</p>
+				<img src="F:\SmallClass\12-binary_tree_search\binary-search-treee.png">
+        </section>
+
+        <section>
+        	<p>查找某个节点</p>
+        	<p>根据输入的 key 值从根开始进行比较，若小于根的 key 值，则与根的左子树比较，大于根的key值与根的右子树比较，以此类推，找到则返回相应节点，否则返回 null。</p>
+        </section>
+
+        <section>
+        	<p>插入节点</p>
+        	<p>与查找操作相似，由于二叉搜索树的特殊性，待插入的节点也需要从根节点开始进行比较，小于根节点则与根节点左子树比较，反之则与右子树比较，直到左子树为空或右子树为空，则插入到相应为空的位置，在比较的过程中要注意保存父节点的信息 及 待插入的位置是父节点的左子树还是右子树，才能插入到正确的位置。</p>
+        </section>
+
+        <section>
+        	<p>遍历二叉搜索树</p>
+        	<p>遍历操作与遍历普通二叉树操作完全相同，不赘述。</p>
+        </section>
+
+        <section>
+        	<p>删除指定节点</p>
+        	<p>
+        	在二叉搜索树中删除节点操作较复杂，可分为以下三种情况。<br>
+        	1、待删除的节点为叶子节点，可直接删除。
+        </p>
+        </section>
+        <section>
+        	<p>删除叶子节点</p>
+        	<img src="F:\SmallClass\12-binary_tree_search\delete-leaf-node.png">
+        </section>
+
+    	<section>
+    		<p>2、待删除节点只有一个孩子节点，因为节点在一条链上，没有分叉，就像处理链表一样把这个节点摘掉就行了。让它的父节点关联它的子节点，它的子节点关联它的父节点就完事。如果它没有父节点，说明它是根节点，直接将其子节点作为根节点就行。</p>
+    	</section>
+    	  <section>
+        	<p>删除节点只有一个子节点</p>
+        	<img src="F:\SmallClass\12-binary_tree_search\delete-one-node.png">
+        </section>
+
+        <section>
+        	<p>
+        		3、这里需要了解两个概念，叫“前驱”和“后继”。分别是树中小于它的最大值和大于它的最小值，如果把树结构中的所有节点按顺序拍好的话，它的前驱和后继两个节点刚好在它左右紧挨着它。当一个节点被删除时，为了保证二叉树的结构不被破坏，要让它的前驱或者后继节点来代替它的位置，然后将它的前驱或者后继节点同样做删除操作。<br>
+
+    那么怎样找前驱或者后继呢？小于它的最大值，就是在树中在它左边最靠右的那个节点。同样，大于它的最小值，就是在树中在它右边最靠左的那个节点。当一个节点既有左子节点又有右子节点时，前驱就是它的左子节点的右子节点的右子节点，一直到最右子节点；后继就是它的右子节点的左子节点的左子节点，一直到最左子节点。
+        	</p>
+        </section>
+        <section>
+        	<p> a)如果后继节点是刚好是要删除节点的右子节点（此时可以知道，这个右子节点没有左子点，如果有，就不该这个右子节点为后继节点）</p>
+        	<img 
+        	src="F:\SmallClass\12-binary_tree_search\delete-two-node1.png">
+        </section>
+
+<section>
+        	<p>b)如果后继节点为要删除节点的右子节点的左后代：</p>
+        	<img 
+        	src="F:\SmallClass\12-binary_tree_search\delete-two-node2.png">
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+  
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+        	<p>二叉查找树的操作代价分析</p>
+        	<p>
+        	 (1) 查找代价： 任何一个数据的查找过程都需要从根结点出发，沿某一个路径朝叶子结点前进。因此查找中数据比较次数与树的形态密切相关。<br>
+        	 当树中每个结点左右子树高度大致相同时，树高为logN。则平均查找长度与logN成正比，查找的平均时间复杂度是O(logN)。<br>
+             当先后插入的关键字有序时，BST退化成链表结构。此时树高n。平均查找长度为(n+1)/2，查找的平均时间复杂度是O(N)。<br>
+             (2) 插入代价： 新结点插入到树的叶子上，完全不需要改变树中原有结点的组织结构。插入一个结点的代价与查找一个不存在的数据的代价完全相同。<br>
+              (3) 删除代价：时间复杂度最大不会超过O(logN)。
+           </p>
+        </section>
+
+        <section>
+    		<p>AVL树（平衡二叉树）简介</p>
+    		<p>
+    			二叉查找树在最差情况下竟然和顺序查找效率相当，这是无法接受的。事实也证明，当存储数据足够大的时候，树的结构对某些关键字的查找效率影响很大。造成这种情况的主要原因就是BST不够平衡(左右子树高度差太大)。
+    			<br>
+引入AVL树的目的是为了提高二叉树的搜索的效率,减少树的平均搜索长度.为此,就必须每向二叉树插入一个结点时调整树的结构,使得二叉树搜索保持平衡,从而可能降低树的高度,减少的平均树的搜索长度. <br>
+在AVL树中任何节点的两个儿子子树的高度最大差为1，所以它也被称为高度平衡树。查找、插入和删除在平均和最坏情况下都是O(log n)。增加和删除可能需要通过一次或多次树旋转来重新平衡这个树。
+    		</p>
+        </section>
+
+        <section>
+    		<p>红黑树(Red-Black Tree )简介 </p>
+    		<p>二叉平衡树的严格平衡策略以牺牲建立查找结构(插入，删除操作)的代价，换来了稳定的O(logN) 的查找时间复杂度。但是这样做是否值得呢？
+能不能找一种折中策略，既不牺牲太大的建立查找结构的代价，也能保证稳定高效的查找效率呢？</p>
+<p>红黑树并不追求“完全平衡”——它只要求部分地达到平衡要求，降低了对旋转的要求，从而提高了性能。</p>
+<p>红黑树同样是一棵二叉排序树，它在每个结点上增加了一个存储位来表示结点的颜色，可以是RED或BLACK。通过对任一条从根到叶子的简单路径上各个结点的颜色进行约束，红黑树确保没有一条路径会比其它路径长2倍，因此是近乎平衡的。 </p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+ 
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+           <p>百度、维基、CSDN</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正。</p>
+            <p>
+               BY : 深圳分院 杨聪聪
+            </p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+
+ <dependency>
+            <groupId>net.sf.json-lib</groupId>
+             <artifactId>json-lib</artifactId>
+             <version>2.4</version>
+             <classifier>jdk15</classifier>
+         </dependency>
