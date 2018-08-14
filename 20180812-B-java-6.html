@@ -1,0 +1,309 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是memcache，常见的memcache方法；</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：岳晓鹏</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+
+            <h3>什么是memcache</h3>
+            <p>memcached 是以LiveJournal旗下Danga Interactive 公司的Brad Fitzpatric 为首开发的一款软件。
+                现在已成为mixi、hatena、Facebook、Vox、LiveJournal 等众多服务中提高Web应用扩展性的重要因素。
+            <p>许多Web 应用都将数据保存到RDBMS（关系型数据库管理系统）中，应用服务器从中读取数据并在浏览器中显示。
+            但随着数据量的增大、访问的集中，就会出现RDBMS 的负担加重、数据库响应恶化、网站显示延迟等重大影响。
+            <p>memcached 是高性能的分布式内存缓存服务器。一般的使用目的是，通过缓存数据库查询结果，减少数据库访问次数，
+            以提高动态Web 应用的速度、提高可扩展性。
+            </p>
+
+        </section>
+		<section>
+
+
+            <h3>为什么使用cache可以提高访问速度</h3>
+            <p>由于硬件技术的限制，我们可以制造出容量很小但很快的存储器，也可以制造出容量很大但很慢的存储器，
+                但不可能制造出访问速度又快容量又大的存储器。基于这个原理，
+                我们用不同的存储器来进行不同的存储功能；
+            <p>按照离CPU由近到远的顺序，存储器的分类依次是CPU寄存器、Cache、内存、硬盘，越靠近CPU的存储器容量越小但访问速度越快；
+            <p>cpu对各种存储器的访问速度比较：寄存器（ns）>cache（几十ns）>内存（几百ns）>硬盘（ms）
+        </section>
+        <section>
+            <p>那很简单了，要提升访问速度，只需要将放在后面的内容放在前面就可以了；
+            回到我们的主题，但是，为什么后面的访问速度很慢，我们还是需要它呢？
+            <p>那是因为在机器断电，
+            然后重启后，硬盘保存的内容还会存在，但是其余地方保存的东西都不会存在了；
+            <p>而我们通常说的持久化就是，就是将数据放在硬盘中，保证断电后数据还存在，当然手动删除不在此考虑范围内哈；
+            持久化后，带来的问题的就是访问速度不够快；
+            <p>那怎么办，为了速度舍弃持久化呗，将其放在不持久化的内存或cache中不就可以了吗？
+
+        </section>
+
+        <section>
+            <h3>cache提高访问速度</h3>
+            <p>详细说下cache这块的东西；
+                其实说完上面的部分，就可以理解怎么提升访问速度了；
+            <p>cache高速缓冲存储器，其中复制了频繁使用的数据以利于快速访问。
+                存储器的高速缓冲存储器存储了频繁访问的RAM位置的内容及这些数据项的存储地址。当处理器引用存储器中的某地址时，
+                高速缓冲存储器便检查是否存有该地址。
+            <p>如果存有该地址，则将数据返回处理器;如果没有保存该地址，
+                则进行常规的存储器访问。
+            <p> 一级Cache更靠近CPU执行单元，二级Cache更靠近物理内存，通常一级Cache有几十到几百KB，
+                二级Cache有几百KB到几MB。再大的话，就满足不了速度要求了，造成计算机的处理速度变慢；
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+				
+		<section>
+
+            <h3>memcache</h3>
+			<ol>
+			<li>memcache特点</li>
+			<li>memcache常用操作</li>
+            <li>memcache知识点</li>
+            <li>memcache应用于java中的三种方式</li>
+			</ol>
+
+        </section>
+		
+		<section>
+
+            <h3>memcache特点</h3>
+            <p>1.Memcache是一个高性能的分布式的内存对象缓存系统；
+            <p>2.通过在内存里维护一个统一的巨大的hash表，能够用来存储各种格式的数据，包括图像、视频、文件以及数据库检索的结果等。
+
+            <p>3.简单的说就是将数据调用到内存中，然后从内存中读取，从而大大提高读取速度。
+            <p>4.本质上就是一个内存key-value数据库，
+
+            <p>5.不支持数据的持久化，服务器关闭之后数据全部丢失
+        </section>
+
+            <section>
+                <h3>memcache常用操作</h3>
+            <p>1.cache数据写入操作
+                Set,add,replace三个方法，返回值均为boolean；
+                区别：
+                <p>set，cache服务器存在同样的key，则替换之；
+                <p>add，如果cache服务器存在同样key，则返回false；
+                <p>Replace,如果cache服务器不存在同样key，则返回false
+                <p>append 命令用于向已存在 key(键) 的 value(数据值) 后面追加数据 。
+                <p>prepend 命令用于向已存在 key(键) 的 value(数据值) 前面追加数据 。
+            </section>
+        <section>
+                <p>2.cache数据读取操作方法
+                <p>get方法从cache服务器获取一个数据
+                如果写入时是压缩的或序列化的，则get的返回会自动解压缩及反序列化
+                <p>getMulti方法从cache服务器获取一组数据,get方法的数组实现，输入参数keys是一个key数组
+
+            <p> 3.辅助命令
+                <p>stats 命令用于返回统计信息例如 PID(进程号)、版本号、连接数等。
+                <p>flush_all 命令用于清理缓存中的所有 key=>value(键=>值) 对
+
+        </section>
+
+
+
+		<section>
+
+            <h3>memcache知识点</h3>
+
+            <p>1.memcached是键值一一对应
+            <p>2.　Memcached单进程在32位系统中最大使用内存为2G，若在64位系统则没有限制,
+            这是由于32位系统限制单进程最多可使用2G内存,要使用更多内存，可以分多个端口开启多个Memcached进程 .
+            <p>3.最大30天的数据过期时间,设置为永久的也会在这个时间过期
+            <p>4.最大键长为250字节,默认是128字节
+        </section>
+        <section>
+            <p>5.单个item最大数据是1MB，超过1MB数据不予存储
+            <p>6.memcached分服务器端和客户端，可以配置多个服务器端和客户端，应用于分布式的服务非常广泛。
+
+
+            <p>7.slab ,chunk,growth path
+            <p>8.哈希算法---模算法和一致性哈希算法
+
+        </section>
+
+       <section>
+        <h3>memcache应用于java中的三种方式</h3>
+           <p>1.官方提供的基于传统阻塞io由Greg Whalin维护的客户端memcached client for java
+               较早推出的memcached JAVA客户端API，应用广泛，运行比较稳定，使用阻塞IO，不支持CAS操作。
+           <p>2.Dustin Sallings实现的基于java nio的Spymemcached
+用到了java1.5版本的concurrent和nio，存取速度会高于前者，但是稳定性不好，测试中常报timeOut等相关异常，支持CAS操作。
+       </section>
+        <section>
+           <p>3 XMemcached
+XMemcached同样是基于Java NIO的客户端，Java NIO相比于传统阻塞IO模型来说，有效率高（特别在高并发下）和资源耗费相对较少的优点。
+           传统阻塞IO为了提高效率，需要创建一定数量的连接形成连接池，而NIO仅需要一个连接即可（当然,NIO也是可以做池化处理），
+           相对来说减少了线程创建和切换的开销，这一点在高并发下特别明显。因此 XMemcached与Spymemcached在性能都非常优秀，
+           在某些方面（存储的数据比较小的情况下）Xmemcached比 Spymemcached的表现更为优秀。
+           <p>总结： Java Memcache Client for Java应用最广泛，也是当前最稳定的客户端， 在线上系统大量的使用此客户端。
+           当然，SpyMemecache和XMemcache由于使用的是NIO的IO模型，性能更高，稳定性也在提高，
+           在性能需求较高的情况下也是比较不错的选择。
+        </section>
+        <!--<section>-->
+            <!--<p>AOP编程其实是很简单的事情，程序员只需要参与三个部分：-->
+
+            <!--<p>1、定义普通业务组件-->
+
+            <!--<p>2、定义切入点，一个切入点可能横切多个业务组件-->
+
+            <!--<p>3、定义增强处理，增强处理就是在AOP框架为普通业务组件织入的处理动作-->
+
+            <!--<p>所以进行AOP编程的关键就是定义切入点和定义增强处理，一旦定义了合适的切入点和增强处理，-->
+            <!--AOP框架将自动生成AOP代理，即：代理对象的方法=增强处理+被代理对象的方法。-->
+        <!--</section>-->
+
+
+		<section>
+		
+            <h3>3.编码实战</h3>
+            <p>在spring中使用spymemcache和xmemcache</p>
+        </section>
+
+        <section>
+		
+            <h3>4.常见问题</h3>
+            <p>1.缓存穿透
+            缓存穿透是指查询一个一定不存在的数据，由于缓存是不命中时被动写的，并且出于容错考虑，
+                如果从存储层查不到数据则不写入缓存，这将导致这个不存在的数据每次请求都要到存储层去查询，
+                失去了缓存的意义。在流量大时，可能DB就挂掉了，要是有人利用不存在的key频繁攻击我们的应用，这就是漏洞
+        </section>
+        <section>
+            <p>缓存穿透解决方法
+            <p>1. 对所有可能查询的参数以hash形式存储，在控制层先进行校验，不符合则丢弃。
+            还有最常见的则是采用布隆过滤器，将所有可能存在的数据哈希到一个足够大的bitmap中，
+            一个一定不存在的数据会被这个bitmap拦截掉，从而避免了对底层存储系统的查询压力。
+
+            <p>2. 也可以采用一个更为简单粗暴的方法，如果一个查询返回的数据为空（不管是数 据不存在，还是系统故障），
+            我们仍然把这个空结果进行缓存，但它的过期时间会很短，最长不超过五分钟。
+
+        </section>
+        <section>
+            <p>2、 缓存雪崩
+            <p>缓存雪崩是指在我们设置缓存时采用了相同的过期时间，
+            导致缓存在某一时刻同时失效，请求全部转发到DB，DB瞬时压力过重雪崩。
+            <p>缓存雪崩解决
+            缓存失效时的雪崩效应对底层系统的冲击非常可怕。
+            大多数系统设计者考虑用加锁或者队列的方式保证缓存的单线 程（进程）写，从而避免失效时大量的并发请求落到底层存储系统上。
+            一个简单方案就时讲缓存失效时间分散开，比如我们可以在原有的失效时间基础上增加一个随机值，比如1-5分钟随机，
+            这样每一个缓存的过期时间的重复率就会降低，就很难引发集体失效的事件。
+        </section>
+        <section>
+            <p>3. 缓存击穿
+                对于一些设置了过期时间的key，如果这些key可能会在某些时间点被超高并发地访问，
+                是一种非常“热点”的数据。这个时候，需要考虑一个问题：缓存被“击穿”的问题，
+                这个和缓存雪崩的区别在于这里针对某一key缓存，前者则是很多key。
+            <p>缓存在某个时间点过期的时候，恰好在这个时间点对这个Key有大量的并发请求过来，
+                这些请求发现缓存过期一般都会从后端DB加载数据并回设到缓存，这个时候大并发的请求可能会瞬间把后端DB压垮。
+            <p>解决：
+            <p>1) 使用互斥锁(mutex key)；
+            2) "永远不过期"；
+            3) 资源保护；
+        </section>
+
+
+		
+
+        <section>
+		
+            <h3>5.参考资料</h3>
+            
+            <p>https://blog.csdn.net/zlzlei/article/details/7790363</p>
+            <p>https://blog.csdn.net/xifeijian/article/details/21994941</p>
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+		
+            <h3>鸣谢</h3>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
