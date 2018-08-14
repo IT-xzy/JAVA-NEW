@@ -1,0 +1,165 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>springboot+dubbo入门</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：刘君健</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+            <p></p>
+            <p></p>
+        </section>
+        <section>
+        	<h2>springboot</h2>
+        	<p>Spring Boot是由Pivotal团队提供的全新框架，其设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通过这种方式，Spring Boot致力于在蓬勃发展的快速应用开发领成为领导者。</p>
+        </section>
+        <section>
+        	<h2>dubbo</h2>
+        	<p>Dubbo是阿里巴巴公司开源的一个高性能优秀的服务框架，使得应用可通过高性能的RPC(远程过程调用)实现服务的输出和输入功能，可以和Spring框架无缝集成。</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>springboot入门</p>
+        	<p>从本质上来说，SPRING BOOT就是SPRING,它做了那些没有它你也会去做的SPRING BEAN配置。它使用“习惯优于配置” （项目中存在大量的配置，此外还内置了一个习惯性的配置，让你无需手动进行配置）的理念让你的项目快速运行起来。 使用SPRING BOOT很容易创建一个独立运行（运行JAR,内嵌SERVLET容器）、 准生产级别的基于SPRING框架的项目，使用SPRING BOOT你可以不用或者只需要很少的SPRING配置。</p>
+        	<p>用我自己的话来解读就是：springboot把之前spring要做的xml里bean的配置帮你封装好了，servlet容器也封装好了，我们只需要进行少量配置，就能创建一个web项目</p>
+        	<P>使用spring boot有什么好处:简单、快速、方便</P>
+        </section>
+        <section>
+        	<P>dubbo入门</P>
+        	<p>Provider暴露服务方称之为“服务提供者”。</p>
+			<P>Consumer调用远程服务方称之为“服务消费者”。</P>
+			<P>Registry服务注册与发现的中心目录服务称之为“服务注册中心”。</P>
+			<P>Monitor统计服务的调用次数和调用时间的日志服务称之为“服务监控中心”。</p>
+			<P>dubbo的好处：连通性、健壮性、伸缩性</P>
+			<p>注册中心，服务提供者，服务消费者三者之间均为长连接</p>
+			<p>服务提供者无状态，任意一台宕掉后，不影响使用</p>
+			<p>注册中心为对等集群，可动态增加机器部署实例</p>
+        </section>
+    
+        <section>
+				<p>3.常见问题</p>
+				
+		</section>
+		<section>
+                <p>springboot如何配置自定义bean</p>
+                <p>springboot如何切换配置文件</p>
+                <P>dubbo如何监控有没有提供者和消费者</P>
+        </section>
+        <section>
+            
+            <p>4.解决方案</p>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        
+        <section>
+            <h3>6.拓展思考</h3>
+        </section>
+       
+       
+        <section>
+            <h3>7.参考文献</h3>
+            <p>https://github.com/apache/incubator-dubbo-ops</p>
+            <p>http://www.cnblogs.com/geekdc/p/9267341.html</p>
+            <p>https://blog.csdn.net/qq_27384769/article/details/79465781</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            
+        </section>
+        
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 刘君健</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
