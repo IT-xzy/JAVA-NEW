@@ -1,0 +1,331 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>redis缓存集群介绍</h2>
+            <p>分享人：张强</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>1.背景介绍</h3>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:25px;">
+				Redis<br/><br/>
+				Redis 是一个开源（BSD许可）的，内存中的数据结构存储系统，通俗的来讲就是基于内存的高性能K/V数据库。<br/>
+				Redis 作为一个key—value储存系统。支持储存的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set --有序集合)和hash（哈希散列）。<br/><br/>
+				- Redis的内核是用标准ANSI C写成的，基于一种事件模型；<br/>
+				<!-- 非阻塞复制是Redis的设计目标。Redis中的复制是异步的；--><br/>
+				- 高速，数据存在内存中，在内存中进行操作；<br/>
+				- 持久化，可以异步储存数据到硬盘中，在宕机恢复后迅速解决数据丢失的问题；<br/>				
+				- 分布式 读写分离模式；<br/>
+				- 单线程，利用redis队列技术并将访问变为串行访问，消除了传统数据库串行控制的开销；<br/>
+				- 属于NoSql，支持事务，操作都是原子性；<br/>
+				- 可用作cache，消息总线，或者在某些开发项目中作为结构不复杂的数据库来使用
+				</p>
+			</section> 
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:25px;">
+				redis的性能如何？<br/><br/>
+				每秒可以处理超过10万次读写操作<br/>
+				机械硬盘的读写速度：50-90MB/s，<br/>
+				固态硬盘的读写速度可以达到：500MB/s，<br/>
+				内存DDR3 1333Hz的读写速度大概在8G/s，<br/>
+
+				新浪微博架构师杨卫华（11年）曾说过：“国内前十大网站的子产品估计用1台Redis就可以满足存储及Cache的需求”。<br/><br/>
+				
+				redis的作者，叫Salvatore Sanfilippo，来自意大利的西西里岛，现在居住在卡塔尼亚。网名是antirez。<br/><br/>
+				
+				目前antirez本人在为VMWare 公司工作（https://www.vmware.com/cn.html），主要就是进行Redis的开发。
+				他的个人介绍：http://www.invece.org/
+				</p>
+			</section>            
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>2.知识剖析</h3>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<h3>集群（Cluster）</h3>
+				<p style="text-align:left; font-size:30px;"><br/>
+				集群是一组相互独立的、通过高速网络互相联通的节点，构成了一个组，并以单一系统的模式加以管理。一个客户与集群相互作用时，集群就是一个独立的服务器。<br/><br/>
+				集群技术是一种通用的技术，其目的是为了解决单机运算能力的不足、IO能力的不足、提高服务的可靠性、获得规模可扩展能力，降低整体方案的运维成本（运行、升级、维护成本）。能在大流量访问下提供稳定的业务，集群化是存储的必然形态。<br/><br/>
+				
+				1. 提高性能<br/>
+				2. 降低成本<br/>
+				3. 提高可扩展性<br/>
+				4. 增强可靠性<br/>
+				</p>
+			</section> 
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:25px;">
+				Redis集群（redis-cluster）<br/><br/>
+				
+				Redis 集群是一个提供在多个Redis节点之间共享数据的程序集。<br/>				
+				Redis 集群并不支持同时处理多个键的 Redis 命令，因为这需要在多个节点间移动数据，这样会降低redis集群的性能，在高负载的情况下可能会导致不可预料的错误。<br/>
+				Redis 集群通过分区来提供一定程度的可用性，即使集群中有一部分节点失效或者无法进行通讯， 集群也可以继续处理命令请求。 <br/><br/>
+				Redis 集群的优势:<br/><br/>
+				1.缓存永不宕机：启动集群，永远让集群的一部分起作用。主节点失效了子节点能迅速改变角色成为主节点，整个集群的部分节点失败或者不可达的情况下能够继续处理命令；<br/>
+				2.迅速恢复数据：持久化数据，能在宕机后迅速解决数据丢失的问题；<br/>			
+				3.Redis可以使用所有机器的内存，变相扩展性能；<br/>
+				4.使Redis的计算能力通过简单地增加服务器得到成倍提升,Redis的网络带宽也会随着计算机和网卡的增加而成倍增长；<br/>
+				5.Redis集群没有中心节点，不会因为某个节点成为整个集群的性能瓶颈。<br/>
+				6.异步处理数据，实现快速读写。
+				</p>
+			</section> 
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				Redis 集群的数据分片<br/><br/>
+				Redis 集群没有使用一致性hash，而是引入了哈希槽的概念。<br/>	Redis 集群内置了16384个哈希槽，每个key通过CRC16校验后对16384取模来决定放置哪个槽。集群的每个节点负责一部分hash槽，举个例子，比如当前集群有3个节点，那么:<br/><br/>
+				节点 A 包含 0 到 5500号哈希槽.<br/>
+				节点 B 包含5501 到 11000 号哈希槽.<br/>
+				节点 C 包含11001 到 16384号哈希槽.<br/><br/>
+				这种结构很容易添加或者删除节点. <br/>
+				比如如果我想新添加个节点D，我需要从节点 A, B, C中得部分槽到D上.<br/> 如果我想移除节点A，需要将A中的槽移到B和C节点上，然后将没有任何槽的A节点从集群中移除即可. <br/>由于从一个节点将哈希槽移动到另一个节点并不会停止服务，所以无论添加删除或者改变某个节点的哈希槽的数量都不会造成集群不可用的状态.
+				</p>
+			</section>
+			
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:center; font-size:25px;">
+				Redis 集群的主从复制模型</p><br/>
+				<p style="text-align:left; font-size:25px;">
+				为了使在部分节点失败或者大部分节点无法通信的情况下集群仍然可用，所以集群使用了主从复制模型，每个节点都会有N-1个复制品.<br/><br/>
+				比如之前的例子有A，B，C三个节点的集群，在没有复制模型的情况下，如果节点B失败了，那么整个集群就会以为缺少5501-11000这个范围的槽而不可用.<br/>				然而如果在集群创建的时候（或者过一段时间）我们为每个节点添加一个从节点A1，B1，C1,那么整个集群便有三个master节点和三个slave节点组成，这样在节点B失败后，集群便会选举B1为新的主节点继续服务，整个集群便不会因为槽找不到而不可用了<br/>
+				不过当B和B1 都失败后，集群就不可用了。<br/>
+				</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:center; font-size:25px;">
+				主从复制的一些特点</p>
+				<p style="text-align:left; font-size:25px;">
+				1）采用异步复制；<br/><br/>
+				2）一个主redis可以含有多个从redis；<br/><br/>
+				3）每个从redis可以接收来自其他从redis服务器的连接；<br/><br/>
+				4）主从复制对于主redis服务器来说是非阻塞的，这意味着当从服务器在进行主从复制同步过程中，主redis仍然可以处理外界的访问请求；<br/><br/>
+				5）主从复制对于从redis服务器来说也是非阻塞的，这意味着，即使从redis在进行主从复制过程中也可以接受外界的查询请求，只不过这时候从redis返回的是以前老的数据，如果你不想这样，那么在启动redis时，可以在配置文件中进行设置，那么从redis在复制同步过程中来自外界的查询请求都会返回错误给客户端；<br/>
+				（虽然说主从复制过程中对于从redis是非阻塞的，但是当从redis从主redis同步过来最新的数据后还需要将新数据加载到内存中，在加载到内存的过程中是阻塞的，在这段时间内的请求将会被阻，但是即使对于大数据集，加载到内存的时间也是比较多的）；<br/>
+				
+				</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:center; font-size:25px;">
+				主从复制的一些特点</p><br/>
+				<p style="text-align:left; font-size:25px;">
+				6）主从复制提高了redis服务的扩展性，避免单个redis服务器的读写访问压力过大的问题，同时也可以给为数据备份及冗余提供一种解决方案；<br/><br/>
+				7）为了编码主redis服务器写磁盘压力带来的开销，可以配置让主redis不在将数据持久化到磁盘，而是通过连接让一个配置的从redis服务器及时的将相关数据持久化到磁盘，不过这样会存在一个问题，就是主redis服务器一旦重启，因为主redis服务器数据为空，这时候通过主从同步可能导致从redis服务器上的数据也被清空；<br/>
+				</p>
+			</section>
+			
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				Redis集群实现方式<br/><br/>
+				1.创建不同的redis节点，在需要的地方运行redis实例，每个redis实例有单独的ip或端口，并且配置启用集群管理；<br/><br/>
+				2.创建redis-trib的运行环境：安装ruby，redis.gem<br/><br/>
+				3.通过使用Redis集群命令工具redis-trib创建集群；<br/><br/>
+				./redis-trib.rb create --replicas 1 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002<br/><br/>
+				--replicas  1  表示 自动为每一个master节点分配一个slave节点，上面有6个节点，程序会按照一定规则生成3个master（主）3个slave(从)
+				</p>
+			</section>
+			
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				redis.conf 集群的配置<br/>
+				#绑定ip（这里是本地配置，其他服务器配置对应的ip）<br/>
+				bind 127.0.0.1 <br/>
+				#端口<br/>
+				port 6379<br/>
+				#后台守护启动<br/>
+				daemonize yes<br/>
+				#开启aof模式<br/>
+				appendonly yes<br/>
+				#开启集群管理<br/>
+				cluster-enabled yes<br/>
+				#节点响应超时时间 如果超过这个响应时间就会认定节点不可用<br/>
+				cluster-node-timeout 5000
+				</p>
+			</section> 			
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>3.常见问题</h3>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:25px;">
+				集群重新分片<br/>
+				./redis-trib.rb reshard 127.0.0.1:7000<br/><br/>
+				添加一个新节点<br/>
+				./redis-trib.rb add-node 127.0.0.1:7006<br/><br/>
+				添加一个从节点<br/>
+				./redis-trib.rb add-node --slave 127.0.0.1:7006<br/><br/>
+				移除一个节点（如果是主节点要确保这个主节点是空的）<br/>
+				./redis-trib del-node 127.0.0.1:7000 <\node-id\><br/><br/>
+				迁移从节点<br/>
+				CLUSTER REPLICATE <\master-node-id\><br/><br/>
+				停止节点<br/>
+				./redis1/redis-cli -p 7001 shutdown<br/><br/>
+				集群方式登录<br/>
+				./redis-cli -c -h -p  如：./redis-cli -p 7003 -c
+				默认情况下不能从slaves读取数据，但建立连接后，执行一次命令READONLY，该slaves即可读取数据。
+				</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				Redis 持久化<br/><br/>
+				redis提供了不同级别的持久化方式，一种是RDB，一种AOF。<br/>
+				可以同时开启两种持久化方式, 在这种情况下,当redis重启的时候会优先载入AOF文件来恢复原始的数据,因为在通常情况下AOF文件保存的数据集要比RDB文件保存的数据集要完整.<br/><br/>
+				RDB：在指定的时间间隔能对数据进行快照存储(就是隔一段时间把内存里的数据转存到硬盘等介质上)<br/><br/>
+				AOF：每次对服务器写的操作指令记录下来,当服务器重启的时候会重新执行这些命令来恢复原始的数据,AOF命令以redis协议追加保存每次写的操作到文件末尾.Redis还能对AOF文件进行后台重写,使得AOF文件的体积不至于过大.<br/>
+				<br/>
+				</p>
+			</section>
+        </section>
+		<section>
+			<h3>4.编码实战</h3>
+			<p></p>	   			
+		</section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>5.扩展思考</h3>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:25px;">
+				Redis 一致性保证<br/><br/>
+				Redis 并不能保证数据的<Strong>强一致性</Strong>. 这意味这在实际中集群在特定的条件下可能会丢失写操作.<br/>
+
+第一个原因是因为集群是用了异步复制和写入的操作过程:<br/>
+客户端向主节点B写入一条命令；<br/>
+主节点B向客户端回复命令状态；<br/>
+主节点将写入操作复制给他的从节点 B1, B2 和 B3；<br/>
+这时候主节点对命令的复制工作发生在返回命令回复之后， 因为如果每次处理命令请求都需要等待复制操作完成的话， 那主节点处理命令请求的速度将极大地降低 —— 我们必须在性能和一致性之间做出权衡。 <br/>注意：Redis 集群可能会在将来提供同步写的方法。 <br/><br/>
+另外一种可能会丢失命令的情况是集群出现了网络分区， 并且一个客户端与至少包括一个主节点在内的少数实例被孤立。
+
+举个例子 假设集群包含 A 、 B 、 C 、 A1 、 B1 、 C1 六个节点， 其中 A 、B 、C 为主节点， A1 、B1 、C1 为A，B，C的从节点， 还有一个客户端 Z1 假设集群中发生网络分区，那么集群可能会分为两方，大部分的一方包含节点 A 、C 、A1 、B1 和 C1 ，小部分的一方则包含节点 B 和客户端 Z1 .
+
+Z1仍然能够向主节点B中写入, 如果网络分区发生时间较短,那么集群将会继续正常运作,如果分区的时间足够让大部分的一方将B1选举为新的master，那么Z1写入B中得数据便丢失了.
+				</p>
+			</section> 
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:25px;">
+				不同方式的redis的集群化方案<br/><br/>
+				（1）Twitter开发的twemproxy代理方案<br/>	
+				（2）豌豆荚开发的codis<br/>
+				（3）redis官方的redis-cluster<br/>
+				（4）客户端分片<br/>
+				（5）Sentinel哨兵模式<br/><br/>
+				
+				客户端分区<br/>
+				就是在客户端就已经决定数据会被存储到哪个redis节点或者从哪个redis节点读取。大多数客户端已经实现了客户端分区。<br/>
+				代理分区<br/> 意味着客户端将请求发送给代理，然后代理决定去哪个节点写数据或者读数据。代理根据分区规则决定请求哪些Redis实例，然后根据Redis的响应结果返回给客户端。redis和memcached的一种代理实现就是Twemproxy<br/>
+				查询路由(Query routing) <br/>
+				意思是客户端随机地请求任意一个redis实例，然后由Redis将请求转发给正确的Redis节点。Redis Cluster实现了一种混合形式的查询路由，但并不是直接将请求从一个redis节点转发到另一个redis节点，而是在客户端的帮助下直接redirected到正确的redis节点。<br/>
+
+				</p>				
+			</section>	 
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:25px;">
+				持久化数据还是缓存？<br/><br/>
+				无论是把Redis当做持久化的数据存储还是当作一个缓存，从分区的角度来看是没有区别的。当把Redis当做一个持久化的存储（服务）时，一个key必须严格地每次被映射到同一个Redis实例。当把Redis当做一个缓存（服务）时，即使Redis的其中一个节点不可用而把请求转给另外一个Redis实例，也不对我们的系统产生什么影响，我们可用任意的规则更改映射，进而提高系统的高可用（即系统的响应能力）。<br/><br/>
+
+				一致性哈希能够实现当一个key的首选的节点不可用时切换至其他节点。同样地，如果你增加了一个新节点，立刻就会有新的key被分配至这个新节点。<br/><br/>
+
+				重要结论如下:<br/>
+
+				如果Redis被当做缓存使用，使用一致性哈希实现动态扩容缩容。<br/>
+				如果Redis被当做一个持久化存储使用，必须使用固定的keys-to-nodes映射关系，节点的数量一旦确定不能变化。否则的话(即Redis节点需要动态变化的情况），必须使用可以在运行时进行数据再平衡的一套系统，而当前只有Redis集群可以做到这样
+				</p>				
+			</section>			
+			
+		</section>
+		<section>
+			<h3>6.参考文献</h3>
+			<p>Redis之父Salvatore Sanfilippo访谈：https://www.csdn.net/article/2011-01-18/290347</p>
+			<p>用mysqlslap进行mysql压力测试：https://my.oschina.net/javagg/blog/5060 、https://blog.csdn.net/caianye/article/details/41958077</p>
+			<p>分区：怎样将数据分布到多个redis实例：http://www.redis.cn/topics/partitioning.html</p>
+		</section>        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>谢谢大家</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

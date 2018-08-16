@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+         link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是rmi?为什么要使用rmi框架?</h2>
+            <p></p>
+            <h3>java分享会</h3>
+            <p>分享人：郭超</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+
+      <h3>什么是rmi?</h3>
+       <P>Java RMI（Remote Method Invocation）--Java的远程方法调用是Java所特有的分布式计算技术，它允许运行在一个Java虚拟机上的对象调用运行在另一个Java虚拟机上的对象的方法，从而使Java编程人员可以方便地在网络环境中作分布式计算。面向对象设计要求每个任务由最适合该任务的对象执行，RMI将这个概念更深入了一步，使任务可以在最适合该任务的机器上完成。 
+       </P>
+       </section>
+       
+        <section>
+        <P>RMI定义了一组远程接口，可以用于生成远程对象。客户机可以象调用本地对象的方法一样用相同的语法调用远程对象。</P>
+        <P>
+     调用这样一个对象时，其参数为 "marshalled"将其从本地虚拟机发送到远程虚拟机（该远程虚拟机的参数为 "unmarshalled"）上。该方法终止时，将编组来自远程机的结果并将结果发送到调用方的虚拟机。如果方法调用导致抛出异常，则该异常将指示给调用方。
+        </P>
+        </section>
+
+
+        <section>
+     <h3>RMI(远程方法调用)的优点</h3>
+     <p>从最基本的角度看，RMI是Java的远程过程调用(RPC)机制。与传统的RPC系统相比，RMI具有若干优点，因为它是Java面向对象方法的一部分。传统的RPC系统采用中性语言，所以是最普通的系统--它们不能提供所有可能的目标平台所具有的功能。 RMI以Java为核心，可与采用本机方法与现有系统相连接。这就是说，RMI可采用自然、直接和功能全面的方式为您提供分布式计算技术，而这种技术可帮助您以不断递增和无缝的方式为整个系统添加Java功能。</p>
+        </section>
+        
+        <section>
+      <h4>RMI的主要优点如下:</h4>
+   <p>1,面向对象:RMI可将完整的对象作为参数和返回值进行传递，而不仅仅是预定义的数据类型。也就是说，您可以将类似Java哈希表这样的复杂类型作为一个参数进行传递。而在目前的RPC系统中，您只能依靠客户机将此类对象分解成基本数据类型，然后传递这些数据类型，最后在服务器端重新创建哈希表。RMI则不需额外的客户程序代码(将对象分解成基本数据类型)，直接跨网传递对象。 </p>
+   <p>2,可移动属性：RMI可将属性(类实现程序)从客户机移动到服务器，或者从服务器移到客户机。这样就能具备最大的灵活性，因为政策改变时只需要您编写一个新的Java类，并将其在服务器主机上安装一次即可。 </p>
+   
+        </section>
+        <section>
+        <p>3,设计方式：对象传递功能使您可以在分布式计算中充分利用面向对象技术的强大功能，如二层和三层结构系统。如果您能够传递属性，那么您就可以在您的解决方案中使用面向对象的设计方式。所有面向对象的设计方式无不依靠不同的属性来发挥功能，如果不能传递完整的对象--包括实现和类型--就会失去设计方式上所提供的优点。
+        <p>4,安　　全：RMI使用Java内置的安全机制保证下载执行程序时用户系统的安全。RMI使用专门为保护系统免遭恶意小应用程序侵害而设计的安全管理程序，可保护您的系统和网络免遭潜在的恶意下载程序的破坏。在情况严重时，服务器可拒绝下载任何执行程序。</p>    
+        </p>
+        </section>
+
+        <section>
+            <p>5,便于编写和使用：RMI使得Java远程服务程序和访问这些服务程序的Java客户程序的编写工作变得轻松、简单。远程接口实际上就是Java接口。服务程序大约用三行指令宣布本身是服务程序，其它方面则与任何其它Java对象类似。这种简单方法便于快速编写完整的分布式对象系统的服务程序，并快速地制做软件的原型和早期版本，以便于进行测试和评估。因为RMI程序编写简单，所以维护也简单。
+            </p>
+        </section>
+        
+        <section>
+            <p>6,可连接现有/原有的系统：RMI可通过Java的本机方法接口JNI与现有系统进行进行交互。利用RMI和JNI，您就能用Java语言编写客户端程序，还能使用现有的服务器端程序。在使用RMI/JNI与现有服务器连接时，您可以有选择地用Java重新编写服务程序的任何部分，并使新的程序充分发挥Java的功能。类似地，RMI可利用JDBC、在不修改使用数据库的现有非Java源代码的前提下与现有关系数据库进行交互。
+            </p>
+            <p>7,编写一次，到处运行：RMI是Java“编写一次，到处运行 ”方法的一部分。任何基于RMI的系统均可100%地移植到任何Java虚拟机上，RMI/JDBC系统也不例外。如果使用RMI/JNI与现有系统进行交互工作,则采用JNI编写的代码可与任何Java虚拟机进行编译、运行。
+            </p>
+        </section>
+        
+        <section>
+            <p>8,分布式垃圾收集：RMI采用其分布式垃圾收集功能收集不再被网络中任何客户程序所引用的远程服务对象。与Java 虚拟机内部的垃圾收集类似，分布式垃圾收集功能允许用户根据自己的需要定义服务器对象，并且明确这些对象在不再被客户机引用时会被删除。</p>
+            <p>9,并行计算：RMI采用多线程处理方法，可使您的服务器利用这些Java线程更好地并行处理客户端的请求。Java分布式计算解决方案：RMI从JDK 1.1开始就是Java平台的核心部分，因此，它存在于任何一台1.1 Java虚拟机中。所有RMI系统均采用相同的公开协议，所以，所有Java 系统均可直接相互对话，而不必事先对协议进行转换。
+            </p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+         <h3>RMI原理及其示意图</h3>
+         <p>方法调用从客户对象经占位程序（Stub)、远程引用层(Remote Reference Layer)和传输层（Transport Layer）向下，传递给主机，然后再次经传 输层，向上穿过远程调用层和骨干网（Skeleton），到达服务器对象。 占位程序扮演着远程服务器对象的代理的角色，使该对象可被客户激活。 远程引用层处理语义、管理单一或多重对象的通信，决定调用是应发往一个服务器还是多个。传输层管理实际的连接，并且追踪可以接受方法调用的远程对象。服务器端的骨干网完成对服务器对象实际的方法调用，并获取返回值。返回值向下经远程引用层、服务器端的传输层传递回客户端，再向上经传输层和远程调用层返回。最后，占位程序获得返回值。</p>
+         </section>
+            
+         <section>
+           <p>要完成以上步骤需要有以下几个步骤： 
+               1、 生成一个远程接口 
+               2、 实现远程对象(服务器端程序)
+               3、 生成占位程序和骨干网(服务器端程序)
+               4、 编写服务器程序 
+               5、 编写客户程序 
+               6、 注册远程对象 
+               7、 启动远程对象</p>
+        </section>
+
+    
+        <section>
+            <h3>Stub和Skeleton</h3>
+            <h4>要了解RMI原理.Stub和Skeleton是必须先理解的两个概念</h4>
+            <p>做个比方说明这两个概念。 假如你是A，你想借D的工具，但是又不认识D的管家C，所以你找来B来帮你，B认识C。B在这时就是一个代理，代理你的请求，依靠自己的话语去借。C呢他负责D家东西收回和借出 ，但是要有D的批准。在得到D的批准以后，C再把东西给B，B呢再转给A。stub和skeleton在RMI中就是角色就是B和C，他们都是代理角色，在现实开发中隐藏系统和网络的的差异， 这一部分的功能在RMI开发中对程序员是透明的。Stub为客户端编码远程命令并把他们发送到服务器。而Skeleton则是把远程命令解码，调用服务端的远程对象的方法，把结果在编 码发给stub，然后stub再解码返回调用结果给客户端。</p>
+        </section>
+        
+       <section>
+          <h3>Stub</h3>
+          <p>Stub为远程对象在客户端的一个代理，当客户端调用远程对象的方法时，实际是委托Stub这个代理去调用远程的对象，这个调用过程如下：
+           (1)初始化一个与远程JVM的连接;
+           (2)写入并传输参数给远程JVM;
+           (3)执行远程对象的方法调用，并等待调用结果的返回(return);
+           (4)读取调用的返回值(也可能是一个异常);
+           (5)返回调用的结果给调用者.
+           这些操作(序列号参数, 建立Socket连接等等)，都由这个Stub来透明化。</p>
+        </section>
+
+       <section>
+        <h3>Skeleton</h3>
+        <p>在远程的JVM中，每一个对象(需要被远程调用的对象)都有一个相应的skeleton(在Java2环境中，这个skeleton不是必须的)，skeleton的作用是分发客户端的调用到具体的实现类，skeleton接受 一个客户端过来的调用过程如下：
+      (1)读取客户端传递过来的参数;
+      (2)调用实现类的方法;
+      (3)写入并传输返回结果给调用者，同样的，这个结果也是函数调用结果或异常</p>
+        
+       </section>
+       <section>
+        <h3>Stub和Skeleton在什么位置产生</h3>
+        <p>Stub和Skeleton都是在服务器产生的。Stub存在于客户端，作为客户端的代理，让我们总是认为客户端产生了stub，接口没有作用。实际上stub类是通过Java动态类下载 机制下载的，它是由服 务端产生，然后根据需要动态的加载到客户端，如果下次再运行这个客户端该存根类存在于classpath中，它就不需要再下载了，而是直接加载。总的来说，stub是在服务端产生的，如果服务端的stub内容改变，那么客户端的也是需要同步更新。</p>
+        
+       </section>
+        <section>
+            <h3>3.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>4.常见问题</h3>
+        </section>
+
+
+        <section>
+           <h3>1.多网卡导致的RMI连接问题：</h3>
+    <p>最有效的，不用改代码的，就是在服务器端，指定server ip.
+        具体如下：
+      服务器程序启动的时候，java命令加一个参数：-Djava.rmi.server.hostname=服务器real ip</p>
+        </section>
+
+     <section>
+      <h3>2.服务器重启之后，客户端再连接就报错了。</h3>
+      <p>RMI客户客户端与服务端第一次建立连接的时候会在客户端生成一个stub,我们称之为存根，并且在服务端注册，以后RMI服务端与客户端都会基于这个文件进行通讯，当客户端需要访问服务端的时候会首先扫描这个文件，然后访问客户端，当客户端验证的时候发现注册了就会通过，如果发现没有注册就会拒绝本次访问，所以当服务端重启之后，曾经所有stub注册都会失效，所以客户端会一直访问不到客户端，必须重新启动，以获取新的stub，不过RMI接口下有避免这种情况的相关配置.
+    </section>
+
+    <section>
+        <p>，配置如下：在客户端的配置文件中，添加：
+          !-- 连接出错时自动重连 -->
+         property name="refreshStubOnConnectFailure" value="true" />
+          !-- 不在容器启动的时候创建与Server端的连接 -->
+         property name="lookupStubOnStartup" value="false" />
+        如上配置之后，当服务端重启之后，客户端访问不到服务端时，会自动去重新获取stub，这样就可以实现服务器端重启之后，不会影响到客户端了，这样可以给相关的系统减少很大的风险与麻烦。</p>
+    </section>
+
+      <section>
+            <h3>5.参考文献</h3>
+            <p>
+               https://blog.csdn.net/u011225629/article/details/49861757
+            </p>
+            <p>
+               https://blog.csdn.net/u014001866/article/details/50936246
+            </p>
+            <p>
+              http://blog.sina.com.cn/s/blog_492dbb6b0100faot.html
+            </p>
+            <p>
+               https://blog.csdn.net/smcwwh/article/details/7080997
+            </p>
+        </section>
+
+         <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
