@@ -1,0 +1,182 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body >
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>为什么不可以用</h2>
+            <h2>SELECT * FROM TABLE?</h2>
+            <h3>java小课堂</h3>
+            <p>分享人：杨腾东</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section> 
+            <p> MySQL数据库简介
+             </p>
+            <p align="left">1、MySQL是一个关系型数据库，关联的数据保存在不同的表中，增加了数据操作的灵活性。由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点许多中小型网站为了降低网站总体拥有成本而选择了MySQL作为网站数据库。MySQL工作模式是基于客户机/服务器结构。目前它可以支持几乎所有的操作系统，同时也可以和php完美结合。简单的来说,MySql是一个开放的、快速的、多线程的、多用户的SQL数据库服务器。
+            </p>
+            <p align="left">2、select * from table是mysql中用来查询某张表的所有字段的sql语句；</p>
+            <p align="left">3、我们大概都知道这样写不是那么的高效，没有针对性。</p>
+        </section>
+        
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+                <section>
+			
+				<p>2.1 Mysql语句执行的原理</p>
+
+                <p align="left">第一步：应用程序把查询SQL语句发给服务器端执行。</p>
+                <p align="left">第二步：服务器解析请求的SQL语句。</p>
+                <p align="left">第三步：语句执行。 </p>
+                </section>
+            
+
+				<section>
+                <p>2.2 select * from table 的缺点</p>
+				<p align="left">1、mysql拿到一条命令，会去解析命令、优化查询，然后去存储引擎执行查找.SELECT * 语句取出表中的所有字段，会解析更多的 对象，字段，权限，属性相关,不论该字段的数据对调用的应用程序是否有用，这会对服务器资源造成浪费，导致优化和效率问题,对服务器的性能产生一定的影响。</p>
+                <p align="left">2、如果表的结构在以后发生了改变，那么SELECT * 语句可能会取到不正确的数据甚至是出错。</p>
+                <p align="left">3、执行SELECT * 语句时，select * 语句要对表中所有列进行权限检查,这部分也是开销</p>
+                </section>
+                    
+                <section>
+                <p align="left">4、使用SELECT * 语句将不会使用到覆盖索引，不利于查询的性能优化.(索引覆盖:索引覆盖是一种速度极快,效率极高,业界推荐的一种查询方式.就是select的数据列只用从索引中就能够获得,不必从数据表中读取,也就是查询列要被所使用的索引覆盖)</p>
+                <p align="left">5、在文档角度来看，SELECT * 语句没有说明将要取出哪些字段进行操作，不具备针对性，不推荐。</p>
+                <p align="left">6、用 select * 语句插入一个表,以后表结构修改了,如增加或删除了一列,对代码影响很大,如果只是恰好只获取自己需要的那几列,表结构的修改对你的代码影响就会比较小，便于后期项目维护。
+                </p>
+                <p align="left">从上面几点来看，对于经常和数据库打交道的我们来说确实应该用select 字段名 来进行查询。</p>
+                </section>
+                
+            
+           
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <p align="left">表 user含有100万条数据，6个字段名 </p>
+            <p align="left">select * from user limit 0,100000 </p>
+            <p align="left">select uid,id,name,age,create_time,update_time from user limit 100000,100000 </p>
+            <p align="left">看下效率差别 </p>
+        </section>
+        
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+        	<p>使用select 字段 的好处</p>
+            <p align="left">1、是一种严谨且良好的习惯</p>
+            <p align="left">2、只取出自己需要的字段,便于排版</p>
+            <p align="left">3、便于后期项目维护</p>
+        </section>
+
+
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p align="left">https://bbs.csdn.net/topics/390302591?page=1#post-393091122</p>
+
+            <p align="left">https://blog.csdn.net/u010688637/article/details/56833259</p>
+
+            <p align="left">https://bbs.csdn.net/wap/topics/20066833</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 杨腾东</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

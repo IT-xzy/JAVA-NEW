@@ -1,0 +1,311 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>web.xml里的主要配置都包括什么，都代表什么含义，比如怎么加载Spring 配置的？</h2>
+            <p></p>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p></p>
+            <p></p>
+            <p>分享人：黄伟彬</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        	<h4>WEB.XML介绍</h4>
+        	<p> 在任务二的第二点中，我们在IDEA中通过maven来创建WEB工程时，都知道在创建项目之后，
+                在WEB-INF文件夹下，会生成一个web.xml文件，默认是不起作用的，但当你需要配置与
+                你工程相关的Application时，则是需要在这个文件里进行相应的配置。
+                在web.xml中可以配置很多的Filter、Listener、Servlet等，而今天主要讲解常用的主要的几个配置：
+                根节点、上下文参数、过滤器、监听器、服务端小程序等。<br>
+        	</p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+
+	   <section>
+            <p>1.加载过程</p>
+            <p>2.根节点</p>
+            <p>3.Web应用名称</p>
+            <p>4.上下文参数</p>
+            <p>5.过滤器</p>
+            <p>6.监听器</p>
+            <p>7.服务端小程序</p>
+        </section>
+
+
+        <section>
+            <p>1.加载过程</p>
+            <p>（1）启动一个 WEB 项目时，WEB 容器则会去读取它的配置文件 WEB.XML 文件，然后是读取
+                context-param和listener；<br>
+                （2）创建ServletContex，Web项目所有部分都可以使用该上下文ServletContex；<br>
+                （3）容器将 context-param 解析为key-value对,并交给ServletContext；<br>
+                （4）容器根据 listener 中的类创建监听实例,即启动监听；<br>
+                （5）listener监听类中会contextInitialized(ServletContextEvent<br>
+                servletContextEvent)初始化方法,可通过ServletContextEvent.getServletContext().getInitParameter("field")获得value的值；<br>
+            </p>
+        </section>
+
+
+        <section>
+            <p>1.加载过程</p>
+            <p>（6）解析 filters ,并启动拦截器 拦截器开始起作用,当有请求进入时,执行Filter的doFilter方法；<br>
+                （7）最后加载和初始化配置在load on startup的servlets;<br>
+            </p>
+        </section>
+
+
+        <section>
+            <p>2.根节点 web-app </p>
+            <p> web.xml的模式文件是由Sun公司定义的，每个web.xml文件的根元素中，
+                都必须标明这个web.xml使用的是哪个模式文档。其它的元素都放在之中。<br>
+            </p>
+        </section>
+
+
+        <section>
+            <p> 3.display-name Web应用名称</p>
+            <p>   用于标记这个特定的Web应用的名称<br>
+            </p>
+        </section>
+
+
+        <section>
+            <p> 4.context-param 上下文参数</p>
+            <p>声明应用范围内的初始化参数。用于向Servlet+Context提供键值对,即应用程序上下文信息。
+                后续的listener，filter在初始化时会用到这些上下文信息。在servlet里面可以通过getServletContext().getInitParameter("context/param")得到。
+                context-param 元素含有一对参数名和参数值，用作应用的Servlet上下文初始化参数，参数名在整个Web应用中必须是惟一的，
+                在web应用的整个生命周期中上下文初始化参数都存在，任意的Servlet和jsp都可以随时随地访问它。
+                param-name 子元素包含有参数名，而 param-value 子元素包含的是参数值。
+                <br>
+            </p>
+        </section>
+
+
+        <section>
+            <p> 4.context-param 上下文参数</p>
+            <p>配置Spring，必须需要 listener ，而context-param可有可无，
+                如果在web.xml中不写context-param配置信息，默认的路径是/WEB-INF/applicationContext.xml，
+                在WEB-INF目录下创建的xml文件的名称必须是applicationContext.xml。
+                如果是要自定义文件名可以在web.xml里加入contextConfigLocation这个context参数：
+                在param-value里指定相应的xml文件名，如果有多个xml文件，可以写在一起并以“,”号分隔。
+                <br>
+            </p>
+        </section>
+
+
+        <section>
+            <p>5.filter过滤器<br>
+                Filter可认为是Servlet的一种“变种”，它主要用于对用户请求(HttpServletRequest)进行预处理,
+                也可以对服务器响应(HttpServletResponse)进行后处理，是个典型的处理链。它与Servlet的区别在于：
+                它不能直接向用户生成响应。完整的流程是：Filter对用户请求进行预处理，接着将请求交给Servlet进行处理并生成响应，
+                最后Filter再对服务器响应进行后处理。<br>
+            </p>
+        </section>
+
+
+        <section>
+            <p>5.filter过滤器<br>
+            <p>在这里讲解一下他的用处：<br></p>
+            <p>在HttpServletRequest到达Servlet之前，拦截客户的HttpServletRequest。</p>
+            <p>根据需要检查HttpServletRequest，也可以修改HttpServletRequest头和数据。</p>
+            <p>在HttpServletResponse到达客户端之前，拦截HttpServletResponse。</p>
+            <p>根据需要检查HttpServletResponse,也可以修改HttpServletResponse头和数据。<br>
+            </p>
+        </section>
+
+
+        <section>
+            <p>6.listerner监听器<br>
+                监听器Listener就是在application，session，request三个对象创建，销毁，或者
+                往其中添加修改删除属性时自动执行代码的功能组件。Listener是Servlet的监听器，可以监听客户端的请求，服务端的操作等。
+                Listener的配置信息必须在Filter和Servlet的配置之前，Listener的初始化(ServletContextListener初始化)
+                比Servlet和Filetr都优先，而销毁比Servlet和Filter都慢。<br>
+            </p>
+        </section>
+
+
+        <section>
+            <p>7.servlet服务端小程序<br>
+                7.1.Servlet通常称为服务端小程序，是服务端的程序，用于处理及响应客户的请求。
+                Servlet是一个特殊的Java类，创建Servlet类自动继承HttpServlet。客户端通常只有GET和POST两种请求方式，
+                Servlet为了响应这两种请求，必须重写doGet()和doPost()方法。大部分时候，Servlet对于所有的请求响应都是完全一样的，
+                此时只需要重写service()方法即可响应客户端的所有请求。另外HttpServlet有两个方法:<br>
+                init(ServletConfig config):创建Servlet实例时，调用该方法初始化Servlet资源。
+                destory():销毁Servlet实例时，自动调用该方法回收资源。<br>
+            </p>
+        </section>
+
+
+        <section>
+            <p>7.2.Servlet的生命周期<br>
+                创建Servlet实例有两个时机：<br>
+                1.客户端第一次请求某个Servlet时，系统创建该Servlet的实例，大部分Servlet都是这种Servlet；
+                2.web应用启动时立即创建Servlet实例，即(load-on-start1)/(laod-on-start)<br>
+                <br>
+                每个Servlet的运行都遵循如下生命周期：<br>
+                （1）创建Servlet实例。
+                （2）Web容器调用Servlet的init()方法，对Servlet进行初始化。
+                （3）Servlet初始化之后，将一直存在与容器之中，用于响应客户端请求，如果客户端发送GET请求，
+                容器调用Servlet的doGet()方法处理并响应请求；如果客户端发送POST请求，容器调用Servlet的doPost()方法处理并响应请求。
+                （4）Web容器决定销毁Servlet时，先调用Servlet的destory()方法，通常在关闭Web应用时销毁Servlet实例。<br>
+            </p>
+        </section>
+
+
+        <section>
+            <p>7.3.Servlet的配置<br>
+                为了让Servlet能响应用户请求，还必须将Servlet配置在web应用中，配置Servlet需要修改web.xml文件。
+                从Servlet3.0开始，配置Servlet有两种方式：<br>
+                （1）在Servlet类中使用基于注解的方式进行配置：@WebServlet<br>
+                （2）在web.xml文件中进行配置。<br>
+                <br>
+                配置Spring MVC，指定处理请求的Servlet，有两种方式：<br>
+                (1)默认查找MVC配置文件的地址是：/WEB-INF/${servletName}-servlet.xml。<br>
+                (2)可以通过修改配置文件的位置，需要在配置DispatcherServlet时指定MVC配置文件的位置。<br>
+            </p>
+        </section>
+
+
+        <section>
+            <p>7.4.servlet-mapping的配置<br>
+                servlet-mapping含有servlet-name和url-pattern，其中servlet-name，Servlet的名字，唯一性和一致性。
+                url-pattern指定相对于Servlet的URL的路径。该路径相对于web应用程序上下文的根路径。servlet-mapping
+                将URL模式映射到某个Servlet，即该Servlet处理的URL。<br><br>
+                当一个请求发送到servlet容器的时候，容器先会将请求的url减去当前应用上下文的路径作为servlet的映射url，
+                比如我访问的是http://localhost/test/aaa.html，我的应用上下文是test，
+                容器会将http://localhost/test去掉，剩下的/aaa.html部分拿来做servlet的映射匹配。
+                这个映射匹配过程是有顺序的，而且当有一个servlet匹配成功以后，就不会去理会剩下的servlet了（filter不同，后文会提到） 。
+            </p>
+        </section>
+
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+  
+    
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+
+        <section>
+            <p>classpath与classpath*区别？<br>
+                同名资源存在时，classpath只从第一个符合条件的classpath中加载资源，而classpath*会从所有的classpath中加载符合条件的资源。
+                classpath*，需要遍历所有的classpath，效率肯定比不上classpath，因此在项目设计的初期就尽量规划好资源文件所在的路径，
+                避免使用classpath*来加载。<br>
+            </p>
+        </section>
+
+
+        <section>
+            <p>ContextLoaderListener和DispatcherServlet初始化上下文关系和区别<br>
+                ContextLoaderListener初始化的上下文加载的Bean是对于整个应用程序共享的
+                ，一般如：DAO层、Service层Bean；DispatcherServlet初始化的上下文加载的Bean是只对Spring MVC有效的Bean
+                ，如：Controller、HandlerMapping、HandlerAdapte等，该初始化上下文只加载Web相关组件。<br>
+            </p>
+        </section>
+
+        <section>
+            <p>配置的出现顺序问题<br>
+                配置的出现顺序问题是有关的，以 filter 为例，web.xml 中当然可以定义多个filter，与filter相关的一个配置节是filter-mapping，
+                这里一定要注意，对于拥有相同filter-name的filter 和 filter-mapping 配置节而言，filter-mapping
+                必须出现在 filter 之后，否则当解析到filter-mapping时，它所对应的filter-name还未定义。
+                web容器启动时初始化每个filter时，是按照filter配置节出现的顺序来初始化的，当请求资源匹配多个
+                filter-mapping时，filter拦截资源是按照filter-mapping配置节出现的顺序来依次调用doFilter()方法的。
+                servlet同filter类似，此处不再赘述。比如filter需要用到bean ，但加载顺序是：先加载filter 后加载spring，
+                则filter中初始化操作中的bean为null；所以，如果过滤器中要使用到 bean，可以将spring 的加载 改成 Listener的方式。
+                <br>
+            </p>
+        </section>
+				
+ 
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+ 
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+           <p>百度、维基、CSDN</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正。</p>
+            <p>
+               BY : 深圳分院 黄伟彬
+            </p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+

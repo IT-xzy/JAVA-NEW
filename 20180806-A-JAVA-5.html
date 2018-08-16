@@ -1,0 +1,220 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>JWT简单介绍</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：宋武</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+            <p> HTTP 是一种没有状态的协议，一旦数据交换完毕，客户端与服务器端的连接就会关闭，再次交换数据需要建立新的连接。也就导致服务器无法分辨是谁浏览了网页。为了维持用户在网站的状态，比如登陆、购物车等。为了保证数据安全可靠地在用户与服务端之间传输，实现服务端的认证就显得极为必要。 常见的服务端认证方法有基于 Cookie-Session的认证；以及 Token （令牌）认证，如 JWT。
+
+</p>
+ </section>
+<section>
+            <p>
+              JWT是一种用于双方之间传递安全信息的简洁的、URL安全的表述性声明规范。JWT作为一个开放的标准（RFC 7519），定义了一种简洁的，自包含的方法用于通信双方之间以Json对象的形式安全的传递信息。因为数字签名的存在，这些信息是可信的，JWT可以使用HMAC算法或者是RSA的公私秘钥对进行签名。  
+            </p>
+            </section>
+        
+
+         <section>
+            <h3>2.知识剖析</h3>
+
+             <p>
+JWT的结构
+JWT包含了使用.分隔的三部分： Header 头部 Payload 负载 Signature 签名
+其结构看起来是这样的Header.Payload.Signature
+JWT 的 header 中承载了两部分信息
+
+{
+  "alg": "RS256",
+  "typ": "JWT"
+}
+alg: 声明加密的算法
+typ: 声明类型
+对这个头部信息进行 base64，即可得到 header 部分
+</p>
+            
+        </section>
+
+
+       <section>
+           <p>
+           payload 是主体部分，意为载体，承载着有效的 JWT 数据包，它包含三个部分
+
+标准声明
+公共声明
+私有声明
+标准声明的字段
+
+interface Stantar {
+  iss?: string; // JWT的签发者
+  sub?: string; // JWT所面向的用户
+  aud?: string; // 接收JWT的一方
+  exp?: number; // JWT的过期时间
+  nbf?: number; // 在xxx日期之间，该JWT都是可用的
+  iat?: number; // 该JWT签发的时间
+  jti?: number; //JWT的唯一身份标识
+}
+           </p>
+       </section> 
+       <section>
+           <p>
+        公共声明的字段
+
+interface Public {
+  [key: string]: any;
+}
+公共声明字段可以添加任意信息，但是因为可以被解密出来，所以不要存放敏感信息。
+
+私有声明的字段
+
+interface Private {
+  [key: string]: any;
+}
+私有声明是 JWT 提供者添加的字段，一样可以被解密，所以也不能存放敏感信息。
+           </p>
+       </section>
+      <section>
+    <p>
+      JWT 流程
+浏览器发起请求登陆
+服务端验证身份，根据算法，将用户标识符打包生成 token, 并且返回给浏览器
+浏览器发起请求获取用户资料，把刚刚拿到的 token 一起发送给服务器
+服务器发现数据中有 token，验明正身
+服务器返回该用户的用户资料<p/>
+     </section>
+        <section>
+            <h3>3.编码实战</h3>
+
+        </section>
+
+          <section>
+            <h3>4.常见问题</h3>
+<p>
+   1 它是如何做身份验证的？
+首先，JWT 的 Token 相当是明文，是可以解密的，任何存在 payload 的东西，都没有秘密可言，所以隐私数据不能签发 token。
+
+而服务端，拿到 token 后解密，即可知道用户信息，如userId，那么你就知道这个用户是谁，是否有权限进行下一步的操作。<p/>
+        </section>
+ <section>
+    <p>
+        2.如何防止 Token 被串改？
+此时 signature字段就是关键了，能被解密出明文的，只有header和payload
+
+假如黑客/中间人串改了payload，那么服务器可以通过signature去验证是否被篡改过。
+
+在服务端在执行一次 signature = 加密算法(header + "." + payload, 密钥);, 然后对比 signature 是否一致，如果一致则说明没有被篡改。<p/>
+     </section>
+     <section>
+    <p>
+       3 安全性相关
+
+
+缩短 token 有效时间
+使用安全系数高的加密算法
+token 不要放在 Cookie 中，有 CSRF 风险，跨站请求伪造
+使用 HTTPS 加密协议
+对标准字段 iss、sub、aud、nbf、exp 进行校验
+特殊场景下可以把用户的 UA、IP 放进 payload 进行校验(不推荐)。<p/>
+     </section>
+        <section>
+            <h3>5.参考文献</h3>
+            <p>https://blog.csdn.net/qq_40081976/article/details/79046825</p>
+            <p>https://blog.csdn.net/luckey_zh/article/details/61197587</p>
+            
+           
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 宋武</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

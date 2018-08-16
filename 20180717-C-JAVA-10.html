@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt=""
+     usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt=""
+          target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>复盘项目部署</h2>
+            <h4>java分享会</h4>
+            <p>分享人：刘欢</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p>复盘项目如何部署? </p>
+            <p style="text-align:left">
+                相信很多师兄做复盘的时候也会遇到这个问题, 学员服务器上目录较多, Wiki文档跟服务器端又有一些区别, 我刚开始做部署都是晕的. 如何快速上手项目部署? 我觉得是看师兄的部署脚本, 我是看的聚金融-天行健小组的部署脚本, 不知道是组内哪位大佬写的, 非常感谢带我入门. 他执行流程非常清晰, 基本上包含了所有目录和部署命令, 推荐大家复盘部署的时候看看, 还有就是请教师兄, 这里感谢 西安-韩忠伟 大佬的指点 </p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p>
+                项目目录说明</p>
+            <p style="text-align:left">复盘服务器上一个项目的目录分为三大块: </p>
+            <p style="text-align:left">
+                源码目录：通过SVN为中转站同步将我们的代码同步到服务器端</p>
+            <p style="text-align:left">
+                运行目录：项目运行的主要目录, 分为前端和后端 </p>
+            <p style="text-align:left">脚本目录:  一般用来存放自动部署脚本</p>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">如何使用 SVN 同步代码?  </p>
+            <p style="text-align:left">学员服务器都是使用Nginx做反向代理来拦截请求, 如何配置? </p>
+            <p style="text-align:left">如何编译后端项目, 编译完成后是部署jar包还是war包? </p>
+            <p style="text-align:left">如何编写部署脚本? </p>
+        </section>
+
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">svn主要通过 commit 和 update 来完成提交本地数据和拉去svn上的数据</p>
+            <p style="text-align:left">服务器上将配置分为三块, 一个是根据请求分发的servers.conf, 一个是负载均衡的upstreams.conf, 还有一个是配置动静分离的cat location_*.conf</p>
+
+        </section>
+        <section>
+            <p style="text-align:left">编译是在服务端进行的, 使用maven clean install命令然后去模块下maven clean package 即可, 我们一般会加一个  -Dmaven.test.skip=true 来跳过测试部分. 部署jar包还是war包是要看你项目使用的框架, 我这里使用的spingboot可以很方便的运行jar包, 所以使用jar方式, 看wiki介绍war包部署服务器上使用的是resin, 这块了解的不多, 可以找师兄的部署脚本看看</p>
+            <p style="text-align:left">部署脚本基本上就是把你手动执行的操作写到一个文件中运行, 可以一步一步写进脚本, 也可以编写函数运行.</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+            <p style="text-align:left">如何让部署变得简单? 规范, 人人遵守规范的话人人都方便.</p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>1、聚金融天行健大佬的部署脚本 </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p>
+                <small>刘欢</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js',
+                async: true
+            },
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
