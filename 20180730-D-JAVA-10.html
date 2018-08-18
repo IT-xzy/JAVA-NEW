@@ -1,0 +1,206 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>面向对象三大特性之封装性及lombok介绍</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：王琦超</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+         <section>
+            <p style="text-align:left">面向对象的三个特性——封装、继承、多态</p>
+　　        <p style="text-align:left">封装——封装是面向对象编程的核心思想，将对象的属性和行为封装起来，其载体就是类，类通常对客户隐藏其实现细节，客户只需要知道怎么操作，不需要知道操作的原理和细节。</p>
+            <p style="text-align:left">采用封装的思想保证了类内部数据结构的完整性，应用该类的用户不能轻易地直接操作此数据结构，只能执行类允许公开的数据。这样就避免了外部操作对内部数据的影响，提高了程序的可维护性。</p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">封装的一般实现——给成员变量加上private,保证其是私有的，然后通过公有的get/set来操作数据，</p>
+            <p style="text-align:left"><img src="https://jnshuphoto.oss-cn-hangzhou.aliyuncs.com/headphoto/851.png"></p>
+            <p style="text-align:left">任何有值可以被运用到的地方，都可以用调用方法的方式来取得改类型的值。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <p style="text-align:left">封装的作用——给你的实例变量加上绝对领域，这样就没有人可以瞎鸡儿操作你的变量了。</p>
+            <p style="text-align:left">首先保证了数据的私密性，数据不能被无代价的查看或者修改，同时也不能超出其本身应该有的范围。其强迫其他程序对数据的操作一定要经过get/set。</p>
+            <p style="text-align:left">这样的话，我就可以在get/set中对数据进行一定的操作。比如去小数，判断范围，对不合理的值抛出异常，甚至直接启动自爆程序！</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <p style="text-align:left">有人会说了，我们平时的get/set其实根本就没有做事啊，就是简单的一键生成，那么我为啥不把它去掉呢？留着它岂不是白白增加负担吗？</p>
+            <p style="text-align:left">其实这样做的好处就是增加了程序的可维护性，也许暂时我们现在不需要对其进行判断，但当我们后面需要修改时，你不可能将所有使用过的地方都再改为get/set吧？</p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">那get/set重复写很麻烦，咋办呢？</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+       
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		 <section>
+            <p style="text-align:left">1.使用编译器自带的快捷键Alt+Ins，选择相对应的方法即可</p>
+            <p style="text-align:left">但是这样做的缺点就是如果我修改了其中的成员变量，我需要对之前的进行删除，再增加，而且代码冗余还是没有减少</p>
+            <p style="text-align:left">2.使用Lombok插件</p>
+            <p style="text-align:left">lombok——其在程序编译时自动扫描注解加载需要的诸如get/set,toString等方法，可以消除冗长的代码，实现优雅编码，特别是对于pojo这种简单的java对象。</p>
+            <p style="text-align:left">使用方法：添加依赖——安装插件——添加注解——使用</p>
+			 <p style="text-align:left">注意：如果安装不成功，需要去git上根据idea版本手动下载对应的插件，再安装即可</p>
+        </section>
+		 <section>
+            <p style="text-align:left">lombok常用注解介绍</p>
+            <p style="text-align:left">@Getter,@Setter,可以写在单独的实体变量上，会生成对应的无参构造和getter/setter方法。</p>
+            <p style="text-align:left">@Data,该注解使用在类上，该注解会提供getter、setter、equals、canEqual、hashCode、toString方法。虽然@Data注解非常有用，但是它没有与其他注解相同的控制粒度。</p>
+            <p style="text-align:left">@NonNull,该注解使用在属性上，该注解用于属的非空检查，当放在setter方法的字段上，将生成一个空检查，如果为空，则抛出NullPointerException。该注解会默认是生成一个无参构造。</p>
+            
+        </section>
+
+       <section>
+            <p style="text-align:left">@toString,该注解使用在类上，该注解默认生成任何非讲台字段以名称-值的形式输出。</p>
+            <p style="text-align:left">1、如果需要可以通过注释参数includeFieldNames来控制输出中是否包含的属性名称。</p>
+            <p style="text-align:left">2、可以通过exclude参数中包含字段名称，可以从生成的方法中排除特定字段。</p>
+            <p style="text-align:left">3、可以通过callSuper参数控制父类的输出。</p>
+            <p style="text-align:left">@EqualsAndHashCode,该注解使用在类上，该注解在类级别注释会同时生成equals和hashCode。</p>
+        </section>
+		
+       <section>
+            <p style="text-align:left">@AllArgsConstructor,该注解使用在类上，该注解提供一个全参数的构造方法，默认不提供无参构造。</p>
+            <p style="text-align:left">@NoArgsConstructor,该注解使用在类上，该注解提供一个无参构造</p>
+            <p style="text-align:left">@RequiredArgsConstructor,该注解使用在类上，使用类中所有带有 @NonNull 注解的或者带有 final 修饰的成员变量生成对应的构造方法。</p>
+            <p style="text-align:left">@Value这个注解用在 类 上，会生成含所有参数的构造方法，get 方法，此外还提供了equals、hashCode、toString 方法。</p>
+            <p style="text-align:left">注意：没有setter,相当于@Data-@Setter</p>
+			<p style="text-align:left">我们需要根据自己的需要灵活使用</p>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+   
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>https://blog.csdn.net/motui/article/details/79012846</p>
+            <p></p>
+            <p></p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 王琦超</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

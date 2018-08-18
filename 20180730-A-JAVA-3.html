@@ -3,36 +3,38 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
     <title>葡萄藤PPT</title>
-    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
     <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
-    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
     <!-- syntax highlighting 代码高亮主题 -->
-    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
     <!-- 打印和PDF输出样式 -->
     <script>
-        var link = document.createElement('link');
+        var link = document.createElement( 'link' );
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
-        document.getElementsByTagName('head')[0].appendChild(link);
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
     </script>
 </head>
 <body>
-<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
 <map name="pttmap">
     <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
 </map>
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>Sping AOP
-            <p></p>
-            <p></p>
-            <h3>java 小课堂</h3>
-            <p></p>
-            <p></p>
-            <p>分享人：黄伟彬</p>
+            <h3>Spring Aop</h3>
+			<p></p>
+            <h4></h4>
+            <p>分享人：庄为朋</p>
         </section>
         <section>
             <p>1.背景介绍</p>
@@ -44,196 +46,190 @@
             <p>7.参考文献</p>
             <p>8.更多讨论</p>
         </section>
-        <section>
+
+          <section> 
             <h3>1.背景介绍</h3>
-        </section>
-        <section>
-        	<h4>什么是aop：</h4>
-        	<p>通过前面的学习，我们知道 Spring 的两大核心是 IOC 和 AOP。
-			这里我们说得 AOP (全称是Aspect Oriented Programming)，翻译成中文是面向切面编程。
-			它的主要思想是在程序正常执行的某一个点切进去加入特定的逻辑。Spring AOP 在程序中，
-			可以对业务逻辑的各个部分进行隔离，提高隔离的可重用性，从而降低耦合度。<br>
-        	</p>
+            <h5>1、什么是AOP</h5>
+            <p style="text-align:left">在OOP（面向对象编程）中，正是这种分散在各处且与对象核心功能无关的代码（横切代码）的存在，使得模块复用难度增加。</p>
+            <p style="text-align:left">AOP则将封装好的对象剖开，找出其中对多个对象产生影响的公共行为，并将其封装为一个可重用的模块，这个模块被命名为“切面”（Aspect）</p>
+            <p style="text-align:left">切面将那些与业务无关，却被业务模块共同调用的逻辑提取并封装起来，减少了系统中的重复代码，降低了模块间的耦合度，同时提高了系统的可维护性、提高了开发的效率和程序的可复用性。</p>
         </section>
 
+        <section> 
+            <h3>1.背景介绍</h3>
+            <h5>2、AOP与OOP</h5>
+            <p style="text-align:left">AOP可以说是OOP（面向对象编程）的补充和完善。OOP引入封装、继承、多态等概念来建立一种对象层次结构，用于模拟公共行为的一个集合。 </p>
+            <p style="text-align:left">不过OOP允许开发者定义纵向的关系，但并不适合定义横向的关系 </p>
+            <p style="text-align:left">例如日志功能。日志代码往往横向地散布在所有对象层次中，而与它对应的对象的核心功能毫无关系。对于其他类型的代码，如安全性、异常处理和透明的持续性也都是如此，这种散布在各处的无关的代码被称为横切（cross cutting）。</p>
+            <p style="text-align:left">在OOP设计中，它导致了大量代码的重复，而不利于各个模块的重用。 </p>
+        </section>
+
+        <section> 
+            <h3>1.背景介绍</h3>
+            <h5>AOP的思想</h5>
+            <p style="text-align:left">AOP的核心思想是帮助我们在扩展功能（方法）时可以不依靠修改源代码来实现。</p>
+            <p style="text-align:left">其采取横向抽取机制，规避了传统面向对象中纵向继承体系的重复性高耦合代码。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"> </p>
+        </section>
+            
 
         <section>
             <h3>2.知识剖析</h3>
+            <p style="text-align:left"> 1、为什么要使用aop</p> 
+            <p style="text-align:left"> 1)为了方便，用了aop能让你少写很多代码</p> 
+            <p style="text-align:left"> 2)为了更清晰的逻辑，可以让你的业务逻辑去关注自己本身的业务，而不去想一些其他的事情，这些其他的事情包括：安全，事物，日志等。</p> 
+            <p style="text-align:left"> 3)为了降低之前传统面向对象中采用纵向继承体系增强方法导致的耦合度过高的问题:</p> 
+            <p style="text-align:left"> 4)提高了代码的复用性</p> 
         </section>
-
-
-	   <section>
-            <p>1.Spring中的AOP</p>
-            <p>2.AOP的核心概念</p>
-        </section>
-
 
         <section>
-            <p>1.Spring 中的AOP</p>
-            <p>个人对AOP思想的理解：<br>
-			AOP 的核心思想是在动态地将代码切入到类的指定方法、
-			指定位置上的编程思想。横向的抽取机制，规避了传统面向对象中纵向继承体系的重复性高耦合代码。<br>
-			<br>
-            其中，我们把分布于应用中多处的功能称为横切关注点，通常这些横切关注点在概念上是与应用的业务逻辑相分离的，
-		    但其代码往往直接嵌入在应用的业务逻辑之中。将这些横切关注点与业务逻辑相分离正是面向切面编程（AOP）
-			所要解决的。 <br>
-               
-            </p>
-        </section>
-		
-		<section>
-            <p>1.Spring 中的AOP</p>
-            <p>AOP具体可以在下面的场景中使用:<br>
-			权限、缓存、内容传递、错误处理、懒加载、调试、日志管理、性能优化、持久化、资源池、同步、事务<br> 
-            </p>
-        </section>
-		
-        <section>
-            <p>2.AOP的核心概念</p>
-            <p> 1、横切关注点<br>
-               对哪些方法进行拦截，拦截后怎么处理，这些关注点称之为横切关注点<br>
-			   <br>
-			   2、切面（aspect）<br>
-			   切面是通知和切入点的结合。通知说明了扩展的功能是什么和什么时候扩展，而切入点说明了在哪里进扩展
-			   （指定到底是哪个方法），这就是一个完整的切面定义。可以看出切面就是表述的一个过程，
-			   就是将增强应用到具体方法上的过程。<br>
-            </p>
-        </section>
-		
-		<section>
-            <p>2.AOP的核心概念</p>
-            <p>
-			   3、连接点（joinpoint）<br>
-			   能够应用通知的点 ，是在应用执行过程中能够插入切面的一个点。在spring中，这些点指的是方法，
-			   spring只支持方法级别的连接点，一个类里有多少方法就有多少Jointpoint。<br>
-            </p>
-				4、切入点（pointcut）<br>
-				指的是我们要对哪个连接点进行拦截的定义。<br>
+            <h3>知识剖析</h3>
+            <h4>2、浅析AOP思想的发展及原理</h4>
+            <p style="text-align:left">发展：修改源代码————采用OOP纵向继承体系————采用AOP横向织入 </p> 
+            <p style="text-align:left"></p> 
+            <p style="text-align:left">实现原理：通过动态代理创建代理对象来实现,默认使用Java动态代理来创建AOP代理,当需要代理的类不是代理接口的时候，Spring会切换为使用CGLIB代理 </p> 
         </section>
 
-		<section>
-            <p>2.AOP的核心概念</p>
-            <p>
-			   5、通知（advice）<br>
-			  也称为增强。指的是拦截到Joinpoint后你想要扩展的功能，也就是上面说的 安全，事物，日志等。有五种类型的通知：<br>
-			  有五种类型的通知：<br>
-			  Before（前置）：在方法被调用之前调用通知；<br>
-			  After（后置）：在方法调用之后调用通知；（不管该方法是否执行成功）<br>
-			  After-returning（返回结果通知）：在方法返回结果后；<br>
-			  After-throwing（异常通知）：在方法抛出异常后；<br>
-			  Around（环绕）：在方法调用之前和之后都会调用通知；<br>
-			  指的是我们要对哪个连接点进行拦截的定义。<br>
+        <section>
+        <h3>知识剖析</h3>
+            <h4>3、aop专业术语</h4>
+            <p style="text-align:left">1.通知（Advice）：通知定义了切面是什么以及何时使用；里面就是增强方法的逻辑，分为前置增强，后置增强，环绕增强，最终增强，异常增强。 </p> 
+            <p style="text-align:left"> 2.连接点（JoinPoint）：连接点是在应用执行过程中能够插入切面的一个点。这个点可以是调用方法时，抛出异常时，甚至修改一个字段时。切面代码可以利用这些点插入到应用的正常流程中，并添加新的行为。</p> 
+            <p style="text-align:left">3.切入点（Pointcut）*：切点有助于缩小切面所通知的连接点的范围。
+			（何处） </p> 
         </section>
+        <section>
+
+        <h3>知识剖析</h3>
+            <h4>3、aop专业术语</h4>
+            <p style="text-align:left"> 4.切面（Aspect）*：切面是通知和切点的结合。通知和切点定义了切面的全部内容——它是什么，在何时何处完成其功能。</p> 
+            <p style="text-align:left"> 5.目标（target）：被增强的方法所在的那个类，也就是真正的业务逻辑，他可以在毫不知情的情况下，被织入切面。而自己专注于业务本身的逻辑。</p> 
+            <p style="text-align:left"> 6.代理(proxy)：目标类被增强后产生的代理类</p> 
+        </section>
+        <section>
+        <h3>知识剖析</h3>
+            <h4>3、aop专业术语</h4>
+            <p style="text-align:left"> 7.织入(weaving)：把增强应用到目标类的过程</p> 
+            <p style="text-align:left"> 8:引入（Introduction）　引入允许我们向现有的类添加新方法或属性，从而无需修改这些现有类的情况下，让他们具有新的行为和状态</p> 
+        </section>
+    <section>
+        <h3>知识剖析</h3>
+            <h4>4、通知类型介绍</h4>
+			<p style="text-align:left"> (1)Before:在目标方法被调用之前做增强处理,@Before只需要指定切入点表达式即可
+            <p style="text-align:left"> (2)AfterReturning:在目标方法正常完成后做增强,@AfterReturning除了指定切入点表达式后，还可以指定一个返回值形参名returning,代表目标方法的返回值</p> 
+            <p style="text-align:left"> (3)AfterThrowing:主要用来处理程序中未处理的异常,@AfterThrowing除了指定切入点表达式后，还可以指定一个throwing的返回值形参名,可以通过该形参名</p> 
+             来访问目标方法中所抛出的异常对象</p> 
+             </section>
+  <section>
+        <h3>知识剖析</h3>
+            <h4>4、通知类型介绍</h4>
 		
-		<section>
-            <p>2.AOP的核心概念</p>
-			   6、目标（target）<br>
-			  代理的目标对象（要增强的类）<br>
-			  <br>
-			  7、织入（weave）<br>
-			  是把增强应用到目标的过程。<br>
-			  <br>
-			  8、引入（introduction）<br>
-			 引入允许我们向现有的类添加新方法或属性，从而可以在无需修改现有类的情况下，让它们具有新的行为和状态。<br>
+            <p style="text-align:left"> (4)After:在目标方法完成之后做增强，无论目标方法时候成功完成。@After可以指定一个切入点表达式</p> 
+            <p style="text-align:left"> (5)Around:环绕通知,在目标方法完成前后做增强处理,环绕通知是最重要的通知类型,像事务,日志等都是环绕通知,注意编程中核心是一个ProceedingJoinPoint</p> 
         </section>
 
 
         <section>
             <h3>3.常见问题</h3>
-			3.1.AOP 切割的两种方式<br>
-			3.2.AOP 切入点的定位是如何完成的？<br>
-			3.3Spring AOP无法拦截Controller中的方法?
+            <p style="text-align:left">1、实现AOP的方式有哪些？</p>
+            <p style="text-align:left">2、实现增强的方法有那些？</p>
+            <p style="text-align:left">3、在确定好需要增强的方法之后，切入点的定位是如何完成的 </p> 
+            <p style="text-align:left">4、使用@Aspect对SSM进行切入，统计运行时间。 </p> 
         </section>
-  
-    
+        
+         <section>
+            <h3>4.解决方案</h3>
+            <h4>1):实现AOP的方式有哪些？</h4>
+            <h4>在sring里面进行aop操作，使用aspectJ（AspectJ是一种扩展Java）来实现。aspectJ本身是一个单独的面向切面的框架，里面定义了AOP语法，不是spring的一部分，和spring协同完成springAOP的操作，使用aspectJ来实现springAOP的操作有两种方式</h4>
+            <h4>1:继承的类的方式（不推荐）</h4>
+            <h4>2:基于aspectJ的xml文件</h4>
+            <h4>3.基于aspectJ注解</h4>
+         </section>
+		
         <section>
             <h3>4.解决方案</h3>
-			4.1.AOP 切割的两种方式：<br>
-			基于 xml 和基于注解的配置方式<br>
+            <h4>2):实现增强的方法有那些？</h4>
+            <p style="text-align:left">织入</p>
+            <p style="text-align:left">引入</p>
+            <p style="text-align:left">代码实战的时候我们统一讲讲。</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+            <h4>3):在确定好需要增强的方法之后，切入点的定位是如何完成的 </h4>
+            <p style="text-align:left">可以用execution表达式来解决（常用）</p>
+            <p style="text-align:left">也可以用xml配置，使用RegexpMethodPointcutAdvisor,来定义切点。</p>
+            <p style="text-align:left">1.execution（* com.aop.add(..))</p>
+            <p style="text-align:left">2.匹配所有save开头的方法：execution(* save*(..))</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+            <h4>4):使用@Aspect对SSM进行切入，统计运行时间。</h4>
+            <p style="text-align:left">在编码实战的时候讲讲。</p>
         </section>
 		
-		<section>
-            <h3>4.解决方案</h3>
-			4.2.AOP 切入点的定位是如何完成的？<br>
-			使用表达式来配置切入点，表达式有很多种，但是绝大多数问题都可以用execution表达式来解决。<br>
-			1.execution（* com.ptteng.controller.controller.listCategory(..))<br>
-			2.execution（* ccom.ptteng.controller.controller.*(..))<br>
-			3.execution（* *.*(..))<br>
-			4.匹配所有save开头的方法：execution(* save*(..))<br>
-        </section>
-
-		<section>
-            <h3>4.解决方案</h3>
-			4.3.Spring AOP无法拦截Controller中的方法<br>
-			因为Spring的Bean扫描和Spring-MVC的Bean扫描是分开的, 两者的Bean位于两个不同的Application,
-			而且Spring-MVC的Bean扫描要早于Spring的Bean扫描, 所以当Controller Bean生成完成后, 
-			再执行Spring的Bean扫描,Spring会发现要被AOP代理的Controller Bean已经在容器中存在, 配置AOP就无效了<br>
-        </section>
-
-		<section>
-            <h3>4.解决方案</h3>
-			同样这样的情况也存在于数据库事务中, 如果Service的Bean扫描配置在spring-mvc.xml中,
-			而数据库事务管理器配置在application.xml中, 会导致数据库事务失效, 原理一样.所以这里,
-			我们需要把AOP放置在Controller扫描配置的文件中.<br>
-			Spring的配置文件application.xml包含了 开启AOP自动代理,Service扫描配置, 现在只包含了service的自动扫描配置.
-        </section>		
-      
+       
         <section>
             <h3>5.编码实战</h3>
         </section>
 
-        <section>
+		 <section>
             <h3>6.扩展思考</h3>
-			基于注解与基于配置文件的优缺点：<br>
-			1、注解可以充分利用Java的反射机制获取类结构信息，这些信息可以有效减少配置的工作，注释和Java代码位于一个文件中，
-			而XML 配置采用独立的配置文件，大多数配置信息在程序开发完成后都不会调整，如果配置信息和 Java 代码放在一起，
-			有助于增强程序的内聚性。而采用独立的 XML 配置文件，程序员在编写一个功能时，往往需要在程序文件和配置文件中不停切换，
-			种思维上的不连贯会降低开发效率.<br>
-			<br>
-			2、个人认为如果开发的程序比较复杂的话还是多用xml配置，这样以后方便维护，反之则使用注解.<br>
+            <p style="text-align:left">基于注解与基于配置文件的优缺点.</p>
+            <p style="text-align:left">优点：</p>
+            <p style="text-align:left">注解能减少配置的工作，而且配置信息和JAVA代码放在一起，有助于增强程序的内聚性。相对于XML配置文件进行配置文件和程序文件的切换，用注解方式，能提高开发的连贯性，和提成开发效率。</p>
+            <p style="text-align:left">缺点：</p>
+            <p style="text-align:left">程序复杂的话，还是使用xml配置文件的方式，这样可读性和可维护性比较强。</p>
         </section>
- 
+
         <section>
             <h3>7.参考文献</h3>
-			 https://blog.csdn.net/loongshawn/article/details/72303040<br>
-			 https://my.oschina.net/GinkGo/blog/1577574<br>
-			 https://blog.csdn.net/yujin753/article/details/46688105<br>
-
+			<p style="text-align:center">https://www.cnblogs.com/liuruowang/p/5711563.html</p>
+			<p style="text-align:center">https://www.cnblogs.com/hongwz/p/5764917.html</p>
+			<p style="text-align:center">https://blog.csdn.net/zghwaicsdn/article/details/50957474</p>
         </section>
-        <section>
-           <p>百度、维基、CSDN</p>
-        </section>
+		
         <section>
             <h3>8.更多讨论</h3>
-        </section>
-
-        <section>
-            <h4>鸣谢</h4>
-            <p>感谢观看,如有出错,恳请指正。</p>
-            <p>
-               BY : 深圳分院 黄伟彬
-            </p>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
         </section>
     </div>
 </div>
-<script src="./lib/reveal/js/head.min.js"></script>
-<script src="./lib/reveal/reveal.js"></script>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
 <script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
     // 初始化幻灯片
     Reveal.initialize({
         history: true,
         dependencies: [
-            {src: './plugin/markdown/marked.js'},
-            {src: './plugin/markdown/markdown.js'},
-            {src: './plugin/notes/notes.js', async: true},
-            {
-                src: './plugin/highlight/highlight.js', async: true, callback: function () {
-                hljs.initHighlightingOnLoad();
-            }
-            }
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
         ]
     });
 </script>
 </body>
 </html>
-

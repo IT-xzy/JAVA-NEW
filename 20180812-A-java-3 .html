@@ -1,0 +1,260 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>nginx服务器有什么作用？什么叫反向代理？为什么要使用反向代理？
+            <p></p>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p></p>
+            <p></p>
+            <p>分享人：黄伟彬</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        	<h4>Nginx是什么?</h4>
+        	<p>在传统的Web服务器体系结构中，每个客户端连接作为一个单独的进程或线程处理，随着网站的流行度增加，
+			并发连接数量的增加，Web服务器减慢，延迟了对用户的响应。从技术的角度来看，产生一个单独的进程/线程
+			需要将CPU切换到新的任务并创建一个新的运行时上下文，消耗额外的内存和CPU时间，从而对性能产生负面影响。<br>
+        	</p>
+        </section>
+		
+		 <section>
+        	<h4>Nginx是什么?</h4>
+        	<p>Nginx (engine x) 是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。其特 点是占有内存少，
+			并发能力强，事实上nginx的并发能力确实在同类型的网页服务器中表现较好，中国大陆使用nginx网站用户有：
+			百度、京东、新浪、网易、腾讯、淘宝等。<br>
+        	</p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+	    <br>
+        </section>
+
+
+	   <section>
+            <p>2.1.nginx服务器有什么作用？</p>
+            <p>2.2.什么叫反向代理？</p>
+            <p>2.3.为什么要使用反向代理?</p>
+            <p>2.4 什么是负载均衡？负载均衡的作用是什么？</p>
+            <p>2.5 什么是动静分离？动静分离的作用？</p>
+        </section>
+
+
+        <section>
+            <p>2.1 nginx服务器有什么作用？</p>       
+            <p>1、反向代理</p>       
+            <p>2、负载均衡</p>       
+            <p>3、动静分离</p>       
+        </section>
+		
+		<section>
+            <p>2.2 什么叫反向代理？</p>
+            <p>反向代理：反向代理（ReverseProxy）是指以代理服务器来接受internet上的连接请求，
+			然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端,
+			简单来说就是真实的服务器不能直接被外部网络访问,想要访问必须通过代理。<br> 
+            </p>
+        </section>
+		
+        <section>
+            <p>2.3 为什么要使用反向代理</p>
+            <p> 1、防止主服务器被恶意攻击<br>
+				2、为负载均衡和动静分离提供实现支持<br>      
+            </p>
+        </section>
+		
+		<section>
+            <p>2.4 什么是负载均衡？负载均衡的作用是什么？</p>
+            <p>
+			  负载均衡：<br>
+			   使用反向代理同时代理多个相同内容的应用服务器（比如tomcat），
+			   将客户端请求分发到各个应用服务器上并接收响应返回给客户端。对于Nginx而言，
+			   就是将收到的访问请求分发给不同的Web服务器， 以提高访问性能以及可靠性。
+			   负载均衡可以有效防止一个服务器宕机而导致服务停止。<br>
+            </p>
+        </section>
+
+		<section>
+            <p>2.4 什么是负载均衡？负载均衡的作用是什么？</p>
+            <p>
+			   负载均衡的作用是什么？<br>
+			  当一台服务器的单位时间内的访问量越大时，服务器压力就越大，大到超过自身承受能力时，服务器就会崩溃。为了避免服务器崩溃，
+			  让用户有更好的体验，我们通过负载均衡的方式来分担服务器压力。我们可以建立很多很多服务器，组成一个服务器集群，
+			  当用户访问网站时，先访问一个中间服务器，在让这个中间服务器在服务器集群中选择一个压力较小的服务器，
+			  然后将该访问请求引入该服务器。如此一来，用户的每次访问，都会保证服务器集群中的每个服务器压力趋于平衡，
+			  分担了服务器压力，避免了服务器崩溃的情况。<br>
+            </p>
+        </section>
+		
+		<section>
+            <p>2.5 什么是动静分离？动静分离的作用？</p>
+            <p>
+			  动静分离：运用Nginx的反向代理功能分发请求：所有动态资源的请求交给应用服务器，而静态资源的请求（例如图片、
+			  视频、CSS、JavaScript文件等）则直接由Nginx返回到浏览器。<br>
+        </section>
+		
+			<section>
+            <p>2.5 什么是动静分离？动静分离的作用？</p>
+            <p>
+			动静分离的作用：
+			主要是nginx处理静态页面的效率远高于tomcat的处理能力，使用c语言开发的nginx对静态资源每秒的吞吐量是使用Java
+			语言开发的tomcat的6倍，也远高于其它应用服务器。nginx应用之所以广泛，我认为这归功于它的灵活配置，
+			一个nginx.conf文件解决大部分问题，不论是nginx创建虚拟服务器、nginx的反向代理服务器，还是nginx的负载均衡，
+			几乎都在这个配置文件中进行。服务器上只负责把nginx搭好，跑起来即可。而且它本身轻量级，不需要占用服务器太多资源就可以达到较好的效果，是一个非常值得推崇的服务器。
+        </section>
+		
+        <section>
+            <h3>3.常见问题</h3>
+			3.1.如何配置反向代理<br>
+			3.2.如何配置负载均衡<br>
+        </section>
+  
+    
+        <section>
+            <h3>4.解决方案</h3>
+			4.1.如何配置反向代理：<br>
+			a.主要是对proxy_pass的使用<br>
+        </section>
+		
+		<section>
+            <h3>4.解决方案</h3>
+			4.2.如何配置负载均衡<br>
+			a.两台或以上的应用服务器<br>
+			b.主要是upstream和反向代理的联合使用<br>
+        </section>
+		
+			<section>
+            <h3>4.解决方案</h3>
+			4.2.如何配置负载均衡<br>
+			nginx的upstream常用分发策略<br>
+			1)、轮询（默认）——每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除。<br>
+			2)、weight ——指定轮询几率，weight和访问比率成正比，用于后端服务器性能不均的情况。<br>
+			3)、ip_hash ——每个请求按访问ip的hash结果分配，这样每个访客固定访问一个后端服务器。<br>
+			4)、backup——其它所有的非backup机器down或者忙的时候，请求backup机器。所以这台机器压力会最轻。<br>
+			5)、down——表示当前的server暂时不参与负载
+        </section>
+      
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+			什么是正向代理：<br>
+			是一个位于客户端和原始服务器(origin server)之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并
+			指定目标(原始服务器)，然后代理向原始服务器转交请求并将获得的内容返回给客户端。客户端才能使用正向代理。
+			正向代理的典型用途是为在防火墙内的局域网客户端提供访问Internet的途径。
+			正向代理还可以使用缓冲特性(由mod_cache提供)减少网络使用率。<br>
+        </section>
+ 
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+           <p>百度、维基、CSDN</p>
+        </section>
+     		
+        </section>
+		   <section>
+            <h3>8.更多讨论</h3>
+        </section>
+		</section>
+		   <section>
+            <h3>8.更多讨论</h3>
+			<p>8.1 什么是服务器集群？<br>
+			<p>服务器集群就是指将很多服务器集中起来一起进行同一种服务，在客户端看来就像是只有一个服务器。
+			集群可以利用多个计算机进行并行计算从而获得很高的计算速度，也可以用多个计算机做备份，
+			从而使得任何一个机器坏了整个系统还是能正常运行。</p>
+        </section>
+		
+		</section>
+		   <section>
+            <h3>8.更多讨论</h3>
+			<p>8.2 什么是分布式？<br>
+			<p>分布式系统（distributed system）是建立在网络之上的软件系统。正是因为软件的特性，
+			所以分布式系统具有高度的内聚性和透明性。因此，网络和分布式系统之间的区别更多的在于高层软件（特别是操作系统）
+			，而不是硬件。内聚性是指每一个数据库分布节点高度自治，有本地的数据库管理系统。
+			透明性是指每一个数据库分布节点对用户的应用来说都是透明的，看不出是本地还是远程。在分布式数据库系统中，
+			用户感觉不到数据是分布的，即用户不须知道关系是否分割、有无副本、数据存于哪个站点以及事务在哪个站点上执行等。</p>
+        </section>
+		
+		</section>
+		   <section>
+            <h3>8.更多讨论</h3>
+			<p>8.3除了Nginx，还有哪些代理服务器？<br>
+			<p>1、Varnish<br>
+			Varnish是一款反向HTTP代理服务器，提供加速设计给大流量的网站应用。<br>
+			2、HAProxy<br>
+			HAProxy是一个免费且开源的软件。它提供3层（TCP）和7层(http）协议支持负载均衡以及反向代理服务器功能。</p>
+        </section>
+
+ 
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正。</p>
+            <p>
+               BY : 深圳分院 黄伟彬
+            </p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+

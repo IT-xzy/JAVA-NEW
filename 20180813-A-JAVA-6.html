@@ -1,0 +1,293 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '/css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt=""
+     usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt=""
+          target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>为什么要使用memcache？memcache有什么作用？</h3>
+            <h3></h3>
+            <p>分享人：李景磊</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">Memcache是什么？</p>
+            <p style="text-align:left">Memcache是一个自由开源的，高性能，分布式内存对象缓存系统。
+                Memcached是以LiveJournal旗下Danga Interactive公司的BradFitzpatric为首开发的一款软件。现在已成为mixi、hatena、Facebook、Vox、LiveJournal等众多服务中提高Web应用扩展性的重要因素。
+                Memcached是一种基于内存的key-value存储，用来存储小块的任意数据（字符串、对象）。这些数据可以是数据库调用、API调用或者是页面渲染的结果。
+                Memcached简洁而强大。它的简洁设计便于快速开发，减轻开发难度，解决了大数据量缓存的很多问题。它的API兼容大部分流行的开发语言。
+
+            </p>
+            <p style="text-align:left"></p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <h3>2.1 为什么要使用memcache ? </h3>
+            <p style="text-align:left">由于网站的高并发读写需求，传统的关系型数据库开始出现瓶颈，例如：
+                1）对数据库的高并发读写：
+                关系型数据库本身就是个庞然大物，处理过程非常耗时（如解析SQL语句，事务处理等）。如果对关系型数据库进行高并发读写（每秒上万次的访问），那么它是无法承受的。</p>
+				  </section>
+
+        <section>
+            <h3>2.1 为什么要使用memcache ? </h3>
+            <p style="text-align:left">
+				
+                2）对海量数据的处理：
+                对于大型的SNS网站，每天有上千万次的数据产生（如twitter, 新浪微博）。对于关系型数据库，如果在一个有上亿条数据的数据表种查找某条记录，效率将非常低。
+                使用memcache能很好的解决以上问题。
+                在实际使用中，通常把数据库查询的结果保存到Memcache中，下次访问时直接从memcache中读取，而不再进行数据库查询操作，这样就在很大程度上减少了数据库的负担。
+                保存在memcache中的对象实际放置在内存中，这也是memcache如此高效的原因。
+            </p>
+
+        </section>
+
+        <section>
+            <h3>2.2 memcache有什么作用？</h3>
+            <p style="text-align:left"> 本质上，它是一个简洁的key-value存储系统。
+                一般的使用目的是，通过缓存数据库查询结果，减少数据库访问次数，以提高动态Web应用的速度、提高可扩展性。
+            </p>
+        </section>
+
+        <section>
+            <h3>2.3 memcached的协议与数据存取:</h3>
+            <p style="text-align:left">所谓协议，可以理解为对其操作（数据存取）的语法规则</p>
+            <p style="text-align:left">存取数据的常用命令和参数如下： </p>
+
+        </section>
+
+        <section>
+            <p style="text-align:left"> set：将 value(数据值) 存储在指定的 key(键) 中。 </p>
+            <p style="text-align:left">如果set的key已经存在，该命令可以更新该key所对应的原来的数据，也就是实现更新的作用。 </p>
+            <p style="text-align:left">语法:<br/>set key flags exptime bytes [noreply] value </p>
+            <p style="text-align:left">key：记录的键值</p>
+            <p style="text-align:left">flags：十进制的int，标识存储记录时的客户端标志，在记录取出时会返回。(java 客户端默认32)</p>
+            <p style="text-align:left">exptim：在缓存中保存键值对的时间长度（以秒为单位，0 表示永远）</p>
+            <p style="text-align:left">noreply（可选）： 该参数告知服务器不需要返回数据</p>
+        </section>
+
+        <section>
+            <p>get：表示从memcached取出key对应的值</p>
+            <p style="text-align:left">如果没有对应的值则返回结束标志END</p>
+            <p style="text-align:left">语法: <br/> get key <br/>get test1 test2 一次查询多个</p>
+        </section>
+
+        <section>
+            <p>delete：用于删除已存在的 key(键)。</p>
+            <p style="text-align:left">如果没有对应的值则返回结束NOT_FOUND</p>
+            <p style="text-align:left">语法: <br/> delete key [noreply] </p>
+        </section>
+
+        <section>
+            <p>所有命令统计: </p>
+            <p style="text-align:left">存储类命令：</p>
+            <p style="text-align:left">set， add， replace， append， preprepend </p>
+            <p style="text-align:left">统计类命令: </p>
+            <p style="text-align:left">stats， stats items， stats slabs， stats sizes </p>
+            <p style="text-align:left">清理类命令: </p>
+            <p style="text-align:left">delete，fush_all </p>
+        </section>
+
+        <section>
+            <h3>2.4 memcache的实现方式？</h3>
+            <p style="text-align:left">Memcached Client目前有3种：</p>
+            <p style="text-align:left">Memcached Client for Java</p>
+            <p style="text-align:left">  SpyMemcached</p>
+            <p style="text-align:left">  XMemcached</p>
+            <p style="text-align:left">这三种Client一直存在各种争议：
+                Memcached Client for Java 比 SpyMemcached更稳定、更早、更广泛；
+                SpyMemcached 比 Memcached Client for Java更高效；
+                XMemcached 比 SpyMemcache并发效果更好。</p>
+
+        </section>
+
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p>如何在Java项目中配置使用Spring+Memcache</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+            <p>见编码实战</p>
+
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <h3>6.1	什么是缓存穿透，如何解决缓存穿透</h3>
+            <p style="text-align:left">
+                缓存穿透是指项目在运行中出现有绕过缓存直接频繁访问数据库的行为。因为项目在处理一个请求时，会先在缓存中查找数据，缓存中没有，就会向数据库发出访问请求。而如果一直请求一个不存在的数据，就会导致其绕过缓存，一直去访问数据库，给服务器造成巨大压力。这时就需要解决这个问题。<p>
+				
+				  </section>
+
+        <section>
+				
+				
+                 <p style="text-align:left">具体思路为：从客户端接收一个请求——到缓存中查找——到数据库查找——返回Null——以请求为key，null为value保存到缓存。这样其再收到相同请求时就会直接去缓存中查找数据。</p>
+                  <p style="text-align:left">但为了防止这个缓存时间过长导致数据库后台新增数据之后无法正常访问，一般缓存时间会根据实际情况而定，不会设一个很长的时间。
+            </p>
+        </section>
+
+        <section>
+            <h3>6.2	如何使用Memcache实现分页缓存</h3>
+            <p style="text-align:left">
+                第一次访问页面时，将当前页面所有id保存为idList，将下一页所有id保存为nextIdList，再逐条根据id保存当前页面数据。
+                然后以当前页面页码+行数为key保存idList，以当前（页面+1）+行数保存nextIdList。
+                </p>
+                  <p style="text-align:left">再次访问页面，以页码+行数为key查找idList，根据idList到缓存中依次取数据，并保存为List返回。
+                </p>
+                  <p style="text-align:left">如果在当前页面进行删除操作，则使用idList取值时会取出空值，此时需要重新返回到数据库取当前的idList，但不需要取全部数据。
+                然后根据新的idList取缓存并保存为list返回。
+
+            </p>
+        </section>
+
+        <section>
+            <h3>6.3 memcached的使用场景</h3>
+            <p style="text-align:left">
+                在动态系统中减少数据库负载，提升性能，做缓存，适合多读少写，大数据量的情况（如大量查询用户信息、好友信息、文章信息等）。它的一个总原则是将经常需要从数据库读取的数据缓存在memcached中，这些数据也分为几类：</p>
+            <p style="text-align:left">a.
+                经常被读取并且实时性要求不强可以等到自动过期的数据。例如网站首页最新文章列表、某某排行等数据。也就是虽然新数据产生了，但对用户体验不会产生任何影响的场景。这类数据就使用典型的缓存策略，设置一过合理的过期时间，当数据过期以后再从数据库中读取。当然你得制定一个缓存清除策略，便于编辑或者其它人员能马上看到效果。 </p>
+        </section>
+
+        <section>
+            <p style="text-align:left">b.
+                经常被读取并且实时性要求强的数据。比如用户的好友列表，用户文章列表，用户阅读记录等。这类数据首先被载入到memcached中，当发生更改（添加、修改、删除）时就清除缓存。在缓存的时候，我将查询的SQL语句md5（）得到它的
+                hash值作为key,结果数组作为值写入memcached，并且将该SQL涉及的table_name以及hash值配对存入memcached中。
+                当更改了这个表时，我就将与此表相配对的key的缓存全部删除。</p>
+        </section>
+
+        <section>
+            <h3>memcached的不适用场景:</h3>
+            <p style="text-align:left">1、缓存对象的大小大于1MB；</p>
+            <p style="text-align:left">2、key的长度大于250字符（可以把一些key先md5再存储）；</p>
+            <p style="text-align:left">
+                3、应用运行在不安全的环境中Memcached为提供任何安全策略，仅仅通过telnet就可以访问到memcached。如果应用运行在共享的系统上，需要着重考虑安全问题；</p>
+            <p style="text-align:left">4、业务本身需要的是持久化数据。</p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>CSDN</p>
+            <p>菜鸟教程</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js',
+                async: true
+            },
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
