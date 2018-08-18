@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>短信、邮箱如何做好防攻击的逻辑设计--feign</h2>
+            <p></p>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p></p>
+            <p></p>
+            <p>分享人：陈泽铭</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        	<h4>api简介</h4>
+        	<p>
+			API（Application Programming Interface,应用程序编程接口）是一些预先定义的函数，目的是提供应用程序与开发人员基于某软件或硬件得以访问一组例程的能力，而又无需访问源码，或理解内部工作机制的细节。
+			<br>
+        	</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+       
+	   <section>
+			<p>1.互联网中Open API是什么意思</p>
+			<p>2.任务七需要什么第三方api</p>
+			<p>3.第三方api的应用</p>
+            <p>4.短信的验证码校验</p>
+            <p></p>
+        </section>
+	   
+	   	<section>
+			<p>1.互联网中Open API是什么意思<br>      	
+			Open API即开放API,也称开放平台。 所谓的开放API（OpenAPI）是服务型网站常见的一种应用，网站的服务商将自己的网站服务封装成一系列API（Application Programming Interface，应用编程接口）开放出去，供第三方开发者使用，这种行为就叫做开放网站的API，所开放的API就被称作OpenAPI（开放API）。你写出来普通的APP当然不算，你需要找些有开放API服务的网站或者软件放到你的APP上<br>
+	   </p>
+	    </section>
+	   
+		
+	    <section>
+			<p>2.任务七需要什么第三方api<br>
+		    需要邮箱的api，短信的api以及oss api，这里推荐使用阿里云的，因为使用起来比较方便，文档的说明比较全面。<br>
+			</p>
+	    </section>
+	   
+	      <section>
+			<p>3.第三方api的应用<br>      	
+           比如说Api支付平台，就是类似易宝，支付宝，智付这些第三方支付公司，他们提供接口文档给下级商户，下级商户可以把易宝的接口文档，集成到自己的网站里，这样自己的网站就可以和易宝对接了，而易宝又是和银行和点卡商对接的，这样自己网站下的用户就可以直接进行在线支付了，支持多样化的充值通道。<br>
+			</p>
+	    </section>
+	   
+   
+        <section>
+			<p>4.短信的验证码校验</p>	
+			验证码具有一定的有效性，这里我们通过之前学习的缓存来存储验证码并让他具有时效性<br>
+        </section>
+		
+        						
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+  
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+  
+  
+		<section>
+       <p>  为什么要做好防攻击<br>
+			目前市面上的短信恶意攻击无非是有两种目的：<br>
+
+			第一是以攻击某个特定的手机号为目的，黑客利用互联网中多个未经防护的短信发送接口，循环调用接口向该手机号发送短信，使手机号的拥有者不堪其扰。<br>
+
+			第二是以恶意刷取目标网站短信验证码费用为目的，黑客发现某个未加防护的短信发送接口后，会按照某个手机号码列表，循环发送短信验证码，攻击期间黑客会不断变换ip地址，可刷取数以万计甚至更高的短信费用。被攻击的公司在损失费用的同时，也必定会收到用户的投诉，公司形象也会受损。<br>
+			
+	   </p>
+	    </section>
+  
+  
+  	<section>
+       <p> 容易被攻击的场景有哪些<br>
+			最常被攻击的场景是用户注册页面，或者是手机短信验证码快捷登录页面、网络在线投票等页面。此类场景下的发送短信验证码的接口，往往未对调用方进行相关的身份验证。<br>
+	   </p>
+	    </section>
+  
+  		<section>
+       <p> 防攻击有几种解决方案<br>
+			1.在获取短信验证码前增加图文验证码是较为常用的方法。攻击者一般是采用自动化攻击，增加图文验证码后，攻击者要对验证进行识别验证成功后才能进行模拟用户发送请求，这一步需要在页面中进行，无法采用自动化攻击。第一种攻击基本上失效，同时会增加第二种的攻击成本（有可能采用人工打码方式进行验证）选择验证码时既要考虑用户操作过程的流畅度，又应该考虑到安全度。<br>
+			2.限制每个号码发送的数量<br>3.对单IP最大发送量进行限制，可以有效防止单一IP下多手机号被刷的问题。最大发送量限制是防止恶意攻击者同IP下不同手机号进行刷短信验证码行为。根据平台实际情况设计一个短信最大发送量的阀值，超过阀值将不予返回短信。<br>
+	   </p>
+	    </section>
+		
+				
+ 
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+ 
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+           <p>百度、维基、CSDN</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正。</p>
+            <p>
+               BY : 深圳分院 陈泽铭
+            </p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+
+ <dependency>
+            <groupId>net.sf.json-lib</groupId>
+             <artifactId>json-lib</artifactId>
+             <version>2.4</version>
+             <classifier>jdk15</classifier>
+         </dependency>
