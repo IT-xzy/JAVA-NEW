@@ -1,0 +1,277 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>常用动态代理介绍</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：王琦超</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+         <section>
+            <p style="text-align:left">何为代理：</p>
+　　        <p style="text-align:left">假设这样一个场景，你的公司是一家软件公司，你是一位软件工程师。客户带着需求来找公司显然不会直接找你谈，而是去找商务谈，此时客户会认为商务就代表公司</p>
+            <p style="text-align:left">客户（调用者）——》商务（代理对象）——》软件工程师（真实对象）</p>
+            <p style="text-align:left">显然客户是通过商务去访问软件工程师的，那么商务（代理对象）的意义在于什么呢？</p>
+　　        <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+         <section>
+            <p style="text-align:left">商务可以进行谈判，比如项目启动前的商务谈判，软件的价格，交付，进度的时间节点等，或者项目完成后的商务追讨应收账款等。</p>
+            <p style="text-align:left">商务也有可能在开发软件之前谈判失败，此时商务就会按照公司规则和客户去终止合作关系，这些都不用软件工程师来处理。</p>
+            <p style="text-align:left">因此，代理的作用就是，在真实对象访问之前或者之后加入对应的逻辑。或者根据其他规则控制是否使用真实对象，先然在这个例子里商务对象控制了客户对软件工程师的访问。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+		   <section>
+            <p style="text-align:left">从上面我们知道商务和软件工程师是代理和被代理的关系，客户是经过商务去访问软件工程师的。此时客户就是软件中的调用者，商务就是代理对象，软件工程师就是真实对象。我们需要在调用者调用对象之前产生一个代理对象，而这个代理对象需要和真实对象建立代理关系，所以代理必须分为两个步骤：</p>
+            <p style="text-align:left">1.代理对象和真实对象建立代理关系</p>
+            <p style="text-align:left">2.实现代理对象的代理逻辑方法</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+		   <section>
+            <p style="text-align:left">在java中有多种动态代理技术，比如JDK,CGLIB,Javassist,ASM,其中最常用的动态代理技术有两种：一种是JDK动态代理，这是JDK自带的功能；另一种是CGLIB,这时第三方提供的一个技术，目前，Spring常用JDK和CGLIB,而Mybatis还是用了Javassist,无论使用哪种代理技术，它们的理念都是相似的。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">在介绍两种动态代理之前，我们先看一下静态代理，了解一下代理和普通的直接使用多态让父类引用指向子类对象有什么区别。</p>
+            <p style="text-align:left">静态代理通常用于对原有业务逻辑的扩充。比如持有二方包的某个类，并调用了其中的某些方法。然后出于某种原因，比如记录日志、打印方法执行时间，但是又不好将这些逻辑写入二方包的方法里。所以可以创建一个代理类实现和二方方法相同的方法，通过让代理类持有真实对象，然后在原代码中调用代理类方法，来达到添加我们需要业务逻辑的目的。</p>
+            <p style="text-align:left">这其实也就是代理模式的一种实现，通过对真实对象的封装，来实现扩展性。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+        <section>
+            <p style="text-align:left">一个典型的代理模式通常有三个角色，这里称之为**代理三要素**</p>
+            <p style="text-align:left">1.共同接口</p>
+            <p style="text-align:left">2.真实对象</p>
+            <p style="text-align:left">3.代理对象</p>
+			<p style="text-align:left">我们先看一个小demo</p>
+            <p style="text-align:left">从上面的demo我们可以看到静态代理的缺点，就是一个功能一个代理，如果功能多了，代码就会很臃肿，而且很多都是重复代码，这绝不是我们想要的</p>
+        </section>
+		 <section>
+            <p style="text-align:left">
+相比静态代理，动态代理的代理类是动态的，是通过绑定过程的类加载器来加载具体类，方法也是动态的，通过反射来加载指定方法，而不像静态代理那样直接写死</p>
+            <p style="text-align:left">JDK动态代理是java.lang.reflect.*包提供的方式，它必须借助一个接口才能产生代理对象，</p>
+            <p style="text-align:left">
+然后提供实现类来实现接口，这是最简单的Java接口和实现类的关系，此时可以开始动态代理了。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+		 <section>
+            <p style="text-align:left">
+按照我们之前的分析，先要建立起代理对象和真是服务对象的关系，然后是实现代理逻辑，所以一共分为两个步骤。</p>
+            <p style="text-align:left">
+在JDK动态代理中，要实现代理逻辑类必须去实现java.lang.reflect.InvovationHandler接口，它里面定义了一个invoke方法，并提供接口数组用于下挂代理对象。</p>
+            <p style="text-align:left">
+第一步，建立代理对象和真实对象的关系，这里是用了bind方法去完成的，名字可以自己取，方法里面首先用类的属性target保存了真实对象的，然后通过如下代码建立并生成代理对象。</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+		 <section>
+            <p style="text-align:left">Proxy.newProxyInstance(target.getClass().getClassLoader(),</p>
+			 <p style="text-align:left">target.getClass().getInterfaces(),this);</p>
+            <p style="text-align:left">第一个是类加载器，我们采用target本身的类加载器</p>
+            <p style="text-align:left">第二个是把生成的动态代理对象下挂在哪些接口下，这样写就是放在target实现的接口下。</p>
+            <p style="text-align:left">第三个是定义实现方法逻辑的代理类，this标识当前对象，它必须实现InvocationHandler接口的invoke方法，它就是代理逻辑方法的显示方法。一般谁调用此bind方法，this 就是指谁</p>
+            <p style="text-align:left">三个参数中的前两个均未指定任何固定的类和接口，而是根据传入不同的target来指定。这就是相比静态代理的动态二字的含义</p>
+        </section>
+		 <section>
+            <p style="text-align:left">第二步，实现代理逻辑，invoke方法可以实现代理逻辑，invoke方法的3个参数含义如下</p>
+            <p style="text-align:left">proxy,代理对象，就是bind方法生成的对象。</p>
+            <p style="text-align:left">method,当前调度的方法</p>
+            <p style="text-align:left">args,调度方法的参数</p>
+            <p style="text-align:left"></p>
+        </section>
+		 <section>
+            <p style="text-align:left">当我们使用了代理对象调度方法后，它就会进入到invoke方法里面，我们可以通过debug来看其过程。</p>
+            <p style="text-align:left">Object obj=method.invoke(target,args);</p>
+            <p style="text-align:left">这行代码相当于调度真实对象的方法，只是通过反射实现而已。</p>
+            <p style="text-align:left">
+类比前面的例子，proxy相当于商务对象，target相当于软件工程师对象，bind方法就是建立商务和软件工程师代理的方法，而invoke就是商务逻辑，它将控制软件工程师的访问，</p>
+            <p style="text-align:left"></p>
+        </section>
+		 <section>
+            <p style="text-align:left">总结一下，JDK代理是不需要以来第三方的库，只要要JDK环境就可以进行代理，它有几个要求</p>
+            <p style="text-align:left">* 实现InvocationHandler </p>
+            <p style="text-align:left">* 使用Proxy.newProxyInstance产生代理对象</p>
+            <p style="text-align:left">* 被代理的对象必须要实现接口</p>
+            <p style="text-align:left"></p>
+        </section>
+		
+        <section>
+            <p style="text-align:left">JDK动态代理必须提供接口才能使用，在一些不能提供接口的环境中，只能采用其他第三方技术，比如CGLIB动态代理。</p>
+            <p style="text-align:left">它的优势在于不需要提供接口，只要一个非抽象类来实现动态代理。</p>
+            <p style="text-align:left">首先还是看demo，注意需要使用第三方库</p>
+            <p style="text-align:left"></p>
+        </section>
+		
+        <section>
+            <p style="text-align:left">这里用了CGLIB的加强者Enhancer，通过设置超类的方法（setSuperclass)，然后通过setCallback方法设置哪个类为它的代理类。其中，参数为this就意味着是当前对象，那就要求用this这个对象实现接口MethodInterceptor的方法——intercept,然后返回代理对象。</p>
+            <p style="text-align:left">那么此时当前类的intercept方法就是其代理逻辑方法</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+		
+      
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">两种动态代理原理有什么区别？</p>
+            <p style="text-align:left">如何强制使用CGLIB实现AOP？</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+
+  
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		  <section>
+            <p style="text-align:left">
+原理区别：</p>
+            <p style="text-align:left">java动态代理是利用反射机制生成一个实现代理接口的匿名类，在调用具体方法前调用InvokeHandler来处理。</p>
+            <p style="text-align:left">而cglib动态代理是利用asm开源包，对代理对象类的class文件加载进来，通过修改其字节码生成子类覆盖其中方法来处理。</p>
+            <p style="text-align:left">1、如果目标对象实现了接口，默认情况下会采用JDK的动态代理实现AOP </p>
+			<p style="text-align:left">2、如果目标对象实现了接口，可以强制使用CGLIB实现AOP </p>
+            <p style="text-align:left">3、如果目标对象没有实现了接口，必须采用CGLIB库，spring会自动在JDK动态代理和CGLIB之间转换</p>
+        </section>
+		
+        <section>
+            <p style="text-align:left">如何强制使用CGLIB实现AOP？</p>
+            <p style="text-align:left">（1）添加CGLIB库，SPRING_HOME/cglib/*.jar</p>
+            <p style="text-align:left">（2）在spring配置文件中加入<aop:aspectj-autoproxy proxy-target-class="true"/></p>
+            <p style="text-align:left"></p>
+        </section>
+
+     
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+
+
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>https://blog.csdn.net/wangqyoho/article/details/77584832</p>
+            <p>互联网轻量级框架整合开发</p>
+            <p></p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 王琦超</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
