@@ -32,11 +32,10 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>排序方法</h2>
-            <h3>小课堂</h3>
-            <h2>服务器部署</h2>
+            <h2>springboot 入门</h2>
+			<p></p>
             <h3>java小课堂</h3>
-            <p>分享人：方逾阳</p>
+            <p>分享人：刘凯</p>
         </section>
         <section>
             <p>1.背景介绍</p>
@@ -49,93 +48,17 @@
             <p>8.更多讨论</p>
         </section>
         <section>
-
-            <h3>1.背景介绍	</h3>
-        </section>
-        <section>
-            <p align="left">
-                什么是排序
-            </p>
-        </section>
-
-        <section>
-            <p align="center">
-              排序方法
-           <img src="C:\Users\Administrator\Desktop\小方\1.jpg" alt=""/>
-            </p>
-			
-        </section>
-
-        <section>
-            <h3>2.知识剖析</h3>
-        </section>
-     <section>
-            <p align="center">
-              直接插入
-           <img src="C:\Users\Administrator\Desktop\小方\2.jpg" alt=""/>
-            </p>
- </section>
-  <section>
-            <p align="center">
-              希尔排序
-           <img src="C:\Users\Administrator\Desktop\小方\3.jpg" alt=""/>
-            </p>
- </section>
-   <section>
-            <p align="center">
-              简单选择排序
-           <img src="C:\Users\Administrator\Desktop\小方\4.jpg" alt=""/>
-            </p>
- </section>
-   <section>
-            <p align="center">
-              堆排序
-           <img src="C:\Users\Administrator\Desktop\小方\5.jpg" alt=""/>
-            </p>
- </section>
-   <section>
-            <p align="center">
-              冒泡排序
-           <img src="C:\Users\Administrator\Desktop\小方\6.jpg" alt=""/>
-            </p>
- </section>
-   <section>
-            <p align="center">
-              快速排序
-           <img src="C:\Users\Administrator\Desktop\小方\7.jpg" alt=""/>
-            </p>
- </section>
-   <section>
-            <p align="center">
-              归并排序
-           <img src="C:\Users\Administrator\Desktop\小方\8.jpg" alt=""/>
-            </p>
- </section>
-        <section>
-            <h3>3.常见问题</h3>
-        </section>
-        <section>
-           
-        </section>
-
-
             <h3>1.背景介绍</h3>
         </section>	
 		
         <section>
-		    <p>服务器部署原因</p>
-			<p style="text-align:left"></p>
-		</section>
-
-         <section>
-            <p>部署前</p>
-         </section>
-		<section>
-            <p style="text-align:left">1、小组名</p>
-            <p style="text-align:left">2、项目名</p>
-            <p style="text-align:left">3、前后台域名以及端口号（域名让运维配，端口号去Wiki里面登记）</p>
-            <p style="text-align:left">4、前后端所有代码位置</p>
-        </section>
+		
+			<section>
+            <p>1.背景介绍</p>			
+			<p style="text-align:left">springboot是什么：</p>
+			<p style="text-align:left">整合所有框架的框架</p>	    	
+			</section>			
+		
 			<!--<section>
 			<p></p>
 			<p style="text-align:left"></p>
@@ -150,107 +73,52 @@
             <h3>2.知识剖析</h3>
         </section>
         <section>
-            <p style="text-align:left">第一件事：svn代码</p>
-            <p style="text-align:left">1、前端前台代码</p>
-            <p style="text-align:left">2、前端后台代码</p>
-            <p style="text-align:left">3、后端代码</p>
-        </section>
-
-         <section>
-		 <p>nginx的配置</p>
-            <p style="text-align:left">1、upstream文件</p>
-             <p style="text-align:left">2、server.conf文件</p>
-             <p style="text-align:left">3、前端前后台动静资源配置）</p>
-             <!-- <p style="text-align:left">利用HttpServletRequest的getCookie（）方法来读取客户端的Cookie，返回一个Cookie数组</p> -->
-     </section>
-<!--          <section>
-		 <p style="text-align:left"></p>
-			<p style="text-align:left"></p>
-		 <p style="text-align:left"></p>
-		 </section> -->
+            <p>Features/特点</p>	
+			<p style="text-align:left">Create stand-alone Spring applications</p>
+			<p style="text-align:left">·创建一站式的spring配置</p>
+			<p style="text-align:left">Embed Tomcat, Jetty or Undertow directly (no need to deploy WAR files)</p>
+			<p style="text-align:left">·封装了tomcat等容器，不再需要部署war包</p>
+            <p style="text-align:left">Provide opinionated 'starter' dependencies to simplify your build configuration</p>
+            <p style="text-align:left">·提供各种starter，简化配置</p>          
+		</section>	
+		<section>
+		<p>Features/特点</p>		
+		<p style="text-align:left">Automatically configure Spring and 3rd party libraries whenever possible</p>
+		<p style="text-align:left">·自动装配spring和第三方包</p>
+		<p style="text-align:left">Provide production-ready features such as metrics, health checks and externalized configuration</p>	
+        <p style="text-align:left">·准生产级别的监控</p>	   
+        <p style="text-align:left">Absolutely no code generation and no requirement for XML configuration</p>	   
+         <p style="text-align:left">·无code生成，无xml配置</p>	   
+		</section>
+           
          <section>
             <h3>3.常见问题</h3>
-
         </section>
-		   <section>
-		 <p>打包</p>
-            <p style="text-align:left">1、jar包</p>
-             <p style="text-align:left">mvn install:install-file -Dfile=E:\commons-httpclient-3.1.jar 
--DgroupId=finance.google -DartifactId=commons-httpclient -Dversion=1.0.0 -Dpackaging=jar</p>
-            
-     </section>
-	    <section>
-		 <p>脚本</p>
-            <p style="text-align:left">checkout代码</p>
-             <p style="text-align:left">打包</p>
-            <p style="text-align:left">启动jar包</p>
-     </section>
         <section>
-          
-			<p style="text-align:left"></p>
+            <p style="text-align:left">springboot联合mybatis配置文件</p>
+			<p style="text-align:left">自动注入时could not autowired</p>
+			<p style="text-align:left">springboot测试</p>
 			<p></p>
         </section>
-
         <section>
             <h3>4.解决方案</h3>
-        </section>
-        <section>
-
-            <p>
-              
-            </p>
-        </section>
-
-
-        <section>
-            <h3>5.编码实战</h3>
-        </section>
-
-
-			 <p style="text-align:left"></p>
-			 <p style="text-align:left"></p>
-             <p></p>
-			 <p></p>
-        </section>
+        </section>      
         
         <section>
             <h3>5.编码实战</h3>
         </section>
-        <section>
-        <img src="">
-		<img src="">
-        </section>
-
+        
         <section>
             <h3>6.扩展思考</h3>
         </section>
-
-		  <section>
-         
-        </section>
-		
-  
-        <section>
-            <h3>7.参考文献</h3>
-            <p></p>
-			
-        </section>
-        <section>
-            <h3>8.更多讨论</h3>
-            <p>欢迎大家交流和讨论</p>
-        </section>
-        <section>
-            <h4>鸣谢</h4>
-            <p>感谢大家观看</p>
-
-        <section>
-            <p></p>
-        </section>
         
         <section>
             <h3>7.参考文献</h3>
-           <p style="text-align:center">小课堂</p>
-		   <p style="text-align:center">百度</p>
+            <p style="text-align:left">纯洁的微笑博客</p>
+			<p style="text-align:left">http://www.ityouknow.com/spring-boot.html</p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
@@ -259,8 +127,7 @@
         <section>
             <h4>鸣谢</h4>
             <p>感谢观看,如有出错,恳请指正</p>
-
-            <p><small>BY : 方逾阳</small></p>
+            <p><small>BY : 刘凯</small></p>
         </section>
 
     </div>

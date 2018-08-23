@@ -1,0 +1,306 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>为什么要使用memcache？memcache有什么作用？</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：乔名震</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>	
+		<section>
+            <h2>缓存</h2>
+			<p>缓存是分布式系统中的重要组件，主要解决高并发，大数据场景下，热点数据访问的性能问题。提供高性能的数据快速访问。</p>
+           
+        </section>
+		
+		 <section>
+            <p>（一）缓存的原理</p>
+            <p>（1）将数据写入/读取速度更快的存储（设备）；</p>
+            <p>（2）将数据缓存到离应用最近的位置；</p>
+            <p>（3）将数据缓存到离用户最近的位置。</p>
+           
+        </section>
+		
+		 <section>
+            <p>（二）缓存分类</p>
+            <p>在分布式系统中，缓存的应用非常广泛，从部署角度有以下几个方面的缓存应用。</p>
+            <p>1、浏览器客户端：用户端的缓存</p>
+            <p>页面信息缓存在浏览器--------浏览器临时文件，通过请求头验证</p>      
+        </section>
+		 <section>
+            <p>2、Web层：针对web页面做缓存</p>
+            <p>（1）CDN缓存</p>
+            <p>（2）反向代理缓存</p>
+        </section>
+		
+		 <section>
+          
+            <p>（1）CDN缓存</p>
+            <p>CDN的基本原理是广泛采用各种缓存服务器，将这些缓存服务器分布到用户访问相对集中的地区或网络中，在用户访问网站时，利用全局负载技术将用户的访问指向距离最近的工作正常的缓存服务器上，由缓存服务器直接响应用户请求。</p>
+        </section>
+		
+		  <section>
+            <p>（2）反向代理缓存；</p>
+            <p>反向代理位于应用服务器，处理所有对WEB服务器的请求。如果用户请求的页面在代理服务器上有缓冲的话，代理服务器直接将缓冲内容发送给用户。如果没有缓冲则先向WEB服务器发出请求，取回数据，本地缓存后再发送给用户。通过降低向WEB服务器的请求数，从而降低了WEB服务器的负载。</p>
+            <p>反向代理一般缓存静态资源，动态资源转发到应用服务器处理。常用的缓存应用服务器有Varnish、Ngnix、Squid。</p>
+      
+        </section>
+		
+		<section>
+		  <p>3、应用服务层：这里可以通过编程手段对缓存做到更精准的控制和更多的实现策略，这里缓存的对象是数据传输对象Data Transfer Object</p>
+            <p>java应用缓存一般分两种：</p>
+            <p>一个是进程外缓存，现在我们常用的各种分布式缓存；</p>
+            <p>另一个是进程内缓存--本地应用缓存，就是使用java应用虚拟机内存的缓存。</p>
+         
+        </section>
+		
+		  <section>
+            <p>（1）分布式Cache；----零点几毫秒</p>
+            <p>分布式缓存，主要指缓存用户经常访问数据的缓存，数据源为数据库。一般起到热点数据访问和减轻数据库压力的作用。</p>
+            <p>目前分布式缓存设计，在大型网站架构中是必备的架构要素。常用的中间件有Memcache，Redis。</p>
+			 <p>（2）本地应用缓存；-----十几微秒</p>
+            <p>本地缓存是指应用内部的缓存，标准的分布式系统，一般有多级缓存构成。本地缓存是离应用最近的缓存，一般可以将数据缓存到硬盘或内存。</p>
+            
+        </section>
+		
+		 <section>
+            <p>4、数据访问层：框架缓存</p>
+            <p>spring-cache、mybatis针对SQL语句做缓存</p>
+			 <p>5、MySQL内部：mysql内部缓存</p>
+            <p>在系统调优参数介绍了相关设置</p>
+            
+        </section>
+		
+		    <section>
+            <p>请求过程：</p>
+            <p>（1）浏览器发起请求，验证用户端缓存的有效性；-----用户端缓存、html等设置</p>
+            <p>（2）CDN缓存验证----CDN缓存</p>
+            <p>（3）反向代理服务器缓存--------nginx动静分离、缓存</p>
+            <p>（4）应用服务器访问本地缓存--------java内部缓存</p>
+            <p>（5）分布式缓存-------------memcache、redis等</p>
+            <p>（6）如果分布式缓存无数据，则应用程序读取数据库数据，并放入分布式缓存。-----数据库</p>
+        </section>
+		
+  
+		
+			<section>
+            <p>2.知识剖析</p>
+			<p style="text-align:left">memcached是一个高性能、分布式的内存对象缓存系统。</p>
+			<p style="text-align:left">memcached广泛应用在大负载高并发的网站上，是一种非常成熟的产品（称为一项技术也未尝不可）。像facebook，youtube,yahoo,sina，sohu，netease，豆瓣等网站均或多或少使用了该项产品。memcached在以用户为中心的网站上，表现尤其突出，例如sns,blog等web2.0应用的站点。这些站点一般来讲，特别注重用户体验，用户对服务器的响应速度要求很高，用户数据相对比较复杂、关连度比较高，需要经常对数据库进行更新和检索。</p>
+			<p style="text-align:left"></p>
+			<p></p>
+			</section>
+			
+			 <section>
+		 <p style="text-align:left">Memcached 运行原理</p>
+			<p style="text-align:left">Memcached处理的原子是每一个（key，value）对（以下简称kv对），key会通过一个hash算法转化成hash-key，
+
+便于查找、对比以及做到尽可能的散列。同时，memcached用的是一个二级散列，通过一张大hash表来维护。
+
+Memcached有两个核心组件组成：服务端（Server）和客户端（Client），在一个memcached的查询中，Client
+
+先通 过计算key的hash值来确定kv对所处在的Server位置。当Server确定后，客户端就会发送一个查询请求给
+
+对应的Server，让它来查找确 切的数据。因为这之间没有交互以及多播协议，所以 memcached交互带给网络的
+
+影响是最小化的。</p>
+		 </section>
+		 
+
+		<section>
+		<p style="text-align:left">Memcached 作用</p>
+		<p style="text-align:left">Memcached 是以守护程序方式运行于一个或多个服务器中，随时接受客户端的连接操作。客户端首先与 Memcached
+
+服务建立连接，然后存取对象。保存在 Memcached 中的对象是放置在内存中的，而不是在硬盘上。
+
+Memcached 进程运行之后，会预申请一块较大的内存空间，自己进行管理，用完之后再申请，不是每次需要的
+
+时候去向操作系统申请。Memcached将对象保存在一个巨 大的Hash表中，它还使用NewHash算法来管理Hash表，
+
+从而获得进一步的性能提升。</p>
+		</section>
+        
+
+   
+	     <section>
+            <h3>3.常见问题</h3>
+        </section>
+	
+        <section>
+		<p style="text-align:left">Memcache和Memcached到底有什么区别？</p>
+			<p style="text-align:left">分配内存占满后如何清理？</p>
+			<p style="text-align:left">memcached可以存储大数据吗？</p>
+			
+			<p></p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+			<p style="text-align:left">Memcache和Memcached到底有什么区别？</p>
+			<p style="text-align:left">Memcache 是 danga.com 的一个项目，最早是为 LiveJournal 服务的，目前全世界不少人使用这个缓存项目来构建自己大负载的网站，来分担数据库的压力。</p>
+			<p style="text-align:left"></p>
+			<br>
+            <p style="text-align:left">Memcached 是一个开源、高性能、分布式内存对象缓存系统 。</p>       		
+            <p style="text-align:left">Memcache 是这个项目的名称，而 memcached 是它服务器端的主程序文件名 。</p>
+			
+        </section>
+		        <section>
+				<p style="text-align:left">分配内存占满后如何清理？</p>
+			 <p style="text-align:left">Memcached中每个slab中都维护了一个LRU链表，来组织该slab中已经被分配的item块，用于记录“最近最少使用”的item信息。其中heads指向链表的头节点，tails指向链表的尾节点。每当有新chunk被使用时，将会将该chunk的item添加到LRU链表头。或者有原使用的item被修改，也会将其从链表中移动到LRU链表头处。通过该机制，保证了链表头部分的的item为新创建或新修改的数据，链表尾item为该slab中储存最久的数据。</p>
+             </section>
+			 <section>
+			 <p style="text-align:left">Memcached采用了惰性删除的机制，系统不会主动监视item中数据是否过期，而是在get的时候查看该item的时间戳，如果已过期就删除并将该chunk释放到空闲链表中。</p>
+			 <p style="text-align:left">同时在新数据插入中，Memcached也会优先判断该slab的LRU链表尾部的item节点是否超时，如果超时的话，Memcached也会优先删除并使用已经超时的item的chunk作为新数据的储存空间。</p>
+			 </section>
+			 
+        
+		        <section>
+					<p style="text-align:left">memcached可以存储大数据吗？</p>
+			 <p style="text-align:left"> Memcached存储单个item最大数据是在1MB内，假设数据超过1M,存取set和get是都是返回false，并且引起性能的问题。</p>
+             <p style="text-align:left">memcached能接受的key的最大长度是250个字符</p>
+			
+        </section>
+		
+        <section>
+            <h3>5.编码实战</h3>
+			 <section>
+            <p>类比理解：</p>
+            <p>mysql-----JDBC</p>
+            <p>memcache-----memcachedClient</p>
+            <p>redis--------jedis</p>
+			<p>因为都是通过java代码去操作数据库(关系型数据库和非关系型数据库)，所以很相似</p>
+           
+        </section>
+        </section>
+  
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+		<p style="text-align:left">什么时候使用memcached？</p>
+        </section>
+		<section>
+        	 <p style="text-align:left">假设站点包括了訪问量非常大的动态网页。因而数据库的负载将会非常高。因为大部分数据库请求都是读操作，那么memcached能够显著地减小数据库负载。</p>
+			<p style="text-align:left">假设数据库server的负载比較低但CPU使用率非常高，这时能够缓存计算好的结果（ computed objects ）和渲染后的网页模板（enderred templates）。</p>
+			<p style="text-align:left">利用memcached能够缓存session数据、暂时数据以降低对他们的数据库写操作。</p>
+			<p style="text-align:left">缓存一些非常小可是被频繁訪问的文件。</p>
+			
+        </section>
+		 <section>
+		<p style="text-align:left">简单理解缓存算法</p>
+        </section>
+		<section>
+	
+        	 <p style="text-align:left">1、LFU：对缓存的数据块的引用次数进行排序，次数相同则根据时间排序，满了之后淘汰最后一个；</p>
+			<p style="text-align:left">2、LRU：将被访问的数据块放在最上面，最下面的先淘汰；</p>
+			<p style="text-align:left">3、FIFO： 最先进入的数据，最先被淘汰；</p>
+
+        </section>
+		
+		<section>
+			<p style="text-align:left">在LRU的基础上：</p>
+        	 <p style="text-align:left">4、 2Q：第一次访问放入FIFO，第二次被访问放入LRU；</p>
+			<p style="text-align:left">5、LRU-K：一句话说不清， 其核心思想是将“最近使用过1次”的判断标准扩展为“最近使用过K次”</p>
+
+        </section>
+		
+        <section>
+            <h3>7.参考文献</h3>
+            <p style="text-align:left">http://flychao88.iteye.com/blog/1977653</p>
+			<p style="text-align:left">https://www.cnblogs.com/sten/p/5734512.html</p>
+			<p style="text-align:left">https://blog.csdn.net/qq_26517369/article/details/78330694</p>
+			<p style="text-align:left">https://blog.csdn.net/sxj6977380/article/details/78759491</p>
+			<p style="text-align:left"></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 乔名震</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -32,11 +32,10 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>排序方法</h2>
-            <h3>小课堂</h3>
-            <h2>服务器部署</h2>
+            <h2>JWT简单介绍</h2>
+			<p></p>
             <h3>java小课堂</h3>
-            <p>分享人：方逾阳</p>
+            <p>分享人：陈鑫</p>
         </section>
         <section>
             <p>1.背景介绍</p>
@@ -49,93 +48,27 @@
             <p>8.更多讨论</p>
         </section>
         <section>
-
-            <h3>1.背景介绍	</h3>
-        </section>
-        <section>
-            <p align="left">
-                什么是排序
-            </p>
-        </section>
-
-        <section>
-            <p align="center">
-              排序方法
-           <img src="C:\Users\Administrator\Desktop\小方\1.jpg" alt=""/>
-            </p>
-			
-        </section>
-
-        <section>
-            <h3>2.知识剖析</h3>
-        </section>
-     <section>
-            <p align="center">
-              直接插入
-           <img src="C:\Users\Administrator\Desktop\小方\2.jpg" alt=""/>
-            </p>
- </section>
-  <section>
-            <p align="center">
-              希尔排序
-           <img src="C:\Users\Administrator\Desktop\小方\3.jpg" alt=""/>
-            </p>
- </section>
-   <section>
-            <p align="center">
-              简单选择排序
-           <img src="C:\Users\Administrator\Desktop\小方\4.jpg" alt=""/>
-            </p>
- </section>
-   <section>
-            <p align="center">
-              堆排序
-           <img src="C:\Users\Administrator\Desktop\小方\5.jpg" alt=""/>
-            </p>
- </section>
-   <section>
-            <p align="center">
-              冒泡排序
-           <img src="C:\Users\Administrator\Desktop\小方\6.jpg" alt=""/>
-            </p>
- </section>
-   <section>
-            <p align="center">
-              快速排序
-           <img src="C:\Users\Administrator\Desktop\小方\7.jpg" alt=""/>
-            </p>
- </section>
-   <section>
-            <p align="center">
-              归并排序
-           <img src="C:\Users\Administrator\Desktop\小方\8.jpg" alt=""/>
-            </p>
- </section>
-        <section>
-            <h3>3.常见问题</h3>
-        </section>
-        <section>
-           
-        </section>
-
-
             <h3>1.背景介绍</h3>
         </section>	
 		
         <section>
-		    <p>服务器部署原因</p>
+		
+			<section>
+            <p>1.背景介绍</p>
+			<p style="text-align:left">JSON Web Token（JWT）是一个开放的标准（RFC 7519），它定义了一个紧凑且自包含的方式，用于在各方之间以JSON对象安全地传输信息。这些信息可以通过数字签名进行验证和信任。可以使用秘密即secret（使用HMAC算法）或使用RSA的公钥/私钥对(a public/private key pair using RSA or ECDSA)来对JWT进行签名。</p>
 			<p style="text-align:left"></p>
-		</section>
-
-         <section>
-            <p>部署前</p>
-         </section>
-		<section>
-            <p style="text-align:left">1、小组名</p>
-            <p style="text-align:left">2、项目名</p>
-            <p style="text-align:left">3、前后台域名以及端口号（域名让运维配，端口号去Wiki里面登记）</p>
-            <p style="text-align:left">4、前后端所有代码位置</p>
-        </section>
+			<p style="text-align:left"></p>
+			<p></p>
+			</section>
+			
+			<section>
+			<p></p>
+            <p style="text-align:left">JWT可以用来做什么？</p>       		
+            <p style="text-align:left">权限控制：是JWT最广泛的使用场景。一旦用户登录以后，之后的每次请求都会携带被授权的JWT，这样可以允许用户访问路由，服务和资源。</p>
+			 <p style="text-align:left">如今通过使用JWT，实现单点登录是一个特色，因为它占用小，并且可以跨越不同的域。</p>
+			 <p style="text-align:left">信息交互：采用JWT可以安全的信息交互。因为JWT可以被签名。比如采用私钥/公钥对，可以清楚的知道发送人是谁。另外，因为签名</p>
+			<p style="text-align:left">是通过头部和载荷计算出来的，所以可以自己验证计算，来确认内容是否被篡改。</p>
+			</section>
 			<!--<section>
 			<p></p>
 			<p style="text-align:left"></p>
@@ -150,63 +83,47 @@
             <h3>2.知识剖析</h3>
         </section>
         <section>
-            <p style="text-align:left">第一件事：svn代码</p>
-            <p style="text-align:left">1、前端前台代码</p>
-            <p style="text-align:left">2、前端后台代码</p>
-            <p style="text-align:left">3、后端代码</p>
-        </section>
-
-         <section>
-		 <p>nginx的配置</p>
-            <p style="text-align:left">1、upstream文件</p>
-             <p style="text-align:left">2、server.conf文件</p>
-             <p style="text-align:left">3、前端前后台动静资源配置）</p>
-             <!-- <p style="text-align:left">利用HttpServletRequest的getCookie（）方法来读取客户端的Cookie，返回一个Cookie数组</p> -->
-     </section>
-<!--          <section>
-		 <p style="text-align:left"></p>
+			<p style="text-align:left">JWT请求流程：</p>
+			<img src="img/demo/20180729-D-JAVA-5.png">
 			<p style="text-align:left"></p>
-		 <p style="text-align:left"></p>
-		 </section> -->
+			<p style="text-align:left"></p>
+			<br>
+            <p style="text-align:left"></p>       		
+            <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+        </section>
+		<section>
+		<p style="text-align:left">JSON Web Token (JWT)的结构：</p>
+		<p style="text-align:left">Header(头部), Payload(载荷), Signature(签名)。</p>
+		<p style="text-align:left">通常jwt看起来是这样的：xxxxx.yyyyy.zzzzz。</p>
+		<br>
+		<p style="text-align:left">JWT头部通常由两部分组成：token的类型和需要使用的哈希算法。</p>
+		<p style="text-align:left">JWT载荷：包含关于用户的声明语句和其他数据。需要注意的时，载荷部分对所有人是可读的。签名只是为了防止篡改。</p>
+		<p style="text-align:left">JWT签名：由编码后的头部、编码后的载荷、私钥和头部指明的算法计算生成。签名用来辨别JWT内容是否被修改。</p>
+		</section>
+         <section>
+		 <p style="text-align:left">共有三种声明类型：registered, public, and private claims。</p>
+		 <p style="text-align:left">registered claims：是一系列非强制但推荐使用的预定义声明。提供了一些有用的，可互相操作的的声明。包括iss (issuer), exp (expiration time), sub (subject), aud (audience), and others.</p>
+			<p style="text-align:left">public claims：可以被自由定义但要防止冲突。</p>
+		 <p style="text-align:left">private claims：被用户创建的声明用来分享信息。当然只有允许这些private claims时，才有用。</p>
+		 </section>
          <section>
             <h3>3.常见问题</h3>
-
         </section>
-		   <section>
-		 <p>打包</p>
-            <p style="text-align:left">1、jar包</p>
-             <p style="text-align:left">mvn install:install-file -Dfile=E:\commons-httpclient-3.1.jar 
--DgroupId=finance.google -DartifactId=commons-httpclient -Dversion=1.0.0 -Dpackaging=jar</p>
-            
-     </section>
-	    <section>
-		 <p>脚本</p>
-            <p style="text-align:left">checkout代码</p>
-             <p style="text-align:left">打包</p>
-            <p style="text-align:left">启动jar包</p>
-     </section>
         <section>
-          
+            <p style="text-align:left">1、什么是JWT?</p>
+			<p style="text-align:left">2、secret和private key的区别？</p>
 			<p style="text-align:left"></p>
 			<p></p>
         </section>
-
         <section>
             <h3>4.解决方案</h3>
         </section>
         <section>
-
-            <p>
-              
-            </p>
-        </section>
-
-
-        <section>
-            <h3>5.编码实战</h3>
-        </section>
-
-
+			 <p style="text-align:left">1、答：JSON Web Token，用来做用户授权的和信息交互。</p>
+             <p style="text-align:left">2、答：前者用来用户授权，后者用来传递信息辨别发送人。</p>
+			 <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
 			 <p style="text-align:left"></p>
 			 <p style="text-align:left"></p>
              <p></p>
@@ -220,28 +137,9 @@
         <img src="">
 		<img src="">
         </section>
-
         <section>
             <h3>6.扩展思考</h3>
         </section>
-
-		  <section>
-         
-        </section>
-		
-  
-        <section>
-            <h3>7.参考文献</h3>
-            <p></p>
-			
-        </section>
-        <section>
-            <h3>8.更多讨论</h3>
-            <p>欢迎大家交流和讨论</p>
-        </section>
-        <section>
-            <h4>鸣谢</h4>
-            <p>感谢大家观看</p>
 
         <section>
             <p></p>
@@ -249,8 +147,11 @@
         
         <section>
             <h3>7.参考文献</h3>
-           <p style="text-align:center">小课堂</p>
-		   <p style="text-align:center">百度</p>
+            <p style="text-align:left">什么是JWT https://segmentfault.com/a/1190000012874052</p>
+			<p style="text-align:left">官网 https://jwt.io/introduction/</p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
@@ -259,8 +160,7 @@
         <section>
             <h4>鸣谢</h4>
             <p>感谢观看,如有出错,恳请指正</p>
-
-            <p><small>BY : 方逾阳</small></p>
+            <p><small>BY : 陈鑫</small></p>
         </section>
 
     </div>

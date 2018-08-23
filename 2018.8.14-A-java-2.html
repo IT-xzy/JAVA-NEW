@@ -1,0 +1,206 @@
+<!doctype html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>葡萄藤PPT</title>
+
+  <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+  <!-- PPT主题,可以在/css/reveal/theme/中选择其他主题,目前暂时只能使用该模板 -->
+  <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+  <!-- syntax highlighting 代码高亮主题 -->
+  <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+  <!-- 打印和PDF输出样式 -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+</head>
+
+<body>
+  <img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+  <map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Enum枚举</h2>
+            <p>分享人：刘优</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section style="text-align: left;">
+                <p style="text-align: left">
+                    什么是枚举
+                </p>
+            </section>
+            <section style="text-align: left;">
+                <p style="text-align: left">
+						枚举是指一组固定常量组成合法值的类型</br>
+						首先是固定常量，一组有限常量集，比如一年的四个季节，太阳系的行星。其次，枚举是一种特殊的类型，定义了自己的一些规则，这些规则是建立在类规则之上的，是一种 type。</br>
+						枚举是真正的 final，客户端不允许创建枚举类的实例，也不能对其进行拓展</br>
+						Java 枚举本质上是 int 值。只能通过公有的静态 final 域为枚举类导出实例。
+					</p>
+            </section>
+
+            <section style="text-align: left;">
+                <p>为什么要使用枚举</p>
+                 <p style="text-align: left">
+					在程序设计语言中，一般用一个数值来代表某一状态，这种处理方法不直观、易读性差。如果能在程序中用自然语言中有相应含义的单词代表某一状态，则程序就很容易阅读和理解。
+					
+				
+				</p>
+				<p>
+				1. 枚举在 Java 语言中的作用很大。它可以对类似的相同类型的对象同时进行声明，在程序中调用这些元素时，不会出现混淆和重复。</br>
+				2. 由于枚举的统一性，使得开发人员编写的代码量大大减少了，同时增加了程序的阅读性和修改性。
+
+				</p>
+				
+            </section>
+        </section>
+        <section>
+		
+		
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section style="text-align: left;">
+                <h3><strong>枚举简介</strong></h3>
+                <p>1. 事先考虑到某一变量可能的取值，尽可能用自然语言中含义清楚的单词来表示它的每一个值，这种方法称为枚举方法。用这种方法定义的类型称为枚举类型。<br>
+				2. Java 中的 Enum 是 JDK1.5 中增加的功能，在 JDK1.5 中和 class 是一个层次的，是一种数据类型。<br>
+				3. enum 非常像 public static final int 声明,后者作为枚举值已经使用了很多年。对 int 所做的最大也是最明显的改进是类型安全 -- 不能错误的用枚举的一种类型代替另一种类型。除去极少数例外的情况，通常都应该用 enum 替换全部枚举风格的 int 接口。<br>
+            </section>
+			
+			</section>
+     
+		<section>
+            <section>
+			
+                <h3>3.常见问题</h3>
+				</section>	
+				         <section>
+                <h4 style="text-align:left">如何使用枚举</h4>
+      
+    	
+
+
+		</section>
+		
+				
+            </section>
+   
+
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <p style="text-align:left">
+看代码
+                </p>
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+           
+
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <p>自定义枚举类</p>
+            </section>
+            <section style="text-align: justify;word-break: break-all">
+                <p style="text-align:left">
+
+
+
+                </p>
+
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p style="text-align: left">参考：
+                    互联网
+                </a></p>
+       
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+        </section>
+        <section>
+            <!--<h4>鸣谢</h4>-->
+            <p>感谢大家观看</p>
+            <p><small>BY : 刘优</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js "></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js "></script>
+
+<script>
+
+  // 以下为常见配置属性的默认值
+  // {
+  // 	controls: true, // 是否在右下角展示控制条
+  // 	progress: true, // 是否显示演示的进度条
+  // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+  // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  // 	keyboard: true, // 是否启用键盘快捷键来导航
+  // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc "或"o "键来切换概览模式
+  // 	center: true, // 是否将幻灯片垂直居中
+  // 	touch: true, // 是否在触屏设备上启用触
+  Reveal.initialize({
+    history: true,
+    dependencies: [
+      {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+      {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+      {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+      {
+        src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+        hljs.initHighlightingOnLoad();
+      }
+      }
+    ]
+  });
+</script>
+</body>
+
+</html>
