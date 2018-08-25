@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>nginx服务器有什么作用？什么叫反向代理？为什么要使用反向代理？</h2>
+            <p>分享人：何爽</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>	       
+		<section>
+			<h3>1.背景介绍</h3>
+			<p>现在许多大型web网站都用到反向代理。除了可以防止外网对内网服务器的恶性攻击、缓存以减少服务器的压力和访问安全控制之外，还可以进行负载均衡，将用户请求分配给多个服务器。 </p>
+			<p>反向代理服务器Nginx </p>
+			<p>Nginx作为近年来较火的反向代理服务器，安装在目的主机端，主要用于转发客户机请求，后台有多个http服务器提供服务，nginx的功能就是把请求转发给后面的服务器，决定哪台目标主机来处理当前请求。</p>
+			<p></p>
+			<p></p>
+			<p></p>
+		</section>
+		<section>
+			<h3>2.知识剖析</h3>
+			<p>1.什么是代理服务器：</p>
+			<p>代理服务器，客户端在发送请求时，不会直接发给主机，而是先发给代理服务器，代理服务器接受请求之后将请求分发给不同的主机，并接受主机返回的数据，存在代理服务器中的硬盘中，再发送给客户端。</p>
+			<p>2.使用代理服务器有什么优点：</p>
+			<p>（1）提高访问速度</p>
+			<p>由于目标主机返回的数据会存放在代理服务器的硬盘中，因此下一次客户再访问相同的站点数据时，会直接从代理服务器的硬盘中读取，起到了缓存的作用，尤其对于热门站点能明显提高请求速度。</p>
+				</section>
+		<section>
+			<p>（2）防火墙作用</p>
+			<p>由于所有的客户机请求都必须通过代理服务器访问远程站点，因此可在代理服务器上设限，过滤某些不安全信息。</p>
+		
+			<p>（3）通过代理服务器访问不能访问的目标站点 </p>
+			<p>互联网上有许多开发的代理服务器，客户机在访问受限时，可通过不受限的代理服务器访问目标站点，通俗说，我们使用的翻墙浏览器就是利用了代理服务器，可直接访问外网。</p>
+			<p></p>
+			<p></p>
+			</section>
+		<section>
+			<p>3.正向代理和反向代理：</p>
+			<p>正向代理：</p>
+			<p>正向代理，架设在客户机与目标主机之间，只用于代理内部网络对Internet的连接请求，客户机必须指定代理服务器,并将本来要直接发送到Web服务器上的http请求发送到代理服务器中。</p>
+			<p>什么意思呢，就是学生从四面八方过来上学，但大门只有一个，学校也只有一个，所有的学生都必须通过这个大门才能进入学校，学生好像是客户机，大门就是代理服务器，学校就是目标主机。</p>
+			</section>
+		<section>
+			<p>反向代理：</p>
+			<p>反向代理服务器架设在服务器端，通过缓冲经常被请求的页面来缓解服务器的工作量，将客户机请求转发给内部网络上的目标服务器；
+			并将从服务器上得到的结果返回给Internet上请求连接的客户端，此时代理服务器与目标主机一起对外表现为一个服务器。 </p>
+			<p>打个比方，反向代理就好像是幼儿园学生放学了要回家，老师只有一个，学生家长有很多，老师领着学生将学生交给家长，这里面呢，
+			学生就是各个客户机请求，老师是一个代理服务器，家长是各个目标主机，老师管理者各个学生，再把各个学生分发给不同的家长，这就是反向代理。</p>
+			<p></P>
+			<p></P>
+			<p></P>
+		</section>
+		<section>
+			<h3>4.负载均衡：</h3>
+			<p>（1）为什么要使用负载均衡</p>	
+			<p>当一台服务器的单位时间内访问量越大的时候，服务器压力会越大，当一台服务器压力大得超过自身的承受压力的时候，服务器会崩溃。
+			为了避免服务器崩溃，让用户更好的体验，我们通常通过负载均衡的方式来分担服务器的压力。那么什么是负载均衡呢？我们可以建立很多个服务器，
+			这些服务器组成一个服务器集群，然后当用户访问我们的网站的时候，先访问一个中间服务器，再让这个中间服务器在服务器群中选择一个压力较小的服务器，
+			然后将该访问请求引入选择的服务器。这样，用户每次的访问，都会保证服务器集群中的每个服务器的压力区域平衡，分担了服务器的压力，避免了服务器崩溃的情况。</p>
+			<p> </p>	
+				</section>
+		<section>
+			<p>（2）几种负载均衡的方式</p>	
+			<p>1)、轮询（默认） </p>	
+			<p>每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除。</p>	
+			<p>2)、weight </p>
+			<p>指定轮询几率，weight和访问比率成正比，用于后端服务器性能不均的情况。 </p>	
+			<p>3)、ip_hash  </p>	
+			<p>每个请求按访问ip的hash结果分配，这样每个访客固定访问一个后端服务器，可以解决session的问题。  </p>	
+				</section>
+		<section>
+			<p>4)、fair（第三方）  </p>	
+			<p>按后端服务器的响应时间来分配请求，响应时间短的优先分配。</p>	
+			<p>5)、url_hash（第三方） </p>	
+			<p>5.nginx的动静分离 </p>	
+			<p>一般由nginx处理并发的http请求，如果该请求返回的响应是静态文件（html，htm，css，js，图片等），
+			则直接由nginx处理，如果是动态文件（jsp，jspx，do，wsdl）等，则将该请求转发给Servlet容器Tomcat、Jetty、resin等进行处理。 </p>
+			<p> </p>	
+			<p> </p>
+			<p> </p>	
+			<p> </p>			
+			</section>
+		<section>
+		<h3>3.常见问题 </h3>	
+		<p>怎么实现上面说的反向代理，负载均衡和动静分离？</p>	
+		<p>在nginx的安装目录下打开nginx.conf文件，在里面配置一些内容。</p>	
+		<p> </p>		
+			</section>
+		<section>		
+			<h3>4.编码实战</h3>
+			<p></p>	   			
+		</section>
+		<section>
+			<h3>5.扩展思考</h3>
+			<p>nginx配置location总结：</p>
+			<p>location匹配顺序：</p>
+			<p>location = /uri 　　　=开头表示精确匹配，只有完全匹配上才能生效。</p>
+			<p>location ^~ /uri 　　^~ 开头对URL路径进行前缀匹配，并且在正则之前。</p>
+			<p>location ~ pattern 　~开头表示区分大小写的正则匹配。</p>
+			<p>location ~* pattern 　~*开头表示不区分大小写的正则匹配。</p>
+					</section>
+		<section>
+			<p>location /uri 　　　　不带任何修饰符，也表示前缀匹配，但是在正则匹配之后。 </p>	
+			<p>location / 　　　　　通用匹配，任何未匹配到其它location的请求都会匹配到。 </p>
+			<p>匹配顺序的中间的注意点：</p>	
+			<p>1.匹配的顺序是先匹配普通字符串，然后再匹配正则表达式。另外普通字符串匹配顺序是根据配置中字符长度从长到短，
+			也就是说使用普通字符串配置的location顺序是无关紧要的，反正最后nginx会根据配置的长短来进行匹配，</p>
+				</section>
+		<section>
+			<p>但是需要注意的是正则表达式按照配置文件里的顺序测试。找到第一个比配的正则表达式将停止搜索。 </p>	
+			<p>2.一般情况下，匹配成功了普通字符串location后还会进行正则表达式location匹配。有两种方法改变这种行为，
+			其一就是使用“=”前缀，这时执行的是严格匹配，并且匹配成功后立即停止其他匹配，同时处理这个请求；
+			另外一种就是使用“^~”前缀，如果把这个前缀用于一个常规字符串那么告诉nginx 如果路径匹配那么不测试正则表达式。</p>
+			<p></p>
+			<p></p>
+			</section>
+		<section>
+			<h3>6.参考文献</h3>
+			<p>https://blog.csdn.net/qw_xingzhe/article/details/79580800</p>
+			<p>https://blog.csdn.net/why_2012_gogo/article/details/51407037</p>
+			<p>https://blog.csdn.net/Al_assad/article/details/76561991</p>
+			<p>https://www.cnblogs.com/coder-yoyo/p/6346595.html</p>
+		</section>        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>谢谢大家！</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
