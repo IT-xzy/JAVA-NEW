@@ -1,0 +1,221 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>LinkedList浅析</h2>
+            <p>分享人：张强</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>1.背景介绍</h3>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:25px;">
+				Java集合<br/><br/>				在编程中，常常需要集中存放多个数据。从传统意义上讲，数组是我们的一个很好的选择，前提是我们事先已经明确知道我们将要保存的对象的数量。一旦在数组初始化时指定了这个数组长度，这个数组长度就是不可变的，如果我们需要保存一个可以动态增长的数据(在编译时无法确定具体的数量)，java的集合类就是一个很好的设计方案。<br/><br/>
+				
+				Java集合主要可以划分为4个部分：List列表、Set集合、Map映射、工具类(Iterator迭代器、Enumeration枚举类、Arrays和Collections)。<br/>
+				<img src="https://www.cnblogs.com/images/cnblogs_com/meijsuger/1216102/o_08171028-a5e372741b18431591bb577b1e1c95e6.jpg">
+				</p>
+			</section> 
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:25px;">
+				Java集合有两个大的接口:<br/><br/>
+				Collection和Map<br/><br/>
+				Collection接口：最基本的集合接口，一个Collection代表一组Object，按照不同规则有不同的实现，其中用到的主要是list和set：<br/><br/>
+				List接口(列表）——必须保持元素特定的顺序：List是一个有序的队列，每一个元素都有它的索引。第一个元素的索引值是0。<br/>
+				Set接口(集）——Set是一个不允许有重复元素的集合。<br/>
+				Queue（音同Q，队列）——保持一个队列(先进先出)的顺序。<br/><br/>
+				Map接口：一组成对的"键值对"（Key / Value）对象<br/><br/>
+				Collection和Map的区别在于容器中每个位置保存的元素个数:<br/>
+				1) Collection 每个位置只能保存一个元素<br/>
+				2) Map保存的是"键值对"。就像一个小型数据库，我们可以通过键找到其对应的值。
+				</p>
+			</section> 
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				Collection接口<br/><br/>
+				Collection<--List<--Vector<--Stack<br/>
+				Collection<--List<--ArrayList<br/>
+				<Strong>Collection <--继承--List <--实现-- AbstractSequentialList <--继承-- LinkedList</Strong><br/>
+				Collection<--Set<--HashSet<br/>
+				Collection<--Set<--HashSet<--LinkedHashSet<br/>
+				Collection<--Set<--SortedSet<--TreeSet<br/><br/>
+				
+				LinkedList是一个继承于AbstractSequentialList的双向链表<br/><br/>
+				AbstractSequentialList 实现了get(int index)、set(int index, E element)、add(int index, E element) 和 remove(int index)这些函数。这些接口都是随机访问List的，LinkedList继承于AbstractSequentialList，相当于已经实现了这些接口。 
+				</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p >LinkedList的继承关系：<br/>
+				<img src="https://www.cnblogs.com/images/cnblogs_com/meijsuger/1216102/o_linkedlist.jpg" width="500px";>
+				</p>
+			</section>
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>2.知识剖析</h3>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<h3>数据结构中的顺序表和链表</h3>
+				<p style="text-align:left; font-size:25px;"><br/>
+				数据的存储一般分线性存储结构和链式存储结构两种。前者是一种顺序的存储方式（顺序表），在内存中用一块连续的内存空间存储数据，即逻辑上相连的物理位置相邻，比较常见的就是数组；后者是一种链式存储方式（链表），不保证顺序性，逻辑上相邻的元素之间用指针所指定，它不是用一块连续的内存存储，逻辑上相连的物理位置不一定相邻。<br/><br/>
+				顺序表：用一段连续的存储单元依次存储线性表的数据元素。顺序表中的数据元素存储是连续的，内存划分的区域也是连续的。需要预分配存储空间，分大了浪费，小了容易发生上溢。<br/><br/>
+				链表：链表是一种递归的数据结构，它要么为空（null），要么指向是指向一个结点（node）的引用。链表在物理存储上通常是非连续、非顺序的方式存储的，数据元素的逻辑顺序是通过链表中的引用来实现的。链表采用链式存储结构，用一组任意的存储单元存放线性表的元素，不需要分配存储空间，只要有就可以分配，元素个数不受限制。<br/><br/>
+				常用到的链表：单向链表、循环链表、有序链表、双向链表等<br/>				
+				</p>				
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				LinkedList的本质是双链表，实现 List 和 Deque接口:<br/><br/>
+				<img src="https://www.cnblogs.com/images/cnblogs_com/meijsuger/1216102/o_QQ%e6%88%aa%e5%9b%be20180828105623.png" />
+				<br/><br/>
+				在LinkedList中，每个节点都用内部类Node表示：<br/><br/>				
+				<img src="https://www.cnblogs.com/images/cnblogs_com/meijsuger/1216102/o_QQ%e6%88%aa%e5%9b%be20180828105310.png" />
+				<br/><br/>
+				</p>
+			</section>
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>3.常见问题</h3>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:25px;">
+				LinkedList的常用方法：<br/><br/>
+				add(E e)：在末尾插入元素<br/>
+				add(int index, E element)：在指定位置插入元素<br/>				
+				remove(int index)：删除指定下标处的元素（删除的是引用，同时修改上下节点的引用）<br/>
+				remove(Object o)：删除跟指定元素相等的第一个元素（同上）<br/>
+				get(int index)得到指定下标处元素的引用，通过调用上文中提到的node(int index)方法实现。<br/>
+				set(int index, E element)方法将指定下标处的元素修改成指定值，也是先通过node(int index)找到对应下表元素的引用，然后修改Node中item的值。<br/>
+				</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				<br/>
+				<br/>
+				</p>
+			</section>
+        </section>
+		<section>
+			<h3>4.编码实战</h3>
+			<p></p>
+		</section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>5.扩展思考</h3>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:25px;">
+				LinkedList的几个特点<br/><br/>
+				也是list的特点<br/>
+				LinkedList允许空值<br/>
+				LinkedList允许重复数据<br/>
+				LinkedList有序的<br/>
+				LinkedList不是线程安全的<br/>
+				<br/>
+				</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:25px;">
+				List使用场景<br/><br/>
+				ArrayList在随机访问方面比较擅长，LinkedList在随机增删方面比较擅长<br/>
+				对于需要快速插入，删除元素，使用LinkedList。因为ArrayList要想在数组中任意两个元素中间添加对象时，数组需要移动所有后面的对象。<br/>
+				对于需要快速随机访问元素（get()），应该使用ArrayList，因为LinkedList要移动指针、遍历节点来定位，所以速度慢。<br/>
+				对于“单线程环境” 或者 “多线程环境，但List仅仅只会被单个线程操作”，此时应该使用非同步的类(如ArrayList)。<br/>
+				对于“多线程环境，且List可能同时被多个线程操作”，此时，应该使用同步的类(如Vector)。<br/>
+				</p>
+			</section>
+			
+		</section>
+		<section>
+			<h3>6.参考文献</h3>
+			<p>百度、知乎</p>
+		</section>        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>谢谢大家</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
