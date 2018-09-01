@@ -1,0 +1,223 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>序列化和反序列化</h3>
+		
+            <h4></h4>
+            <p>分享人：郑志航</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+
+
+         <section> 
+            <h3>1.背景介绍</h3>
+            <h5>REST</h5>
+            <p style="text-align:left">序列化 (Serialization)将对象的状态信息转换为可以存储或传输的形式的过程。在序列化期间，对象将其当前状态写入到临时或持久性存储区。以后，可以通过从存储区中读取或反序列化对象的状态，重新创建该对象。
+</p>
+        </section>
+
+
+         <section>
+            <h3>2.知识剖析</h3>
+            <h5>-1:序列化和反序列化的概念：</h5>
+            <p style="text-align:left">序列化：把对象转换为字节序列的过程称为对象的序列化。</p> 
+            <p style="text-align:left">反序列化：把字节序列恢复为对象的过程称为对象的反序列化。</p> 
+            <p style="text-align:left">通俗来说：</p> 
+            <p style="text-align:left">序列化把对象的描述变成一串字节进行描述；</p> 
+            <p style="text-align:left">反序列化对字节进行翻译恢复成对象；</p> 
+        </section>
+
+        <section>
+            <h3>.2知识剖析</h3>
+            <h5>2:什么情况下需要序列化？</h5>
+            <p style="text-align:left">1:想把内存中的对象保存到文件或者数据库的时候；</p> 
+            <p style="text-align:left">2:通过RMI传输对象的时候；</p> 
+            <p style="text-align:left">3其它；</p> 
+        </section> 
+
+       
+
+        <section>
+            <h3>.2知识剖析</h3>
+            <h5>-3:如何实现序列化/h5>
+            <p style="text-align:left">实现Seriallizable接口就行了</p> 
+        </section> 
+
+       
+
+        <section>
+            <h3>3.常见问题</h3>
+            <p style="text-align:left">1:静态属性能否被序列化； </p> 
+            <p style="text-align:left">2:Java中transient关键字的作用 </p> 
+            <p style="text-align:left">3:UID是否可以不添加 </p> 
+        </section>
+
+
+        
+		
+        <section>
+            <h3>4.解决方案</h3>
+            <h4>-1:静态属性能否被序列化；</h4>
+            <p style="text-align:left">原因在于序列化时，并不保存静态变量，这其实比较容易理解，序列化保存的是对象的状态，静态变量属于类的状态，因此 序列化并不保存静态变量。 </p>
+        </section>
+
+
+        <section>
+            <h3>4.解决方案</h3>
+            <h4>-2:Java中transient关键字的作用</h4>
+            <p style="text-align:left">使一些属性不可序列化；有些属性能通过已有的属性获得，那么可以不表示为transient，节省资源； </p>   
+        </section>
+
+         <section>
+            <h3>4.解决方案</h3>
+            <h4>-3:UID是否可以不添加</h4>
+			<p>序列化运行时使用一个称为 serialVersionUID 的版本号与每个可序列化类相关联，该序列号在反序列化过程中用于验证序列化对象的发送者和接收者是否为该对象加载了与序列化兼容的类。
+版本号不同，会导致： InvalidClassException（无效类异常）</p>
+        </section> 
+
+         <section>
+            <h3>4.解决方案</h3>
+            <h4>3:UID是否可以不添加</h4>
+			<p>如果可序列化类未显式声明 serialVersionUID，则序列化运行时将基于该类的各个方面计算该类的默认 serialVersionUID 值；但是不建议，因为会有几种隐患：</p>
+        </section> 
+
+         <section>
+            <h3>4.解决方案</h3>
+            <h4>3:UID是否可以不添加</h4>
+			<p>1:当原来的类属性发生增加删除的时候，会出现异常；
+如果有UID的话，类属性添加了，那么最多就是不加载，也不会异常；</p>
+<p>2:计算默认的 serialVersionUID 对类的详细信息具有较高的敏感性，根据编译器实现的不同可能千差万别，这样在反序列化过程中可能会导致意外的 InvalidClassException</p>
+        </section> 
+       
+        <section>
+            <h3>5.编码实战</h3>
+            <p>序列化和反序列化代码实战步骤：</p>
+            <p>（1）本地持久化：</p>
+            <p>1：测试不可序列化属性</p>
+            <p>2:测试静态属性；</p>
+            <p>3:测试不添加UID；</p>
+            <p>:额外添加字段</p>
+            <p>4:测试添加UID</p>
+            <p>额外添加字段</p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+            <p>序列化和反序列化代码实战步骤：</p>
+            <p>（2）RMI传输</p>
+            <p>1:测试有 serialVersionUID</p>
+            <p>2:测试修改 serialVersionUID</p>
+        </section>
+
+		 <section>
+            <h3>6.扩展思考</h3>
+            
+           <p style="text-align:left">jdk api 文档里面关于接口 Serializable 的描述</p>
+           <p style="text-align:left">类通过实现 java.io.Serializable 接口以启用其序列化功能。
+未实现此接口的类将无法使其任何状态序列化或反序列化。
+可序列化类的所有子类型本身都是可序列化的。因为实现接口也是间接的等同于继承。
+序列化接口没有方法或字段，仅用于标识可序列化的语义。
+</p>
+
+
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:center">百度，CSDN博客</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>Java语言里现在只支持lightweight persistence,就是轻量级持久化，这是通过serialization机制来实现的。 </p>
+            <p>persistence是指一个对象的生命周期不由程序是否执行来决定，即使是在程序终止时这个对象也存在。它把一个serializable的对象写到磁盘（本机或其他机器上的非RAM存储器），并在程序重新调用时再读取对象到通常的RAM存储器。 </p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>为什么说Java的serialization机制实现的是lightweight persistence?因为你必须显式的序列化和反序列化程序里的对象；而不是直接由一个关键词来定义一个对象是序列化的然后由系统做相应的处理。  如果以后的Java版本出现一个新的关键字来实现这种机制，比如就是persistence,如果我用 
+persistence  (String s="CCC") 
+ </p>
+            <p>那么“CCC”就是在磁盘里面了，我程序终止了，字符串也存在。</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
