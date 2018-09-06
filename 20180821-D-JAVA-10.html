@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Shiro</h2>
+            <p>分享人：韩亚博</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+        
+		<section>
+			<h3>1.背景介绍</h3>	
+			<p>在2008年进入Apache软件基金会之前，Shiro已经有5年历史，之前被称为JSecurity项目，该项目始于2003年初。2003年，Java应用程序开发人员的通用安全替代方案并不多 - 我们能用的是Java身份认证和授权服务，也称为JAAS。</p>	
+			
+			<br/>
+			<p style="color:black">JAAS存在许多缺点 - 虽然其身份验证功能在某种程度上是可以容忍的，但授权方面使用起来很晦涩且令人沮丧。此外，JAAS严重依赖于虚拟机级安全问题，例如，确定是否应允许在JVM中加载类。作为一名应用程序开发人员，我更关心应用程序最终用户可以做什么而不是我的代码在JVM中可以做什么。</p>			
+		</section>	
+		
+		<section>			
+			<p style="color:black">由于当时正在使用的应用程序，需要访问一个干净的，与容器无关的会话机制。而当时唯一的会话选择是HttpSessions，它需要一个Web容器，或EBJ 2.1 Stateful Session Beans，它需要一个EJB容器。我需要一些可以与容器分离的东西，可以在我选择的任何环境中使用。</p>	
+			<p>最后，还有加密问题。有时候我们都需要保证数据的安全，但除非你是加密专家，否则Java加密体系结构很难理解。API充满了检查异常，并且使用起来很麻烦。我希望有一个更清晰的开箱即用的解决方案，可以根据需要轻松加密和解密数据。</p>	
+			
+			<p style="color:black">因此，从2003年初的安全状况来看，您可以很快意识到在单一，有凝聚力的框架中没有任何东西可以满足所有这些要求。正因为如此，JSecurity，以及后来的Apache Shiro诞生了。</p>				
+		</section>		
+		
+		<section>
+			<h3>2.知识剖析</h3>
+			<p>2.1 Shiro是什么？</p>
+			<p>2.2 Shiro功能</p>
+			<p>2.3 为什么要使用shiro？</p>
+		</section>	
+		
+		<section>
+			<h3>2.1 Shiro是什么？</h3>			
+			<p>Apache Shiro（发音为“shee-roh”，日语中的'castle'）是一个功能强大且易于使用的Java安全框架，可执行身份验证，授权，加密和会话管理，并可用于保护任何应用程序 - 从命令行应用程序，移动应用程序到最大的Web和企业应用程序。</p>
+					
+		</section>
+		
+		
+		<section>
+			<h3>2.2 Shiro功能</h3>	
+			<img src="http://pic.zhimowen.top/fupan/shiro1.png"/>			
+		</section>	
+		
+		<section>
+			<h3>2.3 为什么要使用shiro？</h3>	
+			<img src="http://pic.zhimowen.top/fupan/shiro2.png"/>			
+		</section>
+		
+		
+		<section>
+			<h3>3.常见问题</h3>	
+			<p>Shiro和Spring Security对比</p>
+			<p style="font-size:26px">1.Shiro比Spring更容易使用，实现和最重要的理解</p>	
+			<p style="font-size:26px;color:black">2.Spring Security更加知名的唯一原因是因为品牌名称</p>
+			
+			<p style="font-size:26px">3.“Spring”以简单而闻名，但讽刺的是很多人发现安装Spring Security很难</p>
+			<p style="font-size:26px;color:black">4.然而，Spring Security却有更好的社区支持</p>
+			
+			<p style="font-size:26px">5.Apache Shiro在Spring Security处理密码学方面有一个额外的模块</p>		
+			<p style="font-size:26px;color:black">6.Spring-security 对spring 结合较好，如果项目用的springmvc，使用起来很方便。但是如果项目中没有用到spring，那就不要考虑它了。</p>
+			<p style="font-size:26px">7.Shiro 功能强大、且 简单、灵活。是Apache 下的项目比较可靠，且不跟任何的框架或者容器绑定，可以独立运行</p>
+		</section>			
+
+		<section>
+			<h3>4.编码实战</h3>
+			<p>简单权限管理</p>	
+		</section>
+	
+		<section>
+			<h3>5.扩展思考</h3>
+			<p>Shiro目前应用在哪较多</p>			
+			<p>Shiro及其前身JSecurity多年来一直在各种规模和行业的公司项目中使用。自从成为Apache软件基金会顶级项目以来，网站流量和采用率持续显着增长。许多开源社区也在使用Shiro，例如Spring，Grails，Wicket，Tapestry，Tynamo，Mule和Vaadin，仅举几例。</p>
+			<p>像Katasoft，Sonatype，MuleSoft这样的主要社交网络之一的商业公司，以及不止一些纽约商业银行使用Shiro来保护他们的商业软件和网站。</p>
+		</section>
+		
+		<section>
+			<h3>6.参考文献</h3>	
+			<p>https://baike.baidu.com/item/shiro/17753571</p>		
+			<p>https://www.infoq.com/articles/apache-shiro</p>
+			<p>http://shiro.apache.org/</p>					
+		</section>
+        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>欢迎大家讨论</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
