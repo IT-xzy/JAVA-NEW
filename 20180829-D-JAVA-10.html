@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>ArrayList浅析</h2>
+            <p>分享人：韩亚博</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+        
+		<section>
+			<h3>1.背景介绍</h3>	
+			<p>ArrayList就是动态数组，用MSDN中的说法，就是Array的复杂版本</p>	
+			
+			<br/>
+			<p style="color:black">ArrayList提供了动态的增加和减少元素，实现了Collection和List接口，可以灵活的设置数组的大小</p>
+			<br/>
+			<p>要注意的是ArrayList并不是线程安全的，因此一般建议在单线程中使用ArrayList。</p>
+			
+			
+		</section>	
+		
+		<section>			
+			<img src="http://files.jb51.net/file_images/article/201311/20131105100548.jpg?201310510715:"/>				
+		</section>		
+		
+		<section>
+			<h3>2.知识剖析</h3>
+			<p>2.1 ArrayList重要的方法和特性</p>
+			
+		</section>	
+		
+		<section>
+			<h3>2.1 ArrayList重要的方法和特性</h3>			
+			<p>构造器</p>
+			<p>--ArrayList():构造一个初始容量为10的空列表。这个10在源码中没找到，但是在jdk官网找到了  <a href="https://docs.oracle.com/javase/7/docs/api/java/util/ArrayList.html#ArrayList()">10</a></p>
+			<br/>
+			<p style="color:black">--ArrayList(Collection c):按照集合的迭代器返回的顺序构造一个包含指定集合元素的列表。</p>
+			<br/>
+			<p>--ArrayList(int initialCapacity):构造具有指定初始容量的空列表。</p>
+		</section>
+		
+		
+		<section>
+			<h3>2.2 ArrayList线程不安全</h3>	
+			<p> 如果多个线程同时访问ArrayList实例，并且至少有一个线程在结构上修改了列表，则 必须在外部进行同步。</p>		
+		</section>	
+		
+		<section>
+			<h3>2.3 其他方法</h3>	
+			<p>add()、set()、clear()</p>
+			<p style="color:black">对于代码中的资源其实无外乎也是 创建、销毁、增删改查</p>
+			<p>其实就目前来说，基本上我们对数据库(持久化资源)以及代码中的某个对象所作的操作都是上边说的</p>
+			<p style="color:black">个人感觉：所有的操作其实都是在对资源进行操作，创建-->增删改查-->销毁</p>
+		</section>
+		
+		
+		<section>
+			<h3>3.常见问题</h3>	
+			<p>ArrayList的使用建议</p>
+			<p style="font-size:26px">ArrayList是基于数组实现的，而LinkedList是基于链表实现的；</p>	
+			
+			<p style="font-size:26px;color:black">数组是将元素在内存中连续存放，由于每个元素占用内存相同，可以通过下标迅速访问数组中任何元素</p>
+			
+			<p style="font-size:26px">链表恰好相反，链表中的元素在内存中不是顺序存储的，而是通过存在元素中的指针联系到一起。搜索不易</p>
+			
+			<p style="font-size:26px;color:black">如果应用需要快速访问数据，很少或不插入和删除元素，就应该用数组，也就是ArrayList;</p>
+			
+			<p style="font-size:26px">如果应用需要经常插入和删除元素你就需要用链表数据结构了，也就是LinkedList。</p>	
+			
+		</section>
+
+		<section>	
+			<p>ArrayList的大小是如何自动增加的？你能分享一下你的代码吗？</p>
+			<p style="font-size:26px;color:black">这是最有技巧性的的一个问题，大多数人都无法回答。事实上，当有人试图在arraylist中增加一个对象的时候，Java会去检查arraylist，以确保已存在的数组中有足够的容量来存储这个新的对象。如果没有足够容量的话，那么就会新建一个长度更长的数组，旧的数组就会使用Arrays.copyOf方法被复制到新的数组中去，现有的数组引用指向了新的数组。可以看源码</p>	
+		</section>
+
+		<section>	
+			<p>如何复制某个ArrayList到另一个ArrayList中去？写出你的代码？</p>
+			<p style="font-size:26px;color:black">1.使用clone()方法，比如ArrayList newArray = oldArray.clone();</p>
+			<p style="font-size:26px">2.使用ArrayList构造方法，比如：ArrayList myObject = new ArrayList(myTempObject);</p>
+			<p style="font-size:26px;color:black">3.使用Collection的copy方法。</p>	
+		</section>		
+
+		<section>
+			<h3>4.编码实战</h3>
+			<p>简单看下源码以及使用</p>	
+		</section>
+	
+		<section>
+			<h3>5.扩展思考</h3>
+			<p>ArrayList扩容</p>			
+			<p>ArrayList是动态的，那么就允许增长自身的长度，这种情况下必须有扩容机制存在</p>
+			<p>按照从10开始，1.5倍扩容，直接看源码</p>
+		</section>
+		
+		<section>
+			<h3>6.参考文献</h3>	
+			<p>https://docs.oracle.com/javase/7/docs/api/java/util/ArrayList.html</p>
+			<p>http://www.cnblogs.com/rickie/articles/67978.html</p>
+			<p>https://blog.csdn.net/xiaodaiye/article/details/50818966</p>	
+			<p>https://www.cnblogs.com/kuoAT/p/6771653.html</p>
+		</section>
+        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>欢迎大家讨论</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
