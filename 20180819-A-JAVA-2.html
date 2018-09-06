@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	<style>
+		.left{ text-align: left; }
+	</style>	
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>JSP基本知识</h2>
+            <p>分享人：张亚强</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+         <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>1.背景介绍</h3>
+            </section>
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+	            <p>JSP简介</p>
+				<p>JSP(Java Server Pages),其根本是一个简化的Servlet设计，它实现了在Java中使用HTML标签。JSP是一种动态网页技术标准，也是JavaEE的标准。JSP和Servlet一样，是在服务器端执行的。JSP是在Servlet技术发展之后为了让开发者写html标签更方便而发展起来的技术，JSP实际上就是Servlet。</p>
+				<p>人们通常把Servlet作为Web应用中的控制组件来使用，只负责响应请求产生数据，并把数据通过转发技术带给jsp，而把jsp技术作为数据显示模板来使用。这样使程序结构更清晰，可读性和可维护性更高。</p>
+            </section>
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+				<h3>2.知识剖析</h3>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>JSP页面元素构成</p>
+				<p>1.JSP指令</p>
+				<p>2.表达式</p>
+				<p>3.脚本片段</p>
+				<p>4.注释</p>
+				<p>5.声明</p>
+			</section>
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>JSP页面的三大指令</p>
+				<p>1.<%@ page ... %>	定义网页依赖属性，比如脚本语言、error页面、缓存需求等等</p>
+				<p>2.<%@ include ... %>	包含其他文件（静态包含）</p>
+				<p>3.<%@ taglib ... %>	引入标签库的定义</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>表达式</p>
+				<p>在JSP页面中执行的表达式 <%=表达式%>，注意表达式不以分号结束。例如，当前时间:<%= new java.util.Date() %></p>
+			</section>		
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>脚本片段</p>
+				<p>在JSP页面中插入多行java代码 <% Java代码 %>，JSP引擎在翻译JSP页面时，会将JSP脚本片段中的Java代码原封不动的放到Servlet的_jspServlet方法中，所以，<% %>中的Java代码必须严格遵循java语法。</p>
+			</section>	
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>注释(3种方式)：</p>
+				<p>HTML注释：<\!--html注释，且客户端可见--></p>
+				<p>JSP注释：<%--JSP注释，客户端不可见--%></p>
+				<p>JSP脚本注释：即java注释 //单行 , /*多行 */</p>
+			</section>		
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>声明：</p>
+				<p>在JSP页面中,可以声明一个或者多个合法的变量和方法 , 声明后的变量和方法可以在本 JSP 页面的任何位置使用 , 并将在 JSP 页面初始化时被初始化</p>
+			</section>		
+			
+		</section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+				<h3>3.常见问题</h3>
+			</section>		
+		</section>
+		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>4.编码实战</h3>
+			</section>			
+		</section>
+		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>5.扩展思考</h3>				
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>html和jsp的区别</p>
+				<p>HTML（Hypertext Markup Language）文本标记语言，它是静态页面，和JavaScript一样解释性语言，为什么说是解释性语言呢？因为，只要你有一个浏览器那么它就可以正常显示出来，而不需要指定的编译工具，只需在TXT文档中写上HTML标记就OK。</p>
+				<p>JSP（Java Server Page）是Java服务端的页面，所以它是动态的，它是需要经过JDK编译后把内容发给客户端去显示，我们都知道，Java文件编译后会产生一个class文件，最终执行的就是这个class文件，JSP也一样，它也要编译成class文件！JSP不止要编译，它还得要转译，首先把JSP转译成一个Servlet文件，然后在编译成class文件。当用户访问JSP时就执行了class文件</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>区别</p>
+				<p>1.HTML能直接打开，jsp只能发布到Tomact等服务器上才能打开</p>
+				<p>2.定义上HTML页面是静态页面可以直接运行，JSP页面是动态页它运行时需要转换成servlet</p>
+				<p>3.他们的表头不同，这个是JSP的头“ <%@ page language="java" import="java.util.*" pageEncoding="gbk"%>”在表头中有编码格式和导入包等</p>
+				<p>4.在jsp中用<%%>就可以写Java代码了，而html没有</p>
+			</section>
+		</section>
+		<section>
+			<h3>6.参考文献</h3>
+			<p>https://www.cnblogs.com/rocomp/p/4822419.html</p>
+			<p>https://www.cnblogs.com/yuanmiemie/p/6196906.html</p>
+		</section>
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>欢迎大家讨论</p>            
+        </section>
+        <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">				
+			</section>
+		</section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
