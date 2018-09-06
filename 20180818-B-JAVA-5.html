@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	<style>
+		.left{ text-align: left; }
+	</style>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>拦截器，过滤器，监听器各有什么作用？</h2>
+            <p>分享人：王耀琪</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+         <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>1.背景介绍</h3>
+            </section>
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+	            <p>过滤器Filter，是Servlet2.3新增加的功能。主要对HttpServletRequest进行预处理，也对HttpServletResponse进行后处理，是典型的处理链。可以实现一些特殊的功能。例如实现URL级别的权限访问控制、过滤敏感词汇、压缩响应信息等。</p>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+	            <p>监听器用于监听web应用中某些对象、信息的创建、销毁、增加，修改，删除等动作的发生，然后作出相应的响应处理。当范围对象的状态发生变化的时候，服务器自动调用监听器对象中的方法。常用于统计在线人数和在线用户，系统加载时进行信息初始化，统计网站的访问量等等。</p>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+	            <p>拦截器是动态拦截Action调用的对象，它提供了一种机制可以使开发者在一个Action执行的前后执行一段代码，也可以在一个Action执行前阻止其执行，同时也提供了一种可以提取Action中可重用部分代码的方式。在AOP中，拦截器用于在某个方法或者字段被访问之前，进行拦截然后再之前或者之后加入某些操作。目前，我们需要掌握的主要是Spring的拦截器，Struts2的拦截器不用深究，知道即可。</p>
+            </section>
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+				<h3>2.知识剖析</h3>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>所有的Servlet过滤器接口必须实现java.servlet.Filter接口，这个接口含有三个过滤器类必须实现的方法：</p>	
+				<p>1.init(FilterConfig)：Servlet过滤器的初始化方法，Servlet容器创建Servlet过滤器实例后，将调用这个方法。这个方法可以读取web.xml中的Servlet过滤器的配置初始化参数</p>
+				<p>2.doFilter(ServletRequest,ServletResponse,FilterChain)：这个方法完成实际的过滤操作，当客户请求访问于过滤器关联的URL时，Servlet容器将先调用过滤器的doFilter方法。FilterChain参数用于访问后续过滤器</p>
+				<p>3.destroy()：Servlet容器在销毁过滤器实例前调用该方法，这个方法中可以释放Servlet过滤器占用的资源</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>监听器Listener是实现了javax.servlet.ServletContextListener 接口的服务器端程序，它也是随web应用的启动而启动，只初始化一次，随web应用的停止而销毁。</p>
+				<p>根据监听的域对象可以分为三类:<br>
+		1.监听Servlet上下文对象的监听器<br>
+        对Servlet上下文对象初始化及对象销毁动作进行监听的  ServletContextListener<br>
+        对Servlet上下文对象的属性进行监听的 ServletContextAttributeListener</p>		
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>2.监听HTTP会话 Session对象的监听器<br>
+        对HTTP Session对象初始化及销毁动作进行监听的  HttpSessionListener<br>
+        对HTTP Session对象的属性进行监听的  HttpSessionAttributeListener<br>
+        对HTTP Session对象设置的属性对象进行监听的 HttpSessionBindingListener<br>
+        对HTTP Session对象的活跃性进行监听的 HttpSessionActivationListener</p>
+				<p>3.监听客户端请求Servlet Request对象的监听器<br>
+        对Servlet Request对象初始化及销毁动作进行监听的 ServletRequestListener<br>
+        对Servlet Request对象的属性进行监听的 ServletRequestAttributeListener</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>第一种方式是要定义的Interceptor类要实现了Spring的HandlerInterceptor 接口<br>
+     			第二种方式是继承实现了HandlerInterceptor接口的类，比如Spring已经提供的实现了HandlerInterceptor接口的抽象类HandlerInterceptorAdapter<br>
+				HandlerInterceptor 接口中定义了三个方法:preHandle(), postHandle(), afterCompletion()。</p>
+			</section>
+		</section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+				<h3>3.常见问题</h3>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>拦截器，监听器，过滤器的执行顺序</p>
+			</section>			
+		</section>
+		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>4.编码实战</h3>
+			</section>			
+		</section>
+		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>5.扩展思考</h3>				
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>拦截器，监听器和过滤器的区别</p>
+				<p>过滤器能够为我们提供系统级别的过滤，也就是说，能过滤所有的web请求，这一点，是拦截器无法做到的。在JavaWeb中，你传入的request,response提前过滤掉一些信息，或者提前设置一些参数，然后再传入servlet或者struts的action进行业务逻辑，比如过滤掉非法url（不是login.do的地址请求，如果用户没有登陆都过滤掉）,或者在传入servlet或者struts的action前统一设置字符集，或者去除掉一些非法字符（聊天室经常用到的，一些骂人的话）。filter 流程是线性的，url传来之后，检查之后，可保持原来的流程继续向下执行，被下一个filter, servlet接收。</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>监听器，也是系统级别的监听。监听器随web应用的启动而启动。Java的监听器在c/s模式里面经常用到，它会对特定的事件产生产生一个处理。监听在很多模式下用到，比如说观察者模式，就是一个使用监听器来实现的，在比如统计网站的在线人数。又比如struts2可以用监听来启动。Servlet监听器用于监听一些重要事件的发生，监听器对象可以在事情发生前、发生后可以做一些必要的处理。</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>java里的拦截器提供的是非系统级别的拦截，也就是说，就覆盖面来说，拦截器不如过滤器强大，但是更有针对性。Java中的拦截器是基于Java反射机制实现的，更准确的划分，应该是基于JDK实现的动态代理。它依赖于具体的接口，用于在某个方法或者字段被访问之前，进行拦截然后再之前或者之后加入某些操作。</p>
+			</section>
+		</section>
+		<section>
+			<h3>6.参考文献</h3>
+			<p></p>
+			<p></p>
+			<p></p>
+		</section>
+        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>欢迎大家讨论</p>            
+        </section>
+        <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">				
+			</section>
+		</section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

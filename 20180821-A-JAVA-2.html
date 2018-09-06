@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+    <div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.879429);">
+        <section class="present" style="top: 169px; display: block;">
+            <h3>Jsp有几个内置对象</h3>
+			<p></p>
+            <h4>Java小课堂</h4>
+            <p>分享人：廖友</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 34.5px; display: block;">
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        
+		<section hidden="" aria-hidden="true" class="future" style="top: 267px; display: block;">
+            <h3>1.背景介绍</h3>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>1.1 Jsp是什么</h3><br>
+            <p style="text-align:left">JSP全名为Java Server Pages，中文名叫java服务器页面，是一种动态网页开发技术。它使用JSP标签在HTML网页中插入Java代码。</p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+        </section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>1.2 Jsp原理</h3><br>
+            <p style="text-align:left">Jsp本质上是一个servlet</p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>1.3 Jsp作用</h3><br>
+            <p style="text-align:left">JSP通过网页表单获取用户输入数据、访问数据库及其他数据源，然后动态地创建网页。</p>
+			<p style="text-align:left">JSP标签</p>
+			<p style="text-align:left">JSP标准标签库（JSTL）是一个JSP标签集合，它封装了JSP应用的通用核心功能。</p>
+			<p style="text-align:left">JSTL里有：核心标签、格式化标签、SQL标签、XML标签、JSTL函数</p>
+			<p style="text-align:left">利用上面这些，我们就能进行比如访问数据库、记录用户选择信息、访问JavaBeans组件在不同的网页中传递控制信息和共享信息等操作。</p>
+			<p style="text-align:left"></p>
+        </section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>简而言之，jsp就是一个用来简化开发动态网页的一门技术</h3><br>
+        </section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.知识剖析</h3>
+        </section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.1 内置对象概念</h3>
+			<p style="text-align:left">内置对象（也称隐含对象）：不需要预先声明就可以在<%%>表达式中随意使用。</p>
+			<p style="text-align:left">JSP中共有9个内置对象</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.2 request对象</h3><br>
+			<p style="text-align:left">request对象是javax.servlet.httpServletRquest类型的对象，该对象代表了客户端的请求信息，主要用于接收通过Http协议传送到服务器的数据（包括头信息、系统信息、请求方式、请求参数等。</p>
+        </section>
+         <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.3 response对象</h3><br>
+			<p style="text-align:left">response 代表的是对客户端的响应，主要是将JSP容器处理过的对象传回到客户端。response对象也具有作用域，它只在JSP页面内有效。response对象的主要使用:设置HTTP头信息、重定向、设置COOKie</p>
+		</section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.4 seesion对象</h3><br>
+			<p style="text-align:left">session 对象是由服务器自动创建的与用户请求相关的对象。服务器为每个用户都生成一个session对象，用于保存该用户的信息，跟踪用户的操作状态。session对象内部使用Map类来保存数据，因此保存数据的格式为 “Key/value”。 session对象的value可以使用复杂的对象类型，而不仅仅局限于字符串类型。</p>   
+        </section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>2.5 application对象</h3>
+			<p style="text-align:left">application 对象可将信息保存在服务器中，直到服务器关闭，否则application对象中保存的信息会在整个应用中都有效。与session对象相比，application对象生命周期更长，类似于系统的“全局变量”</p>
+			<p style="text-align:left"></p>
+		</section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>2.6 out对象</h3>
+			<p style="text-align:left">out 对象用于在Web浏览器内输出信息，并且管理应用服务器上的输出缓冲区。在使用 out 对象输出数据时，可以对数据缓冲区进行操作，及时清除缓冲区中的残余数据，为其他的输出让出缓冲空间。待数据输出完毕后，要及时关闭输出流。</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>2.7 pageContext对象</h3>
+			<p style="text-align:left">pageContext 对象的作用是取得任何范围的参数，通过它可以获取 JSP页面的out、request、reponse、session、application 等对象。pageContext对象的创建和初始化都是由容器来完成的，在JSP页面中可以直接使用 pageContext对象。</p>
+        </section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>2.8 config 对象</h3>
+			<p style="text-align:left">config 对象的主要作用是取得服务器的配置信息。通过 pageConext对象的 getServletConfig() 方法可以获取一个config对象。当一个Servlet 初始化时，容器把某些信息通过 config对象传递给这个 Servlet。 开发者可以在web.xml 文件中为应用程序环境中的Servlet程序和JSP页面提供初始化参数。</p>
+        </section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>2.9 page对象</h3>
+			<p style="text-align:left">page对象代表JSP本身，只有在JSP页面内才是合法的。 page隐含对象本质上包含当前 Servlet接口引用的变量，类似于Java编程中的 this 指针。</p>
+        </section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>2.10 exception对象</h3>
+			<p style="text-align:left">Exception对象是用来处理Jsp页面文件在执行时所有发生的错误和异常；Jsp页面文件必须在isErrorPage=true的情况下才可以使用该对象；该对象一般配合Page指令一起使用，通过指定某个页面为错误处理页面，把所有的错误都集中到那个页面进行处理，可以使整个系统的性能得到加强</p>
+        </section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>3.扩展思考</h3>
+        </section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>3.1 四大作用域</h3>
+            <p style="text-align:left">作用域就是信息共享的范围，也就是说一个信息能够在多大的范围内有效。</p>
+        </section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>四大作用域</h3>
+            <p style="text-align:left">page：在一个页面内保存属性，跳转之后无效</p>
+            <p style="text-align:left">request：在一次服务请求范围内，服务器跳转后依然有效</p>
+			<p style="text-align:left">session：在一次会话范围内，无论何种跳转都可以使用，但是新开浏览器无法使用</p>
+			<p style="text-align:left">application：在整个服务器上保存，所有用户都可以使用</p>
+        </section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>3.2 EL表达式</h3>
+            <p style="text-align:left">EL表达式是为了简化JSP获取属性值而开发的一套表达式语言。</p>
+            <p style="text-align:left">主要作用：从四大作用域中获取属性值</p>
+			<p style="text-align:left">语法结构：${EL表达式}</p>
+			<p style="text-align:left">	EL提供 . 和 [] 两种运算符来获取数据：${sessionScope.user.name}  ${sessionScope.user["name"]}</p>
+        </section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>4.常见问题</h3>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>4.1 jsp内置对象和el内置对象的区别</h3>
+            <p style="text-align:left">EL表达式语言中定义了11个内置对象，使用这些内置对象可以很方便地获取web开发中的一些常见对象，并读取这些对象的数据。</p>
+			<p style="text-align:left">EL的内置对象和JSP的内置对象是完全不同的东西，使用JSP的内置对象通过自身的方法可以进行读写操作，而使用EL的内置对象只能进行读操作，二者的唯一联系是：通过EL内置对象可以读取到JSP内置对象的信息。</p>
+        </section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3> 4.2 . 和 [] 两种运算符区别</h3>
+            <p style="text-align:left">（1）当要存取的属性名称中包含一些特殊字符，如 . 或 ? 等并非字母或数字的符号，就一定要使用 [] 。如 ${user.My-Name} 应当改为 ${user["My-Name"]}</p>
+            <p style="text-align:left">如果要动态取值，必须使用 []，因为 . 运算符无法做到动态取值。如 ${sessionScope.user[data]}   ，此时data是一个变量，假如data的值为“sex”，那左边例子等同于 ${sessionScope.user.sex}，加入data的值为“name”，它就等于 ${sessionScope.user.name}</p>
+        </section>
+		
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>6.参考文献</h3>
+			<p style="text-align:center">[1]https://www.w3cschool.cn/jsp/jsp-expression-language.html</p>
+			<p style="text-align:center">[2]https://www.cnblogs.com/pangguoming/p/6390732.html</p>
+			<p style="text-align:center">[2]https://www.cnblogs.com/mengzhen123/p/5968831.html</p>
+        </section>
+		
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>7.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px);">
+            JSP有几个内置对象
+			
+            Java小课堂
+            分享人：廖友
+        </div></div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
