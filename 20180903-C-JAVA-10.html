@@ -1,0 +1,257 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+         <section class="present" style="top: 221.5px; display: block;">
+            <h2>springboot整合dubbo</h2>
+            <p>分享人：李伟明</p>	
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 69px; display: block;">
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>	       
+		<section hidden="" aria-hidden="true" class="future" style="top: 267px; display: block;">
+			<h3>1.背景介绍</h3>
+			
+		</section>	       
+		
+		 <section class="future" style="top: 119px; display: none;" hidden="" aria-hidden="true">
+		    <h3>什么是Dubbo?</h3>
+            <p style="text-align:left; ">
+			1、一款分布式服务框架；<br>
+
+			2、高性能和透明化的RPC远程服务调用方案；<br>
+
+			3、SOA服务治理方案。<br>
+			</p>
+
+		</section>
+		
+		 <section class="future" style="top: 119px; display: none;" hidden="" aria-hidden="true">
+		    <h3>应用架构进化史</h3>
+            <p style="text-align:left; ">
+			1、单一应用架构：当网站流量很小时，只需一个应用，将所有功能都部署在一起，以减少部署节点和成本。此时，用于简化增删改查工作量的数据访问框架(ORM)是关键。<br>
+
+			2、垂直应用架构：当访问量逐渐增大，单一应用增加机器带来的加速度越来越小，将应用拆成互不相干的几个应用，以提升效率。此时，用于加速前端页面开发的Web框架(MVC)是关键。<br>
+
+			</p>
+
+		</section>
+		
+		<section class="future" style="top: 119px; display: none;" hidden="" aria-hidden="true">
+		   
+            <p style="text-align:left; ">
+			
+			3、分布式服务架构：当垂直应用越来越多，应用之间交互不可避免，将核心业务抽取出来，作为独立的服务，逐渐形成稳定的服务中心，使前端应用能更快速的响应多变的市场需求。此时，用于提高业务复用及整合的分布式服务框架(RPC)是关键。<br>
+			
+			4、流动计算架构：当服务越来越多，容量的评估，小服务资源的浪费等问题逐渐显现，此时需增加一个调度中心基于访问压力实时管理集群容量，提高集群利用率。此时，用于提高机器利用率的资源调度和治理中心(SOA)是关键。<br>
+			</p>
+
+		</section>
+		
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>2.知识剖析</h3>
+			<p></p>
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<p>
+			<img src="http://dubbo.apache.org/docs/zh-cn/user/sources/images/dubbo-architecture.jpg" width="900" height="600">
+			</p>
+		</section>
+		
+		<section class="future" style="top: 69px; display: none;" hidden="" aria-hidden="true">
+		    <h3>节点角色说明</h3>
+				    <p style="text-align:left; ">
+						Provider:暴露服务的服务提供方
+					</p>
+					<p style="text-align:left; ">
+                        Consumer:调用远程服务的服务消费方
+					</p>
+					<p style="text-align:left; ">
+						Registry:服务注册与发现的注册中心
+					</p>
+					<p style="text-align:left; ">
+						Monitor:统计服务的调用次数和调用时间的监控中心
+					</p>
+					<p style="text-align:left; ">
+						Container:服务运行容器
+					</p>
+					
+			 </section>
+			 
+			 
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+		    <h3>调用关系说明</h3>
+			        <p style="text-align:left; ">
+						1.服务容器负责启动，加载，运行服务提供者
+					</p>
+					<p style="text-align:left; ">
+						2.服务提供者在启动时，向注册中心注册自己提供的服务
+					</p>
+					<p style="text-align:left; ">
+						3.服务消费者在启动时，向注册中心订阅自己所需的服务
+					</p>
+					<p style="text-align:left; ">
+						4.注册中心返回服务提供者地址列表给消费者，如果有变更，注册中心将基于长连接推送变更数据给消费者
+					</p>
+					<p style="text-align:left; ">
+						5.服务消费者，从提供者地址列表中，基于软负载均衡算法，选一台提供者进行调用，如果调用失败，再选另一台调用
+					</p>
+					<p style="text-align:left; ">
+						6.服务消费者和提供者，在内存中累计调用次数和调用时间，定时每分钟发送一次统计数据到监控中心
+					</p>
+		</section>
+		
+		
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>3.常见问题</h3>
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">			
+			<h3>3.1 dubbo 解决的需求？ </h3>
+			<h3>3.2 Dubbo优缺点? </h3>
+			<h3>3.3 什么是zookeeper？ </h3>
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">			
+			<h3>3.1 dubbo 解决的需求？ </h3>
+			<p style="text-align:left; ">
+			1.未服务化之前，可以通过 RMI 或 Hessian 等工具，简单的暴露和引用远程服务，通过服务的URL地址调用，服务增多后，服务URL配置很难管理，需要一个服务注册中心，动态的注册和发现服务<br>
+
+2.服务间依赖关系错综复杂，需要自动画出应用间的依赖<br>
+
+3.服务的调用变大，服务的容量问题<br>
+			</p>
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">			
+			<h3>3.2 Dubbo优缺点? </h3>
+			<p style="text-align:left; ">
+              优点：1、透明化的远程方法调用，只需简单配置，没有任何API侵入。2、软负载均衡及容错机制 。3、服务注册中心自动注册 & 配置管理 。
+			  4、服务接口监控与治理 ，Dubbo-admin与Dubbo-monitor提供了完善的服务接口管理与监控功能，针对不同应用的不同接口，可以进行 多版本，多协议，多注册中心管理。<br>
+缺点： 只支持JAVA语言<br>
+			</p>
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">			
+			<h3>3.3 什么是zookeeper？ </h3>
+			<p style="text-align:left; ">
+              zookeeper用来注册服务和进行负载均衡，哪一个服务由哪一个机器来提供必需让调用者知道，简单来说就是ip地址和服务名称的对应关系。<br>
+			  zookeeper通过心跳机制可以检测挂掉的机器并将挂掉机器的ip和服务对应关系从列表中删除。<br>
+			  至于支持高并发，简单来说就是横向扩展，在不更改代码的情况通过添加机器来提高运算能力。<br>
+			</p>
+		</section>
+		
+	
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>4.编码实战</h3>   			
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>5.扩展思考</h3>
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>什么是长连接和心跳机制？</h3>
+			<p style="text-align:left; "> 网络中的接收和发送数据都是使用操作系统中的SOCKET进行实现。
+			</p>
+			<p style="text-align:left; ">可是如何判断这个机制是否还可以使用呢？这个就需要在系统中创建心跳机制。
+			</p>
+			<p style="text-align:left; ">TCP就会在一定的时间内发送你设置的次数的心跳，并且此信息不会影响你自己定义的协议。
+			</p>
+			<p style="text-align:left; ">所谓“心跳”就是定时发送一个自定义的结构体（心跳包或心跳帧），让对方知道自己“在线”。 以确保链接的有效性</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>6.参考文献</h3>
+			<p>http://dubbo.io/books/dubbo-user-book/</p>
+			<p>https://blog.csdn.net/daiqinge/article/details/51282874#reply</p>
+		</section>        
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h4>分享到此结束</h4>
+            <p>谢谢大家！</p>            
+        </section>
+      
+      
+
+    </div>
+</div>
+
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
