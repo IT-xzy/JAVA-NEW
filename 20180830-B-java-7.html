@@ -1,0 +1,242 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>简单介绍如何调用第三方API</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：岳晓鹏</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+
+            <h3></h3>
+            <p>我们在程序和项目开发过程中，不论是做web端还是APP，都会有图片上传的业务需求，
+                最典型的就是注册账号之后需要用户上传头像。
+            <p>java中实现图片上传，在spirng中，使用jsp+controller实现图片上传，使用mutilpartfile来完成。
+                存储基本有两种形式，在数据库中直接存储blob类型的图片或者图片存储在服务器上并在数据库中存储的路径，
+                前端页面使用的时候直接引用链接。使用链接的形式，一种是存在服务器本身，一种是存在第三方图床，如阿里oss和七牛oss等等；
+            </p>
+
+
+
+			
+            
+        </section>
+       
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+				
+		<section>
+
+            <h3>知识点构成</h3>
+			<ol>
+			<li>SDK和API</li>
+			<li>阿里OSS</li>
+
+
+			</ol>
+
+        </section>
+		
+		<section>
+
+            <h3>SDK</h3>
+            <p>SDK (Software Development Kit)中文是"软体开发工具组"，用来帮一个 产品、平台开发应用程式的工具组，
+                由产品的厂商提供给开发者使用的。辅助开发某一类软件的相关文档、范例和工具的集合都可以叫做“SDK”。
+            </p>
+
+            </p>
+        </section>
+
+        <section>
+            <h3>API</h3>
+            <p>API (Application Programming Interface)翻译成中文就是"应用程式接口"，软件系统不同组成部分衔接的约定。
+                操作系统留给应用程序的一个调用接口，应用程序通过调用操作系统的API 而使操作系统去执行应用程序的命令（动作）。
+                在同一个平台下的两个不同东西(程式 or 系统)沟通的桥梁。
+            <p>区别：SDK是用来开发某一个平台的程式的工具包，API 是让同一平台下的程式取用它的功能的库。范围上来说，sdk包含api；
+        </section>
+		
+	    <!--<section>-->
+
+            <!--<h3>DI的理解</h3>-->
+            <!--<p>DI—Dependency Injection，即“依赖注入”：组件之间依赖关系由容器在运行期决定，形象的说，即由容器动态的将某个依赖关系注入到组件之中。-->
+                <!--依赖注入的目的并非为软件系统带来更多功能，而是为了提升组件重用的频率，并为系统搭建一个灵活、可扩展的平台。-->
+                <!--通过依赖注入机制，我们只需要通过简单的配置，而无需任何代码就可指定目标需要的资源，-->
+                <!--完成自身的业务逻辑，而不需要关心具体的资源来自何处，由谁实现。</p>-->
+			<!--<p>谁依赖于谁&#45;&#45;应用程序依赖于IoC容器；-->
+            <!--</p>-->
+			<!--<p>为什么需要依赖&#45;&#45;应用程序需要IoC容器来提供对象需要的外部资源；-->
+            <!--</p>-->
+        <!--</section>-->
+
+        <section>
+            <h3>阿里OSS</h3>
+            <p>阿里云对象存储服务（Object Storage Service，简称 OSS），是阿里云提供的海量、安全、低成本、高可靠的云存储服务。
+                可以通过调用 API，在任何应用、任何时间、任何地点上传和下载数据，也可以通过Web控制台对数据进行简单的管理。
+                OSS适合存放任意类型的文件，适合各种网站、开发企业及开发者使用
+            </p>
+            <p>
+            </p>
+
+        </section>
+		
+		<!--<section>-->
+
+            <!--<h3>spring中bean实例化的方法以及注入的方式</h3>-->
+            <!--<p>当一个bean实例引用到了另外一个bean实例时，spring容器帮助我们先创建依赖的bean实例，并注入到另一个bean中-->
+            <!--</p>-->
+            <!--<h3>实例化bean的方法</h3>-->
+
+            <!--<p>1.类的构造方法&#45;&#45;-->
+                <!--在日常开发中创建对象的最常用的就是通过类的构造方法，事实上Spring容器也是正常情况下也是通过构造方法创建bean的</p>-->
+            <!--<p>2.工厂获取&#45;&#45;-->
+                <!--除了构造创建外还存在另外两种比较冷门的创建的方式即静态方法构造和实例工厂方法构造</p>-->
+
+        <!--</section>-->
+
+        <!--<section>-->
+
+            <!--<h3>spring中bean实例化的方法以及注入的方式</h3>-->
+            <!--<p>在spring容器帮助我们创建好了依赖的bean实例时，这是需要注入到另一个bean中来使用，这就是注入bean的方式-->
+            <!--</p>-->
+            <!--<h3>注入实例化bean的方法</h3>-->
+
+            <!--<p>1.setter注入&#45;&#45;-->
+                <!--Setter注入顾名思义，被注入的属性需要有set方法， Setter注入支持简单类型和引用类型，Setter注入时在bean实例创建完成后执行的</p>-->
+            <!--<p>2.构造函数注入&#45;&#45;-->
+                <!--构造注入也就是通过构造方法注入依赖，构造函数的参数一般情况下就是依赖项，-->
+                <!--spring容器会根据bean中指定的构造函数参数来决定调用那个构造函数</p>-->
+            <!--<p>在日常的开发中，setter注入和构造注入经常会混合使用，后面我们还会分析到注解装配，它在开发中将更为常用</p>-->
+
+        <!--</section>-->
+
+
+		<section>
+		
+            <h3>3.编码实战</h3>
+            <p>说一下怎么用阿里云的sdk进行OSS图片上传</p>
+        </section>
+
+        <section>
+		
+            <h3>4.常见问题</h3>
+            <p>图片的放盗链</p>
+            <!--<p>阿里提供的方法是加入图片访问的白名单，对于非白名单的链接访问会屏蔽掉；-->
+            <!--<p>加水印；-->
+            <!--<p>前端显示的时候，防止拿到图片的链接-->
+            </p>
+        </section>
+
+        <section>
+
+            <h3>4.常见问题</h3>
+            <p></p>
+            <p>1.阿里提供的方法是加入图片访问的白名单，对于非白名单的链接访问会屏蔽掉；
+            <p>2.加水印；
+            <p>3.前端显示的时候，防止拿到图片的链接
+            </p>
+        </section>
+		
+
+        <section>
+		
+            <h3>5.参考资料</h3>
+            
+            <p>https://blog.csdn.net/qq_22654611/article/details/52606960/</p>
+            <p></p>
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+		
+            <h3>鸣谢</h3>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
