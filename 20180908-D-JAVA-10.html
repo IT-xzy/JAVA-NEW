@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>代码生成</h2>
+            <p>分享人：韩亚博</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+        
+		<section>
+			<h3>1.背景介绍</h3>	
+
+			<p>从任务一到任务九，我们都是手写代码、配置文件，而这些代码或者配置文件很多都是重复的，其实在这个过程中大家或多或少都会去思考，我们做的重复性工作是不是太多了？</p>			
+			<br/>
+
+			<p style="color:black">是的，如果我们在公司开发项目的时候，所有的实体类、dao层、service层等都是手动写的，那么项目的开发效率可想而知有多么低</p>
+			<br/>
+
+			<p>如何解决这个问题呢？既然这是个“需求”，那就搞定它。所以就有代码生成这么一个项目，当然这个项目已经是现成的了，直接去“学员svn”拉取就好了</p>
+			
+			
+		</section>
+		
+		<section>
+			<h3>2.知识剖析</h3>
+
+			<p>2.1 生成代码的框架简单介绍</p>
+			<p>2.2 生成代码之后的文件对应关系</p>
+			<p>2.3 生成代码之后，搭建新项目需要注意的地方</p>
+			
+		</section>	
+		
+		<section>
+			<h3>2.1 生成代码的框架简单介绍</h3>			
+
+			<p>web、service分离，tuscany</p>
+			<br/>
+
+			<p style="color:black">注册中心，scallop</p>
+			<br/>
+
+			<p>见画板图</p>
+		</section>
+		
+		
+		<section>
+			<h3>2.2 生成代码之后的文件对应关系</h3>	
+			<p>根据web、service分离，以及core包划分</p>	
+			<p>core:model、service接口、SCAClient</p>			
+			<p>service:Server、service实现类、配置文件(spring、tuscany server、dao层、数据库配置文件)</p>
+			<p>web:controller、util、配置文件(spring、springmvc、tuscany client、scallop注册中心、缓存......)、jsp页面、web.xml</p>	
+		</section>	
+		
+		<section>
+			<h3>2.3 生成代码之后，搭建新项目需要注意的地方</h3>	
+
+			<p>maven私服配置：主要是把公司私服配置进来(没难度)</p>
+
+			<p style="color:black">hosts文件修改：对于注册中心提供的域名进行解析</p>
+		</section>
+		
+		
+		<section>
+			<h3>3.常见问题</h3>	
+			<p>项目从生成到跑起来的坑点</p>
+			<p style="font-size:26px">注意表格，表格命名、服务端口</p>	
+			
+			<p style="font-size:26px;color:black">core包，可以使用maven isntall直接打包到本地(服务器)</p>
+			
+			<p style="font-size:26px">数据库表格，注意数据是否为空的限制</p>
+			
+		</section>
+	
+
+		<section>
+			<h3>4.编码实战</h3>
+			<p>从代码生成到项目运行成功</p>	
+		</section>
+	
+		<section>
+			<h3>5.扩展思考</h3>
+
+			<p>能否自己写代码生成项目</p>
+			<p style="font-size:26px">--读取文件(固定的格式)</p>			
+			<p style="font-size:26px;color:black">--将文件按照协议(约定的格式)解析</p>
+			<p style="font-size:26px">--在指定的位置生成</p>
+			<p style="font-size:26px;color:black">--落地成为代码</p>
+			<br/>
+
+			<p style="font-size:26px">--整体的逻辑并不复杂，但是从实现上来说有几处注意的地方</p>
+			<p style="font-size:26px;color:black">--文件选取什么样的格式，比如json、xls、csv等(目前我见过的有csv和xls)</p>
+			<p style="font-size:26px">--如何做好协议，协议本身应该遵从怎样的规范</p>
+		</section>
+		
+		<section>
+			<h3>6.参考文献</h3>	
+			<p>https://v.qq.com/x/page/b0567v259kh.html</p>
+			<p>https://v.qq.com/x/page/e05199sjgl9.html</p>
+			<p>小课堂相关资料</p>	
+		</section>
+        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>欢迎大家讨论</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

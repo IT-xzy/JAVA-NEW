@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>小课堂</h2>
+            <h4>注解的使用</h4>
+            <p>分享人：深圳分院 黄东江</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+           
+        <section>
+            <p>
+            <h3>1.1关于注解</h3>
+			Java 注解用于为 Java 代码提供元数据。作为元数据，注解不直接影响你的代码执行，但也有一些类型的注解实际上可以用于这一目的。Java 注解是从 Java5 开始添加到 Java 的。
+            </p>
+        </section>
+ 
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		<section>
+            <h3>2.1注解的基本语法</h3>        
+        </section>
+		
+		<section>
+            <h3>2.2元注解</h3>        
+			元注解就是放到注解上的注解。元注解是一种基本的注解，可以用到其他注解上的注解。
+        </section>
+		<section>
+            <h3>2.4元注解分类</h3>
+            @Retention 应用到一个注解上的时候，它解释说明了这个注解的的存活时间。
+			取值有以下几种：
+			1)RetentionPolicy.SOURCE 注解只在源码阶段保留，在编译器进行编译时它将被丢弃忽视。</br>
+			2)RetentionPolicy.CLASS 注解只被保留到编译进行的时候，它并不会被加载到 JVM 中。</br>
+			3)RetentionPolicy.RUNTIME 注解可以保留到程序运行的时候，它会被加载进入到 JVM 中，所以在程序运行时可以获取到它们。</br>
+			@Documented 它的作用是能够将注解中的元素包含到 Javadoc 中去。</br>
+			
+        </section>
+		<section>
+		    @Target 指定了注解的运用的地方。</br>
+			1)ElementType.ANNOTATION_TYPE 可以给一个注解进行注解</br>
+            2)ElementType.CONSTRUCTOR 可以给构造方法进行注解</br>
+            3)ElementType.FIELD 可以给属性进行注解</br>
+            4)ElementType.LOCAL_VARIABLE 可以给局部变量进行注解</br>
+		</section>
+		<section>       
+			5)ElementType.METHOD 可以给方法进行注解</br>
+            6)ElementType.PACKAGE 可以给一个包进行注解</br>
+            7)ElementType.PARAMETER 可以给一个方法内的参数进行注解</br>
+            8)ElementType.TYPE 可以给一个类型进行注解，比如类、接口、枚举</br>
+			@Inherited Inherited 是继承的意思，但是它并不是说注解本身可以继承，而是说如果一个超类被 @Inherited 注解过的注解进行注解的话，那么如果它的子类没有被任何注解应用的话，那么这个子类就继承了超类的注解。</br> 
+			@Repeatable Java 1.8 才加进来的，所以算是一个新的特性。被@Repeatable注解过的注解可以重复注解。</br>
+        </section>
+		<section>
+            <h3>2.5注解的属性</h3>        
+			注解的属性也叫做成员变量。注解只有成员变量，没有方法。注解的成员变量在注解的定义中以“无形参的方法”形式来声明，其方法名定义了该成员变量的名字，其返回值定义了该成员变量的类型。
+        </section>
+		
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+		<section>
+            <h3>3.1java的预置注解</h3>
+			@Deprecated 标记过时的类或者方法</br>
+			@Override 重写父类的方法</br>
+			@SuppressWarnings 忽略掉某一种警告
+        </section>
+        <section>
+            <p>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+         <section>
+            <h3>6.拓展思考</h3>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>【参考一：】维基百科</p>
+			<p>【参考二：】https://blog.csdn.net/briblue/article/details/73824058</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+			1).注解使用场景
+			2).java其他预置注解
+			3).使用注解的好处
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 黄东江</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
