@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>为什么要使用tiles框架？</h2>
+            <p>分享人：何爽</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>	       
+		<section>
+			<h3>1.背景介绍</h3>
+			<p>什么是Tiles框架</p>
+			<p>一个免费开源的模板框架，为现代的Java应用程序。 基于复合模式，它是建立在简化用户界面的开发。 对于复杂的网站，但它仍然一起工作，任何的MVC技术的最简单，最优雅的方式。</p>
+			<p>复合式视图模式</p>
+			<p>所有的网站都有一个共同点：它们是由具有类似结构的网页。 页面共享相同的布局，而每个页面是由不同的独立的配件，但是始终摆在所有网站相同的位置。</p>
+			</section>
+		<section>
+			<p> 复合视图模式正式化了这个典型的使用，它允许创建具有类似结构的页面，其中页面的每个部分在不同情况而有所不同的页面。</p>
+			<p></p>
+		</section>
+		<section>
+			<h3>2.知识剖析</h3>
+			<p>基本组成</p>
+			<p>在Tiles中，模板是页面的布局部分,每个页面都是由模板文件和属性文件来组合生成的。</p>
+			<p>经典布局的页面结构包括：Header,Menu,Body,Footer</p>
+			<p>head页面头部：存放一个运用的公共信息：logo等，如果是网站可能是最上面的一块。</p>
+			<p>menu页面菜单：放置一个运用中需要使用的菜单，或者在每一个页面都使用的连接。</p>
+			<p>body页面主题内容：每个页面相对独立的内容。</p>
+			<p>footer页面尾部：如版权信息等</p>
+			<p></p>
+			<p></p>
+				</section>
+		<section>
+			<p>TILES作用</P>
+			<p>Tiles框架可以令我们组合可以复用的Tiles来搭建网页。例如，我们现在看到的这个页面就是通过组合一个head, 一个foot,一个body搭建起来的。
+每一个Tiles（head, foot, body, ...）都是一个JSP页面，它们也可以通过组合其他的Tiles来搭建。</P>
+			<p></P>
+		</section>
+		<section>
+			<p>TILES使用步骤</p>	
+			<p>（1）maven导入依赖包</p>	
+			<p>（2）配置文件</p>	
+			<p>（3）加载tiles的配置</p>
+			<p>（4）在JSP添加<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %></p>	
+			<p>（5）使用tiles</p>	
+			<p></p>	
+				</section>
+		<section>
+		<h3>3.常见问题 </h3>	
+		<p>具体的怎么配置和使用tiles框架，详见下面的编码实战。</p>	
+		<p></p>	
+		<p> </p>		
+			</section>
+		<section>		
+			<h3>4.编码实战</h3>
+			<p></p>	   			
+		</section>
+		<section>
+			<h3>5.扩展思考</h3>
+			<p>为什么要用tiles视图解析器替代mvc视图解析器</p>
+			<p>mvc视图解析器只会直接去WEB-INF下找我们配置的jsp页面，它只能一个一个的寻找jap页面，且找到一个显示一个并不会将jsp页面组装起来。
+			因此如果我们要组装jsp页面，或者是要使用tiles框架就只能使用tiles的视图解析器。</p>
+			<p></p>
+			<p></p>
+			<p></p>
+			<p></p>
+					</section>
+		<section>
+			<h3>6.参考文献</h3>
+			<p>https://blog.csdn.net/qq_31552107/article/details/81583604</p>
+			<p>https://blog.csdn.net/aosica321/article/details/68948915</p>
+			<p>https://blog.csdn.net/kolamemo/article/details/51254879</p>
+			<p></p>
+		</section>        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>谢谢大家！</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

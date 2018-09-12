@@ -1,0 +1,170 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>数据库逆向生成代码--feign</h2>
+            <p></p>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p></p>
+            <p></p>
+            <p>分享人：陈泽铭</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        	<h4>逆向工程简介</h4>
+        	<p>
+			做项目必然要先进行数据库表设计，然后根据数据库设计建立实体类，这是理所当然的。但是一般公司里做项目时，没有说既进行完数据库设计后还要再“自己”建立一遍实体类。意思是，在项目设计时，要么根据需求分析建立实体类，由正向生成数据库表；要么就先进行数据库表设计，再逆向生成实体类。没有说进行完任意一方的设计后再去花时间去自己匹配建立另一方的设计。
+			<br>
+        	</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+       
+	   <section>
+			<p>什么是逆向工程</p>
+			<p>为什么要使用逆向工程</p>
+			<p>MBG</p>
+            <p></p>
+        </section>
+	   
+	   	<section>
+			<p>什么是逆向工程<br>      	
+			mybaits需要程序员自己编写sql语句，mybatis官方提供逆向工程 可以针对单表自动生成mybatis执行所需要的代码（mapper.java,mapper.xml、po..）
+			企业实际开发中，常用的逆向工程方式：
+			由于数据库的表生成java代码。<br>
+	   </p>
+	    </section>
+	   
+		
+	    <section>
+			<p>为什么要使用逆向工程<br>
+		    1、2倍工作量，浪费时间。（时间对公司来说很重要）<br>
+			2、无法保证两边映射一致。因为两边都是自己设计的，那么就需要人为保证映射关系统一，会有隐患。<br>3、开发、维护上都不利。因为如果任意一方因某些原因需要改用，那么经常要两边都要改，这样的话映射不一致的可能性不仅更大，而且效率低下。而如果利用正逆向工程的话，则很容易解决。<br>
+			</p>
+	    </section>
+	   
+	      <section>
+			<p>MBG<br>      	
+           MyBatis Generator (MBG)是一个专门为Mybatis和iBATIS写的代码生成器。它可以为所有版本的Mybatis和2.2.0之后版本的iBATIS生成代码。MBG可以生成一些简单的CRUD的数据库操作，但稍微复杂的sql仍需要自己写。<br>
+			</p>
+	    </section>
+	   
+        						
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+  
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+  
+  
+		<section>
+       <p> 逆向工程中的核心包有哪些<br>
+			mysql-connector-java<br>
+			mybatis-generator-core<br>
+	   </p>
+	    </section>
+  
+  
+  	<section>
+       <p>配置逆向工程的配置文件<br>
+			配置文件其实都是官方提供的模板文档，我们要做的就是读懂配置文件，找到核心的内容<br>
+	   </p>
+	    </section>
+  	
+ 
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+ 
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+           <p>百度、维基、CSDN</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正。</p>
+            <p>
+               BY : 深圳分院 陈泽铭
+            </p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+
+ <dependency>
+            <groupId>net.sf.json-lib</groupId>
+             <artifactId>json-lib</artifactId>
+             <version>2.4</version>
+             <classifier>jdk15</classifier>
+         </dependency>
