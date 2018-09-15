@@ -1,0 +1,229 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Quartz</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：孙壮壮</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>	
+		
+        <section>
+		
+			<section>
+            <p>1.背景介绍</p>
+			<p style="text-align:left">Quartz是OpenSymphony开源组织在Job scheduling领域又一个开源项目，是完全由java开发的一个开源的任务日程管理系统，“任务进度管理器”就是一个在预先确定（被纳入日程）的时间到达时，负责执行（或者通知）其他软件组件的系统。 
+Quartz用一个小Java库发布文件（.jar文件），这个库文件包含了所有Quartz核心功能。这些功能的主要接口(API)是Scheduler接口。</p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			</section>
+			
+			<section>
+			<p></p>
+            <p style="text-align:left"></p>       		
+            <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			</section>
+			<!--<section>
+			<p></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p></p>
+			</section>-->
+		</section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+		    <p style="text-align:left">Quartz</p>
+			<p style="text-align:left"> Quartz 是一个完全由 Java 编写的开源作业调度框架，为在 Java 应用程序中进行作业调度提供了简单却强大的机制。</p>
+			<p style="text-align:left">Quartz 可以与 J2EE 与 J2SE 应用程序相结合也可以单独使用。 </p>
+			<p style="text-align:left"> Quartz 允许程序开发人员根据时间的间隔来调度作业。 </p>
+			<p style="text-align:left">Quartz 实现了作业和触发器的多对多的关系，还能把多个作业与不同的触发器关联。</p>
+			</section>
+			<section>
+             <img src="01.png">
+            </section>
+			
+			<section>
+			<p style="text-align:left"> Scheduler：调度容器  </p>
+			<p style="text-align:left">Job：Job接口类，即被调度的任务  </p>
+			<p style="text-align:left">JobDetail ：Job的描述类，job执行时的依据此对象的信息反射实例化出Job的具体执行对象。 </p>
+			<p style="text-align:left">Trigger：触发器，存放Job执行的时间策略。用于定义任务调度时间规则。 </p>
+			<p style="text-align:left">JobStore： 存储作业和调度期间的状态 </p>
+			<p style="text-align:left">Calendar：指定排除的时间点（如排除法定节假日）</p>
+	        </section>
+			
+			
+			<section>
+            <p style="text-align:left">Job 是一个接口，只有一个方法 void execute(JobExecutionContext context)，开发者实现接口来定义任务。JobExecutionContext 类提供了调度上下文的各种信息。Job 运行时的信息保存在 JobDataMap 实例中。</p>       		
+            <p style="text-align:left">org.quartz.Calendar和 java.util.Calendar不同，它是一些日历特定时间点的集合。一个Trigger可以和多个Calendar关联，以便排除或包含某些时间点。假设，我们安排每周星期一早上10:00执行任务，但是如果碰到法定的节日，任务则不执行，这时就需要在Trigger触发机制的基础上使用Calendar进行定点排除。</p>
+			 <p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+        </section>
+	
+		
+		<section>
+		<p style="text-align:left">JobDetailImpl类实现了JobDetail接口，用来描述一个 job，定义了job所有属性及其 get/set 方法。下面是 job 内部的主要属性：</p>
+		<p style="text-align:left">name  |  job 名称。如果未指定，会自动分配一个唯一名称。所有job都必须拥有一个唯一`name`，如果两个 job 的`name`重复，则只有最前面的 job 能被调度 </p>
+		<p style="text-align:left">group  |     job 所属的组名  </p>
+		<p style="text-align:left">description |    job描述 </p>
+		<p style="text-align:left">durability  |   是否持久化。如果job设置为非持久，当没有活跃的`trigger`与之关联的时候，job 会自动从`scheduler`中删除。也就是说，非持久`job`的生命期是由`trigger`的存在与否决定的  </p>
+		</section>
+		<section>
+		<p style="text-align:left">shouldRecover |  是否可恢复。如果 job 设置为可恢复，一旦 job 执行时`scheduler`发生`hard shutdown`（比如进程崩溃或关机），当`scheduler`重启后，该`job`会被重新执行  </p>
+		<p style="text-align:left">jobDataMap |     除了上面常规属性外，用户可以把任意`kv`数据存入`jobDataMap`，实现 job 属性的无限制扩展，执行 job 时可以使用这些属性数据。此属性的类型是`JobDataMap`，实现了`Serializable`接口，可做跨平台的序列化传输</p>
+		</section>
+	
+		<section>
+		<p style="text-align:left">Trigger 是一个类，描述触发Job执行的时间触发规则。主要有 SimpleTrigger 和 CronTrigger 这两个子类。当仅需触发一次或者以固定时间间隔周期执行，SimpleTrigger是最适合的选择；而CronTrigger则可以通过Cron表达式定义出各种复杂时间规则的调度方案：如每早晨9:00执行，周一、周三、周五下午5:00执行等； </p>
+		<p style="text-align:left"> </p>
+		<p style="text-align:left"> </p>
+		<p style="text-align:left"> </p>
+		</section>
+		<section>
+		<p style="text-align:left">调度器，代表一个Quartz的独立运行容器，好比一个『大管家』，这个大管家应该可以接受 Job， 然后按照各种Trigger去运行，Trigger和JobDetail可以注册到Scheduler中，两者在Scheduler中拥有各自的组及名称，组及名称是Scheduler查找定位容器中某一对象的依据，Trigger的组及名称必须唯一，JobDetail的组和名称也必须唯一（但可以和Trigger的组和名称相同，因为它们是不同类型的）。Scheduler定义了多个接口方法，允许外部通过组及名称访问和控制容器中Trigger和JobDetail。</p>
+		<p style="text-align:left"> </p>
+		<p style="text-align:left"></p>
+		<p style="text-align:left"></p>
+		<p style="text-align:left"></p>
+		</section>
+        
+		 
+	     <section>
+            <h3>3.常见问题</h3>
+        </section>
+	
+        <section>
+            <p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p></p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+			 <p style="text-align:left"></p>
+             <p style="text-align:left"></p>
+			 <p style="text-align:left"></p>
+        </section>
+	
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		<!--<section>
+        <img src="">
+		<img src="">
+        </section>-->
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+		<section>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+        </section>
+		
+        <section>
+            <h3>7.参考文献</h3>
+            <p style="text-align:left">https://blog.csdn.net/zcq_1234/article/details/80793862</p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
