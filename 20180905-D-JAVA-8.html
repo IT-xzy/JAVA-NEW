@@ -1,0 +1,221 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '/css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt=""
+     usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt=""
+          target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>什么是序列化和反序列化，在RMI中是否要实现 Serializable 接口， serialVersionUID的用处是什么？</h3>
+            <h3></h3>
+            <p>分享人：李景磊</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">1.1 序列化的引入</p>
+            <p style="text-align:left">从任务六的Redis和Memcache开始，我们接触了一个叫做序列化的东西，听起来很高大上，但是看起来也很简单，就只需要多加一行代码而已，但真的就这么简单么？
+            </p>
+            <p style="text-align:left"></p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <h3> 2.1 什么是序列化  </h3>
+            <p style="text-align:left">Java序列化是指把Java对象转换为字节序列的过程</p>
+				  </section>
+
+        <section>
+            <h3>2.2 什么是反序列化？ </h3>
+            <p style="text-align:left">
+				Java反序列化是指把字节序列恢复为Java对象的过程
+            </p>
+
+        </section>
+
+        <section>
+            <h3> 2.3	序列化有什么作用？</h3>
+            <p style="text-align:left"> 对象的序列化主要有两种用途：</p>
+			<p style="text-align:left"> 1） 把对象的字节序列永久地保存到硬盘上，通常存放在一个文件中；</p>
+            <p style="text-align:left">2） 在网络上传送对象的字节序列。</p>
+			  <p style="text-align:left">对象序列化的本质是将对象的状态通过有序字节流进行保存或传输，由此，静态变量是类变量，属于整个类，并非专属于每个对象实例，因此，不序列化静态变量。</p>
+
+        </section>
+
+        <section>
+            <h3>2.4	Serializable接口是什么？</h3>
+            <p style="text-align:left">java.io.Serializable接口是一个标志性接口，在接口内部没有定义任何属性与方法。只是用于标识此接口的实现类可以被序列化与反序列化。</p>
+        </section>
+        
+		 <section>
+            <h3>2.5	在RMI中是否要实现 Serializable 接口？</h3>
+            <p style="text-align:left">需要，因为RMI客户端和服务端使用http传输数据，而Http要求数据必须序列化才可以进行传输。</p>
+		</section>
+       <section>
+            <h3>2.6	serialVersionUID是什么？</h3>
+            <p style="text-align:left">serialVersionUID用于序列化与反序列化过程中的类信息校验值。</p>
+		</section>
+		 <section>
+            <h3>2.7	serialVersionUID的用处是什么？</h3>
+            <p style="text-align:left">serialVersionUID适用于Java的序列化机制。简单来说，Java的序列化机制是通过判断类的serialVersionUID来验证版本一致性的。在进行反序列化时，JVM会把传来的字节流中的serialVersionUID与本地相应实体类的serialVersionUID进行比较，如果相同就认为是一致的，可以进行反序列化，否则就会出现序列化版本不一致的异常，即是InvalidCastException。</p>
+		</section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">1、	如何生成serialVersionUID？</p>
+			 <p style="text-align:left">2、	什么时候需要用到序列化？</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+		  <p style="text-align:left">1、	如何生成serialVersionUID？</p>
+           <p style="text-align:left">有两种生成方式：</p>
+           <p style="text-align:left">
+       一个是默认的1L，比如：private static final long serialVersionUID = 1L;</p>
+           <p style="text-align:left">
+       一个是根据类名、接口名、成员方法及属性等来生成一个64位的哈希字段。
+</p>
+        </section>
+<section>
+		  <p style="text-align:left">2、	什么时候需要用到序列化？</p>
+           <p style="text-align:left">1）当你想把的内存中的对象状态保存到一个文件中或者数据库中时候；</p>
+           <p style="text-align:left">
+      　2）当你在网络上传送对象的时候；</p>
+           <p style="text-align:left">
+       　3）当你想通过RMI传输对象的时候；
+</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <h3>6.1	为什么必须要序列化？</h3>		
+                 <p style="text-align:left">只有序列化的对象才可以存储在存储设备上。之所以需要对象序列化，是因为有时候对象需要在网络上传输，传输的时候需要这种序列化处理，从服务器硬盘上把序列化的对象取出，然后通过网络传到客户端，再由客户端把序列化的对象读入内存，执行相应的处理。</p>
+        </section>
+
+        <section>
+            <h3>6.2	Serializable接口的本质是什么？</h3>
+            <p style="text-align:left">
+Serializable接口是一个空接口，它里面既没有定义抽象方法，也没有定义常量。Serializable接口的目的只是简单地标识一个类的对象是可以被串行化的。
+                </p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>CSDN</p>
+            <p>百度百科</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js',
+                async: true
+            },
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
