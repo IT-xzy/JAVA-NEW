@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是压测，为什么要进行压力测试？Jemeter工具的使用</h2>
+            <p>分享人：何爽</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>	       
+		<section>
+			<h3>1.背景介绍</h3>
+			<p>什么是压测？</p>
+			<p>压力测试是通过不断向被测系统施加“压力”，测试系统在压力情况下的性能表现， 考察当前软硬件环境下系统所能承受的最大负荷并帮助找出系统瓶颈所在，
+			也就是我们可以模拟巨大的工作负荷以查看应用程序在峰值使用情况下如何执行操作。</p>
+			<p>为什么要进行压力测试？</p>
+			<p>压力测试其实有两个目的，一是测试应用在高并发情况下是否会报错，进程是否会挂掉； 二是测试应用的抗压能力，预估应用的承载能力，为运维同学提供扩容的依据。
+			第一点很好理解，做好这一点就可以保证上线之后不出问题了。</p>
+			</section>
+		<section>
+			<p>解释下第二点，我们都知道就是架构设计的再优秀，代码写的再好，应对高并发单实例始终是有限的。
+			所以通常是在满足第一点的前提下， 再根据可能到来的高并发压力来计算需要多少实例来承载，而这就需要我们压出极限。 </p>
+			
+			<p>接口开发完成之后就可以进行第一次压力测试。这一次压力测试可以简单压一下， 在本机进行就可以。压力测试的目的是检查代码在高并发下是否会报错。 
+			另外，编译型语言要观察是否存在内存泄漏。 因为本机性能有限，一般来说按照100、200、300、500进程数进行压力测试， 压到500如果没有报错就可以进行疲劳测试，观察内存占用。 </p>
+			</section>
+		<section>
+			<p>什么Jmeter?</p>
+			<p>Jmeter  是一款使用Java开发的，开源免费的，测试工具， 主要用来做功能测试和性能测试（压力测试/负载测试）.而且用Jmeter 来测试 Restful API, 非常好用。
+			同时，JMeter可以帮助你对你的应用程序进行回归测试。通过你创建的测试脚本和assertions来验证你的程序返回了所期待的值。为了更高的适应性，JMeter允许你使用正则表达式来创建这些assertions.</p>
+			<p></p>
+		</section>
+		<section>
+			<h3>2.知识剖析</h3>
+			<p>压力测试的关键名词</p>
+			<p>1、Test Plan (测试计划)：用来描述一个性能测试，包含与本次性能测试所有相关的功能。也就说本次性能测试的所有内容都是基于一个计划的。</p>
+			<p>2、Threads （Users）线程 用户</p>
+			<p>1) setup thread group</p>
+			<p>可用于执行预测试操作。这些类型的线程执行测试前进行定期线程组的执行。</p>
+			<p>2) teardown thread group.</p>
+			<p>可用于执行测试后动作。这些类型的线程执行测试结束后执行定期的线程组。</p>
+			</section>
+		<section>
+			<p>3) thread group(线程组).</p>
+			<p> 这个就是我们通常添加运行的线程。通俗的讲一个线程组,，可以看做一个虚拟用户组，线程组中的每个线程都可以理解为一个虚拟用户。</p>
+			<p>线程组中包含的线程数量在测试执行过程中是不会发生改变的。</p>
+			<p>3、采样器（Samplers）它们是每一个测试计划的基本要素，一切都围绕这些采样器而工作：采样器执行请求（基于配置的请求），这些请求产生一个或多个响应，后续将被分析。</p>
+			<p>4、监听器(Listeners)：负责收集测试结果，同时也被告知了结果显示的方式。 监听器以报表、树型结构、或简明的日志文件的形式分析结果。 功能是对取样器的请求结果显示、统计一些数据（吞吐量、KB/S……）等。</p>
+			</section>
+		<section>
+			<p>5、断言(Assertions)：用于来判断请求响应的结果是否如用户所期望，是否正确。断言一般用来设置检查点，用以保证性能测试过程中的数据交互是否与预期一致。</p>
+			<p>6、定时器(Timers)：负责定义请求（线程）之间的延迟间隔，模拟对服务器的连续请求。用于操作之间设置等待时间，等待时间是性能测试中常用的控制客户端QPS的手段。
+			如果不指定，JMeter会一个请求完成后立即执行下一个请求，没有任何等待时间。</p>
+			<p>7、逻辑控制器(Logic Controllers)：允许自定义JMeter发送请求的行为逻辑，它与Sampler结合使用可以模拟复杂的请求序列。</p>
+			</section>
+		<section>
+			<p>8、前置处理器和后置处理器负责在生成请求之前和之后完成工作。前置处理器常常用来修改请求的设置，后置处理器则常常用来处理响应的数据。</p>
+			<p>9、配置节点(Configuration nodes) 通过使用配置元素你可以将不同的参数传递给取样器请求。他们提供了创建变量（不同的和动态的）的一种方式，这些参数之后被采样器所使用。
+			在采样器被执行前，参数所属节点启动时，这些参数被执行；这就是为什么采样器可以依赖这些变量。</p>
+			<p></p>
+				</section>
+		<section>
+			<p>监听器：</p>
+			<p>聚合报告：记录这次却被行测试总请求数、错误率、用户响应时间（中间值、90%、最少、最大）、吞吐量等，用以帮助分析被测试系统的性能。</P>
+			<p>1. Label  每个 JMeter 的 element（例如 HTTP Request）都有一个 Name 属性，这里显示的就是 Name 属性的值 </p>
+			<p>2. #Samples  表示测试中一共发出了多少个请求，如果模拟10个用户，每个用户迭代10次，那么这里就显示对应的 HTTP Request的执行次数是100 </p>
+			<p>3. Average  平均响应时间——默认情况下是单个 Request 的平均响应时间，当使用了 Transaction Controller 时，也可以以Transaction 为单位显示平均响应时间 </p>
+			</section>
+		<section>
+			<p>4. Median  50%用户的响应时间 </p>
+			<p>5. 90%Line  90%用户的响应时间 </p>
+			<p>6. Min  最少响应时间 </p>
+			<p>7. Max  最大响应时间 </p>
+			<p>8. Error%  本次运行测试中出现错误的请求的数量/请求的总数 </p>
+			<p>9. Throughput  吞吐量，默认情况下表示每秒完成的请求数（Request per Second），当使用了 Transaction Controller 时，也可以表示类似 LoadRunner 的 Transaction per Second 数 </p>
+			<p>10. KB/sec  每秒从服务器端接收到的数据量，相当于LoadRunner中的Throughput/Sec</p>					
+			<p></P>
+		</section>
+		<section>
+			<p>tps:</p>	
+			<p>  QPS（TPS）：每秒钟request/事务 数量</p>	
+			<p> response time over time:</p>	
+			<p>此图将显示每个采样器的平均响应时间(以毫秒为单位).</p>	
+			<p></p>	
+			<p></p>	
+				</section>
+		<section>
+		<h3>3.常见问题 </h3>	
+		<p>具体怎么通过jmeter进行压测？</p>		
+		<p></p>
+		<p></p>
+			</section>
+		<section>		
+			<h3>4.编码实战</h3>
+			<p></p>	   			
+		</section>
+		<section>
+			<h3>5.扩展思考</h3>
+			<p>系统吞吐量（TPS）、用户并发量、性能测试概念和公式</p>	
+			<p>http://www.ha97.com/5095.html</p>	
+			<p></p>
+			<p></p>
+			<p></p>
+			<p></p>
+					</section>
+		<section>
+			<h3>6.参考文献</h3>
+			<p>http://www.ha97.com/5095.html</p>
+			<p>https://www.cnblogs.com/YatHo/p/6092599.html</p>
+			<p>https://blog.csdn.net/wz1997/article/details/79003818</p>
+			<p></p>
+		</section>        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>谢谢大家！</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
