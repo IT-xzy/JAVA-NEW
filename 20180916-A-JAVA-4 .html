@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	<style>
+		.left{ text-align: left; }
+	</style>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是JSP？</h2>
+            <p>分享人：周宏浩</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+         <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>1.背景介绍</h3>
+            </section>
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+	            <p>JSP全名为Java Server Pages，中文名叫java服务器页面，JSP是一种动态页面技术，它的主要目的是将表示逻辑从Servlet中分离出来。它实现了Html语法中的java扩展（以 <%, %>形式）。</p>
+				<p>JSP的根本是一种Java servlet，主要用于实现Java web应用程序的用户界面部分。网页开发者们通过结合HTML代码、XML元素以及嵌入JSP操作和命令来编写JSP。JSP通过网页表单获取用户输入数据、访问数据库及其他数据源，然后动态地创建网页。</p>
+            </section>
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+				<h3>2.知识剖析</h3>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+		       <h4>jsp工作原理是什么？</h4>
+				<p>1.当客户第一次请求JSP页面时，JSP引擎会通过预处理把JSP文件中的静态数据（HTML文本）和动态数据（Java脚本）全部转换为Java代码。</p>
+				<p>2.JSP引擎把生成的.java文件编译成Servlet类文件（.class）。对于Tomcat服务器而言，生成的类文件默认的情况下存放在\work目录。    </p>
+                <p>3.编译后的class对象被加载到容器中，并根据用户的请求生成HTML格式的响应页面。                                                   </p>		
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+		       <h4>jsp九大内置对象</h4>
+				<p>1.request内置对象是最常用的对象之一，它代表的是java.servlet.HttpServletRequest类的对象。request内置对象中包含了有关浏览器请求的信息，并提供了多个用于获取cookie、header以及session内数据的方法。</p>
+				<p>2.response对象与request对象相对应，它是用于响应客户请求，向客户端输出信息。response是javax.servlet.HttpServletResponse类的对象。response对象提供了多个方法用来处理HTTP响应，可以调用response中的方法修改ContentType中的MIME类型以及实现页面的跳转等。</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+		       <h4>jsp九大内置对象</h4>
+                <p>3.page对象有点类似于Java编程中的this指针，就是指当前JSP页面本身。page是java.lang.Object类的对象。</p>
+				<p>4.session是与请求有关的会话期，它是java.servlet.http.HttpSession类的对象，用来表示和存储当前页面的请求信息。</p>
+				<p>5.application是javax.servlet.ServletContext类对象的一个实例，用于实现用户之间的数据共享,application 对象可将信息保存在服务器中，直到服务器关闭，否则application对象中保存的信息会在整个应用中都有效。</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+		       <h4>jsp九大内置对象</h4>
+				<p>6.out 对象用于在Web浏览器内输出信息，并且管理应用服务器上的输出缓冲区。在使用 out 对象输出数据时，可以对数据缓冲区进行操作，及时清除缓冲区中的残余数据，为其他的输出让出缓冲空间。待数据输出完毕后，要及时关闭输出流。</p>
+				<p>7.exception内置对象是用来处理页面出现的异常错误，它是java.lang.Throwable类的一个对象。Jsp页面文件必须在isErrorPage=true的情况下才可以使用该对象；该对象一般配合Page指令一起使用，通过指定某个页面为错误处理页面，把所有的错误都集中到那个页面进行处理，可以使整个系统的性能得到加强。</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+		       <h4>jsp九大内置对象</h4>
+				<p>8.config内置对象是ServletConfig类的一个实例。在Servlet初始化的时候，JSP引擎通过config向它传递信息。这种信息可以是属性名/值匹配的参数，也可以是通过ServletContext对象传递的服务器的有关信息。</p>
+				<p>9.pageContext对象是一个比较特殊的对象。它相当于页面中所有其他对象功能的最大集成者，即用它可以访问到本页面中所有其他对象。</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+		       <h4>jsp四大作用域</h4>
+				<p>1.如果把变量放到pageContext里，就说明它的作用域是page，它的有效范围只在当前jsp页面里。 从把变量放到pageContext开始，到jsp页面结束，你都可以使用这个变量。</p>
+				<p>2.如果把变量放到request里，就说明它的作用域是request，它的有效范围是当前请求周期。所谓请求周期，就是指从http请求发起，到服务器处理结束，返回响应的整个过程。在这个过程中可能使用forward的方式跳转了多个jsp页面，在这些页面里你都可以使用这个变量。</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+		       <h4>jsp四大作用域</h4>
+                <p>3.如果把变量放到session里，就说明它的作用域是session，它的有效范围是当前会话。只要用户不关浏览器，服务器就有办法知道这些请求是一个人发起的，整个过程被称为一个会话。</p>
+                <p>4.如果把变量放到application里，就说明它的作用域是application，它的有效范围是整个应用。application作用域里的变量，它们的存活时间是最长的，如果不进行手工删除，它们就一直可以使用。与上述三个不同的是，application里的变量可以被所有用户共用。</p>				
+			</section>
+		</section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+				<h3>3.常见问题</h3>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>1.jsp连接db及curd操作           </p>
+				<p>2.jsp页面之间的引用及变量作用域</p>
+			</section>			
+		</section>
+		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>4.编码实战</h3>
+			</section>			
+		</section>
+		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>5.扩展思考</h3>				
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h4>JSP与HTML的区别</h4>
+				<p>1.HTML能直接打开，jsp只能发布到Tomact等服务器上才能打开 。</p>
+				<p>2.定义上HTML页面是静态页面可以直接运行，JSP页面是动态页它运行时需要转换成servlet。</p>
+				<p>3.他们的表头不同，这个是JSP的头“ <%@ page language="java" import="java.util.*" pageEncoding="gbk"%>”在表头中有编码格式和导入包等。</p>
+				<p>4.jsp中用<%%>就可以写Java代码了，而html没有<%%>。</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h4>为什么一般不建议在jsp中写java代码？</h4>
+				<p>1.可读性很差，<% ..%>将java代码和html都写在一起，并且还要尖括号的表达式，看起来很复杂难懂。</p>
+				<p>2.jsp难于调试，不能进行单元测试，不能进行debug，可维护性差。</p>
+				<p>3.jsp内写java代码，安全性低，代码都在jsp中可以被看到。</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h4>jsp中的<%@include…@%>和tiles有什么区别？</h4>
+				<p>如果我们一个网站的布局基本一致,这个时候,我们最好定义一个模板,如layout.jsp包括header,footer,content;content下面又包含其他页面部分,如果我们不使用tiles,则在每个页面按位置 用include引入相关的页面,当页面布局发生改变的时候,我们去掉不需要的一部分,这个时候需要到每个页面上去删除相应的include语句;但如果我们采用tiles的话,就只需要更改layout.jsp就行了.</p>
+                <p>tiles为了规范网站布局,通过复用基础模板,其他页面继承基础模板这个机制,当有成千上万的页面的时候,tiles框架的页面管理机制使布局维护更简单</p>
+			</section>
+		</section>
+		<section>
+			<h3>6.参考文献</h3>
+			<p>https://blog.csdn.net/kyi_zhu123/article/details/54381221</p>
+			<p>http://www.iteye.com/topic/574788</p>
+			<p>https://www.cnblogs.com/mengzhen123/p/5968831.html</p>
+		</section>
+        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>欢迎大家讨论</p>            
+        </section>
+        <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">				
+			</section>
+		</section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
