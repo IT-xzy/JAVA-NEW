@@ -1,0 +1,290 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>redis缓存集群介绍</h2>
+            <p>分享人：乔名震</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>1.背景介绍</h3>
+            </section>
+			<section >
+				<p style="text-align:left; font-size:30px;">
+				Redis<br/><br/>
+				Redis 是一个开源（BSD许可）的，内存中的数据结构存储系统，通俗的来讲就是基于内存的高性能K/V数据库。<br/>
+				Redis 作为一个key—value储存系统。支持储存的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set --有序集合)和hash（哈希散列）。<br/><br/>
+				- Redis的内核是用标准ANSI C写成的，基于一种事件模型；<br/>
+				</p>
+			</section> 
+			
+			
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:center; font-size:30px;">
+				Redis 主从、哨兵的产生背景</p><br/>
+				<p style="text-align:left; font-size:30px;">
+				主从模式<br/><br/>
+				即使redis提供数据持久化，但由于数据是存储在一台服务器上的，如果这台服务器出现硬盘故障等问题，也会导致数据丢失。为了避免单点故障，通常的做法是将数据库复制多个副本以部署在不同的服务器上，这样即使有一台服务器出现故障，其他服务器依然可以继续提供服务。为此， Redis 提供了复制（replication）功能，可以实现当一台数据库中的数据更新后，自动将更新的数据同步到其他数据库上。<br/>
+				</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:center; font-size:30px;">
+				哨兵模式</p>
+				<p style="text-align:left; font-size:30px;">
+				当主数据库遇到异常中断服务后，开发者可以通过手动的方式选择一个从数据库来升格为主数据库，以使得系统能够继续提供服务。然而整个过程相对麻烦且需要人工介入，难以实现自动化。 为此，Redis 2.8中提供了哨兵工具来实现自动化的系统监控和故障恢复功能。
+				</p>
+			</section>
+			
+			
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<h3>集群（Cluster）</h3>
+				<p style="text-align:left; font-size:30px;"><br/>
+				集群是一组相互独立的、通过高速网络互相联通的节点，构成了一个组，并以单一系统的模式加以管理。一个客户与集群相互作用时，集群就是一个独立的服务器。<br/><br/>
+				集群技术是一种通用的技术，其目的是为了解决单机运算能力的不足、IO能力的不足、提高服务的可靠性、获得规模可扩展能力，降低整体方案的运维成本（运行、升级、维护成本）。能在大流量访问下提供稳定的业务，集群化是存储的必然形态。<br/>
+				1. 提高性能<br/>
+				2. 降低成本<br/>
+				3. 提高可扩展性<br/>
+				4. 增强可靠性<br/>
+				</p>
+			</section> 
+			
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>2.知识剖析</h3>
+            </section>
+			
+				<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:center; font-size:30px;">
+				redis集群架构方案发展：</p><br/>
+				<p style="text-align:left; font-size:30px;">
+				（1）客户端分片---Java（Jedis客户端）<br/>
+				（2）Twemproxy（基于代理的分片）多加了一个代理层<br/>
+				（3）Codis<br/>
+				（4）Redis Cluster（路由查询--官方实现）<br/>
+				（5）Proxy + Redis Cluster</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:center; font-size:30px;">
+				（1）客户端分片---Java（Jedis客户端）</p><br/>
+				<p style="text-align:left; font-size:30px;">
+				Jedis的客户端分片采用一致性hash算法，实现数据的分配存储。但当某一个分片服务挂了之后，客户端需要修改服务的指向才能动态的切换到当前分片的从服务去。
+这是一种静态的分片方案，需要增加或者减少Redis实例的数量，需要手工调整分片的程序。 • 可运维性差，集群的数据出了任何问题都需要运维人员和开发人员一起合作，减缓了解决问题的速度，增加了跨部门沟通的成本。 • 在不同的客户端程序中，维护相同的分片逻辑成本巨大。
+			</p></section>
+			
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:center; font-size:30px;">
+				（2）Twemproxy（基于代理的分片）多加了一个代理层</p><br/>
+				<p style="text-align:left; font-size:30px;">
+				Twemproxy是一个Twitter开源的一个Redis/Memcache代理服务器，  其基本原理是：Redis客户端把请求发送到Twemproxy，Twemproxy根据路由规则发送到正确的Redis实例，最后Twemproxy把结果汇集返回给客户端。 Twemproxy通过引入一个代理层，将多个Redis实例进行统一管理，使Redis客户端只需要在Twemproxy上进行操作，而不需要关心后面有多少个Redis实例，从而实现了Redis集群。
+Twemproxy是早期Redis原生的Cluster没有成熟时的替代方案，而后Redis官方推荐的高性能集群方案还是基于其原生的Redis Cluster功能。
+最大的问题是Twemproxy无法平滑地增加Redis实例。</p>
+<p style="text-align:center; font-size:30px;">
+				（3）Codis<br/>
+				<p style="text-align:left; font-size:30px;">
+				豌豆荚自主研发了Codis， 一个支持平滑增加Redis实例的Redis代理软件.</p>
+
+</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:center; font-size:30px;">
+				（4）Redis Cluster（路由查询--官方实现）</p><br/>
+				<p style="text-align:left; font-size:30px;">
+				Redis Cluster从Redis 3.0开始引入，3.2版本趋于成熟。
+Redis把所有的Key分成了16384个slot，每个Redis实例负责其中一部分slot。集群中的所有信息（节点、端口、slot等），都通过节点之间定期的数据交换而更新。 Redis客户端在任意一个Redis实例发出请求，如果所需数据不在该实例中，通过重定向命令引导客户端访问所需的实例。</p>
+<br/>
+			<p style="text-align:center; font-size:30px;">
+				（5）Proxy + Redis Cluster</p>
+			
+</section>
+			
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				1.缓存永不宕机：启动集群，永远让集群的一部分起作用。主节点失效了子节点能迅速改变角色成为主节点，整个集群的部分节点失败或者不可达的情况下能够继续处理命令；<br/>
+				2.迅速恢复数据：持久化数据，能在宕机后迅速解决数据丢失的问题；<br/>			
+				3.Redis可以使用所有机器的内存，变相扩展性能；<br/>
+				4.使Redis的计算能力通过简单地增加服务器得到成倍提升,Redis的网络带宽也会随着计算机和网卡的增加而成倍增长；<br/>
+				5.Redis集群没有中心节点，不会因为某个节点成为整个集群的性能瓶颈。<br/>
+				6.异步处理数据，实现快速读写。
+				</p>
+			</section> 
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				Redis 集群的数据分片<br/><br/>
+				Redis 集群没有使用一致性hash，而是引入了哈希槽的概念。<br/>	Redis 集群内置了16384个哈希槽，每个key通过CRC16校验后对16384取模来决定放置哪个槽。集群的每个节点负责一部分hash槽，举个例子，比如当前集群有3个节点，那么:<br/><br/>
+				节点 A 包含 0 到 5500号哈希槽.<br/>
+				节点 B 包含5501 到 11000 号哈希槽.<br/>
+				节点 C 包含11001 到 16384号哈希槽.<br/><br/>
+				这种结构很容易添加或者删除节点. <br/>
+				比如如果我想新添加个节点D，我需要从节点 A, B, C中得部分槽到D上.<br/> 如果我想移除节点A，需要将A中的槽移到B和C节点上，然后将没有任何槽的A节点从集群中移除即可. <br/>由于从一个节点将哈希槽移动到另一个节点并不会停止服务，所以无论添加删除或者改变某个节点的哈希槽的数量都不会造成集群不可用的状态.
+				</p>
+			</section>
+	
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>3.常见问题</h3>
+                <h3>Redis集群实现方式（主从模式）</h3>
+            </section>
+			
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				<br/>
+				1.创建不同的redis节点，在需要的地方运行redis实例，每个redis实例有单独的ip或端口，并且配置启用集群管理；<br/><br/>
+				2.创建redis-trib的运行环境：安装ruby，redis.gem<br/><br/>
+				3.通过使用Redis集群命令工具redis-trib创建集群；<br/><br/>
+				./redis-trib.rb create --replicas 1 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002<br/><br/>
+				--replicas  1  表示 自动为每一个master节点分配一个slave节点，上面有6个节点，程序会按照一定规则生成3个master（主）3个slave(从)
+				</p>
+			</section>
+			
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				redis.conf 集群的配置<br/>
+				#绑定ip（这里是本地配置，其他服务器配置对应的ip）<br/>
+				bind 127.0.0.1 <br/>
+				#端口<br/>
+				port 6379<br/>
+				#后台守护启动<br/>
+				daemonize yes<br/>
+				#开启aof模式<br/>
+				appendonly yes<br/>
+				#开启集群管理<br/>
+				cluster-enabled yes<br/>
+				#节点响应超时时间 如果超过这个响应时间就会认定节点不可用<br/>
+				cluster-node-timeout 5000
+				</p>
+			</section> 			
+			
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				集群重新分片<br/>
+				./redis-trib.rb reshard 127.0.0.1:7000<br/><br/>
+				添加一个新节点<br/>
+				./redis-trib.rb add-node 127.0.0.1:7006<br/><br/>
+				添加一个从节点<br/>
+				./redis-trib.rb add-node --slave 127.0.0.1:7006<br/><br/>
+				移除一个节点（如果是主节点要确保这个主节点是空的）<br/>
+				./redis-trib del-node 127.0.0.1:7000 <\node-id\><br/><br/>
+				迁移从节点<br/>
+				CLUSTER REPLICATE <\master-node-id\><br/><br/>
+				停止节点<br/>
+				./redis1/redis-cli -p 7001 shutdown<br/><br/>
+				集群方式登录<br/>
+				./redis-cli -c -h -p  如：./redis-cli -p 7003 -c
+				默认情况下不能从slaves读取数据，但建立连接后，执行一次命令READONLY，该slaves即可读取数据。
+				</p>
+			</section>
+        </section>
+		<section>
+			<h3>4.编码实战</h3>
+			<p></p>	   			
+		</section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>5.扩展思考</h3>
+                <h3>Memcache和Redis集群的对比</h3>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				Memcached本身并不支持分布式，因此只能在客户端通过像一致性哈希这样的分布式算法来实现Memcached的分布式存储。
+
+当客户端向Memcached集群发送数据之前，首先会通过内置的分布式算法计算出该条数据的目标节点，然后数据会直接发送到该节点上存储。但客户端查询数据时，同样要计算出查询数据所在的节点，然后直接向该节点发送查询请求以获取数据。</p>
+			</section> 	
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				Redis官方集群方案 Redis Cluster
+Redis Cluster是一种服务器Sharding技术，3.0版本开始正式提供。对客户端来说，整个cluster被看做是一个整体，客户端可以连接任意一个node进行操作，就像操作单一Redis实例一样，当客户端操作的key没有分配到该node上时，就像操作单一Redis实例一样，当客户端操作的key没有分配到该node上时，Redis会返回转向指令，指向正确的node，
+</section> 	
+		</section>
+		<section>
+			<h3>6.参考文献</h3>
+			<p>https://blog.csdn.net/onupway/article/details/78387368</p>
+			<p>https://www.cnblogs.com/robin201711/p/8516844.html</p>
+		</section>        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>谢谢大家</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
