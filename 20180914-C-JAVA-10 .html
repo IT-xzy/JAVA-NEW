@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+         <section class="present" style="top: 221.5px; display: block;">
+            <h2>LinkedList 简单介绍</h2>
+            <p>分享人：李伟明</p>	
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 69px; display: block;">
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>	       
+		<section hidden="" aria-hidden="true" class="future" style="top: 267px; display: block;">
+			<h3>1.背景介绍</h3>
+			
+		</section>	     
+
+		<section class="future" style="top: 119px; display: none;" hidden="" aria-hidden="true">
+		    <h3>LinkedList是Collection下的一个list实现，就像ArrayList一样。</h3>
+            <p style="text-align:left; ">
+			和ArrayList不同的是它是链表结构，而ArrayList是顺序结构。我们平常使用的list是一样的，理论上来说一种list就可以完成我们所有的需求。<br>
+			但是它们在运行过程中有区别的，完成需求所需要的资源也不相同，至于什么情况下使用哪种list就看需求和当前情况了。<br>
+			</p>
+
+		</section>
+		
+		
+		
+		
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>2.知识剖析</h3>
+			<p></p>
+		</section>
+		
+		<section class="future" style="top: 119px; display: none;" hidden="" aria-hidden="true">
+		    <h3>LinkedList的本质是双向链表</h3>
+            <p style="text-align:left; ">
+			1、LinkedList继承于AbstractSequentialList，并且实现了Dequeue接口。<br>
+
+			2、LinkedList包含两个重要的成员：header 和 size。<br>
+			header是双向链表的表头，它是双向链表节点所对应的类Entry的实例。
+			Entry中包含成员变量： previous, next, element。其中，previous是该节点的上一个节点，next是该节点的下一个节点，element是该节点所包含的值。size是双向链表中节点的个数。 <br>
+　　       
+
+			</p>
+		</section>
+		
+		
+		<section class="future" style="top: 69px; display: none;" hidden="" aria-hidden="true">
+		    <h3>双向链表结构</h3>
+				    <p style="text-align:left; ">
+						链表：链表是一种重要的数据结构，有单链表和双链表之分
+					
+		</section>
+			 
+			 
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+		    <h3>单链表：</h3>
+			        <p style="text-align:left; ">
+						1.由两部分组成 数据域（Data）和结点域(Node),单链表就像是一条打了很多结的绳子，每一个绳结相当于一个结点，每个节结点间都有绳子连接
+					</p>
+					<p style="text-align:left; ">
+						2.这样原理的实现是通过Node结点区的头指针head实现的，每个结点都有一个指针，每个节点指针的指向都是指向自身结点的下一个结点
+					</p>
+					<p style="text-align:left; ">
+						3.最后一个结点的head指向为null,这样一来就连成了上述所说绳子一样的链
+					</p>
+					<p style="text-align:left; ">
+						4.对单链表的操作只能从一端开始，如果需要查找链表中的某一个结点，则需要从头开始进行遍历。
+					</p>
+					
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+		    <h3>双向链表结构：</h3>
+			        <p style="text-align:left; ">
+						1.双链表和单链表相比，多了一个指向尾指针（tail），双链表的每个结点都有一个头指针head和尾指针tail,双链表相比单链表更容易操作
+					</p>
+					<p style="text-align:left; ">
+						2.双链表结点的首结点的head指向为null，tail指向下一个节点的tail;尾结点的head指向前一个结点的head，tail 指向为null，是双向的关系； 
+					</p>
+					<p style="text-align:left; ">
+						3.在单链表中若需要查找某一个元素时，都必须从第一个元素开始进行查找，而双向链表除开头节点和最后一个节点外每个节点中储存有两个指针
+					</p>
+					<p style="text-align:left; ">
+						4.这连个指针分别指向前一个节点的地址和后一个节点的地址，这样无论通过那个节点都能够寻找到其他的节点。
+					</p>
+					
+		</section>
+		
+		
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>3.常见问题</h3>
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">			
+			<h3>3.1 什么时候使用LinkedList？ </h3>
+			<h3>3.2 怎么确定一个数组时不是空的？ </h3>
+			<h3>3.3 linkedlist 是线程安全的吗？ </h3>
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">			
+			<h3>3.1 什么时候使用LinkedList？ </h3>
+			<p style="text-align:left; ">
+			当你需要频繁查询数组的时候使用ArrayList比较快，当你需要频繁操作数组进行增删插入操作的时候使用LinkList比较合适。<br>
+			</p>
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">			
+			<h3>3.2 怎么确定一个数组是不是空的？ </h3>
+			<p style="text-align:left; ">
+              可以直接调用size方法,查看数量<br>
+			</p>
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">			
+			<h3>3.3 linkedlist 是线程安全的吗？ </h3>
+			<p style="text-align:left; ">
+              LinkedList同样是非线程安全的，只在单线程下适合使用。如果多个线程同时访问一个链接列表，而其中至少一个线程从结构上修改了该列表，则它必须保持外部同步。<br>
+			</p>
+		</section>
+		
+	
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>4.编码实战</h3>   			
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>5.扩展思考</h3>
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>LinkedList并发插入时节点覆盖的问题？</h3>
+			<p style="text-align:left; "> 当多个线程同时获取到相同的尾节点的时候，然后多个线程同时在此尾节点后面插入数据的时候会出现数据覆盖的问题。
+			</p>
+			
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>6.参考文献</h3>
+			<p>https://segmentfault.com/a/1190000011419072</p>
+		</section>        
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h4>分享到此结束</h4>
+            <p>谢谢大家！</p>            
+        </section>
+      
+      
+
+    </div>
+</div>
+
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

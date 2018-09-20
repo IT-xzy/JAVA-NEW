@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>部署两台Service，如何在WEB中随机访问任意一台Service--feign</h2>
+            <p></p>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p></p>
+            <p></p>
+            <p>分享人：陈泽铭</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        	<h4>RMI简介</h4>
+        	<p>
+			RMI(Remote Method Invocation)是JAVA早期版本(JDK 1.1)提供的分布式应用解决方案，它作为重要的API被广泛的应用在EJB中。<br>
+			随着互联网应用的发展，分布式处理任务也随之复杂起 来，WebService也得到普遍的推广和应用。
+			<br>
+        	</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+       
+	   <section>
+			<p>
+			RMI 指的是远程方法调用 (Remote Method Invocation)。它是一种机制，能够让在某个 Java虚拟机上的对象调用另一个 Java 虚拟机中的对象上的方法。<br>
+			可以用此方法调用的任何对象必须实现该远程接口。<br>
+			调用这样一个对象时，其参数为 "marshalled" 并将其从本地虚拟机发送到远程虚拟机（该远程虚拟机的参数为 "unmarshalled"）上。<br>
+			该方法终止时，将编组来自远程机的结果并将结果发送到调用方的虚拟机。<br>
+			如果方法调用导致抛出异常，则该异常将指示给调用方。<br>
+			</p>
+        </section>
+	   
+	     						
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+  
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+  
+  
+		<section>
+       <p> 为什么要使用RMI，有什么优点<br>
+			优点：<br>
+			1、面向对象:<br>
+			RMI可将完整的对象作为参数和返回值进行传递,而不仅仅是预定义的数据类型。<br>
+			也就是说,可以将类似Java哈西表这样的复杂类型作为一个参数进行传递。<br>
+			2、可移动属性:<br>
+			RMI可将属性从客户机移动到服务器,或者从服务器移动到客户机。<br>	
+	   </p>
+	    </section>
+  	
+			<section>
+       <p>
+		3、设计方式:<br>
+		对象传递功能使您可以在分布式计算中充分利用面向对象技术的强大功能,如二层和三层结构系统。<br>
+		如果用户能够传递属性,那么就可以在自己的解决方案中使用面向对象的设计方式。<br>
+		所有面向对象的设计方式无不依靠不同的属性来发挥功能,如果不能传递完整的对象——包括实现和类型<br>
+		——就会失去设计方式上所提供的优点。<br>
+	   </p>
+	    </section>
+ 
+ 			<section>
+       <p>
+		4、安全性:<br>
+		RMI使用专门为保护系统免遭恶意小程序侵害而设计的安全管理程序。<br>
+		5、便于编写和使用<br>
+		RMI使得Java远程服务程序和访问这些服务程序的Java客户程序的编写工作变得轻松、简单。<br>
+		远程接口实际上就是Java接口。<br>
+	   </p>
+	    </section>
+ 
+<section>
+       <p> RMI远程调用步骤有哪些<br>
+		1，客户对象调用客户端辅助对象上的方法<br>
+		2，客户端辅助对象打包调用信息（变量，方法名），通过网络发送给服务端辅助对象<br>
+		3，服务端辅助对象将客户端辅助对象发送来的信息解包，找出真正被调用的方法以及该方法所在对象<br>
+		4，调用真正服务对象上的真正方法，并将结果返回给服务端辅助对象<br>
+		5，服务端辅助对象将结果打包，发送给客户端辅助对象<br>
+		6，客户端辅助对象将返回值解包，返回给客户对象<br>
+		7，客户对象获得返回值<br>
+
+	   </p>
+	    </section>
+ 
+ 
+ 
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+ 
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+           <p>百度、维基、CSDN</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正。</p>
+            <p>
+               BY : 深圳分院 陈泽铭
+            </p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+
+ <dependency>
+            <groupId>net.sf.json-lib</groupId>
+             <artifactId>json-lib</artifactId>
+             <version>2.4</version>
+             <classifier>jdk15</classifier>
+         </dependency>

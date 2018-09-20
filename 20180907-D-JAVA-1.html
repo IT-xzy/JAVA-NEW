@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html>
 <head>
@@ -32,10 +31,10 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>springboot和redis整合</h2>
+            <h2>mybatis generator</h2>
 			<p></p>
-            <h3></h3>
-            <p>-林伟豪-</p>
+            <h3>java小课堂</h3>
+            <p>分享人：田野</p>
         </section>
         <section>
             <p>1.背景介绍</p>
@@ -49,61 +48,87 @@
         </section>
         <section>
             <h3>1.背景介绍</h3>
-        </section>
-		<section>
-            <h3>1.1	redis是什么</h3>
-        </section>
-		<section>
-            <p>REmote DIctionary Server(Redis) 是一个由Salvatore Sanfilippo写的key-value存储系统。
-Redis是一个开源的使用ANSI C语言编写、遵守BSD协议、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API。
-</p>
-        </section>
-				<section>
-            <h3>1.2 为什么使用redis</h3>
-        </section>
-		<section>
-            <p>当访问量大的时候，使用redis作为缓存系统，可以将已经查询到的数据缓存到redis之中，从而下次访问直接访问缓存层，避免对底层数据库的过多查询造成太大压力</p>
-        </section> 	
+        </section>	
+		
+
+		
+			<section>
+            <p>MyBatis Generator</p>
+			<p style="text-align:left">MyBatis Generator (MBG) 是一个Mybatis的代码生成器 </p>
+
+             <p style="text-align:left">他可以内省数据库的表（或多个表）然后生成可以用来访问（多个）表的基础对象。 </p>
+             <p style="text-align:left">这样和数据库表进行交互时不需要创建对象和配置文件。 </p>
+             <p style="text-align:left">MBG的解决了对数据库操作有最大影响的一些简单的CRUD（插入，查询，更新，删除）操作。 </p>
+             <p style="text-align:left">您仍然需要对联合查询和存储过程手写SQL和对象。</p>
+			</section>
+
+			<!--<section>
+			<p></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p></p>
+			</section>-->
+
         <section>
             <h3>2.知识剖析</h3>
         </section>
-        <section>
-            <h3>2.1	redis的特点</h3>
-            <p>1、redis支持字符串(String), 哈希(Map), 列表(list), 集合(sets) 和 有序集合(sorted sets)等类型。</p>
-			<p>2、速度快，因为数据存在内存中，类似于HashMap，HashMap的优势就是查找和操作的时间复杂度都是O(1)</p>
-			<p>3、支持事务，操作都是原子性，所谓的原子性就是对数据的更改要么全部执行，要么全部不执行</p>
-			<p>4、丰富的特性：可用于缓存，消息，按key设置过期时间，过期后将会自动删除</p>
-		</section>
-        <section>
-            <h3>2.2	redis相对于memcache的优势</h3>
-			<p>1、memcache只支持简单的key/value，redis支持更多的数据类型</p>
-			<p>2、Redis支持数据的备份，即master-slave模式的数据备份。</p>
-			<p>3、Redis支持数据的持久化，可以将内存中的数据保持在磁盘中，重启的时候可以再次加载进行使用</p>
-        </section> 
+                
+            <section>
+            <p>mybatis-generator的运行过程</p>
+            <p style="text-align:left"> <br> </p>
+            <p style="text-align:left">连接数据库——》从数据库的表中获取字段——》依据字段生成mapper文件、dao、实体类</p>         
+
+
+            </section>
+      
+         <section>
+		 <p>生成的三种方式</p>
+         <p style="text-align:left">1.使用命令行生成</p>
+		 <p style="text-align:left">2.使用maven插件进行生成</p>
+         <p style="text-align:left">3.使用图形化工具生成</p>
+         <p style="text-align:left"></p>         
+		 </section>
          <section>
             <h3>3.常见问题</h3>
-            <p>springboot和redis整合时出现版本不一致</p> 
+        </section>
+        <section>
+            <p style="text-align:left">数据库命名规范和JAVA命名规范不一样的怎么办？</p>
+			<p style="text-align:left"></p>
+			<p></p>
         </section>
         <section>
             <h3>4.解决方案</h3>
         </section>
         <section>
+			 <p style="text-align:left">1.如不加设置，mybatis-generator会把数据库中的下划线规则自动转化为JAVA中的驼峰规则并生成实体类</p>
+             <p style="text-align:left">2.可以通过generatorConfig.xml设置</p>
+        </section>
+        
+        <section>
             <h3>5.编码实战</h3>
         </section>
+
         <section>
             <h3>6.扩展思考</h3>
-			 </section>
+        </section>
+
+        
         <section>
             <h3>7.参考文献</h3>
-            <p>CSDN、百度百科</p>
+            <p style="text-align:left">http://mbg.cndocs.ml/quickstart.html</p>
+			<p style="text-align:left">https://gitee.com/free/Mybatis_Utils/blob/master/MybatisGeneator</p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
+            <p></p>
         </section>
         <section>
-      
-            <p>谢谢大家观看，如有问题，恳请批评指正</p>
-			      <p>by：深圳分院 -林伟豪-</p>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 田野</small></p>
         </section>
 
     </div>
@@ -113,7 +138,6 @@ Redis是一个开源的使用ANSI C语言编写、遵守BSD协议、支持网络
 <script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
 
 <script>
-
     // 以下为常见配置属性的默认值
     // {
     // 	controls: true, // 是否在右下角展示控制条
@@ -132,13 +156,12 @@ Redis是一个开源的使用ANSI C语言编写、遵守BSD协议、支持网络
     // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
     // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
     // }
-
     // 初始化幻灯片
     Reveal.initialize({
         history: true,
         dependencies: [
-            { src: 'https://blog.csdn.net/USTC_Zn/article/details/54912367' },
-            { src: 'https://blog.csdn.net/luomingkui1109/article/details/72820232' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
             { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
             { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
         ]

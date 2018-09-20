@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html>
 <head>
@@ -32,10 +31,10 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>springboot和redis整合</h2>
-			<p></p>
-            <h3></h3>
-            <p>-林伟豪-</p>
+            <h3>服务器部署</h3>
+			<p></P>
+            <h4>Java小课堂</h4>
+            <p>分享人：田野</p>
         </section>
         <section>
             <p>1.背景介绍</p>
@@ -50,62 +49,89 @@
         <section>
             <h3>1.背景介绍</h3>
         </section>
-		<section>
-            <h3>1.1	redis是什么</h3>
-        </section>
-		<section>
-            <p>REmote DIctionary Server(Redis) 是一个由Salvatore Sanfilippo写的key-value存储系统。
-Redis是一个开源的使用ANSI C语言编写、遵守BSD协议、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API。
-</p>
-        </section>
-				<section>
-            <h3>1.2 为什么使用redis</h3>
-        </section>
-		<section>
-            <p>当访问量大的时候，使用redis作为缓存系统，可以将已经查询到的数据缓存到redis之中，从而下次访问直接访问缓存层，避免对底层数据库的过多查询造成太大压力</p>
-        </section> 	
         <section>
+        
+            <p>什么是服务器部署</p>
+    
+        </section>
+              <section>
+            <p style="text-align:left">我们在任务一的时候就已经接触过服务器从零搭建开发环境的各个步骤，服务器部署简单来说就是使用远程终端（如xshell）连接远程服务器并搭建出能满足我们代码运行的环境</p>
+                   
+            
+        </section>
+                <section>
+        
+            <p>我们为什么要进行服务器部署</p>
+           
+        </section>
+              <section>
+            <p style="text-align:left">我们的代码最终部署到服务器上，目的是让人在任何计算机上都可以访问到我们开发的项目，而前端对服务器并不了解，所以一般都是由后端程序员来部署前后端的代码。</p>
+         </section>
+                  <section>
+            <p>部署前的准备工作</p>
+           
+        </section>
+        <section>
+
+            <p style="text-align:left">1、小组名</p>
+            <p style="text-align:left">2、项目名</p>
+            <p style="text-align:left">3、前后台域名以及端口号（域名让运维配，端口号去Wiki里面登记）</p>
+            <p style="text-align:left">4、前后端所有代码在svn上的位置（路径）</p>
+        </section>
+    
+		<section>
             <h3>2.知识剖析</h3>
         </section>
-        <section>
-            <h3>2.1	redis的特点</h3>
-            <p>1、redis支持字符串(String), 哈希(Map), 列表(list), 集合(sets) 和 有序集合(sorted sets)等类型。</p>
-			<p>2、速度快，因为数据存在内存中，类似于HashMap，HashMap的优势就是查找和操作的时间复杂度都是O(1)</p>
-			<p>3、支持事务，操作都是原子性，所谓的原子性就是对数据的更改要么全部执行，要么全部不执行</p>
-			<p>4、丰富的特性：可用于缓存，消息，按key设置过期时间，过期后将会自动删除</p>
+            <section>
+            <p style="text-align:left">首先要做的事情是讲代码从svn检出到服务器上</p>
+            <p style="text-align:left">1、前端前台代码</p>
+            <p style="text-align:left">2、前端后台代码</p>
+            <p style="text-align:left">3、后端代码</p>
+ </section>
+		<section>
+			<p style="text-align:left">由于我们开发的项目都是基于WebService标准的restful风格应用程序，所以部署的规范在任务8、9的时候就已经学过</p>
+			<p style="text-align:left">1、core包</p>
+            <p style="text-align:left">2、service服务</p>
+            <p style="text-align:left">3、web应用接口（API）</p>
+    
+     
 		</section>
-        <section>
-            <h3>2.2	redis相对于memcache的优势</h3>
-			<p>1、memcache只支持简单的key/value，redis支持更多的数据类型</p>
-			<p>2、Redis支持数据的备份，即master-slave模式的数据备份。</p>
-			<p>3、Redis支持数据的持久化，可以将内存中的数据保持在磁盘中，重启的时候可以再次加载进行使用</p>
-        </section> 
+                <section>
+            <p>nginx的配置</p>
+            <p style="text-align:left">1、upstream文件</p>
+             <p style="text-align:left">2、server.conf文件</p>
+             <p style="text-align:left">3、前端前后台静态资源配置文件（需要自己新建）</p>
+             <!-- <p style="text-align:left">利用HttpServletRequest的getCookie（）方法来读取客户端的Cookie，返回一个Cookie数组</p> -->
+     </section>
+     
+   
          <section>
             <h3>3.常见问题</h3>
-            <p>springboot和redis整合时出现版本不一致</p> 
         </section>
-        <section>
+
+               <section>
+
             <h3>4.解决方案</h3>
         </section>
+         
         <section>
             <h3>5.编码实战</h3>
         </section>
-        <section>
+		 <section>
             <h3>6.扩展思考</h3>
-			 </section>
+        </section>
+        
         <section>
             <h3>7.参考文献</h3>
-            <p>CSDN、百度百科</p>
+			<!-- <p style="text-align:center">1.CSDN博客：https://blog.csdn.net/cxzhq2002/article/details/750148</p> -->
+			<p style="text-align:center">师兄们的小课堂</p>
+			<p style="text-align:center"></p>
         </section>
+		
         <section>
             <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
         </section>
-        <section>
-      
-            <p>谢谢大家观看，如有问题，恳请批评指正</p>
-			      <p>by：深圳分院 -林伟豪-</p>
-        </section>
-
     </div>
 </div>
 
@@ -113,7 +139,6 @@ Redis是一个开源的使用ANSI C语言编写、遵守BSD协议、支持网络
 <script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
 
 <script>
-
     // 以下为常见配置属性的默认值
     // {
     // 	controls: true, // 是否在右下角展示控制条
@@ -132,13 +157,12 @@ Redis是一个开源的使用ANSI C语言编写、遵守BSD协议、支持网络
     // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
     // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
     // }
-
     // 初始化幻灯片
     Reveal.initialize({
         history: true,
         dependencies: [
-            { src: 'https://blog.csdn.net/USTC_Zn/article/details/54912367' },
-            { src: 'https://blog.csdn.net/luomingkui1109/article/details/72820232' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
             { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
             { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
         ]
