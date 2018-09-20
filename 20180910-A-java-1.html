@@ -1,0 +1,266 @@
+<!doctype html>
+
+<head xmlns="http://www.w3.org/1999/html">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+
+    <!-- PPT主题,可以在/css/reveal/theme/中选择其他主题,目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="css/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .text-l {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>clean,install,package,deploy分别代表什么含义？</h2>
+            <p>分享人：鲁伯良</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section style="text-align: left;">
+                <br style="text-align: left">
+                <h4>maven是什么?</h4>
+                Maven 是一个项目管理工具。它负责管理项目开发过程中的几乎所有的东西。
+                maven对依赖关系的特性进行细致的分析和划分，避免开发过程中的依赖混乱和相互污染行为
+                maven支持许多种的应用程序类型，对于每一种支持的应用程序类型都定义好了一组构建规则和工具集。
+                一个大型的项目通常有几个小项目或者模块组成，用maven可以很方便地管理。
+
+                </p>
+            </section>
+
+
+        </section>
+        <section>
+
+
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section style="text-align: left;">
+                <h3><strong>pom文件</strong></h3>
+                <p c><br>
+                    Maven的核心功能便是合理叙述项目间的依赖关系，通俗点讲，就是通过pom.xml文件的配置获取jar包，而不用手动去添加jar包，而这里pom.xml文件对于学了一点maven的人来说，就有些熟悉了，怎么通过pom.xml的配置就可以获取到jar包呢？pom.xml配置文件从何而来？等等类似问题我们需要搞清楚，如果需要使用pom.xml来获取jar包，那么首先该项目就必须为maven项目，maven项目可以这样去想，就是在java项目和web项目的上面包裹了一层maven，本质上java项目还是java项目，web项目还是web项目，但是包裹了maven之后，就可以使用maven提供的一些功能了(通过pom.xml添加jar包)。</p>
+
+            </section>
+            
+
+
+            <section style="text-align: left;">
+                <h3><strong>生命周期</strong></h3>
+                <p>
+                    maven把项目的构建划分为不同的生命周期(lifecycle)。粗略一点的话，它这个过程(phase)包括：编译、测试、打包、集成测试、验证、部署。maven中所有的执行动作(goal)都需要指明自己在这个过程中的执行位置，然后maven执行的时候，就依照过程的发展依次调用这些goal进行各种处理。
+这个也是maven的一个基本调度机制。一般来说，位置稍后的过程都会依赖于之前的过程。当然，maven同样提供了配置文件，可以依照用户要求，跳过某些阶段。
+            </section>
+           
+
+
+           <section class="text-l">
+                <h3>目录结构</h3>
+                <p>Maven的标准工程结构如下：<br>
+|-- pom.xml(maven的核心配置文件)
+|-- src
+|-- main
+|   `-- java(java源代码目录)
+|   `-- resources(资源文件目录)
+|-- test
+        `-- java(单元测试代码目录)
+|-- target(输出目录，所有的输出物都存放在这个目录下)
+    |--classes(编译后的class文件存放处)
+                </p>
+            </section>
+
+            <section>
+                <p>
+                    约定优于配置
+                </p>
+            </section>
+            <section style="text-align: justify;word-break: break-all">
+                <p style="text-align:left">
+                   每一个阶段的任务都知道怎么正确完成自己的工作，比如compile任务就知道从src/main/java下编译所有的java文件，并把它的输出class文件存放到target/classes中。
+对maven来说，采用"约定优于配置"的策略可以减少修改配置的工作量，也可以降低学习成本，更重要的是，给项目引入了统一的规范。<br>
+
+
+                </p>
+
+            </section>
+            <section>
+                <p class="text-l">
+    回归主题<br>
+clean: 清除target目录;<br>
+install: 将工程打包到本地仓库，这时本地项目可以依赖，别人是依赖不了的;<br>
+package:将项目中的各种文件，比如源代码、编译生成的字节码、配置文件、文档，按照规范的格式生成归档，最常见的当然就是JAR包和WAR包;<br>
+deploy: 将打包的jar文件上传到私服(如果有私服)，此时连接私服的人才可以下载依赖。
+
+                </p>
+            </section>
+
+          
+           
+           
+
+        </section>
+
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <h4>如何跳过Junit</h4>
+                <!--<p style=" text-align:left"><br>-->
+              
+
+        </section>
+          </section>
+
+
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+
+            <section>
+
+                <p class="text-l">
+                  1.在pom文件中加入以下代码 <br>
+				   <img src="img/依赖.jpg" alt="">
+  
+  </p>
+    </section>
+	 <section>
+   <p class="text-l">
+  2.mvn install -DskipTests<br>
+  3.mvn install -Dmaven.test.skip=true<br>
+  以上三种方法在测试类有报错的时候跳不过去的
+  因为不能通过编译,也就到不了测试这一步,可以不去执行测试类但肯定会
+  去编译的.
+                </p>
+            </section>
+			
+
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+          
+
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+
+            </section>
+
+            <section class="text-l">
+                <h4>package与  install的区别</h4>
+                <p>
+                 如果b项目依赖a项目，而a打了包(package),jar仅仅时打到了a项目的target下。这时编译b项目，还是会报错，找不到所依赖的a项目，说明b项目在本地仓库是没有找到它所依赖的a项目。然后，我install a项目这时，有以下日志,[INFO] Installing G:\projects\a\target\a-0.0.1-SNAPSHOT.jar to F:\repository\com\chenjun\a\0.0.1-SNAPSHOT\a-0.0.1-SNAPSHOT.jar
+[INFO] Installing G:\projects\a\pom.xml to F:\repository\com\chenjun\a\0.0.1-SNAPSHOT\a-0.0.1-SNAPSHOT.pom,说明a项目已安装到本地仓库了,并且是jar和pom同时安装的.
+这时候去compileb项目，编译通过.
+总之，package是把jar打到本项目的target下，而install时把target下的jar安装到本地仓库，供其他项目使用.
+                </p>
+
+            </section>
+           
+
+
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p style="text-align: left">参考：<br>
+                    <br>
+                    互联网
+                </p>
+
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+        </section>
+        <section>
+            <!--<h4>鸣谢</h4>-->
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 鲁伯良</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js "></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js "></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc "或"o "键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+
+</html>
