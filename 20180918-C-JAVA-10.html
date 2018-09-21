@@ -1,0 +1,206 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>葡萄藤PPT</title>
+
+	<link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+	<!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+	<link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+	<!-- syntax highlighting 代码高亮主题 -->
+	<link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+	<!-- 打印和PDF输出样式 -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+	<map name="pttmap">
+		<area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank" />
+	</map>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<h2>什么是Quartz</h2>
+				<p></p>
+				<h3>java小课堂</h3>
+				<p>分享人：刘凯</p>
+			</section>
+			<section>
+				<p>1.背景介绍</p>
+				<p>2.知识剖析</p>
+				<p>3.常见问题</p>
+				<p>4.解决方案</p>
+				<p>5.编码实战</p>
+				<p>6.扩展思考</p>
+				<p>7.参考文献</p>
+				<p>8.更多讨论</p>
+			</section>
+			<section>
+				<h3>1.背景介绍</h3>
+			</section>
+
+			<section>
+
+				<section>
+					<p style="text-align:left">Quartz是什么？</p>
+					<p style="text-align:left">一个任务调度的框架</p>
+					<p style="text-align:left">在企业级应用中，经常会制定一些“计划任务”，即在某个时间点做某件事情，核心是以时间为关注点，即在一个特定的时间点，系统执行指定的一个操作，任务调度涉及多线程并发、线程池维护、运行时间规则解析、运行现场的保护以恢复等方面。</p>
+				</section>
+
+                <!--<section>
+			<p></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p></p>
+		</section>-->
+	</section>
+	<section>
+		<h3>2.知识剖析</h3>
+	</section>
+	<section>
+		<p style="text-align:left">Quartz API的关键接口</p>
+		<p style="text-align:left">Scheduler - 与调度程序交互的主要API</p>
+		<p style="text-align:left">Job - 由希望由调度程序执行的组件实现的接口</p>
+		<p style="text-align:left">JobDetail - 用于定义作业的实例</p>   
+		<p style="text-align:left">Trigger（即触发器） - 定义执行给定作业的计划的组件</p>
+		<p style="text-align:left">JobBuilder - 用于定义/构建JobDetail实例，用于定义作业的实例</p>
+		<p style="text-align:left">TriggerBuilder - 用于定义/构建触发器实例</p>
+
+
+	</section>
+	<section>
+		<p style="text-align:left">trigger/触发器</p>
+		<p style="text-align:left">公共属性</p>
+		<p style="text-align:left">SimpleTrigger</p>
+		<p style="text-align:left">CronTrigger</p>
+	</section>
+	<section>
+		<p style="text-align:left">公共属性：在构建trigger的时候可以通过TriggerBuilder设置</p>
+		<p style="text-align:left">所有类型的trigger都有TriggerKey这个属性，表示trigger的身份</p>
+		<p style="text-align:left">startTime属性：设置trigger第一次触发的时间；该属性的值是java.util.Date类型，表示某个指定的时间点；</p>
+		<p style="text-align:left">endTime属性：表示trigger失效的时间点。比如，”每月第5天执行”的trigger，如果其endTime是7月1号，则其最后一次执行时间是6月5号。</p>
+		<p style="text-align:left"></p>
+	</section>
+	<section>
+		<p style="text-align:left">优先级(priority)</p>
+		<p style="text-align:left">如果你的trigger很多(或者Quartz线程池的工作线程太少)，Quartz可能没有足够的资源同时触发所有的trigger；这种情况下，你可能希望控制哪些trigger优先使用Quartz的工作线程，要达到该目的，可以在trigger上设置priority属性。比如，你有N个trigger需要同时触发，但只有Z个工作线程，优先级最高的Z个trigger会被首先触发。如果没有为trigger设置优先级，trigger使用默认优先级，值为5；priority属性的值可以是任意整数，正数、负数都可以。</p>
+		<p style="text-align:left"></p>
+		<p style="text-align:left"></p>
+	</section>
+	<section>
+		<p style="text-align:left">错过触发(misfire Instructions)</p>
+		<p style="text-align:left">trigger还有一个重要的属性misfire；如果scheduler关闭了，或者Quartz线程池中没有可用的线程来执行job，此时持久性的trigger就会错过(miss)其触发时间，即错过触发(misfire)。不同类型的trigger，有不同的misfire机制。它们默认都使用“智能机制(smart policy)”，即根据trigger的类型和配置动态调整行为。当scheduler启动的时候，查询所有错过触发(misfire)的持久性trigger。然后根据它们各自的misfire机制更新trigger的信息。</p>
+		
+	</section>
+	<section>
+		
+		<p style="text-align:left">日历示例(calendar)</p>
+		<p style="text-align:left">Quartz的Calendar对象(不是java.util.Calendar对象)可以在定义和存储trigger的时候与trigger进行关联。Calendar用于从trigger的调度计划中排除时间段。比如，可以创建一个trigger，每个工作日的上午9:30执行，然后增加一个Calendar，排除掉所有的商业节日。</p>
+	</section>
+	<section>
+		<p style="text-align:left">Simple Trigger</p>
+		<p style="text-align:left">在具体的时间点执行一次，或者在具体的时间点执行，并且以指定的间隔重复执行若干次。</p>
+		<p style="text-align:left">SimpleTrigger的属性包括：开始时间、结束时间、重复次数以及重复的间隔。</p>
+		<p style="text-align:left"></p>
+	</section>
+	<section>
+		<p style="text-align:left">CronTrigger</p>
+		<p style="text-align:left">基于日历的概念而不是按照SimpleTrigger的精确指定间隔进行重新启动的作业启动计划</p>
+		<p style="text-align:left">Cron-Expressions</p>
+		<p style="text-align:left">0 0/5 * * *？    每5分钟就会触发一次</p>		
+	</section>
+
+
+	<section>
+		<h3>3.常见问题</h3>
+	</section>
+	<section>
+		<p></p>
+		<p style="text-align:left">spiring和quartz结合</p>
+		<p style="text-align:left"></p>
+		<p style="text-align:left"></p>
+
+	</section>
+	<section>
+		<h3>4.解决方案</h3>
+	</section>
+
+	<section>
+		<h3>5.编码实战</h3>
+	</section>
+
+	<section>
+		<h3>6.扩展思考</h3>
+	</section>
+
+	<section>
+		<h3>7.参考文献</h3>
+		<p style="text-align:left">quartz官方文档</p>
+		<p style="text-align:left">https://www.w3cschool.cn/quartz_doc/quartz_doc-2put2clm.html</p>
+		<p style="text-align:left"></p>
+	</section>
+	<section>
+		<h3>8.更多讨论</h3>
+		<p></p>
+	</section>
+	<section>
+		<h4>鸣谢</h4>
+		<p>感谢观看,如有出错,恳请指正</p>
+		<p><small>BY : 刘凯</small></p>
+	</section>
+
+</div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+        // 以下为常见配置属性的默认值
+        // {
+        // 	controls: true, // 是否在右下角展示控制条
+        // 	progress: true, // 是否显示演示的进度条
+        // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+        // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+        // 	keyboard: true, // 是否启用键盘快捷键来导航
+        // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+        // 	center: true, // 是否将幻灯片垂直居中
+        // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+        // 	loop: false, // 是否循环演示
+        // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+        // 	fragments: true, // 全局开启和关闭碎片。
+        // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+        // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+        // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+        // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+        // }
+        // 初始化幻灯片
+        Reveal.initialize({
+        	history: true,
+        	dependencies: [
+        	{ src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+        	{ src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+        	{ src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+        	{ src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+        	]
+        });
+    </script>
+</body>
+
+</html>
