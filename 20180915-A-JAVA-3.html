@@ -1,0 +1,289 @@
+﻿
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Nginx</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：朱明星</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>	
+		
+        <section>
+		
+			<section>
+                <p>1.背景介绍</p>
+                <p align="center">Nginx是什么？</p>
+                <p style="text-align:left">Web 服务器：</p>
+                <p style="text-align:left">　　基于 REST 架构风格 ，以统一资源描述符（Uniform Resource Identifier，URI）
+                    或者统一资源定位符（Uniform Resource Locator，URL）作为沟通依据</p>
+                <p style="text-align:left">　　通过 HTTP 为浏览器等客户端程序提供各种网络服务。</p>
+                <p style="text-align:left">　　然而，由于这些 Web 服务器 在设计阶段就受到许多局限，
+                    例如当时的互联网用户规模、网络带宽、产品特点等局限，并 且各自
+                    的定位与发展方向都不尽相同，使得每一款 Web 服务器的特点与应用场合都很鲜明。 </p>
+            </section>
+			
+			<section>
+			<p>对比</p><br>
+                <p style="text-align:center">Apache</p>
+                <p style="text-align:center">Lighttpd</p>
+                <p style="text-align:center">Tomcat</p>
+                <p style="text-align:center">Jetty</p>
+                <p style="text-align:center">IIS</p>
+			</section>
+
+			<section>
+                <p></p>
+                <p style="text-align:center">Tomcat和Jetty </p>
+                <br>
+                <p style="text-align:left">　　Tomcat 和 Jetty 面向 Java 语言，先天就是重量级的 Web 服务器，
+                    它的性能与 Nginx 没 有可比性</p>
+                <p></p>
+            </section>
+
+            <section>
+                <p></p>
+                <p style="text-align:center">IIS（Internet Information Services，微软公司）</p>
+                <br>
+                <p style="text-align:left">　　IIS只能在 Windows 操作系统上运行。Windows 作为服务器在稳定性与其他
+                    一些性能上 都不如类 UNIX 操作系统，因此，在需要高性能 Web 服务器的场合下，
+                    IIS 可能会被“冷落”。</p>
+                <p></p>
+            </section>
+
+            <section>
+                <p></p>
+                <p style="text-align:center">Apache</p>
+                <br>
+                <p style="text-align:left">　　Apache 的发展时期很长，而且是目前毫无争议的世界第一大 Web 服务器。
+                    Apache 有许多优点，如稳定、开源、跨平台等.但它出现的时间太长了，在它兴起的 年代，
+                    互联网的产业规模远远比不上今天，所以它被设计成了一个重量级的、不支持高并发 的
+                    Web 服务器。在 Apache 服务器上，如果有数以万计的并发 HTTP 请求同时访问，
+                    就会导 致服务器上消耗大量内存，操作系统内核对成百上千的 Apache 进程做进程间切换
+                    也会消耗 大量 CPU 资源，并导致 HTTP 请求的平均响应速度降低，这些都决定了 Apache
+                    不可能成为高性能 Web 服务器，这也促使了Lighttpd和Nginx的出现。</p>
+                <p></p>
+            </section>
+
+            <section>
+                <p></p>
+                <p style="text-align:center">Lighttpd和Nginx</p>
+                <br>
+                <p style="text-align:left">　　Lighttpd和Nginx 一样，都是轻量级、高性能的 Web 服务器，欧美的业界开发者比较钟
+                    爱 Lighttpd，而国内的公司更青睐 Nginx，Lighttpd 使用得比较少。</p>
+                <p></p>
+            </section>
+
+            <section>
+                <p></p>
+                <p style="text-align:center">为什么选择 Nginx?</p>
+                <p style="text-align:left">　　　　　（1）更快</p>
+                <p style="text-align:left">　　　　　（2）高扩展性</p>
+                <p style="text-align:left">　　　　　（3）高可靠性</p>
+                <p style="text-align:left">　　　　　（4）低内存消耗</p>
+                <p style="text-align:left">　　　　　（5）单机支持 10 万以上的并发连接</p>
+                <p style="text-align:left">　　　　　（6）热部署</p>
+                <p style="text-align:left">　　　　　（7）最自由的 BSD 许可协议</p>
+                <p></p>
+            </section>
+        </section>
+
+
+        <section>
+			<section>
+				<h3>2.知识剖析</h3>
+			</section>
+			<section>
+				<p style="text-align:center">反向代理</p>
+				<p style="text-align:center">动静分离</p>
+				<p style="text-align:center">负载均衡</p>
+			</section>
+			<section>
+                <p></p>
+                <p style="text-align:center">反向代理</p>
+                <br>
+                <p style="text-align:left">　　反向代理（reverse proxy）方式是指用代理服务器来接受Internet
+					上的连接请求，然后将请求转发给内部网络中的上游服务器，并将从上游服务器上得到的结果返
+					回给Internet上请求连接的客户端，此时代理服务器对外的表现就是一个Web 服务器。充当反向
+					代理服务器也是Nginx的一种常见用法（反向代理服务器必须能够处理大量并发请求）。</p>
+                <p style="text-align:left"></p>
+            </section>
+			<section>
+                <p></p>
+                <p style="text-align:center">动静分离</p>
+                <br>
+                <p style="text-align:left">　　由于Nginx 具有“强悍”的高并发高负载能力，因此一般会作为前端的服务
+				器直接向客户端提供静态文件服务，用Apache、Tomcat等服务器来处理动态资源，实现动静分离。</p>
+                <p></p>
+            </section>
+			<section>
+                <p></p>
+                <p style="text-align:center">负载均衡</p>
+                <br>
+                <p style="text-align:left">　　作为代理服务器，一般都需要向上游服务器的集群转发请求。
+				这里的负载均衡是指选择一种策略，尽量把请求平均地分布到每一台上游服务器上。</p>
+                <p></p>
+            </section>
+		
+		</section>
+		
+
+  
+
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+			<br>
+            <p style="text-align:center">怎么降低上游服务器的负载？</p>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+			<br>
+			<p style="text-align:center">使用Nginx的反向代理可以降低上游服务器的并发压力</p>
+        </section>
+
+		<section>
+			<section>
+				<h3>5.编码实战</h3>
+			</section>
+			
+			<section>
+				<p align="center">反向代理</p>
+				<br>
+				<p align="left">　　（1）此配置项将当前请求反向代理到URL 参数指定的服务器上，URL 可以是主机名或
+				IP地址加端口的形式</p>
+				<p align="left">　　proxy_pass</p>
+				<p align="left">　　语法：proxy_pass URL;</p>
+				<p align="left">　　（2）server 配置项指定了一台上游服务器的名字， 这个名字可以是域名、IP 地址端口、
+				UNIX句柄等</p>
+				<p align="left">　　server块</p>
+				<p align="left">　　语法：server name [parameters];</p>
+			</section>
+			
+			<section>
+				<p align="center">负载均衡</p>
+				<br>
+				<p align="left">　　（1）upstream块定义了一个上游服务器的集群，便于反向代理中的proxy_pass 使用。</p>
+				<p align="left">　　upstream块</p>
+				<p align="left">　　语法：upstream name {...}</p>
+			</section>
+        </section>
+
+		
+        <section>
+			<section>
+				<h3>6.扩展思考</h3>
+			</section>
+				<section>
+            <p>1)nginx正向代理和反向代理</p>
+            <p>这个文章很详细：</p>
+			<p>http://blog.51cto.com/z00w00/1031287</p>
+			</section>
+			<section>
+            <p>2)Nginx中的upstream轮询机制</p>
+            <p>https://www.cnblogs.com/liqiu/p/3140329.html</p>
+			</section>
+			<section>
+            <p>Nginx如何实现高并发?</p>
+            <p>https://www.cnblogs.com/xawei/p/6812134.html</p>
+			</section>
+        </section>
+
+        
+        
+        <section>
+            <h3>7.参考文献</h3>
+			<br>
+            <p style="text-align:center">《深入理解Nginx：模块开发与架构解析》陶辉 著</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4 align="center">鸣谢</h4>
+            <p align="center">感谢观看,如有出错,恳请指正</p>
+            <p align="center"><small>BY : 朱明星</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

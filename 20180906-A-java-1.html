@@ -1,0 +1,354 @@
+<!doctype html>
+
+<head xmlns="http://www.w3.org/1999/html">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .text-l {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2> Mybatis整合Spring</h2>
+            <p>分享人：赵立鼐</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section style="text-align: left;">
+                <br style="text-align: left">
+                <h3>Mybatis是啥</h3>
+                MyBatis是一个用来实现数据库访问的框架，它对jdbc的操作数据库的过程进行封装，使开发者只需要关注SQL本身，而不需要花费精力去处理例如注册驱动、创建connection、创建statement、手动设置参数、结果集检索等一系列jdbc繁杂的过程代码。
+
+                </p>
+            </section>
+            <section style="text-align: left;">
+                <br style="text-align: left">
+                  <h3>为什么要使用Spring框架</h3>
+
+                <p>
+
+            </section>
+            <section style="text-align: left;">
+                <p>
+
+                    1.方便解耦，简化开发<br>
+                      Spring就是一个大工厂，可以将所有对象创建和依赖关系维护，交给Spring管理<br>
+                    2.AOP编程的支持<br>
+                      Spring提供面向切面编程，可以方便的实现对程序进行权限拦截、运行监控等功能<br>
+                    3.声明式事务的支持<br>
+                      只需要通过配置就可以完成对事务的管理，而无需手动编程<br>
+                    4.方便程序的测试<br>
+                      Spring对Junit4支持，可以通过注解方便的测试Spring程序<br>
+                    5.方便集成各种优秀框架<br>
+                      Spring不排斥各种优秀的开源框架，其内部提供了对各种优秀框架（如：Struts2、Hibernate、MyBatis、Quartz等）的直接支持<br>
+
+            </section>
+            <section style="text-align: left;">
+                <p> 6.降低JavaEE API的使用难度<br>
+                      Spring 对JavaEE开发中非常难用的一些API（JDBC、JavaMail、远程调用等），都提供了封装，使这些API应用难度大大降低
+
+
+            </section>
+
+
+        </section>
+        <section>
+
+
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section style="text-align: left;">
+                <h3><strong>mybatis的核心组件</strong></h3>
+                <p c><br>
+                    SqlsessionFactoryBuilder:它根据你写的配置文件或者代码来生成SqlsessionFactory<br>
+
+                    SqlsessionFactory:它生成Sqlsession<br>
+
+                    Sqlsession:发送SQL语句进行对数据库的增删改查<br>
+
+                    SQL Mapper:由一个java接口和XML（或者注解）构成，同样可以对数据库进行操作<br>
+                     </p>
+
+            </section>
+            <section style="text-align: left;">
+                <p>
+                    SqlsessionFactory <br>
+                    SqlSessionFactory是MyBatis的关键对象,它是个单个数据库映射关系经过编译后的内存镜像.SqlSessionFactory对象的实例可以通过SqlSessionFactoryBuilder对象类获得,而SqlSessionFactoryBuilder则可以从XML配置文件或一个预先定制的Configuration的实例构建出SqlSessionFactory的实例.每一个MyBatis的应用程序都以一个SqlSessionFactory对象的实例为核心.同时SqlSessionFactory也是线程安全的,SqlSessionFactory一旦被创建,应该在应用执行期间都存在.在应用运行期间不要重复创建多次,建议使用单例模式.SqlSessionFactory是创建SqlSession的工厂.  </section>
+            <section style="text-align: left;">
+                <p>
+                    <code> public static SqlSessionFactory getSqlSessionFactory(){
+                        <br> InputStream is = MybatisUtil.class.getClassLoader().getResourceAsStream("conf.xml");
+                        <br>SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);
+                        <br>return factory;
+                    }
+                        </code>
+            </section>
+            <section style="text-align: left;">
+                <p>InputStream is = MybatisUtil.class.getClassLoader().getResourceAsStream("conf.xml");<br>
+                    这行代码是使用类加载器加载了mybatis的xml文件,使用InputStream对文件进行解析读取，就是字节流的输入。<br>
+
+            </section>
+            <section style="text-align: left;"> SqlsessionFactoryBuilder类负责构建SqlsessionFactory<br>
+
+                SqlSessionFactoryBuilder构造SqlSessionFactory主要委托XMLConfigBuilder类来验证并解析xml配置文件成Configuration<br>
+
+                SqlSessionFactory在mybatis的默认实现类为org.apache.ibatis.session.defaults.DefaultSqlSessionFactory , 其构造过程主要是注入了Configuration的实例对象，Configuration的实例对象即可通过解析xml配置文件产生 。<br>
+            </section>
+            <section style="text-align: left;"> SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);<br>
+               <p> 获取到SqlSessionFactory之后，就可以利用SqlSessionFactory方法的openSession来获取SqlSession对象了。<br>
+                SqlSession session = getSqlSessionFactory().openSession();
+                </section>
+            <section style="text-align: left;">
+                <h3><strong>结合Spring框架使用MyBatis</strong></h3>  <section style="text-align: left;"></section>
+                <p>
+                    MyBatis + Spring的使用方式，一般是在Spring的配置文件里，配置以下内容：   <br>
+
+                    1.数据源（DataSource）   <br>
+
+                    2.SqlSessionFactoryBean，实现FactoryBean接口，通过注入DataSource对象，以及MyBatis的相关配置信息，返回SQLSessionFactory对象。 <br>
+
+
+            </section>
+
+
+            <section class="text-l">
+                <h3><code>SqlsesionFactoryBean</code></h3>
+                <p>
+                    首先，我们需要从Mybatis官网上下载Mybatis-Spring的jar包添加到我们项目的类路径下，当然也需要添加Mybatis的相关jar包和Spring的相关jar包。我们知道在Mybatis的所有操作都是基于一个SqlSession的，而SqlSession是由SqlSessionFactory来产生的，SqlSessionFactory又是由SqlSessionFactoryBuilder来生成的。但是Mybatis-Spring是基于SqlSessionFactoryBean的。 </section>
+            <section style="text-align: left;">在使用Mybatis-Spring的时候，我们也需要SqlSession，而且这个SqlSession是内嵌在程序中的，一般不需要我们直接访问。SqlSession也是由SqlSessionFactory来产生的，但是Mybatis-Spring给我们封装了一个SqlSessionFactoryBean，在这个bean里面还是通过SqlSessionFactoryBuilder来建立对应的SqlSessionFactory，进而获取到对应的SqlSession。通过SqlSessionFactoryBean我们可以通过对其指定一些属性来提供Mybatis的一些配置信息。所以接下来我们需要在Spring的applicationContext配置文件中定义一个SqlSessionFactoryBean。 在定义SqlSessionFactoryBean的时候，dataSource属性是必须指定的，它表示用于连接数据库的数据源。
+                </p>
+            </section>
+
+            <section>
+                <h3>MapperFactoryBean 之映射接口 </h3>
+
+
+            </section>
+            <section style="text-align: justify;word-break: break-all">
+                <p style="text-align:left">
+                    为了代替手工使用 SqlSessionDaoSupport 或 SqlSessionTemplate 编写数据访问对象(DAO)的代码,MyBatis-Spring 提供了一个动态代理的实现——MapperFactoryBean。这个类可以让你直接注入数据映射器接口到你的 service 层bean 中。当使用映射器时,你仅仅如调用你的 DAO 一样调用它们就可以了,但是你不需要编写任何 DAO 实现的代码,因为 MyBatis-Spring将会为你创建代理。同样，MapperFactoryBean创建的代理控制开放和关闭 session。
+
+                    在使用MapperFactoryBean时，可以通过映射接口方式提供sql语句，也可以通过映射文件提供sql语句。
+
+                </p>
+
+            </section>
+            <section>
+                <p class="text-l">
+
+                    MapperFactoryBean创建的代理类实现了 UserMapper 接口,并且注入到应用程序中。因为代理创建在运行时环境中,那么指定的映射器必须是一个接口,而不是一个具体的实现类。
+
+                </p>
+            </section>
+
+        <section style="text-align: left;">
+
+                <p class="text-l">
+
+                </p>
+            </section>
+            <section>
+
+                <p class="text-l">
+
+                </p>
+
+
+            </section>
+
+            <section>
+
+                <p class="text-l">
+
+                </p>
+
+
+            </section>
+            <section>
+
+                <p class="text-l">
+
+                </p>
+
+
+            </section>
+
+        </section>
+
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+
+                <!--<p style=" text-align:left"><br>-->
+
+                <p class="text-l">
+                </p>
+                <p class="text-l"> 1.连接不上数据库<br>
+
+                    <br>
+
+                </p>
+                <p class="text-l">2.加载不了xml文件
+                    <br>
+
+                </p>
+
+            </section>
+
+
+
+        </section>
+
+
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+
+            <section>
+
+                <p class="text-l">
+                    1.连接不上数据库 <br>
+                    注意检查property name是否与数据源匹配，不同的数据源的属性名称不同。
+                     使用db.properties文件value时，加载不了文件，检查properties的路径是否正确，还有它要放在resource包下。加载properties的方法有很多种，自行百度。
+                    <br>
+
+
+                    <br>
+                </p>
+            </section>
+            <section style="text-align: justify;word-break: break-all">
+                <p style="text-align:left">
+                   2.加载不了配置文件<br>
+
+                    检查文件名是否书写正确，spring.xml记住后面要带上xml文件类型。
+                    可以在单元测试中先尝试加载xml文件，成功后再去写代码。
+
+        </section>
+
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+
+
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+
+            </section>
+
+            <section class="text-l">
+                <h4>mybatis完美整合spring不需要mapper映射文件</h4>
+                在接口中使用注解方式，将映射文件中的sql语句转移到接口中。
+
+
+            </section>
+
+
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p style="text-align: left">参考：<br>
+                    <br>
+                    互联网
+                </p>
+
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+        </section>
+        <section>
+            <!--<h4>鸣谢</h4>-->
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 赵立鼐</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js "></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js "></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc "或"o "键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+
+</html>
