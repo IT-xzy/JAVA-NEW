@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>shiro 的简单介绍</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：方广辉</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        
+        <p>什么是Apache Shiro？</p>
+        <p>Apache Shiro（读作“sheeroh”，即日语“城”）是一个开源安全框架，提供身份验证、授权、密码和会话管理。Shiro框架直观、易用，同时也能提供健壮的安全性。</p>
+
+
+		<p>Shiro的产生背景：Shiro的前身是JSecurity。
+
+			2004年，Les Hazlewood和Jeremy Haile创办了Jsecurity。当时他们找不到适用于应用程序级别的合适Java安全框架，同时又对JAAS非常失望。2010年9月22日，Shrio成为Apache软件基金会的顶级项目（TLP）。
+
+			Java认证和授权服务（Java Authentication and Authorization Service，简称JAAS）是一个Java以用户为中心的安全框架，作为Java以代码为中心的安全的补充。自Java运行环境（JRE） 1.4起，JAAS就被集成到JRE，而之前是作为一个扩展库由Sun公司提供的。
+		</p>
+       </section>
+       
+	   
+	   <section>
+            <p>什么是权限管理？</p>
+            <p>权限管理，一般指根据系统设置的安全规则或者安全策略，用户可以访问而且只能访问自己被授权的资源，不多不少。</p>
+            <p>权限管理体系几乎可以出现在任何系统里面，只要项目存在有用户和密码的相关概念。</p>
+            <p>很多人常将“用户身份认证”、“密码加密”、“系统管理”等概念与权限管理概念混淆。</p>
+        </section>
+	   
+	   <section>
+            <p>权限管理就是管理用户对于资源的操作。</p>
+            <p>本 CRM 系统的权限（也称作资源）是基于角色操作权限来实现的，即RBAC（Role-Based Access Control，基于角色的访问控制），就是用户通过角色与权限进行关联。</p>
+            <p>简单地说，一个用户拥有若干角色，每一个角色拥有若干权限。这样，就构造成“用户-角色-权限”的授权模型。</p>
+            <p>在这种模型中，用户与角色之间，角色与权限之间都是多对多的关系，为了实现表之间多对多的关系，必须将一个多对多的关系通过一个中间表分为两个一对多的关系。</p>
+            <p>因此引入中间表，用户角色表和角色权限表。</p>
+        </section>
+	   
+       <section>
+			<p>可以用 Apache Shiro做下面的事情</p>
+			<p>验证用户</p>
+			<p>对用户执行访问控制，如：1、判断用户是否分配了一定的安全角色。2、判断用户是否被授予完成某个操作的权限</p>
+			<p>判断用户是否拥有角色admin</p>
+			<p>判断用户是否拥有访问的权限</p>
+			<p>在任何环境下使用 Session API</p>
+			<p>可以使用多个用户数据源。例如一个是oracle用户库，另外一个是mysql用户库</p>
+			<p>单点登录（SSO）功能</p>
+			<p>“Remember Me”服务 ，类似购物车的功能，shiro官方建议开启</p>
+       </section>
+       <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+				<p> Shiro 依赖的 API</p>
+				<p>Authentication —— 认证，用户身份识别，常被称为用户“登录”，who are you?</p> 
+				<p>Authorization —— 授权，访问控制过程，决定“谁”访问“什么”，who can do what?</p>        
+				<p>Session Management —— 会话管理，用户session管理器，用户相关的时间敏感的状态</p>       
+				<p>Cryptography —— 密码加密，把JDK中复杂的密码加密方式进行封装，保护或隐藏数据防止被偷窥</p>
+		</section>
+        <section>
+				<p>还有其他的功能来支持和加强这些不同应用环境下安全领域的关注点。特别是对以下的功能支持：</p>
+				<p>Web支持：Shiro 提供的 web 支持 api ，可以很轻松的保护 web 应用程序的安全。</p>
+				<p>并发：Apache Shiro 支持多线程应用程序的并发特性。</p>
+				<p>测试：支持单元测试和集成测试，确保代码和预想的一样安全。</p>
+				<p>“Run As”：这个功能允许用户假设另一个用户的身份(在许可的前提下)。</p>
+				<p>“Remember Me”：跨 session 记录用户的身份，只有在强制需要时才需要登录。</p>
+        </section>
+
+
+        <section>
+            <h3>3.常见的问题</h3>
+           <p>如何与springboot集成？</P>
+           <p>集成shiro大概分这么一个步骤：</p>
+          
+        </section>
+ <section>
+            <h3>4.解决办法</h3>
+ </section>
+ 
+         <section>
+		<p>  集成shiro大概分这么一个步骤：</p>
+       <p>(a) pom.xml中添加Shiro依赖；</p>
+       <p>(b) 注入Shiro Factory和SecurityManager。</p>
+       <p>(c) 身份认证</p>
+       <p>(d) 权限控制</p>
+       </section>
+   
+		<section>
+            <h3>5.编码实战</h3>
+        </section>
+        
+		 <section>
+            <h3>6.扩展思考</h3>
+		</section>
+		<section>
+            <p></p>
+            <p></p>
+            
+     </section>
+ 
+            <section>
+            <h3>7.参考文献</h3>
+           <p>spring boot shiro权限管理</p>
+		   <p>http://412887952-qq-com.iteye.com/blog/2299777</P>
+           <p>Realm 详解</p>
+           <p>http://jinnianshilongnian.iteye.com/blog/2022468</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 方广辉</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
