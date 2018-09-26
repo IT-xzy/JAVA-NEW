@@ -1,0 +1,191 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>打印日志与AOP</h2>
+			<p></p>
+            <h3>小课堂</h3>
+            <p>分享人：赵君钊</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>在软件开发中，散布于应用中多处的功能被称为横切关注点（cross-cutting concern）。
+            通常来讲，这些横切关注点从概念上是与应用的业务逻辑相分离的。比如：日志、声明式事物
+            、安全和缓存。这些东西都不是我们平时写代码的核心功能，但许多地方都要用到。如果按照面
+            向对象的设计方法来打印日志，我们就必须在要打印日志的类中都加入日志的内容。
+            就是因为面向对象的设计让类与类之间无法联系，而不能将这些重复的代码统一起来。把这
+            些横切关注点与业务相分离正是面向切面编程（AOP）要解决的问题。
+            简单的说就是把这些许多地方都要用到，但又不是核心业务的功能，单独剥离出来封装，通过配置
+            指定要切入到指定的方法中去。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>什么是面向切面编程</p>
+            <p>AOP的术语</p>
+        </section>
+        <section>
+            <p>在运行时，动态地将代码切入到类的指定方法、指定位置上,把逻辑代码和处理琐碎事务的代码分离开，
+            以便能够分离复杂度。这种编程思想就是面向切面的编程。</p>
+            <p>横切关注点可以被模块化为特殊的类，这些类被称为切面（aspect）。这样做有两个好处：</p>
+            <p>每个关注点都集中于一个地方，而不是分割到多处代码中</p>
+            <p>服务模块更简洁，因为它们只包含主要关注点（或核心功能）的代码，而次要关注点的代码被转移到切面中了。</p>
+        </section>
+        <section>
+            <p>连接点（Join point）</p>
+            <p>连接点是在应用执行过程中能够插入切面的一个点。这个点可以是调用方法时、抛出异常时、甚
+            至修改一个字段时。切面代码可以利用这些点插入到应用的正常流程之中，并添加行为。</p>
+            <p>切点（Pointcut )</p>
+            <p>如果说通知定义了切面“是什么”和“何时”的话，那么切点就
+            定义了“何处”。比如我想把日志引入到某个具体的方法中，这个方法就是所谓的切点。</p>
+        </section>
+        <section>
+            <p>切面（Aspect）</p>
+            <p>切面是通知和切点的结合。通知和切点共同定义了切面的全部内容,他是什么，在何时和何处完成其功能。</p>
+            <p>引入（Introduction）</p>
+            <p>引入允许我们向现有的类添加新的方法和属性(Spring提供了一个方法注入的功能）</p>
+            <p>织入(Weaving)</p>
+            <p>把切面应用到目标对象来创建新的代理对象的过程，织入一般发生在如下几个时机</p>
+        </section>
+        <section>
+            <p>
+                通知(Advice)
+            </p>
+            <p>
+                在AOP中，切面的工作被称为通知。通知定义了切面“是什么”以及“何时”使
+                用。除了描述切面要完成的工作，通知还解决了何时执行这个工作的问题.
+            </p>
+            <p>Spring切面可以应用5种类型的通知</p>
+        </section>
+        <section>
+            <p>前置通知（Before）：在目标方法被调用之前调用通知功能</p>
+            <p>后置通知（After）：在目标方法完成之后调用通知，此时不会关心方法的输出是什么</p>
+            <p>返回通知（After-returning）：在目标方法成功执行之后调用通知</p>
+            <p>异常通知（After-throwing）：在目标方法抛出异常后调用通知</p>
+            <p>环绕通知（Around）：通知包裹了被通知的方法，在被通知的方法调用之前和调用之后执行自定义的行为</p>
+        </section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1.基于注解的方式</p>
+            <p>2.基于XML配置的方式</p>
+        </section>
+        <section>
+            <P>Around要使用ProceedingJoinPoint这个参数。其中里面
+            的proceed()方法就是将控制权交给被通知的方法。如果你忘记调用这个方法，那么
+            你的通知实际上会阻塞对被通知方法的调用。</P>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p></p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>百度</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 程凯</small></p>
+        </section>
+
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
