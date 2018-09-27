@@ -1,0 +1,232 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么叫MD5，MD5通常做什么用处，为什么MD5不可逆，用做密码加密的时候仍然可能会被解密？</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：杨腾东</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section> 
+            <h5>什么是MD5</h5>
+            <p>MD5消息摘要算法（英语：MD5 Message-Digest Algorithm），一种被广泛使用的密码散列函数，可以产生出一个128位（16字节）的散列值（hash value），用于确保信息传输完整一致。MD5由美国密码学家罗纳德·李维斯特（Ronald Linn Rivest）设计，于1992年公开，用以取代MD4算法。
+             </p>
+            <p>密码散列函数（Cryptographic hash function），又译为加密散列函数，是散列函数的一种。
+            </p>
+            <p>MD4算法在安全上有大的漏洞，但它对在其后才被开发出来的好几种信息安全加密算法的出现却有着不可忽视的引导作用,比如MD5加密算法.
+            </p>
+        </section>
+        
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h5>主要应用</h5>
+			
+				<p>2.1一致性验证</p>
+
+                <p>MD5的典型应用是对一段信息（Message）产生信息摘要（Message-Digest），以防止被篡改。比如，在Unix下有很多软件在下载的时候都有一个文件名相同，文件扩展名为.md5的文件，在这个文件中通常只有一行文本，大致结构如：</p>
+ <p>MD5 (tanajiya.tar.gz) = 38b8c2c1093dd0fec383a9d9ac940515</p>
+				<p>MD5将整个文件当作一个大文本信息，通过其不可逆的字符串变换算法，产生了这个唯一的MD5信息摘要。</p>
+
+				<p>举例描述</p>
+                <p>我们常常在某些软件下载站点的某软件信息中看到其MD5值，它的作用就在于我们可以在下载该软件后，对下载回来的文件用专门的软件（如Windows MD5 Check等）做一次MD5校验，以确保我们获得的文件与该站点提供的文件为同一文件。
+具体来说文件的MD5值就像是这个文件的“数字指纹”。每个文件的MD5值是不同的，如果任何人对文件做了任何改动，其MD5值也就是对应的“数字指纹”就会发生变化。比如下载服务器针对一个文件预先提供一个MD5值，用户下载完该文件后，用我这个算法重新计算下载文件的MD5值，通过比较这两个值是否相同，就能判断下载的文件是否出错，或者说下载的文件是否被篡改了。</p>
+<p>利用MD5算法来进行文件校验的方案被大量应用到软件下载站、论坛数据库、系统文件安全等方面。</p>
+
+                </section>
+
+                <section><p>2.2数字签名</p>
+                <p>MD5的典型应用是对一段Message(字节串)产生fingerprint(指纹），以防止被“篡改”。举个例子，你将一段话写在一个叫 readme.txt文件中，并对这个readme.txt产生一个MD5的值并记录在案，然后你可以传播这个文件给别人，别人如果修改了文件中的任何内容，你对这个文件重新计算MD5时就会发现（两个MD5值不相同）。如果再有一个第三方的认证机构，用MD5还可以防止文件作者的“抵赖”，这就是所谓的数字签名应用。</p>
+            
+            </section>
+
+            <section><p>2.3安全访问认证</p>
+                <p>MD5还广泛用于操作系统的登陆认证上，如Unix、各类BSD系统登录密码、数字签名等诸多方面。如在Unix系统中用户的密码是以MD5（或其它类似的算法）经Hash运算后存储在文件系统中。当用户登录的时候，系统把用户输入的密码进行MD5 Hash运算，然后再去和保存在文件系统中的MD5值进行比较，进而确定输入的密码是否正确。通过这样的步骤，系统在并不知道用户密码的明码的情况下就可以确定用户登录系统的合法性。这可以避免用户的密码被具有系统管理员权限的用户知道。</p>
+                <p>2.4算法原理</p>
+                <p>对MD5算法简要的叙述可以为：MD5以512位分组来处理输入的信息，且每一分组又被划分为16个32位子分组，经过了一系列的处理后，算法的输出由四个32位分组组成，将这四个32位分组级联后将生成一个128位散列值。</p>
+            </section>
+                
+            
+           
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1.MD5码不是128位的吗?为何得出来的乱码有的是32位的?</p>
+            <p>2.MD5特点是什么?</p>
+            <p>3.什么是MD5加盐?</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+            <p>1.MD5码不是128位的吗?为何得出来的乱码有的是32位的?</p>
+            <p>128位是指二进制位。二进制太长，所以一般都改写成16进制，每一位16进制数可以代替4位二进制数，所以128位二进制数写成16进制就变成了128/4=32位。</p><br>
+
+            <p>2.MD5特点是什么?</p>
+            <p>1.长度固定:
+
+不管多长的字符串,加密后长度都是一样长 
+作用:方便平时信息的统计和管理</p>
+<p>2.易计算:
+
+字符串和文件加密的过程是容易的. 
+作用: 开发者很容易理解和做出加密工具</p>
+<p>3.细微性:
+
+一个文件,不管多大,小到几k,大到几G,你只要改变里面某个字符,那么都会导致MD5值改变. 
+作用:很多软件和应用在网站提供下载资源,其中包含了对文件的MD5码,用户下载后只需要用工具测一下下载好的文件,通过对比就知道该文件是否有过更改变动.</p>
+<p>4.不可逆性:
+
+你明明知道密文和加密方式,你却无法反向计算出原密码. 
+作用:基于这个特点,很多安全的加密方式都是用到.大大提高了数据的安全性</p><br>
+
+            <p>3.什么是MD5加盐?</p>
+            <p>比如我的银行密码是”12345”
+
+1.得到的MD5是:827ccb0eea8a706c4c34a16891f84e7b
+
+2.一个人截取到这个密文,那么通过撞库肯定容易撞出12345.
+
+3.我们要做的就是加盐,银行密码还是”12345”,然后我把银行密码加上我特定的字符串才计算MD5 
+所以密码还是那个密码,但是变成求”12345密码加密987”的MD5值,然后再得到MD5,那么这个MD5起码可以确认那个数据库不会有.</p>
+        </section>
+
+
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p>在我们项目中添加MD5工具类</p>
+            <p>主要说一下对字符串加密,因为这个可以针对经常用到的用户密码加密</p>
+        </section>
+        
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+        	<p>关于撞库破解:</p>
+            <p>
+
+这是概率极低的破解方法,原理就是:
+
+1.建立一个大型的数据库,把日常的各个语句,通过MD5加密成为密文,不断的积累大量的句子,放在一个庞大的数据库里.
+
+2.比如一个人拿到了别人的密文,想去查询真实的密码,就需要那这个密文去到提供这个数据库的公司网站去查询.
+           </p>
+           <p>在线MD5解密: http://www.cmd5.com/</p>
+        
+        </section>
+
+        <section>
+            <p>为什么MD5不可逆,加密之后的密码还会被解密吗?</p>
+            <p>MD5不可逆的原因是其是一种散列函数，使用的是hash算法，在计算过程中原文的部分信息是丢失了的,一个MD5理论上的确是可能对应无数多个原文的，因为MD5是有限多个的而原文可以是无数多个。</p>
+            <p>1+6=7，但是给你个7你能知道这是几跟几加得的吗？</p>
+            <p>所以,一般的MD5运算可以通过撞库的方式,说白了,就是根据MD5结果进行反向的查找,加盐之后,几乎是不可能获取到你的密码的.</p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>https://www.zhihu.com/question/22651987</p>
+
+            <p>https://blog.csdn.net/dingsai88/article/details/51637977</p>
+
+            <p>https://baike.baidu.com/item/MD5</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 杨腾东</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
