@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+
+   <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+     <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    
+</head>
+
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>jdbc和jdbctemplate</h2>
+            <p>分享人：鲁伯良</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section style="text-align: left;">
+                <br style="text-align: left">
+                <h4>jdbc是什么?</h4>
+                JDBC（Java DataBase Connectivity,java数据库连接）是一种用于执行SQL语句的Java API，可以为多种关系数据库提供统一访问，它由一组用Java语言编写的类和接口组成。JDBC提供了一种基准，据此可以构建更高级的工具和接口，使数据库开发人员能够编写数据库应用程序，同时，JDBC也是个商标名。
+它可以做什么<br>
+1,与数据库建立连接<br>
+2.发送操作数据库语句<br>
+3处理结果<br>
+
+                </p>
+            </section>
+ <section style="text-align: left;">
+                <h3><strong>jdbctemplate是什么</strong></h3>
+                <p>
+                  jdbc已经能够满足大部分用户最基本的对数据库的需求,但是在使用jdbc时,应用必须自己来管理数据库资源.spring对数据库操作需求提供了,很好的支持,并在原始jdbc的基础上,构建了一个抽象层,提供了许多jdbc的模板和驱动模块,为spring应用操作关系型数据库提供了更大的便利
+            </section>
+
+        </section>
+        <section>
+
+
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section style="text-align: left;">
+                <h3><strong>jdbc连接操作mysql数据库为例简单描述下流程</strong></h3>
+                <p><br>
+                   1）java程序中加载驱动程序。一般使用Class.forName这种反射的方法加载数据库的驱动。<br>
+         2）创建数据连接对象。通过DriverManager的getConnection方法，输入数据库连接的URL，用户名，密码等信息，连接数据库，获取连接对象Connection 的实例 <br>
+       3）创建Statement（PreparedStatement）。通过数据库的连接对象可以创建<br>Statement（PreparedStatement）对象实例，Statement（PreparedStatement）对象实例可以执行静态SQL并返回生成结果对象。<br>
+	   </p>
+	    </section>
+		  <section style="text-align: left;">
+		  <p>
+       4）调用Statement（PreparedStatement)实例相关方法执行相应的SQL语句。<br>Statement（PreparedStatement）的实例有很多数据库的操作方法，如通过executeQuery方法可以执行数据的查询，并可以得到返回的结果集ResultSet<br>
+          5) 对结果集进行操作<br>
+          6）关闭数据库连接。在使用完数据库之后，或者不需要再使用数据库的时候，可以通过Connection的close方法，关闭数据库的连接。<br>
+		  </p>
+
+            </section>
+            
+
+
+            <section style="text-align: left;">
+                <h3><strong>jdbctemplate的流程是什么样的</strong></h3>
+                <p>
+                    1).加载spring配置文件<br>
+                     2).获取jdbctemplate实例<br>
+						3)执行SQL语句<br>
+							4)操作结果集,.(查询方法)<br>
+            </section>
+           
+        </section>
+
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+          <section style="text-align: left;">
+                <p>1.使用jdbctemplate,帮我们省去了哪些步䠫<br>
+                    2.它是怎么做到的<br>
+                   2.为什么要写接口,我们只写一个实现类不好吗?</h4>
+                <!--<p style=" text-align:left"><br>-->
+              </p>
+
+        </section>
+          </section>
+
+
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+
+            <section>
+
+                <p class="text-l">
+                 1.连接数据库,(包括加载驱动,创建连接对象,关闭连接)<br>
+				 2.那么JDBCTemplate怎么做到的,这就和spring有关系了 SpringIOC容器将管理数据库连接的数据源当作普通Java Bean一样管理, 然后将数据源注入封装类JdbcTemplate中,： JdbcTemplate的dataSource属性就是注入配置的数据源
+                 连接池帮我们创建好了连接,当我们不使用的时候它再收回去,这样我们就不用去手动关闭连接了<br>
+                 3.一个接口可以有多个实现类去重写它的方法
+				   
+  
+  </p>
+    </section>
+	
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+          
+
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+
+            </section>
+
+            <section class="text-l">
+                <h4>连接池做了什么?</h4>
+				   </section>
+				    <section style="text-align: left;">
+                <p>
+                数据库连接池负责分配、管理和释放数据库连接，它允许应用程序重复使用
+				一个现有的数据库连接，而不是再重新建立一个；释放空闲时间超过最大空
+				闲时间的数据库连接来避免因为没有释放数据库连接而引起的数据库连接遗漏。
+				这项技术能明显提高对数据库操作的性能。
+                </p>
+</section>
+            </section>
+           
+
+
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p style="text-align: left">参考：<br>
+                    <br>
+                    互联网
+                </p>
+
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+        </section>
+        <section>
+            <!--<h4>鸣谢</h4>-->
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 鲁伯良</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js "></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js "></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc "或"o "键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+
+</html>

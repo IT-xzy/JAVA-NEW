@@ -1,0 +1,307 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>为什么要使用MEMCACHE？MEMCACHE有什么作用？</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：王庸之</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+
+            <h3>什么是Cache？</h3>
+            <p>狭义概念：用于CPU的相对高速处理与主存（Main Memory）的相对低速处理的之间起到协调功能的硬件设备。</p>
+			<p>广义概念：用于速度相差较大的两种硬件之间，起到协调两者数据传输速度差异的结构。</p>
+			<p>狭义概念来自于Cache自1967出现以来较长时间内的应用场景。因为CPU的数据处理速度，要远远高于主存，所以在CPU和主存之间会有高速缓存设备，甚至是多级缓存设备。而广义概念，则是目前已经被广泛接受的一种定义，且广义概念中，Cache不再只局限于硬件，也可以是软件。比如用于网络相对低速传输与磁盘相对高速传输之间的速度差异协调。</p>
+
+            
+        </section>
+		
+		<section>
+
+            <h3>什么是Memcache？</h3>
+            <p>memcache是一套分布式的高速缓存系统，由LiveJournal的Brad Fitzpatrick开发，但目前被许多网站使用以提升网站的访问速度，尤其对于一些大型的、需要频繁访问数据库的网站访问速度提升效果十分显著。这是一套开放源代码软件，以BSD license授权发布。</p>
+            <p>Memcached 是一个高性能的分布式内存对象缓存系统，用于动态Web应用以减轻数据库负载。它通过在内存中缓存数据和对象来减少读取数据库的次数，从而提高动态、数据库驱动网站的速度。Memcached基于一个存储键/值对的hashmap。其守护进程（daemon ）是用C写的，但是客户端可以用任何语言来编写，并通过memcached协议与守护进程通信。</p>
+
+            
+        </section>
+		
+		
+		<section>
+
+            <h3>什么是Memcache？</h3>
+            <p>Memcached在很多时候都是作为数据库前端cache使用的。因为它比数据库少了很多SQL解析、磁盘操作等开销，而且它是使用内存来管理数据的，所以它可以提供比直接读取数据库更好的性能，在大型系统中，访问同样的数据是很频繁的，memcached可以大大降低数据库压力，使系统执行效率提升。另外，memcached也经常作为服务器之间数据共享的存储媒介，例如在SSO系统中保存系统单点登陆状态的数据就可以保存在memcached中，被多个应用共享。</p>
+
+			
+            
+        </section>
+		
+
+       
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+				
+		<section>
+
+            <h3>为什么会有memcache和memcached两种名称？</h3>
+            <p>memcache是这个项目的名称，而memcached是它服务器端的主程序文件名。</p>
+			<p>memcache可以应对任意多个连接，使用非阻塞的网络IO。由于它的工作机制是在内存中开辟一块空间，然后建立一个HashTable，memcached自管理这些HashTable。</p>
+			<p>memcache采用了C/S的模式，在server端启动服务进程，在启动时可以指定监听的ip、自己的端口号，所使用的内存大小等几个关键参数。一旦启动，服务就一直处于可用状态。</p>
+			
+
+        </section>
+		
+		<section>
+
+            <h3>为什么会有memcache和memcached两种名称？</h3>
+			<p>memcached是以守护程序方式运行于一个或多个服务器中，随时接受客户端的连接操作。</p>
+            <p>客户端在与memcached服务建立连接之后，接下来的事情就是存取对象了，每个被存取的对象都有一个唯一的标识符key，存取操作均通过这个key进行，保存到memcached中的对象实际上是放置内存中的，并不是保存cache文件中的，这也是为什么memcached能够如此高效快速的原因。注意，这些对象并不是持久的，服务停止之后，里边的数据就会丢失。</p>
+			            			
+
+            
+        </section>
+		
+	    <section>
+
+            <h3>Memcached Client</h3>
+            <p>Memcached Client目前有3种：Memcached Client for Java、SpyMemcached、XMemcached。<p>
+			<p>Memcached Client for Java：官方提供的基于传统阻塞io由Greg Whalin维护的客户端，较早推出的memcached JAVA客户端API，应用广泛，运行比较稳定，使用阻塞IO，不支持CAS操作。</p>
+			<p>SpyMemcached：Dustin Sallings基于java nio实现，用到了java1.5版本的concurrent和nio，存取速度会高于前者，但是稳定性不好，测试中常报timeOut等相关异常，支持CAS操作。</p>
+
+            
+        </section>
+		
+		<section>
+
+            <h3>Memcached Client</h3>
+            <p>XMemcached：XMemcached同样是基于Java NIO的客户端，Java NIO相比于传统阻塞IO模型来说，有效率高（特别在高并发下）和资源耗费相对较少的优点。传统阻塞IO为了提高效率，需要创建一定数量的连接形成连接池，而NIO仅需要一个连接即可（当然,NIO也是可以做池化处理），相对来说减少了线程创建和切换的开销，这一点在高并发下特别明显。因此 XMemcached与Spymemcached在性能都非常优秀，在某些方面（存储的数据比较小的情况下）Xmemcached比 Spymemcached的表现更为优秀。</p>
+            
+        </section>
+		
+		<section>
+
+            <h3>Memcached部署命令介绍</h3>
+			<p>开启memcached服务：memcached -d -p 11211 -m 256</p>
+			<p>使用上述的指令是以守护进程的形式开启memcached服务，端口为11211，使用256MB大小的内存空间存储数据。</p>
+			<p>使用telnet进行连接：telnet memcached_IP memcached_PORT。</p>
+			
+							
+            
+        </section>
+		
+		
+        <section>
+		
+             
+		     <p>管理操作：stats、flush_all</p>
+		     <p>stats：是statistics单词的拼写，即统计的意思。该指令统计当前memcached服务的各种指标。 这些指标跟memcached 的性能和工作状况紧密相关。</p>
+			 <p>flush_all：flus_all 指令用于清空memcached中所有的键值对。</p>
+		                  
+		
+        </section>
+		
+		<section>
+		
+		     <p>基本数据操作</p>
+		     <p>set 设置指定键值对</p>
+		     <p>add 若当前键值Key不存在，添加指定键值对</p>
+		     <p>replace 若当前键值Key存在，更新当前Value值</p>
+			 <p>get 获取指定键值对</p>
+		     <p>delete 删除指定键值对</p>
+			 <p>1. set、add、replace 操作指令需要输入两行才能完成，第一行是指令前段，第二行是value值；</p>
+			 <p>2. set、add、replace操作指定的字节数 参数的大小要和第二行输入的字符串的个数保持完全相同， 否则将会报：“CLIENT_ERROR bad data chunk”</p>
+		                  
+		
+        </section>
+		
+		<section>
+		
+		     <h3>memcached的内存算法</h3>
+		     <p>Memcached利用slab allocation机制来分配和管理内存，它按照预先规定的大小，将分配的内存分割成特定长度的内存块，再把尺寸相同的内存块分成组，数据在存放时，根据键值大小去匹配slab大小，找就近的slab存放，所以存在空间浪费现象。</p>
+		     <p>传统的内存管理方式是，使用完通过malloc分配的内存后通过free来回收内存，这种方式容易产生内存碎片并降低操作系统对内存的管理效率。</p>
+			 <p>需要注意的是，由于默认情况下Memcached中每页的大小为1MB，因此其单个块最大为1MB。除此之外，Memcached还限制每个数据所对应的键的长度不能超过250个字节。</p>
+
+		     		                  
+		
+        </section>
+		
+		<section>
+		
+		     <h3>Memcached的缓存策略</h3>
+		     <p>Memcached的缓存策略是LRU（最近最少使用）加上到期失效策略。当你在memcached内存储数据项时，你有可能会指定它在缓存的失效时间，默认为永久,最长为30天。当memcached服务器用完分配的内时，失效的数据被首先替换，然后也是最近未使用的数据。在LRU中，memcached使用的是一种Lazy Expiration策略，自己不会监控存入的key/vlue对是否过期，而是在获取key值时查看记录的时间戳，检查key/value对空间是否过期，这样可减轻服务器的负载。</p>
+		     
+		     		                  
+		
+        </section>
+		
+ 
+		
+		
+        <section>
+		
+            <h3>3.编码实战</h3>
+			
+        </section>
+
+        <section>
+		
+            <h3>4.常见问题</h3>
+			
+        </section>		
+
+        <section>		
+		
+           <h3></h3>		   
+		   <p>memcache使用场景和不适用场景？</p>
+           <p>memcached和MySQL的query cache相比，有什么优缺点？</p> 
+		   <p>memcached和redis的区别？</p>
+		   
+        </section>
+		
+		<section>
+		
+            <h3>5.解决方案</h3>
+			
+        </section>		
+
+         <section>		
+		
+           <h3>Memcache使用场景和不适用场景？</h3>		   
+		   <p>Memcache使用场景:(1) 访问频繁的字典数据；(2) 大量的hot数据；(3) 页面缓存；(4) 频繁的查询条件和结果；(5) 临时处理的数据</p>
+		   <p>Memcache不适用场景:Memcached是“分布式”的内存对象缓存系统，那么就是说，那些不需要“分布”的，不需要共享的，或者干脆规模小到只有一台服务器的应用，memcached不会带来任何好处，相反还会拖慢系统效率，因为网络连接同样需要资源。</p>
+		   
+		   
+        </section>
+		
+		<section>		
+		
+           <h3>memcached和MySQL的query cache相比，有什么优缺点？</h3>		   
+		   <p>缺点：相比MySQL的query cache，把memcached引入应用中需要不少的工作量。MySQL的query cache，可以自动地缓存SQL查询的结果，被缓存的SQL查询可以被反复、快速的执行。</p>
+		   <p>优点：1）当修改表时，MySQL的query cache会立刻被刷新（flush）。当写操作很频繁时，MySQL的query cache会经常让所有缓存数据都失效。</p> 
+           <p>2）在多核CPU上，MySQL的query cache会遇到扩展问题（scalability issues）。在多核CPU上，query cache会增加一个全局锁（global lock）, 由于需要刷新更多的缓存数据，速度会变得更慢。</p>
+	   
+		   
+        </section>
+		
+		<section>		
+			  
+           <p>3）在MySQL的query cache中，是不能存储任意的数据的（只能是SQL查询结果）。利用memcached，我们可以搭建出各种高效的缓存。比如，可以执行多个独立的查询，构建出一个用户对象（user object），然后将用户对象缓存到memcached中。而query cache是SQL语句级别的，不可能做到这一点。在小的网站中，query cache会有所帮助，但随着网站规模的增加，query cache的弊将大于利。</p>
+           <p>4）query cache能够利用的内存容量受到MySQL服务器空闲内存空间的限制。给数据库服务器增加更多的内存来缓存数据，固然是很好的。但是，有了memcached，只要您有空闲的内存，都可以用来增加memcached集群的规模，然后您就可以缓存更多的数据。</p> 	   
+		   
+        </section>
+		
+		<section>		
+		
+           <h3>memcached和redis的区别？</h3>		   
+		   <p>1.Redis中，并不是所有的数据都一直存储在内存中的，这是和Memcached相比一个最大的区别。支持数据的备份和持久化。</p>
+		   <p>2.Redis不仅仅支持简单的k/v类型的数据，同时还提供list，set，hash等数据结构的存储。</p>
+		   <p>3.value大小不同:memcache是一个内存缓存，key的长度小于250字符，单个item存储要小于1M，不适合虚拟机使用。</p>
+		   <p>4.数据一致性不同：redis使用的是单线程模型，保证了数据按顺序提交。memcache需要使用cas保证数据一致性。CAS（Check and Set）是一个确保并发一致性的机制，属于“乐观锁”范畴；原理很简单：拿版本号，操作，对比版本号，如果一致就操作，不一致就放弃任何操作。</p>
+		   
+		   
+        </section>
+		
+
+        <section>
+		
+            <h3>5.参考资料</h3>
+            
+            <p>http://www.cnblogs.com/xdp-gacl/category/574705.html</p>
+
+
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+		
+            <h3>鸣谢</h3>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

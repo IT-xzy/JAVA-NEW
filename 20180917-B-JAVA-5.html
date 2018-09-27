@@ -1,0 +1,280 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '/css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt=""
+     usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt=""
+          target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>什么叫明文，什么叫密文，为什么不允许在数据库里明文保存密码？</h3>
+            <h3></h3>
+            <p>分享人：庄为朋</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">1.1	什么叫密码</p>
+            <p style="text-align:left">密码是一种用来混淆的技术，使用者希望将正常的（可识别的）信息转变为无法识别的信息。但这种无法识别的信息部分是可以再加工并恢复和破解的。密码在中文里是“口令”（password）的通称。
+            </p>
+            <p style="text-align:left"></p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <h3> 2.1 什么是明文密码?   </h3>
+            <p style="text-align:left">“明文密码”（Cleartext Password），即传输或保存为明文的密码。具体是指保存密码或网络传送密码的时候，用的是没有隐藏、直接显示的明文字符，而不是经过加密后的密文。如密码为123，那么密文密码是***，明文密码则是123。从信息安全的角度出发，任何网络服务都不应该保存或发送明文密码。</p>
+				  </section>
+
+        <section>
+            <h3>2.2	什么是密文密码？ ? </h3>
+            <p style="text-align:left">
+				密文是加了密的的文字，明文是加密之前的文字。密文是对明文进行加密后的报文。
+            </p>
+
+        </section>
+
+        <section>
+            <h3> 2.3	为什么不允许在数据库里明文保存密码？</h3>
+            <p style="text-align:left"> 用明文保存密码有很大的信息安全隐患。
+一般数据库里还存有用户的姓名、手机号、用户名等信息，一旦数据库发生泄漏，再加上用户的明文密码，攻击者就可以用用户名和密码去其他网站尝试登陆（因为往往用户会将多个网站的密码根据习惯设成一样的），一旦登陆成功，就会造成很严重的后果。
+            </p>
+        </section>
+
+        <section>
+            <h3>2.4	一般使用的加密方式有哪些？:</h3>
+         <p>2.4.1.MD5加密(1)<br>
+              MD5的典型应用是对一段Message(字节串)产生fingerprint(指纹），以防止被“篡改”。举个例子，你将一段话写在一个叫 readme.txt文件中，
+			  并对这个readme.txt产生一个MD5的值并记录在案，然后你可以传播这个文件给别人，别人如果修改了文件中的任何内容，你对这个文件重新
+			  计算MD5时就会发现（两个MD5值不相同）。如果再有一个第三方的认证机构，用MD5还可以防止文件作者的“抵赖”，这就是所谓的数字签名应用。
+			  <br>
+            </p>
+        </section>
+		
+		<section>
+          <p>2.4.一般使用的加密方式有哪些？</p>
+            <p>2.4.1.MD5加密(2)<br>
+            MD5算法具有以下特点：<br>
+			1、压缩性：任意长度的数据，算出的MD5值长度都是固定的。<br>
+			2、容易计算：从原数据计算出MD5值很容易。<br>
+			3、抗修改性：对原数据进行任何改动，哪怕只修改1个字节，所得到的MD5值都有很大区别。<br>
+			4、强抗碰撞：已知原数据和其MD5值，想找到一个具有相同MD5值的数据（即伪造数据）是非常困难的。<br>
+            </p>
+        </section>		
+		
+		<section>
+		 <p>2.4.一般使用的加密方式有哪些？</p>
+            <p>2.4.2.DES加密<br>
+            DES设计中使用了分组密码设计的两个原则：混淆（confusion）和扩散(diffusion)，其目的是抗击敌手对密码系统的统计分析。混淆是使密文的
+			统计特性与密钥的取值之间的关系尽可能复杂化，以使密钥和明文以及密文之间的依赖性对密码分析者来说是无法利用的。扩散的作用就是将
+			每一位明文的影响尽可能迅速地作用到较多的输出密文位中，以便在大量的密文中消除明文的统计结构，并且使每一位密钥的影响尽可能迅速
+			地扩展到较多的密文位中，以防对密钥进行逐段破译。<br>
+            </p>
+        </section>	
+		
+		<section>
+          <p>2.4.一般使用的加密方式有哪些？</p>
+            <p>2.4.3.RSA加密<br>
+            它通常是先生成一对RSA 密钥，其中之一是保密密钥，由用户保存；另一个为公开密钥，可对外公开，甚至可在网络服务器中注册。为提高保密强度，
+			RSA密钥至少为500位长，一般推荐使用1024位。这就使加密的计算量很大。为减少计算量，在传送信息时，常采用传统加密方法与公开密钥加密方法
+			相结合的方式，即信息采用改进的DES或IDEA密钥加密，然后使用RSA密钥加密对话密钥和信息摘要。对方收到信息后，用不同的密钥解密并可核对信息
+			摘要。RSA算法是第一个能同时用于加密和数字签名的算法，也易于理解和操作。RSA是被研究得最广泛的公钥算法，从提出到现今的三十多年里，
+			经历了各种攻击的考验，逐渐为人们接受，截止2017年被普遍认为是最优秀的公钥方案之一。<br>
+            </p>
+        </section>				
+		
+		<section>
+           <p>2.4.一般使用的加密方式有哪些？</p>
+            <p>2.4.4.对称加密算法<br>
+            加密者和解密者使用相同的密码，这种方式的优点是加解密效率高，缺点是安全系统偏低，因为中除需要传递密钥，所以有被截获的风险。<br>
+			传递密钥的过程常需要和对称加密方式配合使用，如上所述。<br>
+			常见的这种方式有 DES，AES.<br>
+			优点：算法公开、计算量小、加密速度快、加密效率高、可逆<br>
+			缺点：双方使用相同钥匙，安全性得不到保证<br>
+			现状：对称加密的速度比公钥加密快很多，在很多场合都需要对称加密<br>
+            </p>
+        </section>			
+		
+		<section>
+            <p>2.4.一般使用的加密方式有哪些？</p>
+            <p>2.4.5.RSA加密(非对称加密算法)（1）<br>
+            非对称加密算法需要两个密钥：公开密钥（publickey）和私有密钥（privatekey）<br>
+			非对称加密中使用的主要算法有：RSA、Elgamal、背包算法、Rabin、D-H、ECC（椭圆曲线加密算法）等。<br>
+			公开密钥与私有密钥是一对，如果用公开密钥对数据进行加密，只有用对应的私有密钥才能解密；如果用私有密钥对数据进行加密，
+			那么只有用对应的公开密钥才能解密<br>
+            </p>
+        </section>
+
+		<section>
+            <p>2.4.一般使用的加密方式有哪些？</p>
+            <p>2.4.5.RSA加密(非对称加密算法)（2）<br>
+            特点：<br>
+			非对称密码体制的特点：算法强度复杂、安全性依赖于算法与密钥但是由于其算法复杂，而使得加密解密速度没有对称加密解密的速度快<br>	
+			对称密码体制中只有一种密钥，并且是非公开的，如果要解密就得让对方知道密钥。所以保证其安全性就是保证密钥的安全，
+			而非对称密钥体制有两种密钥，其中一个是公开的，这样就可以不需要像对称密码那样传输对方的密钥了<br>
+            </p>
+        </section>			
+		
+		<section>
+            <p>2.5.MD5加密的弊端？如何解决？</p>
+			由之前MD5的实现方法可知，任何一个相同文件、字符串生成的MD5值都是一样的。比如"123456"的MD5值任何时候生成的都是
+			"e10adc3949ba59abbe56e057f20f883e"并且，随着现在计算机技术的不断发展，可以通过MD5值去逆推到原来的明文密码。因此
+			就需要在加密时在给它一个随机生成的值，掺到原密码中进行加密。这个值就叫盐值。
+           </p>
+        </section>	
+      
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p>如何对密码进行MD5加盐加密</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+            <p>见编码实战</p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>6.1	明文密码泄露的危害？</h3>
+            <p style="text-align:left">
+               可能会被不法分子通过撞库的方式去其他网站获取更多的个人信息。
+                </p>
+                  <p style="text-align:left">2014年12月25日，12306网站用户信息在互联网上疯传。对此，12306官方网站称，网上泄露的用户信息系经其他网站或渠道流出。据悉，此次泄露的用户数据不少于131,653条。该批数据基本确认为黑客通过“撞库攻击”所获得。
+                </p>
+                
+        </section>
+
+        <section>
+            <h3>6.2 如何避免出现这种情况？</h3>
+            <p style="text-align:left">
+               一方面，网站运营者要保护好自己的数据库，并且在保存用户关键信息时要进行加密保存。</p>
+            <p style="text-align:left">另一方面，我们在注册不同网站时注意设置不同的密码，尽量不要出现一个账号密码就能登录所注册的所有网站的情况。</p>
+        </section>
+<section>
+			<p>6.3.密码为什么不能用Hash存储？ <br>
+			单向Hash算法（MD5, SHA1, SHA256等）可以保证管理员几乎不能恢复原始密码。但它有两个特点：<br>
+			1）从同一个密码进行单向哈希，得到的总是唯一确定的摘要。<br>
+			2）计算速度快。随着技术进步，尤其是显卡在高性能计算中的普及，一秒钟能够完成数十亿次单向哈希计算。<br>
+			</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>CSDN</p>
+            <p>百度百科</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js',
+                async: true
+            },
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

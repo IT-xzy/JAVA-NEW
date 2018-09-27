@@ -1,0 +1,255 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+	<style>
+	</style>	
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal" style="text-align:left">
+    <div class="slides" style="text-align:left">
+        <section style="text-align:center">
+            <P>Spring中的IOC是什么意思，为什么要用IOC而不是New来创建实例</P>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：秦永辉</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section style="text-align:left">
+            <h3>1.背景介绍</h3>
+            <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp在没用使用Spring的时候——也就是没有依赖注入的时候，java应用程序的类与类之间要实现相互的功能协作是比较费劲的，某个类(A)要实现它的功能如果需要依赖另一个类(B)的协作的话，就需要在A类中主动创建出B类的对象，才能使用B类的方法完成功能(这里看官就不要去纠结静态方法之类的情况了)。这等于是A类需要负责B类对象整个生命周期的管理。在极度简单的情况下，在一个类中new出另一个类的对象似乎并没有什么问题，但是复杂的应用程序类与类的协作关系往往是多边的，我们并不知道一个类功能的实现会依赖多少个另类对象来协作，所以在类中自行创建对象并且管理对象的整个生命周期，会造成代码的高度耦合以及不可想象的复杂度。那么，试想，如果我们能将对象的生命周期交给第三方组件来管理，当某个类需要另外的对象时第三方组件就直接创建出来交给它，这样，类就可以只专注于自己功能的实现，而不用去管理其他类对象的生命周期，这样类的功能就单纯了很多。是的，你一定已经明白了，Spring(容器)就是这个第三方组件。</p>
+        </section>
+		 <section>
+ <img src="img/不用spring.png" alt="">
+ </section>
+  <section >
+ <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp我们只需要告诉Spring(容器)有哪些对象需要管理就行了，不用去关心Spring框架是如何创建对象的。这样，当某个类A需要类B对象时，如果类B已经声明交给了Sping容器管理，那么在程序运行到类A需要类B时，Spring容器就通过依赖注入的方式，将类B对象注入到类A中协助完成业务功能。通过第三方组件的依赖注入,对象无需再自行的创建和管理类与类之间的依赖关系了。对象的创建依赖注入的方式也有多种，譬如接口注入，构造方法注入，setter方法注入等等。说到这里，你对依赖注入应该有比较直白的认知了。至于为什么要依赖注入，上文已经说得很明白了，就是为了减少代码中组件之间的耦合度，我们还是先通过简单示例来直观感受下依赖注入比自己管理对象的好处吧——</p>
+ </section>
+ <section>
+ <img src="img/使用Spring.png" alt="">
+ </section>
+ <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		 <section style="text-align:left">
+            <p>IoC是什么</p>
+            <p>Ioc—Inversion of Control，即“控制反转”，不是什么技术，而是一种设计思想。在Java开发中，Ioc意味着将你设计好的对象交给容器控制，而不是传统的在你的对象内部直接控制</p>
+            <p>通过控制反转客户端不需要再主动创建对象，只需要通过IOC，由IOC去创建就可以了
+
+由应用程序创建对象转变为由IOC容器来创建，用于控制创建对象的主体发生了改变，这是控制反转
+
+应用程序需要的对象信息由IOC容器创建后注入，也就是说依赖于容器来注入，这是依赖注入
+
+表达的是一个东西，只是描述的角度不同。
+
+IOC，从容器的角度出发，容器反向控制应用程序对象的创建；</p>
+			<p>　DI(Dependency Injection),依赖注入；</p>
+            <p>DI，从应用程序的角度出发，应用程序需要依赖容器注入对象；</p>
+        </section>
+		
+		<section style="text-align:left">
+            <p>Spring是从哪里把对象给你的?</p>
+            <p>Spring的容器为我们创建对象。容器的概念在java中你最熟悉的莫过于Tomcat了，它正是一个运行Servlet的web容器，而Spring要想实现依赖注入功能，就离不开对象生产的容器——如果没有容器负责对象的创建管理，你的程序代码只是喊要对象了，Spring也无处给你啊。实际上，容器是Spring框架实现功能的核心。</p>
+				<p>实际上，容器里面什么都没有，决定容器里面放什么对象的是我们自己，决定对象之间的依赖关系的，也是我们自己，容器只是给我们提供一个管理对象的空间而已。</p>
+				<p>我们怎么向容器中放入我们需要容器代为管理的对象呢？</p>
+				<p>这就涉及到Spring的应用上下文了。什么是应用上下文呢，你可以简单的理解成就是将你需要Spring帮你管理的对象放入容器的那么一种。一种容器对象——是的，应用上下文即是Spring容器抽象的一种实现；而我们常见的ApplicationContext本质上说就是一个维护Bean定义以及对象之间协作关系的高级接口。</P>
+				<p>听起来是不是很抽象拗口？那你再读一遍呢。。。这里，我们必须明确，Spring的核心是容器，而容器并不唯一，框架本身就提供了很多个容器的实现，大概分为两种类型：一种是不常用的BeanFactory，这是最简单的容器，只能提供基本的DI功能；还有一种就是继承了BeanFactory后派生而来的应用上下文，其抽象接口也就是我们上面提到的的ApplicationContext，它能提供更多企业级的服务，例如解析配置文本信息等等，这也是应用上下文实例对象最常见的应用场景。有了上下文对象，我们就能向容器注册需要Spring管理的对象了。</p>
+				<p></p>
+		</section>
+		<section style="text-align:left">
+            <p>spring中bean配置和bean注入</p>
+            <p>1 基于xml配置Bean</p>
+            <p>2 使用注解定义Bean</p>
+            <p>3 基于java类提供Bean定义信息</p>
+        </section>
+		
+        <section style="text-align:left">
+            <p>基于xml配置Bean</p>
+            <p> 对于基于XML的配置，Spring 2.0以后使用Schema的格式，使得不同类型的配置拥有了自己的命名空间，是配置文件更具扩展性</p>
+            <img src="img/xml配置bean.png" alt="">
+        </section >
+		<section style="text-align:left">
+		<p>Bean基本配置</p>
+			 <img src="img/Bean基本配置.png" alt="">
+			 </section>
+			 <section/>
+        <section style="text-align:left">
+            <h3>使用注解定义Bean</h3>
+            <p>Spring容器成功启动的三大要件分别是：Bean定义信息、Bean实现类以及Spring本身。如果采用基于XML的配置，Bean定义信息和Bean实现类本身是分离的，而采用基于注解的配置方式时，Bean定义信息即通过在Bean实现类上标注注解实现。</p>
+        </section>
+  <section style="text-align:left">
+            <p>下面是使用注解定义一个DAO的Bean：ng本身。</p>
+			 <p>package com.baobaotao.anno;
+
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+//①通过Repository定义一个DAO的Bean
+
+@Component("userDao")
+public class UserDao {
+
+}。</p>
+ <section>
+<p>在①处，我们使用@Component注解在UserDao类声明处对类进行标注，它可以被Spring容器识别，Spring容器自动将POJO转换为容器管理的Bean。
+
+它和以下的XML配置是等效的：
+      </section>
+<bean id="userDao" class="com.baobaotao.anno.UserDao"/></p>
+        </section>
+		<section style="text-align:left">
+            <h3> 基于java类提供Bean定义</h3>
+            <p>在普通的POJO类中只要标注@Configuration注解，就可以为spring容器提供Bean定义的信息了，每个标注了@Bean的类方法都相当于提供了一个Bean的定义信息。</p>
+			<p>基于java类的配置方式和基于XML或基于注解的配置方式相比，前者通过代码的方式更加灵活地实现了Bean的实例化及Bean之间的装配，但后面两者都是通过配置声明的方式，在灵活性上要稍逊一些，但是配置上要更简单一些。</p>
+		</section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1 spring中的BeanFactory与ApplicationContext的作用和区别？</p>
+            <p>2 什么是自动装配</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+			<p> 1 spring中的BeanFactory与ApplicationContext的作用和区别？</p>
+            <p>1. BeanFactory负责读取bean配置文档，管理bean的加载，实例化，维护bean之间的依赖关系，负责bean的声明周期。 2. ApplicationContext除了提供上述BeanFactory所能提供的功能之外，还提供了更完整的框架功能： 比如资源访问，事件传递，通过ApplicationContext扩展了ResourceLoader(资源加载器)接口。 3. ApplicationContext的初始化和BeanFactory有一个重大的区别:BeanFactory在初始化容器时，并未实例化Bean,直到第一次访问某个Bean时才实例目标Bean;而ApplicationContext则在初始化应用上下文时就实例化所有的单实例的Bean。因此ApplicationContext的初始化时间会比BeanFactory稍长一些.</p>
+        </section>
+        <section>
+            <p>2 什么是自动装配</p>
+            <p>.Spring容器能够自动装配相互合作的bean，这意味着容器不需要construor-arg和property配置，能通过Bean工厂自动处理bean之间的协作/p>
+            <p></p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		 <section>
+            <p>
+			public class Man implements Human {
+    private QQCar car;
+    public Man() {
+        this.car = new QQCar();
+    }
+    @Override
+    public void xiabibi() {
+    }
+    public void driveCar(){
+        car.drive();
+    }
+}</p>
+        </section>
+		<section>
+		<p>接口Car暂有两个实现：奔驰车和QQ车，在以上Man类和QQCar类高度耦合的代码中，老司机通过构造器只创建了QQ车对象，所以只能开QQ车，那么老司机想开奔驰怎么办呢，你让他重新创建奔驰车的对象吗？这样高度耦合的代码似乎是毫无办法的，那么，我们通过注入对象的方式对上述代码做一番改进：</p>
+        </section>
+		<section>
+			<p>public class Man implements Human {
+                private Car car;
+                public Man(Car car) {
+				this.car = car;
+				}
+			@Override
+			public void xiabibi() {
+		}
+
+			public void driveCar() {
+			car.drive();
+		}
+	}
+</p>
+        </section>
+		<section> 
+		<p>以上代码根据多态特性，通过构造器接口注入的方式屏蔽掉了具体的对象实现，这样，老司机就能想开什么车就开什么车了。这就是依赖注入带来的好处。</P>
+		</section>	
+        <section>
+            <h3>6.扩展思考</h3>
+            <p>6.1 Spring为我们提供了哪些类型的容器实现，供我们在什么样样的应用场景选择</p>
+			<p>6.2 在xml文件中配置依赖注入都有哪几种方式</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>https://www.cnblogs.com/chenbenbuyi/p/8166304.html</p>
+            <p>https://www.cnblogs.com/wuchanming/p/5426746.html</p>
+            <p>https://www.cnblogs.com/liwendeboke/p/6229564.html</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 秦永辉</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
