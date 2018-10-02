@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>List集合
+            <p></p>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p></p>
+            <p></p>
+            <p>分享人：黄伟彬</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+        <section>
+        	<h4>集合</h4>
+        	<p>  集合，或者叫容器，是一个包含多个元素的对象；集合可以对数据进行存储，检索，操作；集合的作用就是以一定的方式组织、
+			存储数据。集合类存放于java.util包中。而我们使用的一些集合都是实现的java.util.Collection 这个集合接口。 
+			集合类型主要有3种:set(集)、list(列表)和map(映射)。</p>
+        </section>
+		
+        <section>
+            <h3>2.知识剖析</h3>
+	    <br>
+        </section>
+
+	   <section>
+            <p>（1）对于集合需要关注的四个点</p>
+            <p>（2）ArrayList源码分析</p>
+            <p>（3）ArrayList的优缺点</p>
+        </section>
+
+
+        <section>
+            <p>2.1.对于集合需要关注的四个点</p>
+            <p> 1、是否允许空<br>
+				2、是否允许重复数据<br>
+				3、是否有序，有序的意思是读取数据的顺序和存放数据的顺序是否一致<br>
+				4、是否线程安全<br>
+			<br>
+            </p>
+        </section>
+		
+		 <section>
+            <p>2.1.对于集合需要关注的四个点</p>
+			<img data-src="E:\GitHub\JAVA-NEW\img-java\20181002-A-java-10\20181002-A-java-10-1.png">
+			
+        </section>
+		
+	
+		
+		<section>
+            <p>2.2.ArrayList源码分析：</p>
+            </p>
+        </section>
+		
+       
+		
+		<section>
+            <p>2.3.ArrayList的优缺点:</p>
+			1、ArrayList底层以数组实现，是一种随机访问模式，再加上它实现了RandomAccess接口，因此查找也就是get的时候非常快<br>
+			2、ArrayList在顺序添加一个元素的时候非常方便，只是往数组里面添加了一个元素而已<br>
+			不过ArrayList的缺点也十分明显：<br>
+			1、删除元素的时候，涉及到一次元素复制，如果要复制的元素很多，那么就会比较耗费性能<br>
+			2、插入元素的时候，涉及到一次元素复制，如果要复制的元素很多，那么就会比较耗费性能<br>
+			因此，ArrayList比较适合顺序添加、随机访问的场景。
+            </p>
+        </section>
+		
+	
+		
+        <section>
+            <h3>3.常见问题</h3>
+			3.1.ArrayList是线程不安全的，那么想保证线程安全应该用什么？ <br>
+			3.1.ArrayList删除的速度较慢，为什么？<br>
+			3.1.ArrayList的容量必须满足1.5倍扩容么？ <br>
+        </section>
+  
+    
+        <section>
+            <h3>4.解决方案</h3>
+			4.1.ArrayList是线程不安全的，那么想保证线程安全应该用什么？<br>
+			ArrayList是线程非安全的，这很明显，因为ArrayList中所有的方法都不是同步的，在并发下一定会出现线程安全问题。那么我们想要使用ArrayList并且让它线程安全怎么办？一个方法是用：<br>
+			<img data-src="E:\GitHub\JAVA-NEW\img-java\20181002-A-java-10\20181002-A-java-10-2.png">
+        </section>
+		
+		  <section>
+            <h3>4.解决方案</h3>
+			4.1.ArrayList是线程不安全的，那么想保证线程安全应该用什么？<br>
+			另一个方法就是Vector，它是ArrayList的线程安全版本，其实现90%和ArrayList都完全一样，区别在于：<br>
+			1、Vector是线程安全的，ArrayList是线程非安全的<br>
+			2、Vector可以指定增长因子，如果该增长因子指定了，那么扩容的时候会每次新的数组大小会在原数组的大小基础上加上增长因子；如果不指定增长因子，那么就给原数组大小*2，源代码是这样的：<br>
+			<img data-src="E:\GitHub\JAVA-NEW\img-java\20181002-A-java-10\20181002-A-java-10-3.png">
+        </section>
+		
+		<section>
+            <h3>4.解决方案</h3>
+			4.2.ArrayList删除的速度较慢，为什么？ <br>
+			因为ArrayList在删除的时候，需要将该元素之后的所有元素全部往前移，也就是说除了删除这个元素之外，还需要做很多额外的操作，所以耗时较久。<br>
+        </section>
+		
+		<section>
+            <h3>4.解决方案</h3>
+			4.3.ArrayList的容量必须满足1.5倍扩容么？ <br>
+			是的，因为源码中已经写死了相关机制。<br>
+        </section>
+		
+		<section>
+            <h3>4.解决方案</h3>
+			<img data-src="E:\GitHub\JAVA-NEW\img-java\20181002-A-java-10\20181002-A-java-10-4.png">
+        </section>
+		
+		
+        <section>
+            <h3>5.编码实战</h3>
+			5.1.ArrayListy源码解读<br>
+
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+ 
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+		
+        <section>
+           <p>CSDN、百度百科</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+		
+	
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正。</p>
+            <p>
+               BY : 深圳分院 黄伟彬
+            </p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+
