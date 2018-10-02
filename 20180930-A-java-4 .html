@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+	<style>
+	</style>	
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal" style="text-align:left">
+    <div class="slides" style="text-align:left">
+        <section style="text-align:center">
+            <h2>myBatis常用标签和动态查询</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：秦永辉</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section style="text-align:left">
+            <h3>1.背景介绍</h3>
+            <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp mybatis是什么?
+			说起用JDBC访问数据库，除了需要自己写SQL之外，还要操作Connection, Statment, ResultSet 
+			这些手辅助性质的代码; 访问不同的表，还会写很多雷同的代码，繁琐和枯燥。
+			而用Mybatis，只需要提供关键性的SQL语句，其他的工作，像加载驱动,建立连接，Statement，
+			JDBC相关的一些动作交给Mybatis，减少重复性的工作，更多的关注在增删改查等操作层面上，
+			把技术细节封装在底层</p>
+        </section>
+ <section >
+ <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMyBatis在实际开发中，数据库的查询很难一蹴而就，
+ 我们往往要根据各种不同的场景拼接出不同的SQL语句，这无疑是一项复杂的工作，我们在使用mybatis时，
+ mybatis给我们提供了动态SQL，可以让我们根据具体的业务逻辑来拼接不同的SQL语句。
+ OK，那么我们今天就来看看如何使用mybatis中的动态SQL。 
+ </p>
+ </section>
+
+ <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		 <section style="text-align:left">
+            <p>mybatis中的动态SQL中的主要元素</p>
+            <p>1 if 是mybatis动态SQL中的判断元素，这个有点类似于Java中的if语句，不同的是这里的if一般常常和test配合使用。</p>
+            <p>当用户传入的address不为null或者空字符串的时候，我就加上一个where条件，否则就什么条件都不加入。</p>
+			<p>2 choose有点类似于Java中的switch，常常配合when和otherwise一起来使用。在查询条件中，如果用户传来了id，那么我就查询该id的数据，如果用户传来了address，那么我就我们添加address的查询条件，如果用户传来了username，
+			那么我就添加username的查询条件，最后如果用户任何一个查询条件都没有添加进来，那么默认查询条件就是查询id小于10的所有数据。</p>
+            <p>3 在上面的案例中小伙伴们可能都发现了一个问题，就是我们在添加查询条件的时候，在查询条件之前都先添加了where 1=1，
+			然后后面直接在这之后再追加and什么什么的，那么每次这样来写显然有点麻烦，有没有简单一点的方案呢？当然有，我们可以通过where元素，只有where元素中有条件成立，才会将where关键字组装到SQL中，这样就比前一种方式简单许多</p>
+            <p>4 trim有点元素替换的意思，还是上面的案例，我们可以将and替换为where，</p>
+        </section>
+		
+		<section style="text-align:left">
+            <p>set是我们在更新表的时候使用的元素，通过set元素，我们可以逐字段的修改一条数据 在set元素中，如果遇到了逗号，系统会自动将之去除</p>
+            <p>foreach元素用来遍历集合，比如我想查询多个城市的人，我的sql语句可能是这样SELECT * FROM user2 
+        WHERE address IN（'西安'，'北京'），我在查询的时候可能只是传入了一个list集合，该集合中有西安和北京两个查询条件，那我如何将这个集合组装成一个sql语句呢？</p>
+			<p>collection表示传入的参数中集合的名称，index表示是当前元素在集合中的下标，open和close则表示如何将集合中的数据包装起来，separator表示分隔符，item则表示循环时的当前元素。这样一段配置最终组合成的sql就是SELECT * FROM user2 
+        WHERE address IN（'西安'，'北京'）。</p>
+			<p>bind使用bind元素我们可以预先定义一些变量，然后在查询语句中使用</p>
+		</section>
+        
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1在使用MyBatis的动态SQL功能时，可能会出现单参数方法不执行或者抛出该属性没有get、set方法的异常</p>
+            <p>2 choose标签 没有else标签.</p>
+			<p>3 使用set标签 if语句中id=null时系统出现异常
+			UPDATE     TABLE         SET         
+			<if test="id!=null">  
+			id= #{id,jdbcType=INTEGER}      
+			</if>     
+			<if test"name!=null">   
+			,name = #{name,jdbcType=VARCHAR} 
+			</if> where id = #{id,jdbcType=INTEGER} </p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+			<p>1  在Mapper接口中通过 @Param 来标记该参数即可</p>
+            <p>2 可以使用when otherwise标签来达到类似于if .... else...foreach标签 select * from tables where id in(3,6,...);要么3,要么6,...</p>
+			<p>3 <trim>节点标签：trim主要功能是可以在Trim包含的内容前加上某些前缀（prefix），也可以在Trim包含的内容之后加上某些后缀（suffix）还可以把Trim包含内容的首部的某些内容忽略掉（prefixOverrides) 
+,也可以把Trim包含的内容的尾部的某些内容忽略掉（suffixOverrides）utm_source=copy </p>
+			<p>4 方法2：把更新条件<if>标签内的内容，放在<set></set>标签中</P>
+		</section>
+
+        <section>
+            <h3>5.编码实战</h3>
+
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+			<p>1 动态SQL还有哪种实现方式？</p>
+            <p>2 不同版本mybaits使用动态SQL时的差别？</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>http://blog.csdn.net/jpzhu16/article/details/52810747</p>
+            <p>https://www.cnblogs.com/dongying/p/4092662.html </p>
+            <p>https://www.cnblogs.com/zkongbai/p/5336015.html</p>
+            <p>http://how2j.cn/k/mybatis/mybatis-tutorial/1087.html?p=13495</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 秦永辉</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
