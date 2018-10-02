@@ -1,0 +1,206 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是RMI，什么是RPC，两者之间的区别是什么？
+            <p></p>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p></p>
+            <p></p>
+            <p>分享人：黄伟彬</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+        <section>
+        	<h4>先看关键字： 集群、分布式 </h4>
+        	<p>  集群：集群是一组相互独立的、通过高速网络互联的计算机，它们构成了一个组，并以单一系统的模式加以管理。
+			一个客户与集群相互作用时，集群像是一个独立的服务器。集群配置是用于提高可用性和可缩放性。</p>
+			 分布式：一种基于网络的计算机处理技术，与集中式相对应。由于个人计算机的性能得到极大的提高及其使用的普及，
+			 使处理能力分布到网络上的所有计算机成为可能。分布式计算是和集中式计算相对立的概念，分布式计算的数据可以分布在很大区域。</p>
+        </section>
+		 <section>
+        	<h4>先看关键字： 集群、分布式 </h4>
+        	<p>  分布式服务架构 当垂直应用越来越多，应用之间交互不可避免，将核心业务抽取出来，作为独立的服务，逐渐形成稳定的服务中心，
+			使前端应用能更快速的响应多变的市场需求。 此时，用于提高业务复用及整合的 分布式服务框架(RPC) 是关键。</p>
+        </section>
+		
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+	    <br>
+        </section>
+
+
+	   <section>
+            <p>（1）什么是RMI？</p>
+            <p>（2）什么是RPC?</p>
+            <p>（3）RMI与RPC之间的区别是什么？</p>
+        </section>
+
+
+        <section>
+            <p>2.1.什么是RMI？</p>
+            <p>RMI采用stubs和skeletons来进行远程对象(remote object)的通讯。stub充当远程对象的客户端代理，有着和远程对象相同的远程接口，
+			远程对象的调用实际是通过调用该对象的客户端代理对象stub来完成的，通过该机制RMI就好比它是本地工作，采用tcp/ip协议，
+			客户端直接调用服务端上的一些方法。优点是强类型，编译期可检查错误，缺点是只能基于JAVA语言，客户机与服务器紧耦合。<br>
+            </p>
+        </section>
+		
+		
+        <section>
+            <p>2.1.什么是RMI？</p>
+            <p>创建远程方法调用的5个步骤：<br>
+			1）定义一个扩展了Remote接口的接口，该接口中的每一个方法必须声明它将产生一个RemoteException异常；<br>
+			2）定义一个实现该接口的类；<br>
+			3）使用rmic程序生成远程实现所需的存根和框架；(例如，在demo.rmi.EchoServer.java所在目录运行: rmic demo.rmi.EchoServer)<br>
+			4）创建一个客户程序和服务器进行RMI调用；<br>
+			5）启动rmiregistry并运行自己的服务程序和客户程序。<br>
+            </p>
+        </section>
+		
+		<section>
+            <p>2.2.什么是RPC(1)：</p>
+            <p> RPC（Remote Procedure Call Protocol）远程过程调用协议，它是一种通过网络从远程计算机程序上请求服务，
+			而不需要了解底层网络技术的协议。RPC不依赖于具体的网络传输协议，tcp、udp等都可以。由于存在各式各样的变换和细节差异，
+			相应的rpc也派生出了各式远程过程通信协议。RPC是跨语言的通信标准，SUN和微软都有其实现，比如RMI可以被看作SUN对RPC的Java版本( 实现)，
+			而微软的DCOM就是建立在ORPC协议之上。一言以蔽之，RPC是协议，而无论是SUN的RMI还是微软的DCOM都是对该协议的不同实现，
+			二者都为编程人员提供了应用PRC技术的程序接口（API）。<br> 
+            </p>
+        </section>
+		
+        <section>
+            <p>2.2.什么是RPC(2)：</p>
+            <p>    RPC是指远程过程调用，RPC是指远程过程调用，也就是说两台服务器A，B，一个应用部署在A服务器上，
+			想要调用B服务器上应用提供的函数/方法，由于不在一个内存空间，不能直接调用，需要通过网络来表达调用的语义和传达调用的数据。<br>
+			RPC使用C/S方式，采用http协议,发送请求到服务器，等待服务器返回结果。这个请求包括一个参数集和一个文本集，通常形成“classname.methodname”形式。
+			优点是跨语言跨平台，C端、S端有更大的独立性，缺点是不支持对象，无法在编译器检查错误，只能在运行期检查。
+            </p>
+        </section>
+		
+		<section>
+            <p>2.3.RMI与RPC之间的区别:</p>
+            <p>(1)RPC跨语言，而RMI只支持Java。<br>
+			（2）RMI调用远程对象方法，允许方法返回Java对象以及基本数据类型，而RPC不支持对象的概念，传送到RPC服务的消息由外部数据表示(External 
+			Data Representation, XDR)语言表示，这种语言抽象了字节序类和数据类型结构之间的差异。只有由XDR定义的数据类型才能被传递，
+			可以说RMI是面向对象方式的Java RPC。<br>
+            </p>
+        </section>
+		
+		<section>
+            <p>2.3.RMI与RPC之间的区别:</p>
+            <p>（3）在方法调用上，RMI中，远程接口使每个远程方法都具有方法签名。如果一个方法在服务器上执行，但是没有相匹配的签名被添加到这个远程接口上，
+			那么这个新方法就不能被RMI客户方所调用。<br>
+			在RPC中，当一个请求到达RPC服务器时，这个请求就包含了一个参数集和一个文本值，通常形成“classname.methodname”的形式。这就向RPC服务器表明，
+			被请求的方法在为 “classname”的类中，名叫“methodname”。然后RPC服务器就去搜索与之相匹配的类和方法，并把它作为那种方法参数类型的输入。
+			这里的参数类型是与RPC请求中的类型是匹配的。一旦匹配成功，这个方法就被调用了，其结果被编码后返回客户方。<br>
+            </p>
+        </section>
+		
+        <section>
+            <h3>3.常见问题</h3>
+			3.1.如何使用RMI？<br>
+        </section>
+  
+    
+        <section>
+            <h3>4.解决方案</h3>
+			4.1.正确使用RMI。<br>
+        </section>
+		
+        <section>
+            <h3>5.编码实战</h3>
+			5.1.使用RMI远程调用。<br>
+
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+			<p>6.1.为什么需要序列化： <br>
+			序列化和反序列化。客户端怎么把参数值传给远程的函数呢？在本地调用中，我们只需要把参数压到栈里，然后让函数自己去栈里读就行。
+			但是在远程过程调用时，客户端跟服务端是不同的进程，不能通过内存来传递参数。甚至有时候客户端和服务端使用的都不是同一种语言
+			（比如服务端用C++，客户端用Java或者Python）。这时候就需要客户端把参数先转成一个字节流，传给服务端后，再把字节流
+			转成自己能读取的格式。这个过程叫序列化和反序列化。同理，从服务端返回的值也需要序列化反序列化的过程。<br>
+			</p>
+        </section>
+ 
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+		
+        <section>
+           <p>CSDN、百度百科</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+		
+	
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正。</p>
+            <p>
+               BY : 深圳分院 黄伟彬
+            </p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+
