@@ -1,0 +1,278 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是restful？rest的请求方法有哪些，有什么区别？</h2>
+            <p></p>
+            <h3>java 分享会</h3>
+            <p>分享人：赵立鼐</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+           <h4>   REST（Representational State Transfer，表述性状态转移）</h4>
+        <p>源于REST之父Roy Thomas Fielding 博士在2000年就读加州大学欧文分校期间发表的一篇学术论文——《 Architectural Styles and the Design of Network- based Software Architectures》。</p>
+         <p>论文中提出了REST的6个特点，分别是：客户端-服务器的、无状态的、可缓存的、统一接口、分层系统和按需编码。</p>
+
+
+        </section>
+
+        <section>
+            <p> REST具有跨平台、跨语言的优势。</p>
+            <p>REST是一种架构风格。</p>
+            <p>在REST架构风格中,对象被抽象为一种资源.资源的命名使用概念清晰的名词来定义。</p>
+        </section>
+         <section>
+          <p> 表述性状态是对资源数据在某个瞬间状态的快照,</p>
+             <p> 资源的某个瞬时状态被定义为一种表述（representation），</p>
+             <p>  这种描述性的状态包括资源数据的内容、表述格式（比如XML、JSON）等信息，</p>
+             <p> 一种资源可以对应多种表述。</p>
+          </section>
+        <section>
+             REST的资源是可寻址的，通过HTTP协议（RFC 2616）定义的通用动词方法（比如GET、PUT、DELETE、POST），
+             并使用URI协议（RFC 3305）来唯一标识某个资源公布出来的接口。
+         <p>    请求一个资源的过程可以理解为，访问一个具有指定性和描述性的URI，
+             经由 HTTP，将资源的表述从服务器转移到客户端，或者相反方向。</p>
+
+         </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+
+        </section>
+        <section>
+        <p>　
+            <h3>REST 请求方法<h3>
+        </p>
+        </section>
+        <section>
+            每一种HTTP请求方法都可以从安全性和幂等性两方面考虑，这对正确理解HTTP请求方法和设计统一接口具有
+            决定性的意义。换句话说,要定义严谨的REST统一接口，就需要真正理解 HTTP方法的安全性和幂等性。
+        </section>
+        <section>
+            安全性代表安全的REST接口，是指外系统对该接口的访问，不会使服务器端资源的状态发生改变。
+        </section>
+        <section>
+        幂等性（ idempotence）是指外系统对同一REST接口的多次访问，得到的资源状态是相同的。
+        </section>
+        <section>
+           <h2> GET方法</h2>
+        </section>
+        <section>
+            REST使用HTTP的GET方法获取服务提供的资源。GET方法是只读的，那么它是幂等和安全的吗？
+        </section>
+        <section>
+          <p>GET方法是幂等的，因为读取同一个资源，总是得到相同的数据。</p>
+           <p> GET方法也是安全的， 因为读取资源不会对其状态做改动。</p>
+        </section>
+
+        <section>
+        值得注意的是，虽然GET方法的特性是幂等和安全的，但这不意味着任何一个定义为处理GET请求的方法都是幂等和安全
+        的。设计不良的API有可能违背GET的特性，将一个不该是GET的方法定义为之。
+        </section>
+
+
+        <section>
+            <h2> PUT 方法 </h2>
+        </section>
+        <SECTION>
+            PUT方法 一种写操作的HTTP请求。REST使用HTTP的PUT方法更新或添加资源。
+        </SECTION>
+<section>
+
+</section>
+
+
+        <section>
+            <p>更新资源</p>
+            PUT方法是幂等的，即多次插入或者更新同一份数据，在服务器端对资源状态所产生的改变是相同的。
+            PUT方法不是安全的，有写动作的HTTP 方法都不是安全的。
+            我们知道，使用同一份数据向服务器请求更新某一资源，得到的结果应该总是相同的，因此对于更新操作，
+            使用PUT是没有疑问的。
+        </section>
+
+        <section>
+            <p>添加资源
+            </p>
+
+            而创建操作通常每次得到的结果是不同的，因为服务器端的业务层逻辑通常要求
+            数据的主键字段要么来自于业务平台自增一个逻辑值，要么来自于数据库的主键自增。因此，相同的数据
+            每一次提交到服务器端，都会为数据添加一个新的主键值，也就是创建一个主键值不同的新资源
+            （如果没有业务或者外键冲突）。所以，创建操作通常应当设计为POST方法的API。唯有一种场景应当使用
+            PUT方法来设计API，即客户端在发起创建请求时，在同一份数据中总可以提供唯一的主键值，服务器不会对其进行修改，这样的创建请求确保了幂等性，不应再使用POST方法。
+        </section>
+
+        <section>
+          <h2 >DELETE 方法</h2>
+        </section>
+        <section>DELETE方法是幂等的，即多次删除同一份数据（通常请求中传递的参数是数据的主键值），
+            在服务器端产生的改变是相同的。
+        </section>
+        <section>
+            <h2>POST 方法</h2>
+        </section>
+        <section>
+            POST方法是一种写操作的HTTP请求。
+            既不幂等也不安全
+            定义为POST的REST接口用于写数据。POST方法的特性是既不幂等也不安全。
+            因为请求会改变服务器端资源的状态，因此不是安全的；每次请求对服务器端资源状态的改变并不是相同的，
+            因此不是幂等的。
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>
+                在创建和更新某个资源的时候，何时该用HTTP的PUT方法，何时该使用POST方法
+            </p>
+        </section>
+
+
+        <section>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+        </section>
+
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+            <section>
+            <p>
+              <P>  更新资源时用PUT</P>
+              <p>  创建资源时大部分情况下都用POST</p>
+
+                客户端在发起创建请求时，在同一份数据中总可以提供唯一的主键值，服务器不会对其进行修改，这种可以确保幂等性的请求用PUT
+            </p>
+            </section>
+
+
+        <section>
+
+
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+
+        </section>
+        <section>
+            Rest风格与MVC风格对比
+        </section>
+            <section>
+          <p> MVC风格的出现将模型、视图、控制解耦，其亮点是从前到后的一致性，其结构简洁、逻辑清晰，易于扩展和增强。</p>
+           <p>    MVC风格偏重于解决服务器端的逻辑分层，客户端是逻辑分层的延伸。</p>
+               MVC的标签库，虽然其形态已经和HTML页面融合，
+                但本质上还是Java 编写的装饰模式的类实例，对应的是服务器端使用Java 编写的模型类或者控制器类，因此MVC很难实现跨语言解耦。
+            而REST风格偏重于统一接口，因此具体实现就可以跨平台和跨语言。
+            MVC和REST式并不是互斥的，像Spring的MVC模块已经支持REST式的开发。
+            </section>
+
+
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>
+
+                https://www.cnblogs.com/aspwebchh/p/6652855.html
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>
+
+            </p>
+        </section>
+            <section>
+                <h4>鸣谢</h4>
+                <p>感谢观看,如有出错,恳请指正</p>
+                <p><small>BY : 西安分院 赵立鼐</small></p>
+            </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
