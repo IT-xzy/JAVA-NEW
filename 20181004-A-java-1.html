@@ -1,0 +1,227 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+
+   <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+     <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    
+</head>
+
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>反射的基本使用</h2>
+            <p>分享人：鲁伯良</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section style="text-align: left;">
+                <br style="text-align: left">
+                <h4>java的反射机制</h4>
+                反射机制<br>
+对于任意一个类，都能知道这个类的所有属性和方法；<br>
+对于任意一个对象，都能够调用它的任意一个方法和属性；<br>
+这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。<br>
+
+                </p>
+            </section>
+ <section style="text-align: left;">
+                <h3><strong>java反射机制主要提供以下功能：</strong></h3>
+                <p>
+                  1.在运行时判断任意一个对象所属的类<br>
+2.在运行时构造任意一个类的对象<br>
+3.在运行是判断任意一个类所具有的成员变量和方法<br>
+4.在运行时调用任意一个对象的方法<br>
+5.生成动态代理<br>
+            </section>
+
+        </section>
+        <section>
+
+
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section style="text-align: left;">
+                <h3><strong>实现java反射机制</strong></h3>
+                <p><br>
+                  1.Class类：代表一个类<br>
+2.field类：代表类的成员变量（成员变量也称为类的属性）<br>
+3.method类:代表类的方法<br>
+4.Constructor类：代表类的构造方法<br>
+4.Array类:提供了动态创建数组，以及访问数组元素的静态方法<br>
+		  </p>
+
+            </section>
+            
+
+
+            <section style="text-align: left;">
+                <h3><strong>实现java反射机制的流程是什么样的</strong></h3>
+                <p>
+                    1).获取对象类型<br>
+                     2).获取对象的属性和方法<br>
+						3)给对象的属性和方法传参<br>
+							4)调用对象的方法并执行<br>
+            </section>
+           
+        </section>
+
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+          <section style="text-align: left;">
+                <p>1.使用反射和new一个对象来调用对象的方法有什么区别<br>
+                   <br>
+                 </h4>
+                <!--<p style=" text-align:left"><br>-->
+              </p>
+
+        </section>
+          </section>
+
+
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+
+            <section>
+
+                <p class="text-l">
+                反射是程序可以访问，检测它本身状态或者行为的一种能力，
+				运行过程中可以知道一个类的属性和方法，还可以修改。
+				反射调用方法是在程序运行过程中，使用new一个对象这种方式是在编译的时候就已经获取到对象的属性和方法。
+				
+				   
+  
+  </p>
+    </section>
+	
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+          
+
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+
+            </section>
+
+            <section class="text-l">
+                <h4>什么是动态？</h4>
+				   </section>
+				    <section style="text-align: left;">
+                <p>
+                1.开发者社群说到动态语言，大致认同的一个定义是：“程序运行时，允许改变程序结构或变量类型，这种语言称为动态语言”。<br>
+				2.从这个观点看，Perl，Python，Ruby是动态语言，C++，Java，C#不是动态语言。<br>
+				3.尽管在这样的定义与分类下Java不是动态语言，它却有着一个非常突出的动态相关机制：Reflection。这个字的意思是“反射、映象、倒影”，用在Java身上指的是我们可以于运行时加载、探知、使用编译期间完全未知的classes。换句话说，Java程序可以加载一个运行时才得知名称的class，获悉其完整构造（但不包括methods定义），并生成其对象实体、或对其fields设值、或唤起其methods。这种“看透class”的能力（the ability of the program to examine itself）被称为introspection（内省、内观、反省）。Reflection和introspection是常被并提的两个术语。
+                </p>
+</section>
+            </section>
+           
+
+
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p style="text-align: left">参考：<br>
+                    <br>
+                    互联网
+                </p>
+
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+        </section>
+        <section>
+            <!--<h4>鸣谢</h4>-->
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 鲁伯良</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js "></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js "></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc "或"o "键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+
+</html>
