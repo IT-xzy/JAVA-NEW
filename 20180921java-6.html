@@ -1,0 +1,288 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是压测，为什么要进行压力测试？JMETER工具的使用</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：李梓聪</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+
+            <h3>为什么需要做测试？</h3>
+            <p>在移动应用和Web服务正式发布之前，除了进行必要的功能测试和安全测试，为了保证互联网产品的服务交付质量，往往还需要做压力/负载/性能测试。然而很多传统企业在试水互联网+的过程中，往往由于资源或产品迭代速度等原因忽视了这一块工作，导致新产品上线之后频繁出现卡顿等严重影响用户体验的问题。</p>
+
+            
+        </section>
+		
+		<section>
+
+            <h3>性能测试和负载测试</h3>
+            <p>性能测试包括负载测试、压力测试和容量测试三种主要测试类型和其他测试类型。</p>
+            <p>性能测试就是用来测试软件在系统中的运行性能的。可以对单独模块测试，但只有整个系统集成后测试的性能才是真正的性能。</p>
+            <p>容量测试(Volume Test)：确定系统可处理同时在线的最大用户数</p>
+            <p>负载测试是一种性能测试，指数据在超负荷环境中运行，程序是否能够承担。在一定的工作负荷下，给系统造成的负荷及系统响应的时间。</p>			
+			
+            
+        </section>
+		
+		
+		<section>
+
+            <h3>压力测试</h3>
+            <p>压力测试（StressTesting），也称为强度测试，通过模拟实际应用的软硬件环境及用户使用过程的系统负荷，长时间或超大负荷地运行测试软件，来测试被测系统的性能、可靠性、稳定性等。压力测试需要确定一个系统的瓶颈或者不能接收的性能点，来获得系统能提供的最大的服务级别。通俗地讲，压力测试是为了发现在什么条件下您的应用程序的性能会变得不可接受。</p>
+
+			
+            
+        </section>
+		
+		<section>
+
+            <h3>为什么需要压力测试？</h3>
+            <p>压力测试其实有两个目的，一是测试应用在高并发情况下是否会报错，进程是否会挂掉； 二是测试应用的抗压能力，预估应用的承载能力，为运维同学提供扩容的依据。 第一点很好理解，做好这一点就可以保证上线之后不出问题了。解释下第二点，我们都知道就是架构设计的再优秀，代码写的再好， 应对高并发单实例始终是有限的。所以通常是在满足第一点的前提下， 再根据可能到来的高并发压力来计算需要多少实例来承载，而这就需要我们压出极限。</p>
+
+			
+            
+        </section>
+		
+		<section>
+
+            <h3>为什么需要压力测试？</h3>
+            <p>接口开发完成之后就可以进行第一次压力测试。这一次压力测试可以简单压一下， 在本机进行就可以。压力测试的目的是检查代码在高并发下是否会报错。 另外，编译型语言要观察是否存在内存泄漏。 因为本机性能有限，一般来说按照100、200、300、500进程数进行压力测试， 压到500如果没有报错就可以进行疲劳测试，观察内存占用。</p>
+
+			
+            
+        </section>
+       
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+				
+		<section>
+
+            <h3>什么是Jmeter？</h3>
+            <p>JMeter作为一款广为流传的开源压测产品，最初被设计用于Web应用测试，如今JMeter可以用于测试静态和动态资源，例如静态文件、Java 小服务程序、CGI 脚本、Java 对象、数据库、FTP服务器等等，还能对服务器、网络或对象模拟巨大的负载，通过不同压力类别测试它们的强度和分析整体性能。另外，JMeter能够对应用程序做功能测试和回归测试，通过创建带有断言的脚本来验证你的程序返回了你期望的结果。为了最大限度的灵活性，JMeter允许使用正则表达式创建断言。</p>
+			
+
+        </section>
+		
+		<section>
+
+            <h3>JMeter的组成模块</h3>
+            <p>Test Plan (测试计划)：用来描述一个性能测试， 包含与本次性能测试所有相关的功能。也就说本的性能测试的所有内容是于基于一个计划的。</p>
+			            			
+
+            
+        </section>
+		
+	    <section>
+
+            <h3>Threads（Users）线程用户</h3>
+            <p>setup thread group 可用于执行预测试操作。这些类型的线程执行测试前进行定期线程组的执行。<p>
+			<p>teardown thread group. 可用于执行测试后动作。这些类型的线程执行测试结束后执行定期的线程组。</p>
+			<p>thread group(线程组). 这个就是我们通常添加运行的线程。通俗的讲一个线程组,，可以看做一个虚拟用户组，线程组中的每个线程都可以理解为一个虚拟用户。 线程组中包含的线程数量在测试执行过程中是不会发生改变的。</p>
+            <p>Ramp-Up Period：单位是秒，默认时间是1秒。它指定了启动所有线程所花费的时间， 如果你需要Jmeter立即启动所有线程，将此设定为0即可。</p>
+
+            
+        </section>
+		
+		<section>
+
+            <h3>JMeter的组成模块</h3>
+			<p>采样器（Samplers）它们是每一个测试计划的基本要素，一切都围绕这些采样器而工作：采样器执行请求（基于配置的请求）， 这些请求产生一个或多个响应，后续将被分析。</p>
+			<p>监听器(Listeners)：负责收集测试结果，同时也被告知了结果显示的方式。 监听器以报表、树型结构、或简明的日志文件的形式分析结果。 功能是对取样器的请求结果显示、统计一些数据（吞吐量、KB/S……）等。</p>
+            <p>断言(Assertions)：用于来判断请求响应的结果是否如用户所期望，是否正确。 断言一般用来设置检查点，用以保证性能测试过程中的数据交互是否与预期一致。</p>
+            
+        </section>
+		
+		<section>
+
+            <h3>JMeter的组成模块</h3>
+			<p>定时器(Timers)：负责定义请求（线程）之间的延迟间隔，模拟对服务器的连续请求。 用于操作之间设置等待时间，等待时间是性能测试中常用的控制客户端QPS的手段。如果不指定，JMeter会一个请求完成后立即执行下一个请求，没有任何等待时间。</p>
+			<p>逻辑控制器(Logic Controllers)：允许自定义JMeter发送请求的行为逻辑，它与Sampler结合使用可以模拟复杂的请求序列。</p>
+			
+							
+            
+        </section>
+		
+		
+        <section>
+		
+             <h3>JMeter的组成模块</h3>
+		     <p>前置处理器和后置处理器负责在生成请求之前和之后完成工作。 前置处理器常常用来修改请求的设置，后置处理器则常常用来处理响应的数据。</p>
+		     <p>配置节点(Configuration nodes) 通过使用配置元素你可以将不同的参数传递给取样器请求。他们提供了创建变量（不同的和动态的）的一种方式，这些参数之后被采样器所使用。 在采样器被执行前，参数所属节点启动时，这些参数被执行；这就是为什么采样器可以依赖这些变量。</p>
+		                  
+		
+        </section>
+		
+		<section>
+		
+             <h3>测试计划元素执行顺序</h3>
+		     <p>1–配置节点</p>
+		     <p>2–前置处理器</p>
+		     <p>3–定时器</p>
+		     <p>4–取样器</p>
+			 <p>5–后置处理器（只在有结果可用情况下执行）</p>
+		     <p>6–断言（只在有结果可用情况下执行）</p>
+			 <p>7–监听器（只在有结果可用情况下执行）</p>
+		                  
+		
+        </section>
+		
+ 
+		
+		
+        <section>
+		
+            <h3>3.编码实战</h3>
+			
+        </section>
+
+        <section>
+		
+            <h3>4.常见问题</h3>
+			
+        </section>		
+
+        <section>		
+		
+           <h3></h3>		   
+		   <p>吞吐量与带宽的区别？</p>
+           <p>用户并发数量？</p> 
+		   <p>点击率与TPS的区别？</p>
+		   
+        </section>
+		
+		<section>
+		
+            <h3>5.解决方案</h3>
+			
+        </section>		
+
+         <section>		
+		
+           <h3>吞吐量与带宽的区别？</h3>		   
+		   <p>吞吐量和带宽是很容易搞混的一个词，两者的单位都是Mbps.先让我们来看两者对应的英语， 吞吐 量:throughput ; 带宽: Max net bitrate 。当我们讨论通信链路的带宽时，一般是指链路上每秒所能传送的比特数。 我们可以说以太网的带宽是10Mbps。但是，我们需要区分链路上的可用带宽（带 宽）与实际链路中每秒所能传送的比特数（吞吐量）。 我们倾向于用“吞吐量”一次来表示一个系统的测试性能。这样，因为实现受各种低效率因素的影响， 所以由 一段带宽为10Mbps的链路连接的一对节点可能只达到2Mbps的吞吐量。 这样就意味着，一个主机上的应用能够以2Mbps的速度向另外的一个主机发送 数据。</p>
+		   
+		   
+        </section>
+		
+		<section>		
+		
+           <h3>用户并发数量？</h3>		   
+		   <p>并发一般分为2种情况。一种是严格意义上的并发，即所有的用户在同一时刻做同一件 事情或者操作，这种操作一般指做同一类型的业务。比如在信用卡审批业务中，一定数目的用户在同一时刻对已经完成的审批业务进行提交；还有一种特例，即所有 用户进行完全一样的操作，例如在信用卡审批业务中，所有的用户可以一起申请业务，或者修改同一条记录。另外一种并发是广义范围的并发。这种并发与前一种并发的区别是，尽管多个用户对系统发出了请求或者进行了操作，但是这些请求或者操作可以是相同的，也可以是不同的。对整个系统而言，仍然是有很多用户同时对系统进行操作，因此也属于并发的范畴。</p>
+        		   
+		   
+        </section>
+		
+		<section>		
+		
+           <h3>点击率与TPS的区别？</h3>		   
+		   <p>每秒钟用户向WEB服务器提 交的HTTP请求数.这个指标是WEB应用特有的一个指标:WEB应用是"请求-响应"模式,用户发出一次申请,服务器就要处理一次,所以点击是WEB应 用能够处理的交易的最小单位.如果把每次点击定义为一个交易,点击率和TPS就是一个概念.容易看出,点击率越大,对服务器的压力越大.点击率只是一个性 能参考指标,重要的是分析点击时产生的影响。需要注意的是,这里的点击并非指鼠标的一次单击操作,因为在一次单击操作中,客户端可能向服务器发出多个 HTTP请求.</p>
+        		   
+		   
+        </section>
+		
+
+        <section>
+		
+            <h3>5.参考资料</h3>
+            
+            <p>http://www.cnblogs.com/xdp-gacl/category/574705.html</p>
+			<p>方广辉、张鹏、翁涵师兄的ppt</p>
+
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+		
+            <h3>鸣谢</h3>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
