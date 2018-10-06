@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>SpringMVC分页查询</h3>
+            <h4>小课堂</h4>
+            <p>分享人：赵君钊</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p style="text-align: left">分页查询就是根据需要每次只返回所需要的数据，而不用每次都从数据库中全部把数据提取出来，这样可以降低程序与数据库之间的数据传送量，并且还可以提高程序的性能。 一般来说我们在数据量大的情况下总是会分页显示</p>
+            </section>
+            <section>
+                <p>分页查询分类：</p>
+                <p>逻辑分页</p>
+                <p>物理分页</p>
+            </section>
+            <section>
+                <p>逻辑分页</p>
+                <p></p>
+                <p style="text-align: left">
+                    逻辑分页是在用户第一次访问时，将数据库的所有记录全部查询出来，
+                    添加到一个大集合中，然后再通过代码获取分页数据，常用的操作是一次性从数据库中查询
+                    出全部数据并存储到List集合中，因为List集合有序，再根据索引获取指定范围的数据。
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    逻辑分页主要用于数据量不大、数据稳定的场合。
+                    逻辑分页一次性将数据读取到内存，占用了较大的内容空间。
+                    而且逻辑分页一次性将数据读取到内存，数据发生改变，数据
+                    库的最新状态不能实时反映到操作中，实时性差。
+                </p>
+            </section>
+            <section>
+                <p>物理分页</p>
+                <p></p>
+                <p style="text-align: left">
+                    物理分页使用数据库自身所带的分页机制，例如，Oracle数据库的rownum，
+                    或者Mysql数据库中的limit等机制来完成分页操作。因为是对数据库的数据进行分
+                    页条件查询， 所以叫物理分页。每一次物理分页都会去连接数据库。
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    物理分页主要用于数据量较大、更新频繁的场合。每次只读取一部分数据，占用内存空间较小。
+                    物理分页每次需要数据时都访问数据库，能够获取数据库的最新状态，实时性强。
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <p>Mybatis分页插件PageHelper</p>
+                <p style="text-align: left">
+                    PageHelper的原理是基于拦截器实现的。拦截器的配置有两种方法
+                    ，一种是在mybatis的配置文件中配置，一种是直接在spring的配置文件中进行
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <p>在执行sql前添加插件，完成分页功能</p>
+                <p style="text-align: left">
+                    在查询的sql语句执行之前，添加一行代码PageHelper.startPage(param1, param2);第一
+                    个参数表示第几页，第二个参数表示每页显示的记录数。这样在执行sql后就会
+                    将记录按照语句中设置的那样进行分页。如果需要获取总记录数的话，需要Page
+                    Info类的对象，这个对象可以获取总记录数.
+                </p>
+            </section>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY：赵君钊</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
