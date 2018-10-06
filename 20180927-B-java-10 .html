@@ -1,0 +1,213 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>spring security简单介绍</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：岳晓鹏</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+
+            <h3>Spring security</h3>
+            <p>Spring Security是一个基于Java / Java EE的框架，为企业应用程序提供身份验证，授权和其他安全功能。
+                该项目于2003年底开始，作为'Acegi Security'（发音为Ah-see-gee） 被Ben Alex于2004年3月在Apache License下公开发布。
+                随后，Acegi被纳入Spring组合作为Spring Security，一个官方的Spring子项目。新名称下的第一个公开发布是2008年4月的
+                Spring Security 2.0.0，SpringSource提供了商业支持和培训。 目前的最新版本为spring security4。
+
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+				
+
+		
+		<section>
+
+            <h3>安全层次</h3>
+            <p>安全是一个不断演进的目标，追求一个全面的、系统级别的安全方案是非常重要的。站在安全领域的角度，我们鼓励分层的概念，每一层都只管理自己职责范围内的安全问题，每一层的安全机制越严格，我们的应用就越健壮、越安全。
+            <p>1、在最底层，我们需要处理传输层安全和系统识别。
+            <p>2、接着我们会使用防火墙，可能会联合VPN或者IP安全机制来保证只有被授权的系统才能进行连接。
+            <p>3、在企业环境中，我们需要部署一个DMZ( demilitarized zone )服务来隔离对外提供访问的接口的服务器与内部数据库和应用服务器。
+            <p>4、我们的操作系统也扮演了安全中的一环，例如使用不具有特定权限的用户运行进程，限制用户最大可以操作的文件数量等。
+
+        </section>
+            <section>
+                <h3>安全层次</h3>
+                <p>5、我们可能还会尝试使阻止DDOS( Distributed DenialofService)分布式拒绝服务和暴力破解攻击（brute force attacks ）。一个入侵检测系统对于攻击的监控和响应是非常有用的，可以帮助我们实时的拒绝某些TPC/IP地址的访问。
+                <p>6、从更高的层面即JVM的层面来说，我们可以通过配置最小化一个Java类可以具有的权限(译者注：通过JAVA_HOME/jre/lib/security/java.policy文件进行配置)
+                <p>7、最后我们在应用层面添加一些领域特定的安全配置。
+                <p>Spring Security可以让最后一点，即应用相关的安全( application security )设置变得更加容易。
+
+
+            </section>
+        <section>
+            <h3>权限认证的“套路”----验证和授权</h3>
+            <p>应用级别的安全主要分为“验证( authentication) ”和“(授权) authorization ”两个部分。
+                这也是Spring Security主要需要处理的两个部分。“ Authentication ”指的是建立规则( principal )的过程。
+                规则可以是一个用户、设备、或者其他可以在我们的应用中执行某种操作的其他系统。" Authorization "指的是判断某个
+                principal 在我们的应用是否允许执行某个操作。在进行授权判断之前，要求其所要使用到的规则必须在验证过程中已经建立好了。
+        </section>
+
+
+
+		<section>
+
+            <h3>spring支持的验证方式</h3>
+            <p>HTTP BASIC authentication headers (an IETF RFC-based standard)认证头
+            <p>HTTP Digest authentication headers (an IETF RFC-based standard)
+            <p>LDAP (a very common approach to cross-platform authentication needs, especially in large environments)
+            <p>Form-based authentication (for simple user interface needs)
+            <p>OpenID authentication
+            <p>Authentication based on pre-established request headers (such as Computer Associates Siteminder)
+            <p>。。。。
+        </section>
+
+
+       <section>
+        <h3>通用的权限模型----权限五张表</h3>
+
+           <p>用户，角色，用户角色关联表，角色，角色权限关联表；
+           <p>任何权限的需求，都是为广义的用户分配角色，角色拥有广义的权限。
+           <p>角色是最重要的中枢，隐藏做幕后黑手，从不出现在业务代码里，用行话说就是解除了用户和权限的直接耦合。
+           <p>角色把用户抽象化了，几百个用户变成成几个角色，用户->角色->权限写成通用判断权限的方法：currUser.IsHave(xx权限)。核心就是一个sql联表查询语句，查询条件为用户id。
+
+       </section>
+        <section>
+            <h3>Spring Security4的使用有4种方法</h3>
+            <p>一种是全部利用配置文件，将用户、权限、资源(url)硬编码在xml文件或java代码中；
+            <p>二种是用户和权限用数据库存储，而资源(url)和权限的对应采用硬编码配置。
+        </section>
+
+        <section>
+            <p>三种是细分角色和权限，并将用户、角色、权限和资源均采用数据库存储，并且自定义过滤器，代替原有的FilterSecurityInterceptor过滤器         并分别实现AccessDecisionManager、InvocationSecurityMetadataSourceService和UserDetailsService，并在配置文件中进行相应配置。
+            <p>四是修改spring security的源代码，主要是修改InvocationSecurityMetadataSourceService和UserDetailsService两个类。 前者是将配置文件     或数据库中存储的资源(url)提取出来加工成为url和权限列表的Map供Security使用，后者提取用户名和权限组成一个完整的(UserDetails)User     对象，该对象可以提供用户的详细信息供AuthentationManager进行认证与授权使用。
+
+        </section>
+
+        <section>
+            <h3>Spring Security4的简单调用示例介绍</h3>
+            <p>结合图介绍
+        </section>
+
+
+		<section>
+		
+            <h3>3.编码实战</h3>
+            <p>简单的进行一个spring security的简单调用</p>
+        </section>
+
+
+
+        <section>
+
+            <h3>spring security怎么实现对方法的权限认证</h3>
+
+            <p>spring中用@PreAuthorize标注在方法上，利用spring的切面思想，在方法调用前先进行权限验证匹配，如果合适再进行方法的调用
+
+
+        </section>
+
+
+        <section>
+		
+            <h3>5.参考资料</h3>
+            <p>http://www.tianshouzhi.com/api/tutorials/spring_security_4/262
+            <p>https://blog.csdn.net/code__code/article/details/53885510
+            <p>https://blog.csdn.net/chenyao1994/article/details/80736369
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+		
+            <h3>鸣谢</h3>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,300 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>RMI的简单介绍</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：王庸之</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+
+            <h3>什么是RPC？</h3>
+            <p>RPC（Remote Procedure Call）—远程过程调用，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。RPC协议假定某些传输协议的存在，如TCP或UDP，为通信程序之间携带信息数据。在OSI网络通信模型中，RPC跨越了传输层和应用层。RPC使得开发包括网络分布式多程序在内的应用程序更加容易。</p>
+			<p>举个例子，也就是说两台服务器A，B，一个应用部署在A服务器上，想要调用B服务器上应用提供的函数/方法，由于不在一个内存空间，不能直接调用，需要通过网络来表达调用的语义和传达调用的数据。</p>
+
+            
+        </section>
+		
+		<section>
+
+            <h3>为什么需要RPC？</h3>
+            <p>RPC主要是用在大型企业里面，因为大型企业里面系统繁多，业务线复杂，而且效率优势非常重要的一块，这个时候RPC的优势就比较明显了。实际的开发当中是这么做的，项目一般使用maven来管理。比如我们有一个处理订单的系统服务，先声明它的所有的接口（这里就是具体指Java中的interface），
+			然后将整个项目打包为一个jar包，服务端这边引入这个库，然后实现相应的功能，客户端这边也只需要引入这个库即可调用了。为什么这么做？主要是为了减少客户端这边的jar包大小，因为每一次打包发布的时候，jar包太多总是会影响效率。另外也是将客户端和服务端解耦，提高代码的可移植性。</p>
+
+            
+        </section>
+		
+		<section>
+
+            <h3>什么是RMI？</h3>
+            <p>RPC不依赖于具体的网络传输协议，tcp、udp等都可以。由于存在各式各样的变换和细节差异，相应的rpc也派生出了各式远程过程通信协议。RPC是跨语言的通信标准，SUN和微软都有其实现，比如RMI可以被看作SUN对RPC的Java版本( 实现)</p>
+
+            
+        </section>
+		
+		<section>
+
+            <h3>什么是RMI？</h3>
+            <p>RMI全称是Remote Method Invocation－远程方法调用，Java RMI在JDK1.1中实现的，其威力就体现在它强大的开发分布式网络应用的能力上，是纯Java的网络分布式应用系统的核心解决方案之一。其实它可以被看作是RPC的Java版本。但是传统RPC并不能很好地应用于分布式对象系统。而Java RMI 则支持存储于不同地址空间的程序级对象之间彼此进行通信，实现远程对象之间的无缝远程调用。</p>
+
+            
+        </section>
+		
+		
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+				
+		<section>
+
+            <h3>RMI的特点</h3>
+            <p>RMI目前使用Java远程消息交换协议JRMP（Java Remote Messaging Protocol）进行通信。由于JRMP是专为Java对象制定的，Java RMI具有Java的"Write Once,Run Anywhere"的优点，是分布式应用系统的百分之百纯Java解决方案。用Java RMI开发的应用系统可以部署在任何支持JRE（Java Run Environment Java，运行环境）的平台上。但由于JRMP是专为Java对象制定的，因此，RMI对于用非Java语言开发的应用系统的支持不足。不能与用非Java语言书写的对象进行通信。</p>
+	
+
+        </section>
+		
+		<section>
+
+            <h3>RMI的组成</h3>
+			<p>一个正常工作的 RMI 系统由下面几个部分组成:</p>
+			<p>1. 远程服务的接口定义</p>
+			<p>2. 远程服务接口的具体实现</p>
+			<p>3. 桩（Stub）和框架（Skeleton）文件</p>
+			<p>4. 一个运行远程服务的服务器</p>
+			<p>5. 一个 RMI 命名服务，它允许客户端去发现这个远程服务</p>
+			<p>6. 类文件的提供者（一个 HTTP 或者 FTP 服务器）</p>
+			<p>7. 一个需要这个远程服务的客户端程</p>
+			            			
+
+            
+        </section>
+		
+	    <section>
+
+            <h3>RMI的远程调用步骤</h3>
+			<p>1.客户调用客户端辅助对象 stub 上的方法 </p>
+			<p>2.客户端辅助对象 stub 打包调用信息（变量，方法名），通过网络发送给服务端辅助对象 skeleto</p>
+			<p>3.服务端辅助对象 skeleton 将客户端辅助对象发送来的信息解包，找出真正被调用的方法以及该方法所在对象</p>
+			<p>4.调用真正服务对象上的真正方法，并将结果返回给服务端辅助对象 skeleton </p>
+			<p>5.服务端辅助对象将结果打包，发送给客户端辅助对象 stub</p>
+			<p>6.客户端辅助对象将返回值解包，返回给调用者</p>
+			<p>7.客户获得返回值</p>
+			
+        </section>
+		
+		<section>
+
+            <h3>RMI的远程调用数据的传递问题</h3>
+			<p>我们都知道在Java程序中引用类型（不包括基本类型）的参数传递是按引用传递的，对于在同一个虚拟机中的传递时是没有问题的，因为的参数的引用对应的是同一个内存空间，但是对于分布式系统中，由于对象不再存在于同一个内存空间，虚拟机A的对象引用对于虚拟机B没有任何意义。</p>
+
+			
+        </section>
+
+		<section>
+
+            <h3>RMI的远程调用数据的传递方式</h3>
+			<p>第一种：将引用传递更改为值传递，也就是将对象序列化为字节，然后使用该字节的副本在客户端和服务器之间传递，而且一个虚拟机中对该值的修改不会影响到其他主机中的数据；</p>
+            <p>第二种：仍然使用引用传递，每当远程主机调用本地主机方法时，该调用还要通过本地主机查询该引用对应的对象，在任何一台机器上的改变都会影响原始主机上的数据，因为这个对象是共享的；</p>
+			
+        </section>
+
+		<section>
+
+            <h3>RMI中的参数传递和结果返回可以使用的三种机制（取决于数据类型）</h3>
+			<p>简单类型：按值传递，直接传递数据拷贝；</p>
+            <p>远程对象引用（实现了Remote接口）：以远程对象的引用传递；</p>
+			<p>远程对象引用（未实现Remote接口）：按值传递，通过序列化对象传递副本，本身不允许序列化的对象不允许传递给远程方法；</p>
+			
+        </section>
+
+		<section>
+
+            <h3>远程对象的发现问题</h3>
+			<p>在调用远程对象的方法之前需要一个远程对象的引用，如何获得这个远程对象的引用在RMI中是一个关键的问题。</p>
+            <p>DNS则相当于一个注册表（Registry）。而域名在RMI中就相当于远程对象的标识符，客户端通过提供远程对象的标识符访问注册表，来得到远程对象的引用。这个标识符是类似URL地址格式的，它要满足的规范如下：</p>
+			<p>该名称是URL形式的，类似于http的URL，schema是rmi；</p>
+			<p>格式类似于rmi://host:port/name，host指明注册表运行的注解，port表明接收调用的端口，name是一个标识该对象的简单名称。</p>
+			<p>主机和端口都是可选的，如果省略主机，则默认运行在本地；如果端口也省略，则默认端口是1099；</p>
+			
+			
+        </section>			
+		
+		
+        <section>
+		
+            <h3>3.编码实战</h3>
+			
+        </section>
+
+        <section>
+		
+            <h3>4.常见问题</h3>
+			
+        </section>		
+
+        <section>		
+		
+           <h3></h3>		   
+		   <p>1.RMI 远程方法调用的优点。</p>
+           <p>2、RPC与RMI的区别。</p> 
+		   <p>3、如何设置registeryhost。</p> 
+		   
+        </section>
+		
+		<section>
+		
+            <h3>5.解决方案</h3>
+			
+        </section>		
+
+         <section>		
+		
+           <h3>1.RMI 远程方法调用的优点。</h3>		   
+		   <p>面向对象：RMI 可将完整的对象作为参数和返回值进行传递，而不仅仅是预定义的数据类型。也就是说，您可以将类似 Java 哈希表这样的复杂类型作为一个参数进行传递。</p>
+		   <p>可移动属性: RMI 可将属性 (类实现程序) 从客户机移动到服务器，或者从服务器移到客户机。这样就能具备最大的灵活性，因为政策改变时只需要您编写一个新的 Java 类，并将其在服务器主机上安装一次即可。</p>
+		   <p>安 全：RMI 使用 Java 内置的安全机制保证下载执行程序时用户系统的安全。</p>
+		   <p>可连接现有 / 原有的系统:  RMI 可利用标准 Java 本机方法接口 JNI 与现有的和原有的系统相连接编写一次，到处运行</p>
+		   
+        </section>
+		
+		<section>		
+		
+           <h3>2、RPC与RMI的区别。</h3>		   
+		   <p>方法调用方式不同：</p>
+		   <p>RMI中是通过在客户端的Stub对象作为远程接口进行远程方法的调用。每个远程方法都具有方法签名。如果一个方法在服务器上执行，但是没有相匹配的签名被添加到这个远程接口(stub)上，那么这个新方法就不能被RMI客户方所调用。</p> 
+	       <p>RPC中是通过网络服务协议向远程主机发送请求，请求包含了一个参数集和一个文本值，通常形成“classname.methodname(参数集)”的形式。RPC远程主机就去搜索与之相匹配的类和方法，找到后就执行方法并把结果编码，通过网络协议发回。</p>
+		   
+        </section>
+		
+		<section>		
+		
+           <h3>2、RPC与RMI的区别。</h3>		   
+		   <p>适用语言范围不同：</p>
+		   <p>RMI只用于Java；</p> 
+	       <p>RPC是网络服务协议，与操作系统和语言无关。</p>
+		   
+        </section>
+		
+		<section>		
+		
+           <h3>2、RPC与RMI的区别。</h3>		   
+		   <p>调用结果的返回形式不同：</p>
+		   <p>Java是面向对象的，所以RMI的调用结果可以是对象类型或者基本数据类型；</p> 
+	       <p>RMI的结果统一由外部数据表示 (External Data Representation, XDR) 语言表示，这种语言抽象了字节序类和数据类型结构之间的差异。</p>
+		   
+        </section>
+		
+		<section>		
+		
+           <h3>3、如何设置registeryhost。</h3>		   
+		   <p>1、尝试在main方法里加入一个设置rmi服务主机名：System.setProperty("java.rmi.server.hostname", "39.105.149.2");</p>
+		   <p>2、启动程序时，添加参数-Djava.rmi.server.hostname=xxip</p> 
+	       
+		   
+        </section>
+		
+		
+
+        <section>
+		
+            <h3>5.参考资料</h3>
+            
+            <p>http://www.cnblogs.com/xdp-gacl/category/574705.html</p>
+
+
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+		
+            <h3>鸣谢</h3>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
