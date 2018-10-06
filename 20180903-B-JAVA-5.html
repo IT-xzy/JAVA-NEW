@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+    <div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.879429);">
+        <section class="present" style="top: 169px; display: block;">
+            <h3>Java集合简介</h3>
+			<p></p>
+            <h4>Java小课堂</h4>
+            <p>分享人：廖友</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 34.5px; display: block;">
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        
+		<section hidden="" aria-hidden="true" class="future" style="top: 267px; display: block;">
+            <h3>1.背景介绍</h3>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>1.1 Java集合概述</h3><br>
+            <p style="text-align:left">Java集合类是一个工具类，可用于存储数量不等的对象，并可以实现常用的数据结构，如栈、队列等。</p>
+			<p style="text-align:left">Java集合大致可以分为 Set List Queue Map 四种体系，其中</p>
+			<p style="text-align:left">Set代表无序不可重复集合</p>
+			<p style="text-align:left">List代表有序可重复集合</p>
+			<p style="text-align:left">Map代表有映射关系集合（关联数组）</p>
+			<p style="text-align:left">Queue代表队列集合（java5增加）</p>
+        </section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>1.2 集合类与数组区别</h3><br>
+            <p style="text-align:left">数组元素既可以是基本类型的值，也可以是对象（实际保存的是对象的引用变量）；而集合里只能保存对象（实际保存的是对象的引用变量，但习惯认为集合里保存的是对象）。</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<p style="text-align:left">集合类主要负责保存、盛装其他数据，因此集合类也称为容器类。所有集合类都位于java.util包下，后来为处理多线程下的并发安全问题，Java5还在java.util.concurrent包下提供了一些多线程集合类。</p>
+        </section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.知识剖析</h3>
+        </section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.1 Collection 和 Iterator 接口</h3>
+			<p style="text-align:left"></p>
+			<p style="text-align:left">Collection接口是List Set 和 Queue接口的父接口，该接口里定义的方法即可用于操作Set集合，也可用于操作List 和 Queue集合。Collection接口里定义的操作集合元素的方法基本是添加对象、删除对象、清空容器、判断容器是否为空等，具体看api，集合类就为这些功能提供了对应的方法。</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<p style="text-align:left">Iterator接口时Collection接口的根接口（但Iterator和Map没有关系，Map接口本身就是根接口）。Iterator主要用于遍历Collection集合中的元素（迭代访问），Iterator对象也被称为迭代器。</p>
+			<p style="text-align:left">Iterator接口定义了如下四个方法：</p>
+			<p style="text-align:left">（1）boolean hasNext() ：如果被迭代的集合元素还没有被遍历完，则返回true</p>
+			<p style="text-align:left">（2）Object next() ：返回集合中的下一个元素</p>
+			<p style="text-align:left">（3）void remove() ：删除集合里的下一个next方法返回的元素</p>
+			<p style="text-align:left">	（4）void forEachRemaining(Consumer action) ：Java8新增默认方法，使用此方法可以使用Lambda表达式</p>
+        </section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.2 Set 集合</h3><br>
+			<p style="text-align:left">	Set集合与Collection接口基本相同，没有提供任何额外的方法，实际上Set就是Collection，只是行为略有不同（Set不允许包含重复元素，这里的重复元素可以理解为是否为同一个对象，因为存储的每一个元素就是一个对象，可以使用equals方法判断两个引用类型变量是否指向同一对象）。</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.2.1 HashSet 类</h3><br>
+			<p style="text-align:left">	HashSet是Set接口的典型实现，大多数时候使用Set集合时就是使用这个实现类。HashSet按Hash算法来存储集合中的元素，因此具有很好的存取和查找性能。</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.2.2 LinkedHashSet 类</h3><br>
+			<p style="text-align:left">LinkedHashSet 类是HashSet类的子类 ，LinkedHashSet集合也是根据元素的hashCode值来决定元素的存储位置，但它同时使用链表来维护元素的次序，这样使得元素看起来是以插入的顺序保存的。</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.2.3 TreeSet 类</h3><br>
+			<p style="text-align:left">TreeSet 是 SortSet 接口的实现类，TreeSet可以确保集合元素处于排序状态。</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.3 List 集合</h3><br>
+			<p style="text-align:left">List集合代表一个元素有序、可重复的集合，集合中每个元素都有其对应的顺序索引。List集合允许使用重复元素，可以通过索引引用来访问指定位置的集合元素。List集合默认按元素的添加顺序设置元素的索引，例如第一次添加的元素的因为为0，第二次添加为1。</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.3.1 Java8改进的List接口和ListIterator接口</h3><br>
+			<p style="text-align:left">与Set只提供一个iterator()方法不同，List还额外提供了一个listIterator()方法，该方法返回一个ListIterator对象，ListIterator接口继承了Iterator接口，提供了专门操作List的方法。</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.3.2 ArrayList 和 Vector实现类</h3><br>
+			<p style="text-align:left">ArrayList和Vector类都是基于数组实现的List类，所以ArrayList和Vector类封装了一个动态的，允许再分配的Object[]数组。</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.3 Queue 集合</h3><br>
+			<p style="text-align:left">Queue接口有一个PriorityQueue实现类，除此之外，Queue还有一个Deque接口，Deque代表一个双端队列，双端队列可以同时从两端添加删除元素，因此Deque既可以当成队列来用，也可以当成栈来用。Java为Deque提供了ArrayDeque和LinkedList两个实现类</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.3.1 Deque接口和ArrayDeque实现类</h3><br>
+			<p style="text-align:left">Deque接口是Queue接口的子接口，Deque接口里定义了一些操作双端队列的方法，可以从两端对队列进行操作。</p>
+			<p style="text-align:left">Deque接口提供了一个人典型的实现类：ArrayDeque， 它是基于数组的双端队列，创建Deque时同样可以指定一个numElements参数，该参数用于指定Object[] 数组长度，此数组长度默认为16。</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.3.2 LinkedList 实现类</h3><br>
+			<p style="text-align:left">LinkedList既实现了Deque接口，也实现了List接口 ，因此可以根据索引来随机访问集合中的元素，可以被当成双端队列来使用（即可以作为栈，也可作为队列）。</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.4 Java8 增强的Map集合</h3><br>
+			<p style="text-align:left">Map用于保存具有映射关系的数据，因此Map集合里保存着两组值，一组值用于保存Map里的key，另外一组值用于保存Map里的value，key 和 value都可以是任何引用类型的数据</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.4.1 HashMap和Hashtable实现类</h3><br>
+			<p style="text-align:left">HashMap和Hashtable都是Map接口的典型实现类，它们之间的关系完全类似于ArrayList和Vector的关系：Hashtable从jdk1.0就已经有了，与vector类似，尽量不要使用 Hashtable实现类，即使要线程安全，可以使用Collections里方法把HashMap变成线程安全。</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.4.2 LinkedHashMap 实现类</h3><br>
+			<p style="text-align:left">LinkedHashMap是HashMap子类，LinkedHashMap使用双向链表来维护key-value对的次序（其实只需考虑key的次序），该链表负责维护Map的迭代顺序，迭代顺序与key-value对的插入顺序保持一致。</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.4.3 SortedMap接口和TreeMap实现类</h3><br>
+			<p style="text-align:left">	Set接口派生出SortedSet接口，Map接口派生出一个SortedMap子接口，SortedMap接口的一个实现类是TreeMap。TreeMap是一个红黑树数据结构，每个key-value对即作为红黑树的一个节点。TreeMap存储key-value对（节点）时，需要根据key对节点进行排序。TreeMap可以保证所有的key-value对处于有序状态。</p>
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>3.扩展思考</h3>
+        </section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>4.常见问题</h3>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+        </section>
+		
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>6.参考文献</h3>
+			<p style="text-align:center">[1]http://www.runoob.com/java/java-collections.html</p>
+			<p style="text-align:center">[2]《疯狂Java讲义》</p>
+        </section>
+		
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>7.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px);">
+            Java集合简单介绍
+			
+            Java小课堂
+            分享人：廖友
+        </div></div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

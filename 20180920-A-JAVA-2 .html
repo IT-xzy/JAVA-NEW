@@ -1,0 +1,147 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Annotation和XML两种配置的差别，为什么更喜欢使用Annotaion来配置Spring MVC？   
+</h2>
+			<p></p>
+            <h3></h3>
+            <p>-深圳-java-唐海清-</p>
+        </section>	
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		<section>
+            <h3>model1,mvc,springmvc</h3>
+            <p align="left">model1:使用一个组件处理请求、业务、展现等操作。代码耦合度高、冗余等问题。</p>
+            <p align="left">mvc：m：model，业务层，用来处理业务。v：view，视图层，用来展现数据。c：Controller，控制层，用来进行调度，是业务层和视图的桥梁，其目的是要将代码解耦，便于团队开发。</p>
+            <p align="left">springmvc：是一种基于Java的实现了Web MVC设计模式的请求驱动类型的轻量级Web框架，它为控制器和处理程序提供了大量与此模式相关的功能。并且当向 MVC 添加反转控制，它使应用程序高度解耦，提供了通过简单的配置更改即可动态更改组件的灵活性。Spring MVC 为您提供了完全控制应用程序的各个方面的力量。</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3>2.1spring mvc五大组件</h3>
+            <p align="left">DispatcherServlet：Spring的WebMVC模块是围绕DispatcherServlet而设计的。DispatcherServlet 给处理程序分派请求，执行视图解析，并且处理语言环境和主题解析，此外还为上传文件提供支持。
+               </p>
+            <p align="left">hadlerMapping：包含了请求路径与模型的对应关系。</p>
+         <p align="left">Controller（控制器）：调用相应的业务层处理业务逻辑</p>
+         <p align="left">ModelAndView：Controller处理数据封装在里面，当然还可能有视图名。</p>
+             <p align="left">ViewResolver（视图解析器）：调用真正的视图对象来生成相应的页面。</p>
+		</section>
+        <section>
+            <h3>2.2运行原理</h3>
+			<p align="left"> Dispatcherservle主要负责接受请求，然后依据HandlerMapping调用相应的控制器，Controller(控制器)处理业务返回ModelAndView，Disparcherservlet又依据相应的视图解析器（ViewResolver）调用相应的视图响应。</p>
+		</section> 
+        <section>
+            <p>3.常见问题</p>
+            <p align="left">1)怎样配置xml配置和注解配置？</p> 
+            <p align="left">2)xml配置和注解配置的优缺点？</p>
+            <p align="left">3)为什么为什么更喜欢使用Annotaion来配置Spring MVC？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+            <p>依据五大组件之间关系，然后xml或者注解配置相应的组件。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <p align="left">其实spring mvc是相对于web项目提出来的分层思想，而web项目分为前端和后端，相对于后端自顶向下分为controller层，service层，dao层，数据层或者叫持久层。有时候，为了达到解耦的目的，会在上述基层中间加入响应的接口层，以使得接口与实现分离。在更加大型的网站中，会出现更加复杂的架构，比如dao层与数据层之间要有缓存层，或者访问压力增大后，需要使用集群，负载均衡等高级技术</p>
+            <p align="left">注：本人初学java者，如有不对敬请指出，谢谢！</p>
+	    </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>CSDN、百度百科</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+      
+            <p>谢谢大家观看，如有问题，恳请批评指正</p>
+			      <p>by：深圳分院 -唐海清-</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://blog.csdn.net/USTC_Zn/article/details/54912367' },
+            { src: 'https://blog.csdn.net/luomingkui1109/article/details/72820232' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

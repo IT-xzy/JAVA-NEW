@@ -1,0 +1,248 @@
+<!doctype html>
+
+<head xmlns="http://www.w3.org/1999/html">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题,可以在/css/reveal/theme/中选择其他主题,目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+
+    <!--<link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">-->
+
+    <!--&lt;!&ndash; PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">-->
+
+    <!--&lt;!&ndash; syntax highlighting 代码高亮主题 &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">-->
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .text-l {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>HashMap浅析</h2>
+            <p>分享人：刘优</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section style="text-align: left;">
+                <br style="text-align: left">
+                <h4>什么是HashMap</h4>
+                基于哈希表的 Map 接口的实现。此实现提供所有可选的映射操作，并允许使用 null 值和 null 键。（除了非同步和
+                允许使用 null 之外，HashMap 类与 Hashtable 大致相同。）此实现假定哈希函数将元素适当地分布在各桶之间，可
+                为基本操作（get 和 put）提供稳定的性能。迭代 collection 视图所需的时间与 HashMap 实例的 “容量”（桶的数
+                量）及其大小（键 - 值映射关系数）成比例。所以，如果迭代性能很重要， 则不要将初始容量设置得太高（或将加载
+                因子设置得太低）。
+
+                </p>
+            </section>
+
+
+        </section>
+        <section>
+
+
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section style="text-align: left;">
+                <h3><strong>什么是Hash：</strong></h3>
+                <p c><br>
+                    ① 哈希查找是一种数据结构中用于 查找 的算法，相比于其他查找算法，他的时间复杂度更
+                    低，所以在实际应用中大量采取了哈希表的方式，Hashmap 就是 java 内置的哈希查找的方法 <br>
+                    ② 哈希函数的基本思想： 将记录的存储地址和关键字之间建立一个确定的对应关系。这样，当想查找某条记录时，我们根据记录的关键字就可以得到它的存储地址，进而快速判断这条记录是否存在，存储在哪里。 <br>
+            </section>
+
+            <section style="text-align: left;">
+                <p>
+                    ③负载因子：负载因子是哈希表在其容量自动增加之前可以达到多满的一种尺度，它衡量的是一个散列表的空间的使用程度，负载因子越大表示散列表的装填程度越高，反之愈小。如果负载因子越大，对空间的利用更充分，然而后果是查找效率的降低；如果负载因子太小，那么散列表的数据将过于稀疏，对空间造成严重浪费。。
+                    <br>
+                    ④ 哈希函数的缺陷 + 改进方式： 在哈希存储中，不同的关键字可能映射到了相同的地址，这就叫产生冲突，我们必须相处冲突处理的方法。当然，前辈们已经相处了各种各样的方法，我在这里先不做深究。
+            </section>
+
+
+            <section style="text-align: left;">
+                <h3><strong>Map是什么</strong></h3>
+                <p>
+                    Map 是 java 中的一个接口。它是 java 中的一种重要的数据结构。
+                    Map 是从键 (关键字) 到值 (记录) 的映射, 键不允许重复, 每个键最多能映射一个值。
+                    在 java 中，有很多类实现了 Map 接口，HashMap 就是其中的一个。 <br>
+            </section>
+            <section>
+                <div style="float: left">
+                    <img src="./img/HashMap.jpg" alt="">
+                </div>
+                <div style="text-align: left;font-size: x-large">
+                    <p>从图中可以看出： <br>
+                        (01) HashMap 继承于 AbstractMap 类，实现了 Map 接口。Map 是 "key-value 键值对" 接口，AbstractMap 实现了 "键值对"
+                        的通用函数接口。<br>
+                        (02) HashMap 是通过 "拉链法" 实现的哈希表。它包括几个重要的成员变量：table, size, threshold, loadFactor, modCount。<br>
+                        　　table 是一个 Entry[] 数组类型，而 Entry 实际上就是一个单向链表。哈希表的"key-value 键值对 " 都是存储在 Entry 数组中的。<br>
+                        　　size 是 HashMap 的大小，它是 HashMap 保存的键值对的数量。<br>
+                        　　threshold 是 HashMap 的阈值，用于判断是否需要调整 HashMap 的容量。threshold 的值 ="容量 * 加载因子"，当 HashMap 中存储数据的数量达到
+                        threshold 时，就需要将 HashMap 的容量加倍。<br>
+                        　　loadFactor 就是加载因子。<br>
+                        　　modCount 是用来实现 fail-fast 机制的。 <br>
+
+                </div>
+
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section class="text-l">
+                <h4>hash冲突</h4>
+                <!--<p style=" text-align:left"><br>-->
+                当关键字集合很大时，关键字值不同的元素可能会映像到哈希表的同一地址上，即 K1!=K2，但 f(K1)=f(K2), 这种现象称为 hash 冲突，实际中冲突是
+                不可避免的，只能通过改进哈希函数的性能来减少冲突。
+            </section>
+
+
+        </section>
+
+
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+
+            <section class="text-l">
+                1. 开发定址法 <br>
+                2. 再哈希法 <br>
+                3. 链地址法 <br>
+                4. 建立一个公共溢出区 <br>
+
+
+            </section>
+            <section class="text-l">
+                <p>hashMap采用的是第三种，链地址法 </p> <br>
+                <img src="img/entry.jpg" alt="">
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+
+            </section>
+
+            <section class="text-l">
+                <p>hashMap输入与输出顺序一致吗？</p>
+
+            </section>
+            <section class="text-l">
+                并不一定一致。 <br>
+                可以使用LinkedHashMap <br>
+            </section>
+        </section>
+
+
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p style="text-align: left">参考：<br>
+                    <br>
+                    互联网
+                </p>
+
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+        </section>
+        <section>
+            <!--<h4>鸣谢</h4>-->
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 刘优</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js "></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js "></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc "或"o "键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+
+</html>

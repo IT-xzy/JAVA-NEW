@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '/css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt=""
+     usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt=""
+          target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>什么是序列化和反序列化，在RMI中是否要实现 Serializable 接口， serialVersionUID的用处是什么？</h3>
+            <h3></h3>
+            <p>分享人：乔名震</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+<section>
+        <section>
+            <p style="text-align:left">1.1 序列化</p>
+            <p style="text-align:left">任务六中，当我们向Redis或Memcache中插入对象时，对象需要先序列化才能存入MemCache或redis中。
+            </p>
+            <p style="text-align:left"></p>
+        </section>
+		
+		 <section>
+            <p style="text-align:left">当两个进程远程通信时，它们可以向彼此发送各种类型的数据，包括文本、图像、音频、视频等，这些数据通过网络以二进制序列传输。当两个Java进程通信时，一个进程可以将一个Java对象发送给另一个吗？</p>
+            <p style="text-align:left">1）发送方需要将Java对象转换成一个字节序列，才能在网上传送
+            </p>
+            <p style="text-align:left">2）接收方需要将字节序列恢复到Java对象。</p>
+        </section>
+		
+ </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <h3> 2.1 什么是序列化  </h3>
+			    <p style="text-align:left">序列化：指把堆内存中的 Java 对象数据，通过某种方式把对象存储到磁盘文件中或者传递给其他网络节点（在网络上传输）。这个过程称为序列化。通俗来说就是将数据结构或对象转换成二进制串的过程</p>
+            <p style="text-align:left">Java序列化是指把Java对象转换为字节序列的过程</p>
+				  </section>
+
+        <section>
+            <h3>2.2 什么是反序列化？ </h3>
+			 <p style="text-align:left">
+				　反序列化：把磁盘文件中的对象数据或者把网络节点上的对象数据，恢复成Java对象模型的过程。也就是将在序列化过程中所生成的二进制串转换成数据结构或者对象的过程
+            </p>
+            <p style="text-align:left">
+				Java反序列化是指把字节序列恢复为Java对象的过程
+            </p>
+
+        </section>
+
+        <section>
+            <h3> 2.3	序列化有什么作用？</h3>
+            <p style="text-align:left"> 对象的序列化主要有两种用途：</p>
+			<p style="text-align:left"> 1） 把对象的字节序列永久地保存到硬盘上，通常存放在一个文件中；</p>
+            <p style="text-align:left">2） 在网络上传送对象的字节序列。</p>
+			  <p style="text-align:left">对象序列化的本质是将对象的状态通过有序字节流进行保存或传输，由此，静态变量是类变量，属于整个类，并非专属于每个对象实例，因此，不序列化静态变量。</p>
+
+        </section>
+
+      
+        
+		 <section>
+            <h3>2.4	在RMI中是否要实现 Serializable 接口？</h3>
+            <p style="text-align:left">需要</p>
+		</section>
+       <section>
+            <h3>2.5	serialVersionUID是什么？</h3>
+            <p style="text-align:left">serialVersionUID用于序列化与反序列化过程中的类信息校验值。</p>
+		</section>
+		 <section>
+            <h3>2.6	serialVersionUID的用处是什么？</h3>
+            <p style="text-align:left">serialVersionUID适用于Java的序列化机制。简单来说，Java的序列化机制是通过判断类的serialVersionUID来验证版本一致性的。在进行反序列化时，JVM会把传来的字节流中的serialVersionUID与本地相应实体类的serialVersionUID进行比较，如果相同就认为是一致的，可以进行反序列化，否则就会出现序列化版本不一致的异常，即是InvalidCastException。</p>
+		</section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">java中的序列化</p>
+			
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+         <section>
+            <h3>	java中的序列化：</h3>
+            <p style="text-align:left">需要做序列化的对象的类，必须实现序列化接口：Java.lang.Serializable 接口（这是一个标志接口，没有任何抽象方法），Java 中大多数类都实现了该接口，比如：String，Integer</p>
+  <p style="text-align:left">底层会判断，如果当前对象是 Serializable 的实例，才允许做序列化，Java对象 instanceof Serializable 来判断。</p>       
+	  
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+ <section>
+            <p style="text-align:left">一个User类，它的对象需要序列化：</p>
+			 <p style="text-align:left">
+User类去实现Serializable接口：
+ObjectOutputStream采用默认的序列化方式，对User类的对象的非transient的实例变量进行序列化。
+ObjectInputStream采用默认的非transient的实例变量进行反序列化。</p>
+			
+        </section>
+		
+		  <section>
+            <p style="text-align:left">Java.IO.ObjectOutputStream:通过 writeObject()方法做序列化操作</p>
+            <p style="text-align:left">ObjectOutputStream：表示输出流对象
+            </p>
+            <p style="text-align:left">它的writeObject（Object obj）方法可对参数指定的obj对象进行序列化，把得到的字节序列写到一个目标输出流中。</p>
+        </section>
+		
+		 <section>
+            <p style="text-align:left">Java.IO.ObjectInputStream:通过 readObject() 方法做反序列化操作</p>
+            <p style="text-align:left">ObjectInputStream，代表对象输入流，
+            </p>
+            <p style="text-align:left">它的readObject（）方法从一个源输入流中读取字节，再把它们反序列化成一个对象，并将其返回。</p>
+        </section>
+		
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <h3>6.1	transient</h3>		
+                 <p style="text-align:left">java语言的关键字，变量修饰符，如果用transient声明一个实例变量，当对象存储时，它的值不需要维持。换句话来说就是，用transient关键字标记的成员变量不参与序列化过程。</p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>CSDN</p>
+            <p>百度百科</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js',
+                async: true
+            },
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
