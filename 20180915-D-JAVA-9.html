@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '/css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt=""
+     usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt=""
+          target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>什么是SOA，什么是SCA，什么是微服务？</h3>
+            <h3></h3>
+            <p>分享人：李景磊</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">	1.1	服务架构的引入</p>
+            <p style="text-align:left">从任务八的RMI开始，我们逐渐接触到了一个新的概念，即服务架构。通过对服务架构的了解，我们接触了几个概念：SOA、SCA、微服务，那么什么是SOA，什么是SCA，什么是微服务呢？
+            </p>
+            <p style="text-align:left"></p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <h3> 2.1	什么是SOA？</h3>
+            <p style="text-align:left">面向服务的架构（SOA）是一个组件模型，它将应用程序的不同功能单元（称为服务）通过这些服务之间定义良好的接口和契约联系起来。接口是采用中立的方式进行定义的，它应该独立于实现服务的硬件平台、操作系统和编程语言。这使得构建在各种各样的系统中的服务可以以一种统一和通用的方式进行交互。</p>
+				  </section>
+
+        <section>
+            <h3>2.2	SOA的特点有哪些？</h3>
+            <p style="text-align:left">
+				A）SOA组件是松耦合的。每一个服务是自包含单独存在的逻辑。  </p> <p style="text-align:left">
+				B）SOA服务是黑匣子。在SOA中，服务隐藏有内在的复杂性。他们只使用交互消息，服务接受和发送消息。通过虚拟化一个服务为黑盒子，服务变得更松散的耦合。 </p> <p style="text-align:left">
+				C） SOA服务应该是自定义： SOA服务应该能够自己定义。 </p> <p style="text-align:left">
+				D） SOA服务维持在一个列表中： SOA服务保持在一个中央存储库。应用程序可以在中央存储库中搜索服务，并调用相应服务。 </p> <p style="text-align:left">
+				E） SOA服务可以编排和链接实现一个特定功能：SOA服务可以使用了即插即用的方式。
+            </p>
+        </section>
+
+        <section>
+            <h3>2.3	什么是SCA？</h3>
+            <p style="text-align:left"> 服务组件体系结构 (SCA) 是一个规范，它描述用于使用 SOA 构建应用程序和系统的模型。它可简化使用 SOA 进行的应用程序开发和实现工作。
+            </p>
+        </section>
+
+    
+  <section>
+            <h3>2.4	SCA的特点有哪些？有什么优势？</h3>
+            <p style="text-align:left">SCA 可简化使用 SOA 构建的业务应用程序的创建和集成。SCA 提供了构建粗粒度组件的机制，这些粗粒度组件由细粒度组件组装而成。</p>
+            <p style="text-align:left">SCA 将传统中间件编程从业务逻辑分离出来，从而使程序员免受其复杂性的困扰。它允许开发人员集中精力编写业务逻辑，而不必将大量的时间花费在更为底层的技术实现上。</p>
+
+        </section> 
+		<section>
+            <h3>2.4	SCA的特点有哪些？有什么优势？</h3>
+            <p style="text-align:left">SCA 方法的优势包括：</p>
+            <p style="text-align:left">★简化业务组件开发 </p> <p style="text-align:left">
+★简化作为服务网络构建的业务解决方案的组装和部署 </p> <p style="text-align:left">
+★提高可移植性、可重用性和灵活性 </p> <p style="text-align:left">
+★通过屏蔽底层技术变更来保护业务逻辑资产 </p> <p style="text-align:left">
+★提高可测试性 
+</p>
+        </section>
+		 <section>
+            <h3>2.5	什么是微服务？</h3>
+            <p style="text-align:left">
+			微服务是一种架构风格，一个大型复杂软件应用由一个或多个微服务组成。系统中的各个微服务可被独立部署，各个微服务之间是松耦合的。每个微服务仅关注于完成一件任务并很好地完成该任务。在所有情况下，每个任务代表着一个小的业务能力。
+</p>
+		</section>
+      
+	<section>
+            <h3>2.6	微服务由来</h3>
+            <p style="text-align:left"> 微服务最早由Martin Fowler与James Lewis于2014年共同提出，微服务架构风格是一种使用一套小服务来开发单个应用的方式途径，每个服务运行在自己的进程中，并使用轻量级机制通信，通常是HTTP API，这些服务基于业务能力构建，并能够通过自动化部署机制来独立部署，这些服务使用不同的编程语言实现，以及不同数据存储技术，并保持最低限度的集中式管理。</p>
+           
+        </section>
+		<section>
+            <h3>2.7	为什么需要微服务</h3>
+            <p style="text-align:left">在传统的IT行业软件大多都是各种独立系统的堆砌，这些系统的问题总结来说就是扩展性差，可靠性不高，维护成本高。到后面引入了SOA服务化，但是，由于 SOA 早期均使用了总线模式，这种总线模式是与某种技术栈强绑定的，比如：J2EE。这导致很多企业的遗留系统很难对接，切换时间太长，成本太高，新系统稳定性的收敛也需要一些时间。最终 SOA 看起来很美，但却成为了企业级奢侈品，中小公司都望而生畏。</p>
+           
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p>1、	如何搭建一个SpringCloud项目</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+            <p>见编码实战</p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <h3>6.1	什么是单体架构？</h3>
+          		
+                 <p style="text-align:left">一个归档包（例如war格式）包含了应用所有功能的应用程序，我们通常称之为单体应用。架构单体应用的方法论，我们称之为单体架构。</p>
+        </section>
+
+        <section>
+            <h3>6.2	单体架构和微服务有什么区别？</h3>
+            <p style="text-align:left">
+              单体架构所有的模块全都耦合在一块，代码量大，维护困难，微服务每个模块就相当于一个单独的项目，代码量明显减少，遇到问题也相对来说比较好解决。
+单体架构所有的模块都共用一个数据库，存储方式比较单一，微服务每个模块都可以使用不同的存储方式（比如有的用redis，有的用mysql等），数据库也是单个模块对应自己的数据库。
+单体架构所有的模块开发所使用的技术一样，微服务每个模块都可以使用不同的开发技术，开发模式更灵活。
+                </p>
+        </section>
+
+        <section>
+            <h3>6.3	微服务有什么缺点？</h3>
+            <p style="text-align:left">
+            运维开销及成本增加：整体应用可能只需部署至一小片应用服务区集群，而微服务架构可能变成需要构建/测试/部署/运行数十个独立的服务。</p> <p style="text-align:left">
+隐式接口及接口匹配问题：把系统分为多个协作组件后会产生新的接口，这意味着简单的交叉变化可能需要改变许多组件，并需协调一起发布。</p> <p style="text-align:left">
+分布式系统的复杂性：作为一种分布式系统，微服务引入了复杂性和其他若干问题，例如网络延迟、容错性、消息序列化、不可靠的网络、异步机制、版本化、差异化的工作负载等，开发人员需要考虑以上的分布式系统问题。</p> <p style="text-align:left">
+异步机制：微服务往往使用异步编程、消息与并行机制，如果应用存在跨微服务的事务性处理，其实现机制会变得复杂化。
+</p>
+           
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>CSDN</p>
+            <p>百度百科</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js',
+                async: true
+            },
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

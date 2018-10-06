@@ -1,0 +1,193 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>MemCache和Redis的区别</h3>
+               <p>分享人:乔名震</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+                <p>1.背景介绍</p>
+                </section>
+				 <section>
+		<p>Memcache 是 danga.com 的一个项目，最早是为 LiveJournal 服务的，目前全世界不少人使用这个缓存项目来构建自己大负载的网站，来分担数据库的压力。</p>
+		<p>Redis：2008年，意大利的一家创业公司Merzia推出了一款基于MySQL的网站实时统计系统 LLOOGG，然而没过多久该公司的创始人 Salvatore Sanfilippo 便对MySQL 的性能感到失望，于是他决定亲自为 LLOOGG 量身定做一个 数据库，并于 2009 年开发完成，这个数据库就是Redis。</p>
+		  </section>
+        <section>
+		<p>MemCache</p>
+		<p>MemCache是一个自由、源码开放、高性能、分布式的分布式内存对象缓存系统，用于动态Web应用以减轻数据库的负载。它通过在内存中缓存数据和对象来减少读取数据库的次数，从而提高了网站访问的速度。</p>
+		  </section>
+         <section>
+		<p>Redis：</p>
+		<p>Redis是一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API。</p>
+		  </section>
+		 
+		
+		
+
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+		<section>
+                <p>MemCache和Redis的区别</p>
+				<p>（1）数据类型支持不同</p>
+				<p>（2）内存管理机制不同</p>
+				<p>（3）数据持久化支持</p>
+				<p>（4）集群管理的不同</p>
+                </section>
+        <section>
+            <p>2.1.数据类型支持不同</p>
+         <p>Redis不仅仅支持简单的k/v类型的数据,同时还提供list,set,hash等数据结构的存储</p>
+		          <p>Redis和Memcache都是将数据存放在内存中,都是内存数据库。不过memcache还可用缓存其他东西,例如图片、视频等等</p>
+
+		</section>
+		
+		
+		
+        <section>
+            <p>2.2内存管理机制不同</p>          
+            <p>MemCache： memcache使用slab allocator机制来内存管理。</p>          
+            <p>slab allocator原理：先将内存划分为多个slab class仓库，每个仓库切分成不同尺寸的小块chunk。需要存储内容时候，判断内容大小，为其选择合理的仓库；</p>
+            <p>Redis:底层实现通过对malloc/free进行封装来实现，通过存储数据的size，来申请一段连续的内存空间；</p>  
+        </section>
+        <section>
+            <p>2.3数据存储及持久化</p>
+            <p>memcached不支持内存数据的持久化操作，所有的数据都以in-memory的形式存储。</p>
+            <p>redis支持持久化操作。</p>
+        </section>
+  <section>
+            <p>2.4集群管理不同</p>
+            <p>Memcached本身并不支持分布式，因此只能在客户端通过像一致性哈希这样的分布式算法来实现Memcached的分布式存储。</p>
+            <p>相较于Memcached只能采用客户端实现分布式存储，Redis更偏向于在服务器端构建分布式存储。Redis本身提供集群服务的。</p>
+        </section>
+        
+	<section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>Memcache和Redis集群对比简介</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+         
+         <section>
+            <p> Memcache和Redis集群对比简介</p>
+        </section>
+  <section>
+            <p>Memcached本身并不支持分布式，因此只能在客户端通过像一致性哈希这样的分布式算法来实现Memcached的分布式存储。</p>
+			<p>当客户端向Memcached集群发送数据之前，首先会通过内置的分布式算法计算出该条数据的目标节点，然后数据会直接发送到该节点上存储。但客户端查询数据时，同样要计算出查询数据所在的节点，然后直接向该节点发送查询请求以获取数据。</p>
+        </section>
+		<section>
+            <p>Redis官方集群方案 Redis Cluster</p>
+            <p>Redis Cluster是一种服务器Sharding技术，3.0版本开始正式提供。对客户端来说，整个cluster被看做是一个整体，客户端可以连接任意一个node进行操作，就像操作单一Redis实例一样，当客户端操作的key没有分配到该node上时，就像操作单一Redis实例一样，当客户端操作的key没有分配到该node上时，Redis会返回转向指令，指向正确的node，
+</p>
+        </section>
+	
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+        	<h3>6.扩展思考</h3>
+                  <p>redis的持久化方法</p>
+                <p>redis提供了两种不同的持久化方法来讲数据存储到硬盘里面，一种是快照（snapshotting)，它可以将存在于某一时刻的所有数据都写入硬盘里面。另一种方法叫只追加文件（append-only file， AOF),它会在执行写命令时，将被执行的写命令复制到硬盘里面。</p>
+		</section>
+		
+        <section>
+            <h3>7.参考文献</h3>
+            <p>https://blog.csdn.net/u011489043/article/details/78922390</p>
+            <p>https://www.cnblogs.com/_popc/p/5968683.html</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+		
+		<section>
+         <p></p>
+		</section>
+		
+        <section>
+            <h4>谢谢观看</h4>
+            <p></p>
+            <p><small>By:乔名震</small></p>
+        </section>
+
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

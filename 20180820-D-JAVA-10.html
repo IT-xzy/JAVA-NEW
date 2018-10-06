@@ -1,0 +1,281 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>java多线程</h2>
+            <p>分享人：张强</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>1.背景介绍</h3>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:25px;">
+				进程和线程<br/><br/>				
+				进程<br/>
+				任务（程序）的执行过程，比如打开QQ、打开浏览器<br/><br/>
+				线程<br/>
+				线程是进程中的一个实体：用QQ传文件开一个线程，打开窗口聊天开了一个线程，语音通话又开了一个线程；<br/><br/>
+				线程和进程描述的都是一个过程，是对CPU工作过程的描述，只是颗粒大小有所不同。而进程的颗粒度太大，运行的过程很多地方只需要颗粒度小的线程去执行就可以了，所以线程也可以看作一个轻量级的进程；<br/><br/>
+				进程是资源分配的最小单位，线程是cpu调度的最小单位；以前进程既是资源分配也是调度的最小单位，但是由于cpu的性能越来越好，才将资源分配和调度分开，于是就有了线程。线程是建立在进程的基础上的一次程序运行单位。<br/>
+				</p>
+			</section> 
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:25px;">
+				单线程<br/>
+				单独的一条执行流，比如主线程main();<br/><br/>
+				多线程<br/>
+				运行多个线程完成不同的工作。<br/>
+				指的是这个程序（一个进程）运行时实现多个线程并发执行的技术；多线程共享内存和资源，可以协同，但是也可能相互影响；<br/>	<br/>				java中，每次程序运行至少启动2个线程。一个是main线程，一个是垃圾回收线程。因为每当使用java命令执行一个类的时候，实际上都会启动一个JVM，每一个JVM实际上就是在操作系统中启动了一个进程。<br/>
+				</p>
+			</section>            
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>2.知识剖析</h3>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">				
+				<p style="text-align:left; font-size:30px;">
+				java中的线程分类<br/><br/>
+				User Thread 用户线程<br/>
+				运行在前台，执行具体任务:<br/>
+				比如程序的主线程、连接网络的子线程等等都是用户线程，如main()；<br/>
+				执行具体任务的线程都是属于用户线程，看得清摸不到；
+				<br/><br/>
+				Daemon Thread 守护线程<br/>
+				运行在后台，为其它前台线程服务:<br/>
+				一旦所有的用户线程都结束运行，守护线程就会随着JVM一起结束工作<br/>
+				应用：比如数据库连接池中的监测线程；JVM虚拟机启动后的监测线程，JAM垃圾回收线程等;
+				</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">				
+				<p style="text-align:left; font-size:30px;">
+				<br/>
+				线程安全——线程同步<br/><br/>
+				线程同步不是线程一起动作，而是协同步调，按预定的先后次序进行运行。比如你操作完我再操作。<br/>
+				比如进程或线程A和B一块配合，A执行到一定程度时要依靠B的某个结果，于是停下来，示意B运行；B依言执行，再将结果给A；A再继续操作；<br/><br/>
+				线程同步目的是为了保护多个线程访问一个资源时对资源的破坏。也就是常说的线程安全。<br/>
+				
+				</p>
+			</section> 
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">				
+				<p style="text-align:left; font-size:30px;">
+				<br/>
+				线程安全是并发编程重要的关注点，造成线程安全问题的主要诱因有两点:<br/><br/>
+				一是存在共享数据(也称临界资源)；<br/>
+				二是存在多条线程共同操作共享数据。<br/><br/>	
+				因此我们就需要一个方案来解决多个线程操作同一个资源的方案——线程同步。<br/>				线程同步是通过锁（修饰符synchronized）来实现，每个对象都有且仅有一个锁，这个锁与一个特定的对象关联，线程一旦获取了对象锁，其他访问该对象的线程就无法再访问该对象的其他非同步方法。这种方式叫做互斥锁，也就是说当一个共享数据被当前正在访问的线程加上互斥锁后，在同一个时刻，其他线程只能处于等待的状态，直到当前线程处理完毕释放该锁。<br/>
+				</p>
+			</section> 
+				
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>3.常见问题</h3>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				线程创建的方式<br/><br/>
+				Thread ——直接继承Class Thread实现<br/>
+				Runnable ——需要实现interface Runnable<br/><br/>
+				其它：<br/>
+				ExecutorService 线程池<br/>
+				Callable 实现接口Callable （有返回值且可以抛出异常）<br/>
+				Future 实现异步任务，Callable用来产生结果，Future用于获取结果。它们俩和线程池结合使用<br/>
+				</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:30px;">
+				Thread和Runnable的区别<br/><br/>
+				Thread：需要继承Thread类，Runnable：需要实现Runnable接口；Thread也是Runnable的实现类；<br/><br/>
+				Runnable方式可以避免Thread方式由于java单继承特性带来的缺陷；<br/><br/>
+				Runnable的代码、属性等可以被多个线程（多个Thread实例）共享，代码和数据独立，增加程序的健壮性；<br/><br/>
+				实现Runnable的方式适合用于多个线程处理<Strong>同一资源</strong>的情况。<br/><br/>
+				</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:25px;">
+				线程守护启动<br/><br/>
+				通过调用Thread类的setDaemon(true)方法来设置当前线程为守护线程<br/><br/>
+				*必须在start()方法之前调用，否则会抛出IllegalThreadStartException（非法启动）异常<br/><br/>
+				*在守护线程中产生的新线程同样是守护线程<br/><br/>				*不要所有的线程都用守护线程执行，比如某些计算逻辑和简单的读写操作就不应该使用守护线程执行。因为用户线程全部失效了那么守护线程则和jvm直接终止了。如果这时候在守护线程里进行操作那么这些操作就直接退出了；
+				</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:25px;">
+				线程调度<br/><br/>
+				1、调整线程优先级：Java线程有优先级，优先级高的线程会获得较多的运行机会。Thread类的setPriority()和getPriority()方法分别用来设置和获取线程的优先级。<br/>
+				2、线程睡眠：Thread.sleep(long millis)方法，使线程转到阻塞状态。millis参数设定睡眠的时间，以毫秒为单位。当睡眠结束后，就转为就绪（Runnable）状态。<br/>
+				3、线程等待：Object类中的wait()方法，导致当前的线程等待，直到其他线程调用此对象的 notify() 方法或 notifyAll() 唤醒方法。这个两个唤醒方法也是Object类中的方法，行为等价于调用 wait(0) 一样。<br/>
+				4、线程让步：Thread.yield() 方法，暂停当前正在执行的线程对象，把执行机会让给相同或者更高优先级的线程。<br/>
+				5、线程加入：join()方法，等待其他线程终止。在当前线程中调用另一个线程的join()方法，则当前线程转入阻塞状态，直到另一个进程运行结束，当前线程再由阻塞转为就绪状态。<br/>
+				6、线程唤醒：Object类中的notify()方法，唤醒在此对象监视器上等待的单个线程。如果所有线程都在此对象上等待，则会随机选择唤醒其中一个线程。<br/>
+				</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">				
+				<p style="text-align:left; font-size:30px;">
+				<br/>
+				死锁<br/><br/>	
+				系统中有许多不同类型的资源，需要采用互斥访问方法并且不可被抢占的资源，也就是临界资源<br/><br/>			而死锁是指两个或两个以上的进程在执行过程中，由于竞争这些临界资源或者由于彼此通信而造成的一种阻塞的现象，若无外力作用，它们都将无法推进下去。此时称系统处于死锁状态或系统产生了死锁，这些永远在互相等待的进程称为死锁进程。<br/><br/>拿前面的例子来说，如果线程A锁住了记录1并等待记录2，而线程B锁住了记录2并等待记录1，这样两个线程就发生了死锁现象。<br/>
+				</p>
+			</section>
+        </section>
+		<section>
+			<h3>4.编码实战</h3>
+			<p></p>	   			
+		</section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>5.扩展思考</h3>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; " hidden="">
+				<p style="text-align:left; font-size:25px;">
+				线程的生命周期<br/><br/>
+				</p>
+				<img src="https://www.cnblogs.com/images/cnblogs_com/meijsuger/1216102/o_QQ%e6%88%aa%e5%9b%be20180819200053.png">
+			</section> 
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">				
+				<p style="text-align:left; font-size:25px;">
+				线程的生命周期<br/><br/>
+				创建——就绪——运行——阻塞——就绪——运行——终止<br/><br/>
+				创建状态: new Thread()<br/><br/>
+				就绪状态: <br/> start(),也就是初始状态。加入到了线程队列，等待获取CPU服务，具备运行条件，但是并不一定运行，只有获得cpu的服务以后才会运行<br/><br/>
+				运行状态: <br/>run()处于线程队列中的线程获取到cpu的资源服务以后就会运行。<br/><br/>
+				阻塞状态: <br/>Blocked, 受到阻塞事件的影响就会进入到阻塞状态。由于某种原因暂时让出了CPU资源，暂停自己执行，就会进入阻塞状态，比如使用sleep()方法。阻塞状态完成以后再次进入线程队列，也就是就绪状态<br/><br/>
+				终止状态: <br/>完成运行逻辑以后run()执行完毕，或者调用stop()方法线程就进入终止状态<br/><br/>				
+				</p>
+				
+			</section> 
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+				<p style="text-align:left; font-size:25px;">
+					阻塞的情况,分三种：<br/><br/>
+					（一）、等待阻塞：运行的线程执行wait()方法，JVM会把该线程放入等待池中。(wait会释放持有的锁)<br/><br/>
+					（二）、同步阻塞：运行的线程在获取对象的同步锁时，若该同步锁被别的线程占用，则JVM会把该线程放入锁池中。<br/><br/>		（三）、其他阻塞：运行的线程执行sleep()或join()方法，或者发出了I/O请求时，JVM会把该线程置为阻塞状态。当sleep()状态超时、join()等待线程终止或者超时、或者I/O处理完毕时，线程重新转入就绪状态。（注意,sleep是不会释放持有的锁）
+				</p>
+			</section> 
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+			线程的常用方法
+				<p style="text-align:left; font-size:25px;">
+					<br/><br/>
+				　　sleep(): 强迫一个线程睡眠Ｎ毫秒（不释放锁）<br/>
+				　　isAlive(): 判断一个线程是否存活 <br/>
+				　　join(): 等待线程终止 <br/>
+				　　activeCount(): 程序中活跃的线程数 <br/>
+				　　enumerate(): 枚举程序中的线程 <br/>
+					currentThread(): 得到当前线程 <br/>
+				　　isDaemon(): 一个线程是否为守护线程 <br/>
+				　　setDaemon(): 设置一个线程为守护线程(用户线程和守护线程的区别在于，是否等待主线程依赖于主线程结束而结束) <br/>
+				　　setName(): 为线程设置一个名称 <br/>
+				　　wait(): 强迫一个线程等待（释放锁） <br/>
+				　　notify(): 通知一个线程继续运行 <br/>
+				　　setPriority(): 设置一个线程的优先级<br/>
+				</p>
+			</section> 
+			<section class="future" aria-hidden="true" style="top: 198px; display: none; text-align:left" hidden="">
+			
+				<p style="text-align:left; font-size:25px;">
+					当一个同步方法已经执行，线程能够调用对象上的非同步实例方法吗<br/><br/>
+					可以，线程可以调用任何非同步实例方法。锁对象只会锁住对应的代码块或者方法，其它没有被声明的资源或者代码块同样可以被访问<br/>
+				</p>
+			</section> 
+			
+		</section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>6.参考文献</h3>
+				<p style="text-align:left; font-size:30px;">
+				进程和线程的区别：<br/>https://www.zhihu.com/question/25532384<br/><br/>
+				Java多线程学习：<br/>https://www.cnblogs.com/GarfieldEr007/p/5746362.html<br/><br/>
+				Callable和Future：<br/>https://www.cnblogs.com/fengsehng/p/6048609.html<br/><br/>
+				什么是死锁和如何解决死锁：<br/>https://blog.csdn.net/dt_zhangshuo/article/details/53334030<br/><br/>
+				百度多线程:<br/>https://www.baidu.com/s?wd=%E5%A4%9A%E7%BA%BF%E7%A8%8B&ie=UTF-8</p>
+            </section>
+			
+		</section>        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>谢谢大家</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

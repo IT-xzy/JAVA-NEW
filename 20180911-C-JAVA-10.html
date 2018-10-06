@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>shiro简单介绍</h2>
+            <h3>JAVA小课堂</h3>
+            <p>分享人：薛一星</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍 </h3>
+        </section>
+		<section>
+            <p>Apache Shiro是Java的一个安全框架。可以用在 JavaSE 和 JavaEE 环境，去帮助 完成：认证、授权、加密、会话管理、与Web集成、缓存等。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		<section>
+            <p style="text-align:left; ">Authentication：身份认证/登录，验证用户是不是拥有相应的身份；</p>
+			<p style="text-align:left; ">Authorization：授权，即权限验证，验证某个已认证的用户是否拥有某个权限；即判断用户是否能做事情，常见的如：验证某个用户是否拥有某个角色。</p>
+			<p style="text-align:left; ">Session Manager：会话管理，即用户登录后就是一次会话，在没有退出之前，它的所有信息都在会话中；</p>
+			<p style="text-align:left; ">Cryptography：加密，保护数据的安全性，如密码加密存储到数据库，而不是明文存储；</p>
+			<p style="text-align:left; ">Web Support：Web支持，可以非常容易的集成到Web环境；</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<p style="text-align:left; ">Caching：缓存，比如用户登录后，其用户信息、拥有的角色/权限不必每次去查，这样可以提高效率；</p>
+			<p style="text-align:left; ">Concurrency：shiro支持多线程应用的并发验证，即如在一个线程中开启另一个线程，能把权限自动传播过去；</p>
+			<p style="text-align:left; ">Testing：提供测试支持；</p>
+			<p style="text-align:left; ">Run As：允许一个用户假装为另一个用户的身份进行访问；</p>
+			<p style="text-align:left; ">Remember Me：记住我，这个是非常常见的功能，即一次登录后，下次再来的话不用登录了。</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<p style="text-align:left; ">应用程序角度查看 shiro 如何工作：</p>
+		    <img src="http://dl2.iteye.com/upload/attachment/0093/9790/5e0e9b41-0cca-367f-8c87-a8398910e7a6.png" height="400" width="800">		
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<p style="text-align:left; ">其中每个 api 的含义：</p>
+			<p style="text-align:left; ">Subject：主体，代表了当前“用户”，这个用户不一定是一个具体的人，与当前应用交互的任何东西都是Subject；所有Subject都绑定到SecurityManager，与Subject的所有交互都会委托给SecurityManager执行</p>
+			<p style="text-align:left; ">SecurityManager：安全管理器；即所有与安全有关的操作都会与SecurityManager交互；它是Shiro的核心，它负责与后边介绍的其他组件进行交互，类似于 DispatcherServlet</p>
+			<p style="text-align:left; ">Realm：域，Shiro从Realm获取安全数据（如用户、角色、权限），就是说SecurityManager要验证用户身份（权限），
+						那么它需要从Realm获取相应的用户进行去确定用户身份是否合法（是否有权限）；可以把Realm看成DataSource，即安全数据源。</p>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题一：SHIRO认证内部的处理顺序</p>
+			<p>问题二：SHIRO在什么时候进行了权限授权</p>
+			<p>问题三：该如何扩展SHIRO的各种功能实现自己的业务逻辑</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>回答一：</p>
+			<p align="left">1、应用程序构建了一个终端用户认证信息的AuthenticationToken 实例后，调用Subject.login方法。</p>
+			<p align="left">2、在认证开始时，会委托应用程序设置的securityManager实例调用securityManager.login(token)方法。</p>
+			<p align="left">3、SecurityManager接受到token信息后会委托内置的Authenticator的实例,对设置的Realm实例进行适配</p>
+			<p align="left">4、在Realm被调用后，AuthenticationStrategy将对每一个Realm的结果作出响应。</p>
+			<p align="left">5、判断每一个Realm是否支持提交的token，如果支持，Realm将调用getAuthenticationInfo(token); 该方法就是实际认证处理，我们通过覆盖Realm的doGetAuthenticationInfo方法来编写我们自定义的认证处理。</p>
+        </section>
+        <section>
+            <p>回答二：访问权限页面而不是登录的时候</p>
+        </section>
+		
+		<section>
+            <p>回答三：只需要继承各种默认类然后@override即可<p/>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>Spring Security和Shiro的比较</p>
+        </section>
+		<section>
+            <p align="left">1.首先Shiro较之 Spring Security，Shiro在保持强大功能的同时，还在简单性和灵活性方面拥有巨大优势。</p>
+			<p align="left">2.Shiro是一个强大而灵活的开源安全框架，能够非常清晰的处理认证、授权、管理会话以及密码加密。如下是它所具有的特点：</p>
+        </section>
+		<section>
+            <p align="left">1.易于理解的 Java Security API。</p>
+			<p align="left">2.对角色的简单的签权（访问控制），支持细粒度的签权，</p>
+			<p align="left">3.内置的基于 POJO 企业会话管理，适用于 Web 以及非 Web 的环境。</p>
+			<p align="left">4.不跟任何的框架或者容器捆绑，可以独立运行。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考一: http://jinnianshilongnian.iteye.com/blog/2018398</p>
+            <p>参考二:https://blog.csdn.net/it_java_shuai/article/details/78054951</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+        <section>
+            <h3>鸣谢</h3>
+            <p>感谢大家观看</p>
+            <p><small>BY : 薛一星</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    //  以下为常见配置属性的默认值
+    //  {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    //  }
+    //  初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
