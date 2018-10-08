@@ -1,0 +1,214 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>SPRING中的IOC是什么意思，为什么要用IOC而不是NEW来创建实例？</h2>
+			<p></p>
+            <h3></h3>
+            <p>-深圳-java-王东东-</p>
+        </section>	
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+	<section>
+            <h3> </h3>
+            <p align="left"> spring是一种多层的J2EE应用程序框架，是以Rod Johson编写的《Expert one to one J2EE design and development》一书的代码为基础发展而来的。它是为了解决企业应用开发的复杂性而创建的。从简单性、可测试性和松耦合的角度而言，任何Java应用都可以从Spring中受益。spring的两个核心思想就是IOC和AOP。</p>
+<p> </p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+	    <h3>1.spring容器</h3>  	    
+            <h3>2.IOC:控制反转</h3>
+	    <h3>3.DI：依赖注入</h3>           
+        </section>
+
+	<section>
+<p align="left">Spring容器</p>
+<p align="left">spring容器是 Spring 框架的核心。容器将创建对象，把它们连接在一起，配置它们，并管理他们的整个生命周期从创建到销毁。 Spring 提供了以下两种不同类型的容器；</p>
+<p align="left">1.Spring BeanFactory 容器：它是最简单的容器，给 DI 提供了基本的支持。在 Spring 中，有大量对 BeanFactory 接口的实现</p>
+<p align="left">2.Spring ApplicationContext 容器：该容器包括 BeanFactory 容器的所有功能，并且该添加了更多的企业特定的功能，例如从一个属性文件中解析文本信息的能力，发布应用程序事件给事件监听器的能力。</p>
+<p align="left">所以通常建议使用ApplicationContext。</p>
+	</section>
+
+
+        <section>
+            <h3>IOC：控制反转</h3>
+            <p align="left">IOC—Inversion of Control，即“控制反转”，不是什么技术，而是一种设计思想</p>
+            <p align="left"> 传统JavaSE程序设计，我们在对象内部直接通过new进行创建对象，是程序主动去创建依赖对象，而IoC有一个专门的容器来创建这些对象，即由IoC容器来创建这些对象的创建。</p>
+         <p align="left"> 理解好IoC的关键是：</p>
+         <p align="left"> 谁控制谁，控制了什么，为何是反转，在哪些方面反转了。</p>
+         </section>
+	
+	<section>
+         <p align="left"> 1、谁控制谁？由IoC容器控制了对象；控制了什么？控制了外部资源获取（包括对象、文件等）
+</p>
+            <p align="left"> 2、
+有反转就有正转。传统应用程序是由我们自己在对象中主动控制去直接获取依赖对象，也就是正转。而反转则是由容器来帮忙创建及注入依赖对象。为何是反转？因为容器帮我们查找和注入依赖对象，对象只是被动的接受依赖对象，所以是反转。哪些方面反转了？依赖对象的获取反转了。</p>
+	</section>
+
+
+	<section>
+	<p align="left">DI：依赖注入</p>
+	<p align="left">依赖注入（DI）是一种实现IOC的技术手段</p>
+	<p align="left">理解DI的关键：谁依赖谁，为什么需要依赖，谁注入谁，注入了什么</p>
+	<p align="left">1.谁依赖谁？应用程序依赖于IoC容器。</p>
+<p align="left">让spring创建sqlsession bean。也就是通过SqlSessionFactory创建SqlSession</p>
+	<p align="left">2.为什么需要依赖？应用程序需要IoC容器来提供对象需要的外部资源（包括对象，文件等）。</p>
+	<p align="left">3.谁注入谁？IoC容器注入应用程序某个对象，应用程序依赖的对象。</p>
+<p align="left">4.注入了什么？注入某个对象所需要的外部资源（包括对象、资源、变量数据）</p>
+<p align="left"></p>
+
+	</section>
+
+ 
+        <section>
+            <h3>3.常见问题</h3>
+        </section>     
+	<section>
+<p align="left">ApplicationContext 接口实现</p>
+
+	</section> 
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+	<section>
+<h3></h3>
+<p align="left"> FileSystemXmlApplicationContext：该容器从 XML 文件中加载已被定义的 bean。在这里，你需要提供给构造器 XML 文件的完整路径。
+</p>
+<p align="left">ClassPathXmlApplicationContext：该容器从 XML 文件中加载已被定义的 bean。在这里，你不需要提供 XML 文件的完整路径，只需正确配置 CLASSPATH 环境变量即可，因为，容器会从 CLASSPATH 中搜索 bean 配置文件。</p>
+<p align="left"> WebXmlApplicationContext：该容器会在一个 web 应用程序的范围内加载在 XML 文件中已被定义的 bean。
+</p>
+<p align="left"></p>
+	</section>
+        <section>
+            <h3> </h3>
+<p align="left"></p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+<section>
+ <h3>IOC的优缺点</h3>
+<p align="left"> IOC的优点:实现组件之间的解耦，提高程序的灵活性和可维护性。 </p>
+<p align="left"> IOC缺点：1、创建对象的步骤变复杂了，不直观.</p>
+<p align="left">2、因为使用反射来创建对象，所以在效率上会有些损耗。但相对于程序的灵活性和可维护性来说，这点损耗是微不足道的。</p>
+<p align="left">3、缺少IDE重构的支持，如果修改了类名，还需到XML文件中手动修改，这似乎是所有XML方式的缺憾所在。</p>
+</section>
+
+	<section>
+	<p align="left">   </p>
+	<p align="left">   </p>
+	<p align="left">   </p>
+	<p align="left">   </p>
+    <p align="left">注：本人初学java者，如有不对敬请指出，谢谢！</p>
+	</section>
+
+        <section>
+            <h3>7.参考文献</h3>
+	<p align="left"> http://jacobcookie.iteye.com/blog/1892553 </p>
+	<p align="left"> https://www.w3cschool.cn/wkspring/ </p>
+	<p align="left"> https://www.cnblogs.com/Wolfmanlq/p/5728668.html </p>
+	<p align="left">https://www.cnblogs.com/NancyStartOnce/p/6813162.html </p>
+	<p align="left"> </p>
+	<p align="left"></p>
+            <p></p>
+	<p align="left">  </p>
+	<p align="left"> </p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+      
+            <p>谢谢大家观看，如有问题，恳请批评指正</p>
+			      <p>by：深圳分院 -王东东-</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://blog.csdn.net/USTC_Zn/article/details/54912367' },
+            { src: 'https://blog.csdn.net/luomingkui1109/article/details/72820232' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
