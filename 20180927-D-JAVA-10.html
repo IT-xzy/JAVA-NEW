@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是Spring Eureka？--feign</h2>
+            <p></p>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p></p>
+            <p></p>
+            <p>分享人：陈泽铭</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        	<h4>SpringCloud简介</h4>
+        	<p>Spring Cloud是一系列框架的有序集合。它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用Spring Boot的开发风格做到一键启动和部署。Spring Cloud并没有重复制造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过Spring Boot风格进行再封装屏蔽掉了复杂的配置和实现原理，最终给开发者留出了一套简单易懂、易部署和易维护的分布式系统开发工具包。
+			<br>
+        	</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+       
+	   <section>
+			<p>2.1 SpringCloud由什么主键组成</p>
+			<p>2.2 Eureka框架体系</p>
+			<p>2.3 什么是Eureka</p>
+            <p></p>
+        </section>
+	   
+	   	<section>
+			<p>2.1 SpringCloud由什么主键组成<br>      	
+			（1）服务于注册中心（Eureka）<br>
+
+			（2）ribbon<br>
+
+			（3）Feign<br>
+
+			（4）断路器（Hystrix）<br>
+
+			（5）路由网关（zuul）<br>
+
+			（6）分布式配置中心（Spring Cloud Config）<br>
+
+			（7）消息总线（Spring Cloud bus）等等<br>
+			<br>
+			</p>
+	    </section>
+	   
+		
+	    <section>
+			<p>2.2 Eureka框架体系<br>
+		     2.2.1 <br>服务治理是微服务架构中最为核心和基础的模块，它主要用来实现各个微服务实例的自动化注册和发现。<br>
+			 Spring Cloud Eureka是Spring Cloud Netflix微服务套件中的一部分，它基于Netflix Eureka做了二次封装。主要负责完成微服务架构中的服务治理功能。
+			<br>
+			</p>
+	    </section>
+	   
+	      <section>
+			<p>2.2.2 服务注册<br>      	
+			在服务治理框架中，通常都会构建一个注册中心，每个服务单元向注册中心登记自己提供的服务，包括服务的主机与端口号、服务版本号、通讯协议等一些附加信息。注册中心按照服务名分类组织服务清单，同时还需要以心跳检测的方式去监测清单中的服务是否可用，若不可用需要从服务清单中剔除，以达到排除故障服务的效果。
+			<br>
+			</p>
+	    </section>
+	   
+        <section>
+        	<p> 2.2.3 服务发现</p>在服务治理框架下，服务间的调用不再通过指定具体的实例地址来实现，而是通过服务名发起请求调用实现。服务调用方通过服务名从服务注册中心的服务清单中获取服务实例的列表清单，通过指定的负载均衡策略取出一个服务实例位置来进行服务调用。
+			<br>
+        </section>
+   
+        <section>
+			<p>2.3 什么是Eureka</p>	
+			2.3.1 Eureka介绍<br>
+			Spirng Cloud Eureka使用Netflix Eureka来实现服务注册与发现。它既包含了服务端组件，也包含了客户端组件，并且服务端与客户端均采用java编写，所以Eureka主要适用于通过java实现的分布式系统，或是JVM兼容语言构建的系统
+			<br>
+        </section>
+		
+		 <section>
+			<p>2.3.2 Eureka服务端</p>
+			 Eureka服务端，即服务注册中心。它同其他服务注册中心一样，支持高可用配置。依托于强一致性提供良好的服务实例可用性，可以应对多种不同的故障场景。
+			<br>
+        </section>
+		
+		 <section>
+			<p>2.3.3 Eureka客户端</p>Eureka客户端，主要处理服务的注册和发现。客户端服务通过注册和参数配置的方式，嵌入在客户端应用程序的代码中。在应用程序启动时，Eureka客户端向服务注册中心注册自身提供的服务，并周期性的发送心跳来更新它的服务租约。同时，他也能从服务端查询当前注册的服务信息并把它们缓存到本地并周期行的刷新服务状态。
+			<br>
+        </section>
+        						
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+  
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+  
+  
+		<section>
+       <p>  如何实现Eureka的集群<br>
+			在配置文件里面对服务中心进行两两注册。
+			<br>
+	   </p>
+	    </section>
+  		
+ 
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+ 
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+           <p>百度、维基、CSDN</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正。</p>
+            <p>
+               BY : 深圳分院 陈泽铭
+            </p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+
+ <dependency>
+            <groupId>net.sf.json-lib</groupId>
+             <artifactId>json-lib</artifactId>
+             <version>2.4</version>
+             <classifier>jdk15</classifier>
+         </dependency>
