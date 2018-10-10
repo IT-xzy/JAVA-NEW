@@ -1,0 +1,246 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '/css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt=""
+     usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt=""
+          target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>Annotation注解</h3>
+            <h3></h3>
+            <p>分享人：乔名震</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+<section>
+        <section>
+            <p style="text-align:left">1.1 注解概念</p>
+            <p style="text-align:left">Annontation是Java5开始引入的新特征，中文名称叫注解。它提供了一种安全的类似注释的机制，用来将任何的信息或元数据（metadata）与程序元素（类、方法、成员变量等）进行关联。为程序的元素（类、方法、成员变量）加上更直观更明了的说明，这些说明信息是与程序的业务逻辑无关，并且供指定的工具或框架使用。Annontation像一种修饰符一样，应用于包、类型、构造方法、方法、成员变量、参数及本地变量的声明语句中。
+            </p>
+            <p style="text-align:left"></p>
+        </section>
+		
+		 <section>
+            <p style="text-align:left">PS：Java注解是附加在代码中的一些元信息，用于一些工具在编译、运行时进行解析和使用，起到说明、配置的功能。注解不会也不能影响代码的实际逻辑，仅仅起到辅助性的作用。包含在 java.lang.annotation 包中。</p>
+            
+        </section>
+		
+		  <section>
+            <p style="text-align:left">1.2 注解的用处</p>
+            <p style="text-align:left">1、生成文档。这是最常见的，也是java 最早提供的注解。常用的有@param  等
+            </p>
+            <p style="text-align:left">2、跟踪代码依赖性，实现替代配置文件功能。</p>
+			<p style="text-align:left">3、在编译时进行格式检查。如@override 放在方法前，如果你这个方法并不是覆盖了超类方法，则编译时就能检查出。</p>
+        </section>
+		
+		
+ </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+<section>
+            <h3>2.1 常见标准的Annotation：</h3>
+            <p style="text-align:left">1.）Override</p>
+			 <p style="text-align:left">java.lang.Override是一个标记类型注解，它被用作标注方法。它说明了被标注的方法重写了父类的方法，起到了断言的作用。如果我们使用了这种注解在一个没有覆盖父类方法的方法时，java编译器将以一个编译错误来警示。</p>
+		</section>
+       <section>
+            <h3>  2.）Deprecated</h3>
+            <p style="text-align:left">Deprecated也是一种标记类型注解。当一个类型或者类型成员使用@Deprecated修饰的话，编译器将不鼓励使用这个被标注的程序元素。所以使用这种修饰具有一定的“延续性”：如果我们在代码中通过继承或者覆盖的方式使用了这个过时的类型或者成员，虽然继承或者覆盖后的类型或者成员并不是被声明为@Deprecated，但编译器仍然要报警。</p>
+		</section>
+		 <section>
+            <h3> 3.）SuppressWarnings</h3>
+            <p style="text-align:left">  SuppressWarning不是一个标记类型注解。它有一个类型为String[]的成员，这个成员的值为被禁止的警告名。对于javac编译器来讲，被-Xlint选项有效的警告名也同样对@SuppressWarings有效，同时编译器忽略掉无法识别的警告名。</p>
+		</section>
+      
+
+        <section>
+            <h3>2.2 元注解 </h3>
+			 <p style="text-align:left">
+				java.lang.annotation提供了四种元注解，专门注解其他的注解（在自定义注解的时候，需要使用到元注解）：
+            </p>
+            <p style="text-align:left">
+				@Documented –注解是否将包含在JavaDoc中
+            </p>
+			 <p style="text-align:left">
+				@Retention –什么时候使用该注解
+            </p>
+			<p style="text-align:left">
+				@Target –注解用于什么地方
+            </p>
+			<p style="text-align:left">
+				@Inherited – 是否允许子类继承该注解
+            </p>
+
+        </section>
+
+        <section>
+            <h3> 1.）@Retention– 定义该注解的生命周期</h3>
+            <p style="text-align:left"> ●   RetentionPolicy.SOURCE : 在编译阶段丢弃。这些注解在编译结束之后就不再有任何意义，所以它们不会写入字节码。@Override, @SuppressWarnings都属于这类注解。</p>
+			<p style="text-align:left"> ●   RetentionPolicy.CLASS : 在类加载的时候丢弃。在字节码文件的处理中有用。注解默认使用这种方式</p>
+            <p style="text-align:left">  ●   RetentionPolicy.RUNTIME : 始终不会丢弃，运行期也保留该注解，因此可以使用反射机制读取该注解的信息。我们自定义的注解通常使用这种方式。</p>
+			 
+        </section>
+
+		 <section>
+            <h4> 2.）Target – 表示该注解用于什么地方。默认值为任何元素，表示该注解用于什么地方。可用的ElementType参数包括</h4>
+            <p style="text-align:left">● ElementType.CONSTRUCTOR:用于描述构造器</p>
+			<p style="text-align:left">  ● ElementType.FIELD:成员变量、对象、属性（包括enum实例）</p>
+            <p style="text-align:left">   ● ElementType.LOCAL_VARIABLE:用于描述局部变量</p>
+			  <p style="text-align:left">  ● ElementType.METHOD:用于描述方法</p>
+			<p style="text-align:left">    ● ElementType.PACKAGE:用于描述包</p>
+            <p style="text-align:left"> ● ElementType.PARAMETER:用于描述参数</p>
+			<p style="text-align:left">   ● ElementType.TYPE:用于描述类、接口(包括注解类型) 或enum声明</p>
+        </section>
+      
+	   <section>
+            <p style="text-align:left"> 3.)@Documented–一个简单的Annotations标记注解，表示是否将注解信息添加在java文档中。</p>
+			<p style="text-align:left"> 4.)@Inherited – 定义该注释和子类的关系</p>
+            <p style="text-align:left">@Inherited 元注解是一个标记注解，@Inherited阐述了某个被标注的类型是被继承的。如果一个使用了@Inherited修饰的annotation类型被用于一个class，则这个annotation将被用于该class的子类。</p>
+			
+        </section>
+	  
+	  
+        
+		 
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <h3>自定义注解</h3>
+			
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+         <section>
+            <h4>	自定义注解：</h4>
+            <p style="text-align:left">自定义注解类编写的一些规则:</p>
+  <p style="text-align:left">1. Annotation型定义为@interface, 所有的Annotation会自动继承java.lang.Annotation这一接口,并且不能再去继承别的类或是接口.</p>       
+	  <p style="text-align:left">  2. 参数成员只能用public或默认(default)这两个访问权修饰</p>
+	  <p style="text-align:left"> 3. 参数成员只能用基本类型byte,short,char,int,long,float,double,boolean八种基本数据类型和String、Enum、Class、annotations等数据类型,以及这一些类型的数组.</p>
+	  <p style="text-align:left">4. 要获取类方法和字段的注解信息，必须通过Java的反射技术来获取 Annotation对象,因为你除此之外没有别的获取注解对象的方法</p>
+	 
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+		
+		      </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <h3>6.1	@RequestMapping</h3>		
+                
+				</section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>https://www.cnblogs.com/acm-bingzi/p/javaAnnotation.html</p>
+            <p>百度百科</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js',
+                async: true
+            },
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
