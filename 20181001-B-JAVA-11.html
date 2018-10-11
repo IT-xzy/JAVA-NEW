@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+    <div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.879429);">
+        <section class="present" style="top: 169px; display: block;">
+            <h3>jvm如何运行以及内存如何分配?</h3>
+			<p></p>
+            <h4>Java小课堂</h4>
+            <p>分享人：廖友</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 34.5px; display: block;">
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        
+		<section hidden="" aria-hidden="true" class="future" style="top: 267px; display: block;">
+            <h3>1.背景介绍</h3>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>1.1 jdk,jre,jvm的联系与区别</h3><br>
+            <p style="text-align:left"></p>
+			<p style="text-align:left"></p>
+        </section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>1.2 jvm系统组成</h3><br>
+			<p style="text-align:left"></p>
+        </section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>1.3 jvm的实现</h3><br>
+            <p style="text-align:left">Sun HotSpot</p>
+			<p style="text-align:left">BEA JRockit</p>
+			<p style="text-align:left">IBM J9</p>
+			<p style="text-align:left">Google Dalvik</p>
+        </section>
+        
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.知识剖析</h3>
+        </section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.1 运行时数据区</h3>
+			<p style="text-align:left">程序计数器</p>
+			<p style="text-align:left">虚拟机栈</p>
+			<p style="text-align:left">本地方法栈</p>
+			<p style="text-align:left">方法区</p>
+			<p style="text-align:left">堆</p>
+        </section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.1.1 程序计数器</h3><br>
+			<p style="text-align:left">程序计数器（Program Counter Register） 是一块较小的内存空间，它可以看作是当前线程所执行的字节码的行号指示器。在虚拟机的概念模型里，字节码解释器工作时就是通过改变这个计数器的值来选取下一条执行字节码指令。</p>
+			<p style="text-align:left">每条线程都有一个独立的程序计数器。</p>
+			<p style="text-align:left">如果执行的是java方法，这个计数器记录的是正在执行的虚拟机字节码指令地址。如果是native方法，计数器为空。</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.2.2 虚拟机栈</h3><br>
+			<p style="text-align:left">同样是线程私有，描述Java方法执行的内存模型：每个方法在执行的同时都会创建一个栈帧（Stack Frame）用于存储局部变量表、操作数栈、动态链接、方法出口等信息。一个方法对应一个栈帧。</p>
+			<p style="text-align:left">局部变量表存放了各种基本类型、对象引用和returnAddress类型（指向了一条字节码指令地址）。其中64位长度long 和 double占两个局部变量空间，其他只占一个。</p>
+			<p style="text-align:left">规定的异常情况有两种：1.线程请求的栈的深度大于虚拟机所允许的深度，将抛出StackOverflowError异常；2.如果虚拟机可以动态扩展，如果扩展时无法申请到足够的内存，就抛出OutOfMemoryError异常。</p>
+		</section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.2.3 本地方法栈</h3><br>
+			<p style="text-align:left">和Java虚拟机栈很类似，不同的是本地方法栈为Native方法服务。</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.2.4 Java堆</h3><br>
+			<p style="text-align:left"> 是Java虚拟机所管理的内存中最大的一块。由所有线程共享，在虚拟机启动时创建。堆区唯一目的就是存放对象实例。</p>
+			<p style="text-align:left">堆中可细分为新生代和老年代，再细分可分为Eden空间、From Survivor空间、To Survivor空间。</p>
+			<p style="text-align:left">堆无法扩展时，抛出OutOfMemoryError异常</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>2.2.5 方法区</h3><br>
+            <p style="text-align:left">所有线程共享，存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。</p>
+			<p style="text-align:left">当方法区无法满足内存分配需求时，抛出OutOfMemoryError</p>
+        </section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>2.2.5.1 运行时常量池</h3><br>
+            <p style="text-align:left">它是方法区的一部分，Class文件中除了有类的版本、字段、方法、接口等描述信息外，还有一项是常量池（Const Pool Table），用于存放编译期生成的各种字面量和符号引用。并非预置入Class文件中常量池的内容才进入方法运行时常量池，运行期间也可能将新的常量放入池中，这种特性被开发人员利用得比较多的便是String类的intern()方法。</p>
+			<p style="text-align:left">当方法区无法满足内存分配需求时，抛出OutOfMemoryError</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.1 扩展 直接内存</h3><br>
+			<p style="text-align:left">直接内存也称堆外内存，不是虚拟机运行时数据区的一部分，也不是Java虚拟机规范中定义的内存区域。</p>
+			<p style="text-align:left">JDK1.4加入了NIO，引入一种基于通道与缓冲区的I/O方式，它可以使用Native函数库直接分配堆外内存，然后通过一个存储在Java堆中的DirectByteBuffer对象作为这块内存的引用进行操作。因为避免了在Java堆和Native堆中来回复制数据，提高了性能。</p>
+			<p style="text-align:left"> 当各个内存区域总和大于物理内存限制，抛出OutOfMemoryError异常。</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.2 垃圾收集（GC）</h3><br>
+			<p style="text-align:left">GC需要解决如下三个问题：</p>
+			<p style="text-align:left">哪些内存需要回收</p>
+			<p style="text-align:left">什么时候回收</p>
+			<p style="text-align:left">如何回收</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.2.1 哪些内存需要回收</h3><br>
+			<p style="text-align:left">在运行时区域中，程序计数器、虚拟机栈、本地方法栈3个区域随线程而生，而线程而灭；栈中的栈帧随着方法的进入和退出也有序的执行入栈出栈操作，且栈帧的内存分配在编译期就已经确定了。因此这几个区域的内存分配和回收都具备确定性，在这几个区域不必多考虑回收的问题，因为方法结束或者线程结束时，内存自然就跟着回收了</p>
+			<p style="text-align:left">需要进行GC操作的是方法区和堆，因为这部分内存是动态分配的，一个接口中的多个实现类需要的内存可能不一样，一个方法中的多个分支需要的内存可能也不一样，我们只有在程序处于运行期间时才能知道会创建哪些对象。</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.2.2 什么时候回收</h3><br>
+			<p style="text-align:left">引用计数算法：给对象中添加一个引用计数器，每当有引用它时，计数器值就加1；当引用失效时，计数器值就减1；任何时刻计数器为0的对象就是不可能再被使用。</p>
+			<p style="text-align:left">可达性分析算法：通过一系列的称为"GC Root"的对象作为起点，从这些节点开始向下搜索，搜素所走过的路径称为引用链（Reference Chain），当一个对象到GC Root没有任何的引用链相连，就判定对象可以被回收。</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.2.3 如何回收</h3><br>
+			<p style="text-align:left">垃圾收集算法：标记-清除算法、复制算法、标记-整理算法、分代整理算法</p>
+			<p style="text-align:left">垃圾收集器：Serial收集器、ParNew收集器、Parallel Scavenge收集器、Parallel old、Serial old、CMS、GI</p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.3 内存分配</h3><br>
+			<p style="text-align:left"></p>
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>2.3.1 内存分配原则</h3><br>
+			<p style="text-align:left">对象优先分配到Eden区</p>
+			<p style="text-align:left">大对象直接进入老年区（需要连续内存空间的对象，例如很长的字符串以及数组）</p>
+			<p style="text-align:left">长期存活的对象将进入老年代（对象年龄计数器，每GC一次，age+1）</p>
+			<p style="text-align:left">动态对象年龄绑定</p>
+			<p style="text-align:left">空间分配担保</p>
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>3.扩展思考</h3>
+        </section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>4.常见问题</h3>
+			<p style="text-align:left"></p>
+        </section>
+		
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>6.参考文献</h3>
+			<p style="text-align:center">[1]https://www.cnblogs.com/zhouyuqin/p/5161677.html</p>
+			<p style="text-align:center">[2]《深入理解Java虚拟机》</p>
+			<p style="text-align:center">[3]http://www.importnew.com/1551.html</p>
+        </section>
+		
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>7.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px);">
+            jvm如何运行以及内存如何分配?
+			
+            Java小课堂
+            分享人：廖友
+        </div></div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
