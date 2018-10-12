@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>如何使用分布式配置中心？--feign</h2>
+            <p></p>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p></p>
+            <p></p>
+            <p>分享人：陈泽铭</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        	<h4>SpringCloud简介</h4>
+        	<p>Spring Cloud是一系列框架的有序集合。它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用Spring Boot的开发风格做到一键启动和部署。Spring Cloud并没有重复制造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过Spring Boot风格进行再封装屏蔽掉了复杂的配置和实现原理，最终给开发者留出了一套简单易懂、易部署和易维护的分布式系统开发工具包。
+			<br>
+        	</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+       
+	   <section>
+			<p>2.1 SpringCloud由什么主键组成</p>
+			<p>2.2 Eureka框架体系</p>
+			<p>2.3 什么是Eureka</p>
+            <p></p>
+        </section>
+	   
+	   	<section>
+			<p>2.1 SpringCloud由什么主键组成<br>      	
+			（1）服务于注册中心（Eureka）<br>
+
+			（2）ribbon<br>
+
+			（3）Feign<br>
+
+			（4）断路器（Hystrix）<br>
+
+			（5）路由网关（zuul）<br>
+
+			（6）分布式配置中心（Spring Cloud Config）<br>
+
+			（7）消息总线（Spring Cloud bus）等等<br>
+			<br>
+			</p>
+	    </section>
+	   
+		
+	    <section>
+			<p>2.2 spring cloud config 分布式配置中心<br>
+		     2.2.1 什么是spring cloud config<br>
+			 在分布式系统中，由于服务数量巨多，为了方便服务配置文件统一管理，实时更新，所以需要分布式配置中心组件。在Spring Cloud中，有分布式配置中心组件spring cloud config ，它支持配置服务放在配置服务的内存中（即本地），也支持放在远程Git仓库中。在spring cloud config 组件中，分两个角色，一是config server，二是config client。<br>
+			</p>
+	    </section>
+	   
+	   	    <section>
+			<p>
+			Spring Cloud Config为服务端和客户端提供了分布式系统的外部化配置支持。配置服务器为各应用的所有环境提供了一个中心化的外部配置。它实现了对服务端和客户端对Spring Environment和PropertySource抽象的映射，所以它除了适用于Spring构建的应用程序，也可以在任何其他语言运行的应用程序中使用。作为一个应用可以通过部署管道来进行测试或者投入生产，我们可以分别为这些环境创建配置，并且在需要迁移环境的时候获取对应环境的配置来运行。<br>
+			</p>
+	    </section>
+	   
+	      <section>
+			<p>2.2.2 spring cloud config的使用好处<br>      	1.置服务器默认采用git来存储配置信息，这样就有助于对环境配置进行版本管理，并且可以通过git客户端工具来方便的管理和访问配置内容。当然他也提供本地化文件系统的存储方式。<br>
+			2.使用 spring Cloud 进行集中式配置管理，将以往的配置文件从项目中摘除后放到Git 或svn中集中管理，并在需要变更的时候，可以通知到各应用程序，应用程序刷新配置不需要重启。<br>
+			<br>
+			</p>
+	    </section>
+	   
+        <section>
+        	<p> 2.2.3 基本原理</p>
+			git 上存放我们的远程配置文件 <br>
+			config-server 连接到 git <br>
+			config-client 连接到config-server <br>
+			当我们启动config-client 服务的时候，client 会通过连接的 config-server 拿到远程git 上面的配置文件，然后通过 Spring 加载到对象中。 <br>
+        </section>
+   
+        						
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+  
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+  
+		<section>
+       <p>  yml的配置文件怎么写，都具有什么意思<br>
+			spring.cloud.config.server.git.uri：配置git仓库地址<br>
+			spring.cloud.config.server.git.searchPaths：配置仓库路径<br>
+			spring.cloud.config.label：配置仓库的分支<br>
+			spring.cloud.config.server.git.username：访问git仓库的用户名<br>
+			spring.cloud.config.server.git.password：访问git仓库的用户密码<br>
+	   </p>
+	    </section>
+  		
+ 
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+ 
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+           <p>百度、维基、CSDN</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正。</p>
+            <p>
+               BY : 深圳分院 陈泽铭
+            </p>
+        </section>
+    </div>
+</div>
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: './plugin/markdown/marked.js'},
+            {src: './plugin/markdown/markdown.js'},
+            {src: './plugin/notes/notes.js', async: true},
+            {
+                src: './plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+
+ <dependency>
+            <groupId>net.sf.json-lib</groupId>
+             <artifactId>json-lib</artifactId>
+             <version>2.4</version>
+             <classifier>jdk15</classifier>
+         </dependency>
