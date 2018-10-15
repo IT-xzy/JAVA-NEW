@@ -1,0 +1,259 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>JWT简单介绍</h2>
+            <p>分享人：何爽</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>	       
+		<section>
+			<h3>1.背景介绍</h3>
+		
+			<p>由于微服务大都是分布式的，需要几台服务器部署，当一个用户在其中一台服务器登录后，传统的方式是session保存其登录信息，然后可以使用共享存储共享，比如redis共享，
+			这种方案的缺点在于共享存储需要一定保护机制，因此需要通过安全链接来访问，这时解决方案的实现就通常具有相当高的复杂性了，所以这里使用基于令牌的方式做登录。</p>
+			</section>
+		<section>
+			<p>什么是JWT？</p>
+			<p>JWT（JSON WEB TOKEN）：JSON网络令牌，JWT是一个轻便的安全跨平台传输格式，定义了一个紧凑的自包含的方式在不同实体之间安全传输信息（JSON格式）。
+			它是在Web环境下两个实体之间传输数据的一项标准。实际上传输的就是一个字符串。广义上讲JWT是一个标准的名称；狭义上JWT指的就是用来传递的那个token字符串</p>
+			<p></p>
+			<p>最详细的是官网：https://jwt.io/</p>
+			</section>
+		<section>
+			<h3>2.知识剖析</h3>
+			<p>JWT的结构:</p>
+			<p>JWT包含了使用.分隔的三部分： Header 头部 Payload 负载 Signature 签名</p>
+			<p>完整的JWT的组成即为：Header.Payload.Signature</p>
+			<p>JWT 的 header 中承载了两部分信息:</p>
+			<p>{"alg": "RS256",</p>
+			<p>"typ": "JWT"}</p>
+			<p>alg: 声明加密的算法</p>
+			<p>typ: 声明类型</p>
+			<p>对这个头部信息进行 base64，即可得到 header 部分</p>
+					</section>
+		<section>
+				<p>payload 是主体部分，意为载体，承载着有效的 JWT 数据包，它包含三个部分：</p>
+				<p>标准声明，公共声明，私有声明</p>
+				<p>标准声明的字段（JWT保留声明）：</p>
+				<p>interface Stantar {</p>
+				<p>iss?: string; // JWT的签发者</p>
+				<p>sub?: string; // JWT所面向的用户</p>
+				<p>aud?: string; // 接收JWT的一方</p>
+				<p>exp?: number; // JWT的过期时间</p>			
+				<p>nbf?: number; // 在xxx日期之间，该JWT都是可用的</p>
+					</section>
+		<section>
+				<p>iat?: number; // 该JWT签发的时间</p>
+				<p>jti?: number; //JWT的唯一身份标识</p>
+				<p>}</p>
+				<p></p>
+				<p>公共声明的字段：</p>
+				<p>interface Public {</p>
+				<p>[key: string]: any;</p>
+				<p>}</p>
+				<p>公共声明字段可以添加任意信息，但是因为可以被解密出来，所以不要存放敏感信息。</p>
+				</section>
+		<section>
+			<p>私有声明的字段</p>
+			<p>interface Private {</p>
+			<p>[key: string]: any;</p>
+			<p>}</p>
+			<p>私有声明是 JWT 提供者添加的字段，一样可以被解密，所以也不能存放敏感信息。</p>
+			<p></p>
+			<p>signature（签名）</p>
+			<p>把header和payload对应的json结构进行base64url编码之后得到的字符串用点号拼接起来，然后根据header里面alg指定的签名算法生成出来的，然后添加自己设定的key进行加密签名 </p>
+			<p></p>
+			</section>
+		<section>
+		<p>JWT设计单点登录系统过程：</p>
+		<p>用户认证八步走：所谓用户认证（Authentication），就是让用户登录，并且在接下来的一段时间内让用户访问网站时可以使用其账户，而不需要再次登录的机制。</p>
+		<p>首先，服务器应用（下面简称“应用”）让用户通过Web表单将自己的用户名和密码发送到服务器的接口。这一过程一般是一个HTTP POST请求。建议的方式是通过SSL加密的传输（https协议），从而避免敏感信息被嗅探。</p>
+		</section>
+		<section>
+		<img src="https://zx520-1257733330.cos.ap-beijing.myqcloud.com/img/jwtauth1.png?q-sign-algorithm=sha1&q-ak=AKIDjmqrprm0ps3Du0MNOI3AKa0AaCzsQSyW&q-sign-time=1538567025;1538568825&q-key-time=1538567025;1538568825&q-header-list=&q-url-param-list=&q-signature=dc84cc405058b198b6fca087708f9bf14807230d&x-cos-security-token=786b12d379dddda9426f8b9ad0e7b526b14cbb7510001&response-content-disposition=attachment">
+		<p>接下来，应用和数据库核对用户名和密码。</p>
+		<img src="https://zx520-1257733330.cos.ap-beijing.myqcloud.com/img/jwtauth2.png?q-sign-algorithm=sha1&q-ak=AKIDmw9225XmdgEfzt3uTduLJbnjAtLQvOKV&q-sign-time=1538559901;1538561701&q-key-time=1538559901;1538561701&q-header-list=&q-url-param-list=&q-signature=c656b5bc756981d426e9f5f7a9691a12ef26e757&x-cos-security-token=92a4a69f3722965d839c078e232c93949849b27410001&response-content-disposition=attachment">
+		</section>
+		<section>
+		<p>核对用户名和密码成功后，应用将用户的id（图中的user_id）作为JWT Payload的一个属性，将其与头部分别进行Base64编码拼接后签名，形成一个JWT。这里的JWT就是一个形同lll.zzz.xxx的字符串。</p>
+		<img src="https://zx520-1257733330.cos.ap-beijing.myqcloud.com/img/jwtauth3.png?q-sign-algorithm=sha1&q-ak=AKIDFGUX3z77YxYnn9oWGRuWb5GTFpeCAot6&q-sign-time=1538559929;1538561729&q-key-time=1538559929;1538561729&q-header-list=&q-url-param-list=&q-signature=e3d7c60b2dd1607c6da1d70e8865a61bc565439a&x-cos-security-token=339aad27f1ecf3ac0f58fb5b131a393605d1b86110001&response-content-disposition=attachment">
+		</section>
+		<section>
+		<p>应用将JWT字符串作为该请求Cookie的一部分返回给用户。注意，在这里必须使用HttpOnly属性来防止Cookie被JavaScript读取，从而避免跨站脚本攻击（XSS攻击）。</p>
+		<p>xss攻击百度百科：https://baike.baidu.com/item/XSS%E6%94%BB%E5%87%BB/954065?fr=aladdin</p>
+		
+		<img src="https://zx520-1257733330.cos.ap-beijing.myqcloud.com/img/jwtauth4.png?q-sign-algorithm=sha1&q-ak=AKIDGoxwALO8OlxOA9QznkgKosq8N1GXEU58&q-sign-time=1538559953;1538561753&q-key-time=1538559953;1538561753&q-header-list=&q-url-param-list=&q-signature=3b169aa1b77e6a4d4fe9e379929bd0615cc07e3d&x-cos-security-token=5218ea699d7a86d0581742ff32d09d7b82eb604510001&response-content-disposition=attachment">
+		</section>
+		<section>
+		<p>在Cookie失效或者被删除前，用户每次访问应用，应用都会接受到含有jwt的Cookie。从而应用就可以将JWT从请求中提取出来。</p>
+		<img src="https://zx520-1257733330.cos.ap-beijing.myqcloud.com/img/jwtauth5.png?q-sign-algorithm=sha1&q-ak=AKIDOKgFdQD5XNooPhIGJRcCi5iOQ9ZQo1zm&q-sign-time=1538559973;1538561773&q-key-time=1538559973;1538561773&q-header-list=&q-url-param-list=&q-signature=34418a55806f553457a30c3272a859fd5b349957&x-cos-security-token=c21312dcd61ddc0d811738593aa403dabd1b795c10001&response-content-disposition=attachment">
+		</section>
+		<section>
+		<p>应用通过一系列任务检查JWT的有效性。例如，检查签名是否正确；检查Token是否过期；检查Token的接收方是否是自己（可选）。</p>
+		<img src="https://zx520-1257733330.cos.ap-beijing.myqcloud.com/img/jwtauth6.png?q-sign-algorithm=sha1&q-ak=AKIDD6Hyr9UaCoDrHBAIy1LTtfQWun2Yo9I6&q-sign-time=1538560017;1538561817&q-key-time=1538560017;1538561817&q-header-list=&q-url-param-list=&q-signature=f375b6299fa266d3a35fe5889343c597a4fc7e71&x-cos-security-token=dba884e9c272f6e3d376efe04b5bf62ea723d83710001&response-content-disposition=attachment">
+		</section>
+		<section>
+		
+		
+		<p>应用在确认JWT有效之后，JWT进行Base64解码（可能在上一步中已经完成），然后在Payload中读取用户的id值，也就是user_id属性。这里用户的id为1025。</p>
+		<img src="https://zx520-1257733330.cos.ap-beijing.myqcloud.com/img/jwtauth7.png?q-sign-algorithm=sha1&q-ak=AKIDJ3X3FLsYnY4RXGCMvs2WpYHtmFD6m9n9&q-sign-time=1538560042;1538561842&q-key-time=1538560042;1538561842&q-header-list=&q-url-param-list=&q-signature=07ea383950d68d17f3846f51789ddc782932d6f8&x-cos-security-token=13223f4b3ffe3bc3fd583abbcdc8784af90b45a010001&response-content-disposition=attachment">
+		</section>
+		<section>
+		
+		<p>应用从数据库取到id为1025的用户的信息，加载到内存中，进行ORM之类的一系列底层逻辑初始化。</p>
+		<img src="https://zx520-1257733330.cos.ap-beijing.myqcloud.com/img/jwtauth8.png?q-sign-algorithm=sha1&q-ak=AKIDV0g5aDw5KJsXBr54giA1jhuVEOgQimTC&q-sign-time=1538560063;1538561863&q-key-time=1538560063;1538561863&q-header-list=&q-url-param-list=&q-signature=808fa89139fe8f411c09351b520f545911b5eb88&x-cos-security-token=b310bb03edbd4c8e5b3b91b1fb5a43b3d5bc86fa10001&response-content-disposition=attachment">
+		</section>
+		<section>
+		
+		<p>应用根据用户请求进行响应。</p>
+		<img src="https://zx520-1257733330.cos.ap-beijing.myqcloud.com/img/jwtauth9.png?q-sign-algorithm=sha1&q-ak=AKIDmtDSSTztJSRQdN3DWhzG3IMYHkZlz108&q-sign-time=1538560082;1538561882&q-key-time=1538560082;1538561882&q-header-list=&q-url-param-list=&q-signature=2ef437fdbbbb55fbf915cbb20837d2600a2e70ce&x-cos-security-token=bd8b840244f2292103f1a2ac7d22fa574fc66b4010001&response-content-disposition=attachment">		
+		<p></p>
+		<p></p>
+		<p></p>		
+		</section>
+		<section>
+		<h3>3.常见问题 </h3>	
+		<p>为什么使用JWT</p>		
+		<p>（1）前后端分离</p>
+		<p>以前的传统模式下，后台对应的客户端就是浏览器，就可以使用session+cookies的方式实现登录，
+		但是在前后分离的情况下，后端只负责通过暴露的RestApi提供数据，而页面的渲染、路由都由前端完成。因为rest是无状态的，因此也就不会有session记录到服务器端。</p>
+			</section>
+		<section>	
+		<p>（2）传统方式带来的安全性问题</p>
+		<p>在前后端分离通过Restful API进行数据交互时，如何验证用户的登录信息及权限。在原来的项目中，使用的是最传统也是最简单的方式，前端登录，
+		后端根据用户信息生成一个token，并保存这个 token 和对应的用户id到数据库或Session中，接着把 token 传给用户，存入浏览器 cookie，之后浏览器请求带上这个cookie，
+		后端根据这个cookie值来查询用户，验证是否过期。</p>
+		<p>信息存进cookie中就面临着极大的安全性问题，由于 cookie 可以被 JavaScript 读取，XSS 漏洞会导致用户 token 泄露，而作为后端识别用户的标识，cookie 的泄露意味着用户信息不再安全。</p>	
+		</section>
+		<section>
+		<p>在设置 cookie 的时候，其实你还可以设置 httpOnly 以及 secure 项。设置 httpOnly 后 cookie 将不能被 JS 读取，浏览器会自动的把它加在请求的 header 当中，
+		设置 secure 的话，cookie 就只允许通过 HTTPS 传输。secure 选项可以过滤掉一些使用 HTTP 协议的 XSS 注入，但并不能完全阻止。</p>
+		<p></p>
+		<p>httpOnly 选项使得 JS 不能读取到 cookie，那么 XSS 注入的问题也基本不用担心了。但设置 httpOnly 就带来了另一个问题，就是很容易的被 XSRF，
+		即跨站请求伪造。当你浏览器开着这个页面的时候，另一个页面可以很容易的跨站请求这个页面的内容。因为 cookie 默认被发了出去。</p>
+		
+		</section>
+		<section>
+		<p>（3）性能问题</p>
+		<p>如果将验证信息保存在数据库中，后端每次都需要根据token查出用户id，这就增加了数据库的查询和存储开销。</p>
+		<p></p>		
+		</section>
+		<section>
+			<h3>4.编码实战</h3>
+			<p></p>	   			
+		</section>
+		<section>
+			<h3>5.扩展思考</h3>
+			<p>为什么不推荐用JWT做单点登录我这里却做了单点登录的介绍？</p>	
+			<p>通常因为续签问题导致我们不推荐使用JWT做单点登录，但续签问题可以通过以下的方案进行解决：</p>	
+			<p>每次请求刷新 jwt</p>
+			<p>只要快要过期的时候刷新 jwt</p>
+			<p>完善 refreshToken</p>
+			<p>使用 redis 记录独立的过期时间</p>
+					</section>
+		<section>
+		<p>用JWT做单点登录的优点：</p>	   	
+		<p>Session方式来存储用户id，一开始用户的Session只会存储在一台服务器上。对于有多个子域名的站点，每个子域名至少会对应一台不同的服务器，例如：</p>
+		<p>www.taobao.com，nz.taobao.com，login.taobao.com等</p>
+		<p>所以如果要实现在login.taobao.com登录后，在其他的子域名下依然可以取到Session，这要求我们在多台服务器上同步Session。</p>
+		<p>使用JWT的方式则没有这个问题的存在，因为用户的状态已经被传送到了客户端。因此，我们只需要将含有JWT的Cookie的domain设置为顶级域名即可，例如</p>
+		<p>Set-Cookie: jwt=lll.zzz.xxx; HttpOnly; max-age=980000; domain=.taobao.com</p>
+		</section>
+		<section>
+		<p>注意domain必须设置为一个点加顶级域名，即.taobao.com。这样，taobao.com和*.taobao.com就都可以接受到这个Cookie，并获取JWT了。</p>
+		<p></p>
+		</section>
+		<section>				
+		
+			<h3>6.参考文献</h3>
+			<p>https://blog.csdn.net/congyihao/article/details/70197805</p>
+			<p>https://blog.csdn.net/achenyuan/article/details/80829401</p>
+			<p>https://blog.csdn.net/qq_39691226/article/details/80570941</p>
+			<p>https://blog.csdn.net/weixin_42139757/article/details/80689234</p>
+		</section>        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>谢谢大家！</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
