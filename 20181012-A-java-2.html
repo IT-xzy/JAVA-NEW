@@ -1,0 +1,335 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+	<style>
+	</style>	
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal" style="text-align:left">
+    <div class="slides" style="text-align:left">
+        <section style="text-align:center">
+            <P>反射的基本使用</P>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：秦永辉</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section style="text-align:left">
+            <h3>1.背景介绍</h3>
+            <p>在 Java 运行是环境中，对于任意一个类，能否知道这个类有哪些属性和方法？
+			对于任意一个对象，能否调用它的任意一个方法？</p>
+		<p>答案是肯定的。这种动态获取类的信息，以及动态调用对象的方法的功能来自于 Java 语言的反射（Reflection）机制。
+		</p>
+        </section>
+	
+	<section><h3>2.知识剖析</h3></section>
+	
+		 <section style="text-align:left">
+		<p>JAVA反射机制</p>
+		<p>动态实例化</p>
+		<p>反射样例</p>
+		<p>动态代理</p>
+        </section>
+	<section>
+		<h3>JAVA反射机制</h3>
+			<p>对于任意一个类，都能够知道这个类的所有属性和方法；
+			对于任意一个对象，都能够调用它的任意一个方法和属性；
+			这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。</p> 
+	</section>
+		 
+	<section style="text-align:left">
+		<h3>一、JAVA反射机制</h3>
+		<p>1、在运行时判断任意一个对象所属的类</p>
+		<p>2、在运行时构造任意一个类的对象</p>
+		<p>3、在运行时判断任意一个类所具有成员变量和方法</p>
+		<p>4、在运行时调用任意一个对象的方法</p>
+		<p>5、生成动态代理</p>
+	</section>
+		
+	<section style="text-align:left">
+		<p>JAVA反射机制的实现</p>
+        <p>在 JDK 中，主要由以下类实现 Java 反射机制。这些类都位于 java.lang.reflect 包中。</p>
+        <p>1、Class类：代表一个类</p>
+        <p>2、Field类：代表类的成员变量（成员变量也称为类的属性）</p>
+		<p>4、Constructor类：代表类的构造方法</p>
+		<p>5、Array类：提供了动态创建数组，以及访问数组元素的静态方法</p>
+	</section>
+		
+		<section style="text-align:left">
+            <p>具体功能实现</p>
+
+			<p>获取类的Class对象</p>
+
+			<p>获取类的Constructor</p>
+
+			<p>获取类的Fields</p>
+
+			<p>获取类的Method</p>
+	
+			<p>调用类的函数，设置类的变量值</p>		
+        </section>
+		
+<section style="text-align:left">
+	<h3>二、动态实例化</h3>
+		<p>平常情况下我们通过 new Object 来生成一个类的实例，但有时候我们没办法直接new ,
+		只能通过动态反射生成。</p>
+		<p>实例化无参构造函数的对象，两种方式：</p>
+		<p>Class.newInstance();</p>
+		<p>Class.getConstructor(new Class[]{}).newInstance(new Object[]{});</p>
+		<p>实例化带参数构造函数的对象：</p>
+		<p>Class.getConstructor(Class<?>...parameterTypes).newInstance(Object...initargs);</p>
+		<p>动态化实列样列</p>
+</section>
+
+<section style="text-align:left">
+	<h3>三、反射样例-打印类所有方法信息</h3>
+		<p>DumpMethods 类演示了 Reflection API 的基本作用，它读取命令行参数指定的类名，
+		然后打印这个类所具有的方法信息：</p>
+		<p>实例化无参构造函数的对象，两种方式：ReflectObjectCopy 进一步演示了 
+		Reflection API 的基本使用方法。ReflectObjectCopy 类有一个 copy(Object object)方法，
+		这个方法能够创建一个参数和 object 同样类型的对象，然后把 object 对象中的所有属性复
+		制到新建的对象中，并将它返回。</p>
+		<p>1、获得对象类型</p>
+		<p>Class classType = object.getClass();</p>
+		<p>System.out.println("Class:"+classType.getName());</p>
+</section>
+
+<section style="text-align:left">
+	<h3>三、反射样例-打印类所有类的属性</h3>
+</section>
+		
+<section style="text-align:left">
+	<h3>三、反射样例-对象拷贝分析</h3>
+		<p>Class 类是 Reflection API 的核心，它的方法：</p>
+		<p>getName():获得类的完整名称</p>
+		<p>getFields():获得类的 public 类型的属性</p>
+		<p>getMethods():获得类的 public 类型的方法</p>
+		<p>getDeclaredMethods():获得类的所有方法</p>
+		<p>getMethod(String name,Class[] parameterTypes):获得类的特定方法，
+		name 参数指定方法的名字，parameterTypes 参数指定方法的参数类型</p>
+		<p>getConstructor(Class[] parameterTypes):获得类的特定构造方法，
+		parameterTypes 参数指定构造方法的参数类型</p>
+		<p>newInstance():通过类的不带参数的构造方法创建这个类的一个对象</p>				
+</section>
+
+<section style="text-align:left">
+<h3>三、反射样例-对象拷贝分析</h3>
+		<p>2、通过默认构造方法创建一个新对象</p>
+		<p>Object objectCopy = classType.getConstructor(new Class[]{}).newInstance(new Object[]{});</p>
+		<p>以上代码先调用 Class 类的 getConstructor() 方法获得一个 Constructor 对象，
+		它代表了默认的构造方法，然后调用 Constructor 对象的 newInstance() 方法构造一个实例。</p>
+		<p>3、获得对象的所有属性</p>
+		<p>Class 类的 getDeclaredFields() 方法返回类的所有属性，
+		包括 public,protected,默认和 private 访问级别的属性。</p>
+		
+		<p>4、获得每个属性相应的 getXXX() 和 setXXX() 方法，然后执行这些方法，
+		把原来对象的属性复制到新的对象中</p>
+		<p>以上的代码假定每个属性都有相应的 getXXX() 和 setXXX()方法，并且在方法名中，
+		get 和 set 的后面一个字母为大写。Method 类的 invoke(Object object,Object args[])
+		方法用于动态执行一个对象的特定方法，它的第一个参数 obj 指具有该方法的对象，
+		第二个参数 args 参数指定向该方法传递参数。</p>
+</section>
+
+<section style="text-align:left">
+<h3>三、反射样例-动态执行方法</h3>
+	<p>运行反射机制调用 Calculate 对象的 add() 和 echo() 方法分析：</p>	
+	<p>add() 方法的两个参数为 int 类型，获得表示 add()方法的 Method 对象的代码如下：</p>
+	<p>Method addMethod = classType.getMethod("add", new Class[]{int.class,int.class});</p>
+	<p>Method 类的 invoke(Object obj,Object args[]) 方法接收的参数必须为对象，
+	如果参数为基本数据类型，必须转换为相应的包装类型的对象。invoke() 方法的返回值总是对象，
+	如果实际被调用的方法的返回类型是基本类型数据，那么 invoke() 方法会把它转换为相应的包装类型的对象，
+	再将其返回。</p>	
+	<p>Object result = addMethod.invoke(object, new Object[]{new Integer(100),new Integer(200)});</p>
+	<p>System.out.println((Integer)result);</p>
+</section>
+
+<section style="text-align:left">
+    <h3> 反射样例-数组</h3>
+    <p>java.lang.Array 类提供了动态创建和访问数组元素的各种静态方法。</p>
+</section>
+
+<section style="text-align:left">
+    <h3> 反射样例-反射样例-工厂模式</h3>
+    <p>java.lang.Array 类提供了动态创建和访问数组元素的各种静态方法。</p>
+</section>
+
+<section style="text-align:left">
+    <img src="D:\HTTP-PPT简介\img\工厂模式1.png"  alt="工厂模式1" />
+</section>
+
+<section style="text-align:left">
+    <img src="D:\HTTP-PPT简介\img\工厂模式2.png"  alt="工厂模式2" />
+</section>
+
+<section style="text-align:left">
+    <h3> 动态代理</h3>
+    <p>代理</p>
+	<p>程序中的代理：要为已存在的多个具有相同接口的目标类的各个方法增加一些系统功能，
+	例如：异常处理，日志，计算方法的运行时间，事务管理等等。</p>
+	<p>编写一个与目标类具有相同接口的代理类，代理类的每个方法调用目标类的相同方法，
+	并在调用方法时加上系统功能的代码。</p>
+</section>
+
+<section style="text-align:left">
+    <img src="D:\HTTP-PPT简介\img\代理1.png"  alt="代理1" />
+</section>
+
+<section style="text-align:left">
+    <h3> 代理框架图</h3>
+    <p>面向方面的编程（Aspect oriented program，简称AOP），AOP的目标就是要使交叉业务模块化，
+	这与直接在方法中编写切面代码的运行效果是一样的，如下图所示：</p>
+	<img src="D:\HTTP-PPT简介\img\切面图1.png"  alt="切面图1" />
+</section>
+
+<section style="text-align:left">
+    <p>Java动态代理类位于Java.lang.reflect包下，一般主要涉及到以下两个类：</p>
+	<p>1、Interface InvocationHandler：</p>
+	<p>该接口中仅定义了一个方法Object：invoke(Object obj,Method method, Object[] args)</p>
+	<p>参数说明：</p>
+	<p>proxy:　指代我们所代理的那个真实对象</p>
+	<p>method:指代的是我们所要调用真实对象的某个方法的Method对象</p>
+	<p>args:　指代的是调用真实对象某个方法时接受的参数</p>
+</section>
+
+<section style="text-align:left">
+    <img src="D:\HTTP-PPT简介\img\动态代理工作图.png"  alt="动态代理工作图" />
+</section>
+
+<section><h3>3.常见问题</h3></section>
+
+        <section style="text-align:left">
+            <p>1、Proxy：该类即为动态代理类，其中主要包含哪些内容？</p>
+            <p>2、一个典型的动态代理创建对象过程可分为哪几个步骤？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+ <section style="text-align:left">
+			<p> 1、Proxy：该类即为动态代理类，其中主要包含哪些内容：</p>
+            <p>Protected Proxy(InvocationHandler h)：构造函数，估计用于给内部的h赋值。</p>
+			<p> Static Class getProxyClass (ClassLoader loader, Class[] interfaces)：
+			获得一个代理类，其中loader是类装载器，interfaces 是真实类所拥有的全部接口的数组。</p>
+            <p>Static Object newProxyInstance(ClassLoader loader, Class[] interfaces, 
+			InvocationHandler h)：返回代理类的一个实例，返回后的代理类可以当作被代理类使用
+			(可使用被代理类的在Subject接口中声明过的方法)。</p>
+			<p> 参数说明：</p>
+            <p>loader:一个ClassLoader对象，定义了由哪个ClassLoader对象来对生成的代理对象进行加载</p>
+  </section>
+		
+		
+<section>
+            <p>interfaces:一个Interface对象的数组，表示的是我将要给我需要代理的对象提供一组什么接口，
+			如果我提供了一组接口给它，那么这个代理对象就宣称实现了该接口(多态)，这样我就能调用这组接口中的方法了</p>
+            <p>一个InvocationHandler对象，表示的是当我这个动态代理对象在调用方法的时候，
+			会关联到哪一个InvocationHandler对象上</p>
+</section>
+
+<section>
+	<h4>一个典型的动态代理创建对象过程可分为以下四个步骤：</h4>
+        <p>1、通过实现InvocationHandler接口创建自己的调用处理器 
+			IvocationHandler handler = new InvocationHandlerImpl(...);</p>
+        <p>2、通过为Proxy类指定ClassLoader对象和一组interface创建动态代理类
+			Class clazz = Proxy.getProxyClass(classLoader,new Class[]{...});</p>
+		<p>3、通过反射机制获取动态代理类的构造函数，其参数类型是调用处理器接口类型
+			Constructor constructor = clazz.getConstructor(new Class[]{InvocationHandler.class});</p>
+        <p>4、通过构造函数创建代理类实例，此时需将调用处理器对象作为参数被传入
+			Interface Proxy = (Interface)constructor.newInstance(new Object[] (handler));</p>
+</section>
+		
+<section><h3>5.编码实战</h3></section>
+		
+		<section>
+            <h3>6.扩展思考</h3>
+            <p>通过反射运行配置文件内容</p>
+			<p>通过反射越过泛型检查</p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>https://zh.wikipedia.org/zh-hans/%E8%B6%85%E6%96%87%E6%9C%AC%E4
+			%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE</p>
+            <p>https://blog.csdn.net/javazejian/article/details/70768369</p>
+            <p>https://blog.csdn.net/sinat_38259539/article/details/71799078</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 秦永辉</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
