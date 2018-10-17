@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .left {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>RMI的简单介绍</h2>
+            <p>分享人：张亚强</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+        <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden=""
+                 aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>1.背景介绍</h3>
+            </section>
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+                <p>RPC (Remote Procedure Call):远程过程调用，用于一个进程调用另一个进程中的过程，从而提供了过程的分布能力。</p>
+                <p>RMI（Remote Method Invocation):远程方法调用，即在RPC的基础上有向前迈进了一步，提供分布式对象间的通讯。允许运行在一个java 虚拟机的对象调用运行在另一个java虚拟机上对象的方法。这两个虚拟机可以是运行在相同计算机上的不同进程中，也可以是运行在网络上的不同计算机中。</p>
+            </section>
+        </section>
+        <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden=""
+                 aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>2.知识剖析</h3>
+            </section>
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+                <p>RMI的大致工作原理</p>
+                <p>服务器端提供服务，服务中要暴露可以调用的远程方法，以接口的形式表现，这样在客户端可以通过服务接口来调用远程方法，实现复杂的业务逻辑。在服务器端，首先要对接口中提供的方法实现，以便客户端调用能够完成一定的业务逻辑；接着需要生成Skeleton，在Skeleton中真正地实现了对商业方法的调用，完成了客户请求的调用的过程，将获取到的调用方法的结果通过序列化机制返回给客户端，进行应答。在客户端，通过Stub来接收服务器返回的数据（对象），即在这里进行了反序列化，也就是读取网络传输的字节流，进而进行重构。在Skeleton和Stub中，都对网络通信进行了处理，例如建立套接字，建立网络连接，为实际的业务需要做好准备。</p>
+            </section>
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+                <p>RMI使用过程中需要注意的问题：</p>
+                <p>1.数据传值问题:我们都知道在Java程序中引用类型（不包括基本类型）的参数传递是按引用传递的，对于在同一个虚拟机中的传递时是没有问题的，因为的参数的引用对应的是同一个内存空间，但是对于分布式系统中，由于对象不再存在于同一个内存空间，虚拟机A的对象引用对于虚拟机B没有任何意义，这时候我们就要将引用传递更改为值传递，也就是将对象序列化为字节，然后使用该字节的副本在客户端和服务器之间传递；</p>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+               <p>2.远程对象的发现问题:在调用远程对象的方法之前需要一个远程对象的引用，如何获得这个远程对象的引用在RMI中是一个关键的问题，如果将远程对象的发现类比于IP地址的发现可能比较好理解一些。在我们日常使用网络时，基本上都是通过域名来定位一个网站，但是实际上网络是通过IP地址来定位网站的，因此其中就需要一个映射的过程，域名系统（DNS）就是为了这个目的出现的，在域名系统中通过域名来查找对应的IP地址来访问对应的服务器。那么对应的，IP地址在这里就相当于远程对象的引用，而DNS则相当于一个注册表（Registry）。而域名在RMI中就相当于远程对象的标识符，客户端通过提供远程对象的标识符访问注册表，来得到远程对象的引用。这个标识符是类似URL地址格式的:rmi://host:port/name</p>
+			</section>
+        </section>
+        <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden=""
+                 aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>3.常见问题</h3>
+            </section>
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+                <p>1.如何使用rmi完成远程对象的调用</p>
+                <p>2.如何使用springrmi完成远程对象的调用</p>
+            </section>
+        </section>
+        <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden=""
+                 aria-hidden="true">
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+                <h3>4.编码实战</h3>
+            </section>
+        </section>
+        <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden=""
+                 aria-hidden="true">
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+                <h3>5.扩展思考</h3>
+            </section>
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+                <p>RPC和RMI的区别</p>
+                <p>1、方法调用方式不同：RMI中是通过在客户端的Stub对象作为远程接口进行远程方法的调用。每个远程方法都具有方法签名。如果一个方法在服务器上执行，但是没有相匹配的签名被添加到这个远程接口(stub)上，那么这个新方法就不能被RMI客户方所调用；PC中是通过网络服务协议向远程主机发送请求，请求包含了一个参数集和一个文本值，通常形成“classname.methodname(参数集)”的形式。RPC远程主机就去搜索与之相匹配的类和方法，找到后就执行方法并把结果编码，通过网络协议发回。</p>
+                <p>2、适用语言范围不同：RMI只用于Java；RPC是网络服务协议，与操作系统和语言无关。</p>               
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+                <p>3、调用结果的返回形式不同：Java是面向对象的，所以RMI的调用结果可以是对象类型或者基本数据类型；RPC的结果统一由外部数据表示 (External Data Representation, XDR) 语言表示，这种语言抽象了字节序类和数据类型结构之间的差异。</p>
+            </section>
+        </section>
+        <section>
+            <h3>6.参考文献</h3>
+            <p>http://www.cnblogs.com/ygj0930/p/6542811.html</p>
+            <p>https://blog.csdn.net/lmy86263/article/details/72594760</p>
+            <p>https://blog.csdn.net/shan9liang/article/details/8995023</p>
+        </section>
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>分享到此结束</h4>
+            <p>欢迎大家讨论</p>
+        </section>
+        <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden=""
+                 aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+            </section>
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+            </section>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
