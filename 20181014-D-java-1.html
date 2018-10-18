@@ -1,0 +1,249 @@
+<!doctype html>
+
+<head xmlns="http://www.w3.org/1999/html">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题,可以在/css/reveal/theme/中选择其他主题,目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+
+    <!--<link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">-->
+
+    <!--&lt;!&ndash; PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">-->
+
+    <!--&lt;!&ndash; syntax highlighting 代码高亮主题 &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">-->
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .text-l {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>反射的基本使用</h2>
+            <p>分享人：刘优</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section style="text-align: left;">
+                <br style="text-align: left">
+                <h4>什么是反射？</h4>
+                Java反射机制是指在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。
+                用一句话总结就是反射可以实现在运行时可以知道任意一个类的属性和方法。
+                </p>
+            </section>
+
+        </section>
+        <section>
+
+
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section style="text-align: left;">
+                <h3><strong>Class类</strong></h3>
+
+                Class 类的实例表示正在运行的 Java 应用程序中的类和接口。枚举是一种类，注解是一种接口。每个数组属于被映射为 Class 对象的一个类，所有具有相同元素类型和维数的数组都共享该 Class
+                对象。基本的 Java 类型（boolean、byte、char、short、int、long、float 和 double）和关键字 void 也表示为 Class 对象。
+
+                Class 没有公共构造方法。<br>Class 对象是在加载类时由 Java 虚拟机以及通过调用类加载器中的 defineClass 方法自动构造的。
+
+            </section>
+            <section style="text-align: left;">
+                Class 类是 Reflection API 的核心，它的方法： <br>
+                getName():获得类的完整名称<br>
+                getFields():获得类的 public 类型的属性<br>
+                getDeclaredFields():获得类的所有属性<br>
+                getMethods():获得类的 public 类型的方法<br>
+                getDeclaredMethods():获得类的所有方法<br>
+                getMethod(String name,Class[] parameterTypes):获得类的特定方法，name 参数指定方法的名字，parameterTypes 参数指定方法的参数类型<br>
+                getConstructor()：获得类的 public 类型的构造方法<br>
+                getConstructor(Class[] parameterTypes):获得类的特定构造方法，parameterTypes 参数指定构造方法的参数类型<br>
+                newInstance():通过类的不带参数的构造方法创建这个类的一个对象<br>
+
+            </section>
+
+
+            <section style=" text-align: left;">
+                <h3><strong>Method类</strong></h3>
+                Method 提供关于类或接口上单独某个方法（以及如何访问该方法）的信息。所反映的方法可能是类方法或实例方法（包括抽象方法）。
+                <br>
+                Method 允许在匹配要调用的实参与底层方法的形参时进行扩展转换；但如果要进行收缩转换，则会抛出 IllegalArgumentException。
+
+            </section>
+
+            <section style=" text-align: left;">
+                <h3><strong>Field类</strong></h3>
+                Field 提供有关类或接口的单个字段的信息，以及对它的动态访问权限。反射的字段可能是一个类（静态）字段或实例字段。
+                <br>
+                Array 允许在执行 get 或 set 访问操作期间进行扩展转换，但如果将发生收缩转换，则抛出一个 IllegalArgumentException。
+            </section>
+
+            <section style=" text-align: left;">
+                <h3><strong>Constructor类</strong></h3>
+                Constructor 提供关于类的单个构造方法的信息以及对它的访问权限。
+                <br>
+                Constructor 允许在将实参与带有底层构造方法的形参的 newInstance() 匹配时进行扩展转换，但是如果发生收缩转换，则抛出 IllegalArgumentException。
+
+            </section>
+
+
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section class="text-l">
+                使用反射和new一个对象来调用对象的方法有什么区别
+            </section>
+
+
+        </section>
+
+
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+
+            <section class="text-l">
+                反射对象是直到程序运行期间才知道类的名字的实例，这时才获取对象的成员，并设置属性。此时要用到类的全路径 ，用类的全路径来加载类，并返回该类的对象。以后就可以遍历类中的各个方法，各个属性。
+                new是给类直接在内存中创建一个实例，并且可以直接初始化等。不需要类的全路径。
+                <br>
+                <br>
+                只是生成的途径不一样，对象本身是一模一样的。
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+
+            </section>
+
+            <section class="text-l">
+                <h3>反射机制的优点与缺点</h3>
+                为什么要用反射机制？直接创建对象不就可以了吗，这就涉及到了动态与静态的概念
+                <br>
+                静态编译：在编译时确定类型，绑定对象,即通过。
+                <br>
+                动态编译：运行时确定类型，绑定对象。动态编译最大限度发挥了java的灵活性，体现了多态的应用，有以降低类之间的藕合性。
+            </section>
+
+            <section class="text-l">
+                优点 <br>
+                可以实现动态创建对象和编译，体现出很大的灵活性，特别是在J2EE的开发中它的灵活性就表现的十分明显。比如，一个大型的软件，不可能一次就把把它设计的很完美，当这个程序编译后，发布了，当发现需要更新某些功能时，我们不可能要用户把以前的卸载，再重新安装新的版本，假如这样的话，这个软件肯定是没有多少人用的。采用静态的话，需要把整个程序重新编译一次才可以实现功能的更新，而采用反射机制的话，它就可以不用卸载，只需要在运行时才动态的创建和编译，就可以实现该功能。
+                <br>
+                缺点 <br>
+                对性能有影响。使用反射基本上是一种解释操作，我们可以告诉JVM，我们希望做什么并且它满足我们的要求。这类操作总是慢于只直接执行相同的操作。
+
+            </section>
+        </section>
+
+
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p style="text-align: left">参考：<br>
+                    <br>
+                    互联网
+                </p>
+
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+        </section>
+        <section>
+            <!--<h4>鸣谢</h4>-->
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 刘优</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js "></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js "></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc "或"o "键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+
+</html>
