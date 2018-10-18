@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	<style>
+		.left{ text-align: left; }
+	</style>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是压测，为什么要进行压力测试？JMETER工具的使用</h2>
+            <p>分享人：周宏浩</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+         <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>1.背景介绍</h3>
+            </section>
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>什么是压测</p>
+				<p>压测，即压力测试，是确立系统稳定性的一种测试方法，通常在系统正常运作范围之外进行，以考察其功能极限和隐患。</p>
+				<p>一般针对网络游戏压力测试。对网络游戏的服务器不断施加“压力”的测试。通过确定一个系统的瓶颈或者不能接收的性能点，来获得系统能提供的最大服务级别的测试。</p>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>jmeter是什么</p>
+				<p>JMeter是Apache组织开发的基于Java的压力测试工具。它可以用于测试静态和动态资源，可以用于对服务器、网络或对象模拟巨大的负载，来自不同压力类别下测试它们的强度和分析整体性能。</p>
+				<p>另外，JMeter能够对应用程序做功能/回归测试，通过创建带有断言的脚本来验证你的程序返回了你期望的结果。为了最大限度的灵活性，JMeter允许使用正则表达式创建断言。</p>
+            </section>
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+				<h3>2.知识剖析</h3>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>压测的类型</p>
+				<p>1.峰值测试：主要是考验一个服务器承载上限</p>
+				<p>2.同屏压测：即同一屏幕同时承载测试</p>
+				<p>3.行为压测：即根据用户行为消耗资源测试</p>
+				<p>4.数据压测：即数据上限测试</p>
+				<p>5.设备压测：不同的设备支持不同的运行环境</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>Jmeter七种主要组件</p>
+				<p>1.逻辑控制器(LogicController)：控制JMeter发送请求，LogicController主要是用来控制JMeter发送请求（也就是采样器）的处理顺序。</p>
+				<p>2.采样器(Sampler)：发送一个具体的请求到指定服务器，Sampler也就是发送一个具体的请求到指定服务器，等待服务器的请求。也会根据LogicController来改变运行的次数和顺序。</p>
+				<p>3.配置元件(ConfigElement)：只是配置一些默认的属性和信息，它不会向服务器发送任何的请求。</p>
+				<p>4.监听器（Listener）:测试结果用数据进行处理并展示出来，Listener是把测试结果用数据进行处理并展示出来。查看结果树，用表格查看结果，图形结果,聚合报告等</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>5.断言（Assertions）：用于检查测试中得到的数据和我们预期的结果是否相同</p>
+				<p>6.前置处理器（PerProcessors）：在发出请求之前对请求进行特殊的处理</p>
+				<p>7.后置处理器（PostProcessors）：对采样器发出请求后得到的服务器响应进行处理</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>JMeter－线程组</p>
+				<p>1.setup thread group 一种特殊类型的线程组，可用于执行预测试操作。这些线程的行为完全像一个正常的线程组元件。不同的是，这些类型的线程执行测试前进行定期线程组的执行。</p>
+				<p>2.teardown thread group 一种特殊类型的线程组，可用于执行测试后动作。这些线程的行为完全像一个正常的线程组元件。不同的是，这些类型的线程执行测试结束后执行定期的线程组。</p>
+				<p>3.thread group（线程组） 我们通常添加运行的线程。通俗的说所有的任务都是基于线程组，开通多少个线程就代表有多少个并发用户。</p>
+			</section>					
+		</section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+				<h3>3.常见问题</h3>
+			</section>	
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>1.jmeter压力测试具体操作</p>
+			</section>					
+		</section>
+		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>4.编码实战</h3>
+			</section>			
+		</section>
+		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>5.扩展思考</h3>				
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>1.组件执行顺序</p>
+				<p> （1）配置元件（config elements ）</p>
+				<p> （2）前置处理程序（Per-processors）</p>
+				<p> （3）定时器（timers ）</p>
+				<p> （4）取样器（Sampler）</p>
+				<p> （5）后置处理程序（Post-processors） （除非Sampler 得到的返回结果为空）</p>
+				<p> （6）断言（Assertions）（除非Sampler 得到的返回结果为空）</p>
+				<p> （7）监听器（Listeners）（除非Sampler 得到的返回结果为空）</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>2.90%line响应时间为什么要稳定在500ms</p>
+				<p>用户发起一个请求时最多的响应延时为0.5s，当超过0.5s时用户可以清晰的感受到页面的卡顿，理论上讲0.2s是最完美的响应延时，此时用户发起的请求就是秒开。</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>3.性能测试的目的</p>
+				<p>性能测试的目的是验证软件系统能否达到用户提出的性能指标,同时发现软件系统中存在的性能瓶颈, 以优化软件,最后起到优化系统的目的。包括以下结构方面：
+				评估系统的能力、识别系统中的弱点、系统调优、测试软件中的问题、验证稳定性(Resilience)和可靠性(Reliability)。</p>
+			</section>
+		</section>
+		<section>
+			<h3>6.参考文献</h3>
+			<p>http://www.kokojia.com/article/20582.html</p>
+			<p>https://www.cnblogs.com/guoyuanping/p/8284346.html</p>
+		</section>
+        <section>
+            <h3>7.更多讨论</h3>	
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>欢迎大家讨论</p>            
+        </section>
+        <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">				
+			</section>
+		</section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

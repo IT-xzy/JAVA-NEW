@@ -1,0 +1,249 @@
+<!doctype html>
+
+<head xmlns="http://www.w3.org/1999/html">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题,可以在/css/reveal/theme/中选择其他主题,目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+
+    <!--<link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">-->
+
+    <!--&lt;!&ndash; PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">-->
+
+    <!--&lt;!&ndash; syntax highlighting 代码高亮主题 &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">-->
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .text-l {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>JAVA多线程初探</h2>
+            <p>分享人：刘优</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section style="text-align: left;">
+                <br style="text-align: left">
+                <h4>什么是进程？</h4>
+                进程是程序的一次执行过程，是系统运行程序的基本单位，因此进程是动态的。系统运行一个程序即是一个进程从创建，运行到消亡的过程。简单来说，一个进程就是一个执行中的程序，它在计算机中一个指令接着一个指令地执行着，同时，每个进程还占有某些系统资源如CPU时间，内存空间，文件，文件，输入输出设备的使用权等等。换句话说，当程序在执行时，将会被操作系统载入内存中。
+
+                </p>
+            </section>
+
+            <section style="text-align: left;">
+                <br style="text-align: left">
+                <h4>什么是线程？</h4>
+                线程与进程相似，但线程是一个比进程更小的执行单位。一个进程在其执行的过程中可以产生多个线程。与进程不同的是同类的多个线程共享同一块内存空间和一组系统资源，所以系统在产生一个线程，或是在各个线程之间作切换工作时，负担要比进程小得多，也正因为如此，线程也被称为轻量级进程。
+                </p>
+            </section>
+            <section style="text-align: left;">
+                <br style="text-align: left">
+                <h4>线程和进程有何不同？</h4>
+                线程是进程划分成的更小的运行单位。线程和进程最大的不同在于基本上各进程是独立的，而各线程则不一定，因为同一进程中的线程极有可能会相互影响。从另一角度来说，进程属于操作系统的范畴，主要是同一段时间内，可以同时执行一个以上的程序，而线程则是在同一程序内几乎同时执行一个以上的程序段。
+                </p>
+            </section>
+
+
+        </section>
+        <section>
+
+
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section style="text-align: left;">
+                <h3><strong>多线程</strong></h3>
+
+                <p style="color: #dca3a3"> 何为多线程？</p>
+
+                多线程就是多个线程同时运行或交替运行。单核CPU的话是顺序执行，也就是交替运行。多核CPU的话，因为每个CPU有自己的运算器，所以在多个CPU中可以同时运行。
+
+                <p style="color: #dca3a3">为什么多线程是必要的？ </p>
+
+                使用线程可以把占据长时间的程序中的任务放到后台去处理
+                用户界面可以更加吸引人，这样比如用户点击了一个按钮去触发某些事件的处理，可以弹出一个进度条来显示处理的进度
+                程序的运行速度可能加快
+
+            </section>
+
+
+            <section style=" text-align: left;">
+                <h3><strong>如何使用多线程</strong></h3>
+                <p>继承Thread类 </p><br>
+                <p>实现Runnable接口</p>
+            </section>
+
+            <section style="text-align: left;">
+                <br style="text-align: left">
+                <h3>线程的基本状态及关系？</h3>
+                <span style="color: #dca3a3">新建状态 :</span> New一个线程对象 <br>
+                <span style="color: #dca3a3">就绪状态 :</span> 调用线程对象的start()方法 <br>
+                <span style="color: #dca3a3">运行状态 :</span> CPU调度处于就绪状态的线程，调度策略（抢占式、时间片轮转） <br>
+                <span style="color: #dca3a3">阻塞状态 :</span> 一个线程想要获取锁，而该锁被其他线程持有，分为等待阻塞（wait方法），同步阻塞
+                （synchronized），其他阻塞（sleep或join方法） <br>
+                <span style="color: #dca3a3">终止状态 :</span> 线程执行完了或者因异常退出了run()方法，该线程结束生命周期。
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section class="text-l">
+                <h4>线程安全</h4>
+                “非线程安全”问题存在于“实例变量”中，如果是方法内部的私有变量，则不存在“非线程安全”问题，所得结果也就是“线程安全”的了。
+
+            </section>
+
+
+        </section>
+
+
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+
+            <section class="text-l">
+                1. Synchronized <br>
+                2. lock <br>
+                3. volatile <br>
+
+
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+
+            </section>
+
+            <section class="text-l">
+                <h3>线程通信</h3>
+                Java通过 wait()、notify()和 notifyAll() 方法实现了一个巧妙的进程内通信机制。这些方法为Object 的 final 方法来实现，因此所有的类都包含它们。
+
+            </section>
+
+            <section class="text-l">
+                wait...notify 调度机制是几个线程对同一对象进行操作，其中某些线程在一条件下自动挂起，等待其他线程在一定条件下通知其继续运行。这和 join()不同，join()是等待其他线程运行完，而
+                wait()是等待其他线程向其发出通知。
+                <br>
+                <br>
+                wait()和 notify() 是 Java中每个对象都有的一个方法，当一个线程执行到对象 O 的wait()方法时，java虚拟机会自动挂起，进入该对象的 wait池等待。当其他线程执行到对象 O
+                的notify() 方法时，java虚拟机会从对象 O 的wait池随机取出一个线程放入 O 的等锁池中，一旦 O 的锁标记被其他线程返回，即可运行。也可以执行对象 O 的 notifyAll(),对象 O
+                的wait池中所有线程放入 O 的等锁池中。
+
+            </section>
+        </section>
+
+
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p style="text-align: left">参考：<br>
+                    <br>
+                    互联网
+                </p>
+
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+        </section>
+        <section>
+            <!--<h4>鸣谢</h4>-->
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 刘优</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js "></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js "></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc "或"o "键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+
+</html>
