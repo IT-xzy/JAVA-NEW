@@ -1,0 +1,261 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是spring boot?</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：王庸之</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+
+            <h3>什么是spring boot？</h3>
+            <p>Spring Boot是由Pivotal团队提供的全新框架，属于spring旗下的一个项目，其设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，它使用“习惯优于配置”的理念，从而使开发人员不再需要定义样板化的配置。使用springboot很容易创建一个独立运行的spring项目，并且可以几乎不使用spring配置或者使用很少的配置。</p>
+
+            
+        </section>
+		
+		<section>
+
+            <h3>spring boot出现过程</h3>
+            <p>以前在写spring项目的时候，要配置各种xml文件，还记得曾经被ssh框架支配的恐惧。 随着spring3，spring4的相继推出， 约定大于配置逐渐成为了开发者的共识，大家也渐渐的从写xml转为写各种注解，在spring4的项目里，你甚至可以一行xml都不写。 在这种环境下，spring boot伴随着spring4一起出现了。</p>
+
+            
+        </section>
+		
+		<section>
+
+            <h3>spring boot是什么？</h3>
+            <p>spring boot并不是一个全新的框架，它不是spring解决方案的一个替代品，而是spring的一个封装。 所以，你以前可以用spring做的事情，现在用spring boot都可以做。 现在流行微服务与分布式系统，springboot就是一个非常好的微服务开发框架，你可以使用它快速的搭建起一个系统。 同时，你也可以使用spring cloud（Spring Cloud是一个基于Spring Boot实现的云应用开发工具）来搭建一个分布式的网站。</p>
+
+            
+        </section>
+		
+		<section>
+
+            <h3>什么是约定大于配置？</h3>
+            <p>约定优于配置，也作按约定编程，是一种软件设计范式，旨在减少软件开发人员需要做决定的数量，获得简单的好处，而且又不失灵活性。本质上说，开发人员仅需要规定应用中不符合约定的部分。</p>
+			<p>约定优于配置是一个简单的概念。系统，类库，框架应该假定合理的默认值，而非要求提供不必要的配置。 在大部分情况下，你会发现使用框架提供的默认值会让你的项目运行的更快。零配置并不是完全没有配置，而是通过约定来减少配置, 减少 XML。</p>
+
+            
+        </section>
+		
+		
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+				
+		<section>
+
+            <h3>SPRINGBOOT四个重要核心</h3>
+            <p>自动配置：针对很多Spring应用程序常见的应用功能，Spring Boot能自动提供相关配置。</p>
+			<p>起步依赖：告诉Spring Boot需要什么功能，它就能引入需要的库。</p>
+			<p>命令行界面：这是Spring Boot的可选特性，借此你只需写代码就能完成完整的应用程序，无需传统项目构建。</p>
+			<p>Actuator：让你能够深入运行中的Spring Boot应用程序，一探究竟。</p>
+	
+        </section>
+		
+		<section>
+
+            <h3>SPRINGBOOT结构和使用</h3>
+            <p>springboot和普通的javase项目相似，一个普通的maven项目添加它的依赖就行。spring提供很多的start pom简化maven的依赖加载，一般会配置一个parent依赖，控制整个springboot的版本，如果是web项目，配置一个spring-boot-start-web依赖，会自动关联一些常用的web依赖，比如springmvc、servlet甚至它会嵌入一个tomcat容器，因此无需再tomcat服务器中进行发布。springboot会自动扫描src/main/resources文件夹下的配置，一般是一个properties（application.properties）或者yaml文件,里面配置一些少量的必要的应用配置，例如数据库连接信息、服务器名称端口号之类的信息。</p>
+
+
+        </section>
+		
+		<section>
+
+            <h3>SPRINGBOOT结构和使用</h3>
+            <p>编写springboot的入口类，一般命名是xxxApplication.java，其他的类都在它所在的目录或者子目录中，这样spring容器会自动扫描有相应注解的类。入口类上的注解是SpringBootApplicaton,类中有个Main方法作为程序入口，springboot框架提供一个方法启动项目Application.run(本类名.class，args)。一直运行就启动springboot项目。</p>
+
+
+        </section>
+		
+		<section>
+
+            <h3>配置文件</h3>
+			<p>Spring Boot使用了一个全局的配置文件application.properties，放在src/main/resources目录下或者类路径的/config下。 Sping Boot的全局配置文件的作用是对一些默认配置的配置值进行修改。application.properties提供自定义属性的支持，这样我们就可以把一些常量配置在这里。</p>
+	            		
+            
+        </section>
+		
+	    <section>
+
+            <h3>配置文件的优先级</h3>
+			<p>外置，在相对于应用程序运行目录的/congfig子目录里。</p>
+			<p>外置，在应用程序运行的目录里</p>
+			<p>内置，在config包内</p>
+			<p>内置，在Classpath根目录</p>
+			<p>同样，这个列表按照优先级排序，也就是说，src/main/resources/config下application.properties覆盖src/main/resources下application.properties中相同的属性 如果你在相同优先级位置同时有application.properties和application.yml，那么application.properties里的属性里面的属性就会覆盖application.yml。</p>
+
+			
+        </section>
+		
+		<section>
+
+            <h3>springboot运行原理</h3>
+			<p>入口注解@SpringBootApplication注解是一个组合注解，它包含@configuration、@EnableAutoConfiguration和@componentScan三个注解组成。它的核心是@EnableAutoConfiguration注解。这个注解中有一个@Import注解，它导入配置功能EnableAutoConfigurationImportSelector，这个类有个方法扫描具有/META-INF/spring.factories文件的jar。spring.factories中声明了哪些自动配置。然后我们在application.properties文件中进行相应的配置，比如数据库连接，使springboot中的自动配置中的参数是我们需要的配置。</p>
+			
+        </section>
+		
+		
+        <section>
+		
+            <h3>3.编码实战</h3>
+			
+        </section>
+
+        <section>
+		
+            <h3>4.常见问题</h3>
+			
+        </section>		
+
+        <section>		
+		
+           <h3></h3>		   
+		   <p>1.spring boot和spring区别是什么？</p>
+           <p>2.spring boot使用jsp引擎的静态资源映射问题</p> 
+		   <p>3.@Value和@ConfigurationProperties区别</p> 
+		   
+        </section>
+		
+		<section>
+		
+            <h3>5.解决方案</h3>
+			
+        </section>		
+
+         <section>		
+		
+           <h3>1.spring boot和spring区别是什么？</h3>		   
+		   <p>spring创造项目中需要的对象（控制反转），解决耦合问题，实现“一站式”开发，aop面向切面编程，是各个框架无缝整合。而springboot拥有spring所有的功能，实现“零配置”简化spring繁杂的配置。</p>
+		   <p>springboot可以是jar/war的形式发布，并且自带tomcat容器（里面默认是servlet容器），spring的传统项目只能是war形式，需要在tomcat中发布。</p>
+		   <p>springboot是自动配置，spring传统web项目需要逐一配置。</p>
+		   
+        </section>
+		
+		<section>		
+		
+           <h3>2、spring boot使用jsp引擎的静态资源映射问题</h3>		   
+		   <p>Spring Boot 默认将 /** 所有访问映射到以下目录：classpath:/static；classpath:/public；classpath:/resources；classpath:/META-INF/resources；意思就是所有/**访问都会经过静态映射器过滤一遍。如果是静态资源，就到上面四个路径去寻找。</p>
+		   <p>如果static文件夹放在webapp之下。那么上面的所有静态资源映射方式。都不适用。无法映射到webapp文件夹的static里。</p> 
+	       <p>此时不需要任何配置，如果页面中引用静态资源，直接可以按SSM项目中的写法进行书写。</p>
+		   
+        </section>
+		
+		<section>		
+		
+           <h3>3.@Value和@ConfigurationProperties区别</h3>		   
+		   <p>两者都可以从配置文件 .yml 与 .properties 中获取到值；</p>
+		   <p>@Value为类中的各个属性逐个赋值，@ConfigurationProperties将配置文件中的属性值批量注入类的各个属性；</p> 
+	       <p>@Value对绑定语法要求比@ConfigurationProperties严格；</p>
+		   <p>如果项目中只是在某个业务逻辑中需要获取一下配置文件中的某项值，使用@Value即可；</p>
+		   <p>如果项目中专门编写了一个JavaBean来和配置文件进行映射，则直接使用@ConfigurationProperties即可；</p>
+		   
+        </section>
+		
+		
+
+        <section>
+		
+            <h3>5.参考资料</h3>
+            
+            <p>http://www.cnblogs.com/xdp-gacl/category/574705.html</p>
+
+
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+		
+            <h3>鸣谢</h3>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
