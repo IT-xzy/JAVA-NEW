@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2> Springmvc的工作原理</h2>
+            <p></p>
+            <h3>java 分享会</h3>
+            <p>分享人：赵立鼐</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+           <h4>什么是springmvc</h4>
+        <p> Spring下的子项目：Spring Web MVC是一种基于Java的实现了Web MVC设计模式的请求驱动类型的轻量级Web框架，即使用了MVC架构模式的思想，将web层进行职责解耦，基于请求驱动指的就是使用请求-响应模型，框架的目的就是帮助我们简化开发，Spring Web MVC也是要简化我们日常Web开发的。</p>
+         <p> </p>
+
+
+        </section>
+
+        <section>
+            <p> 一个实现MVC模式的应用包含模型、视图和控制器3个模块。
+                视图负责应用的展示。模型封装了应用的数据和业务逻辑。
+                控制器负责接收用户输入，改变模型，以及调整视图的显示。</p>
+
+        </section>
+         <!--<section>-->
+          <!--<p> 表述性状态是对资源数据在某个瞬间状态的快照,</p>-->
+             <!--<p> 资源的某个瞬时状态被定义为一种表述（representation），</p>-->
+             <!--<p>  这种描述性的状态包括资源数据的内容、表述格式（比如XML、JSON）等信息，</p>-->
+             <!--<p> 一种资源可以对应多种表述。</p>-->
+          <!--</section>-->
+        <!--<section>-->
+             <!--REST的资源是可寻址的，通过HTTP协议（RFC 2616）定义的通用动词方法（比如GET、PUT、DELETE、POST），-->
+             <!--并使用URI协议（RFC 3305）来唯一标识某个资源公布出来的接口。-->
+         <!--<p>    请求一个资源的过程可以理解为，访问一个具有指定性和描述性的URI，-->
+             <!--经由 HTTP，将资源的表述从服务器转移到客户端，或者相反方向。</p>-->
+
+         <!--</section>-->
+
+        <section>
+            <h3>2.知识剖析</h3>
+
+        </section>
+        <section>
+        <p>　
+            <h3>SpringMvc的执行流程<h3>
+        </p>
+        </section>
+        <section>
+          <p>  1、发起请求到前端控制器（DispatcherServlet ）</p>
+            <p>   2、前端控制器请求HandlerMapping查找Handler（可以根据xml、注解进行查找） </p>
+            <p>    3、处理器映射器HandlerMapping向前端控制器DispatcherServlet 返回Handler </p>
+            <p>     4、前端控制器DispatcherServlet 调用处理器适配器HandlerAdapter 执行Handler </p>
+            <p>    5、处理器适配器HandlerAdapter 执行Handler </p>
+            <p>    6、Handler执行完给处理器适配器返回ModelAndView </p>
+
+        </section>
+        <section>
+            <p>    7、处理器适配器向前端控制器返回ModelAndView （ModelAndView 是SpringMvc的底层对象 包括model和view） </p>
+            <p>   8、前端控制器请求视图解析器去解析视图　　根据逻辑视图名解析成真正的视图（jsp） </p>
+            <p>   9、视图解析器向前端控制器返回view </p>
+            <p>    10、前端控制器进行视图渲染　　视图渲染将模型数据（模型数据在ModelAndView对象中）填充到request域 </p>
+            <p>    11、前端控制器向用户响应结果</p>
+        </section>
+        <section>
+            DispatcherServlet是整个Spring MVC的核心。它负责接收HTTP请求组织协调Spring MVC的各个组成部分。其主要工作有以下三项：
+
+            1. 截获符合特定格式的URL请求。
+            2. 初始化DispatcherServlet上下文对应的WebApplicationContext，并将其与业务层、持久化层的WebApplicationContext建立关联。
+            3. 初始化Spring MVC的各个组成组件，并装配到DispatcherServlet中。
+        </section>
+
+<section>
+
+</section>
+
+<section>
+
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>
+               springmvc的相关接口
+            </p>
+        </section>
+
+
+        <section>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+        </section>
+
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h2> SpringMVC接口解释</h2>
+        </section>
+        <section>
+            <p> DispatcherServlet接口</p>
+            <p>   HandlerMapping接口</p>
+            <p>   Controller接口</p>
+            <p> ViewResolver接口</p>
+        </section>
+        <section>
+           DispatcherServlet接口:
+          <p>      Spring提供的前端控制器，所有的请求都有经过它来统一分发。在DispatcherServlet将请求分发给Spring Controller之前，需要借助于Spring提供的HandlerMapping定位到具体的Controller。</p>
+
+        </section>
+
+        <section>
+            HandlerMapping接口：
+         <p>   能够完成客户请求到Controller映射。</p>
+        </section>
+
+
+        <section>
+            Controller接口：
+         <p>需要为并发用户处理上述请求，因此实现Controller接口时，必须保证线程安全并且可重用。
+
+            Controller将处理用户请求，这和Struts Action扮演的角色是一致的。一旦Controller处理完用户请求，则返回ModelAndView对象给DispatcherServlet前端控制器，ModelAndView中包含了模型（Model）和视图（View）。
+
+            从宏观角度考虑，DispatcherServlet是整个Web应用的控制器；从微观考虑，Controller是单个Http请求处理过程中的控制器，而ModelAndView是Http请求过程中返回的模型（Model）和视图（View）。</p>
+        </section>
+        <SECTION>
+            ViewResolver接口：
+
+
+       <p> Spring提供的视图解析器（ViewResolver）在Web应用中查找View对象，从而将相应结果渲染给客户。    </p>
+        </SECTION>
+
+
+        <section>
+
+
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+
+        </section>
+        <section>
+           使用Springmvc的优点
+        </section>
+            <section>
+          <p>
+                <p>    1、让我们能非常简单的设计出干净的Web层和薄薄的Web层； </p>
+                <p>    2、进行更简洁的Web层的开发； </p>
+                <p>    3、天生与Spring框架集成（如IoC容器、AOP等）； </p>
+                <p>   4、提供强大的约定大于配置的契约式编程支持； </p>
+                <p>   5、能简单的进行Web层的单元测试； </p>
+                <p>   6、支持灵活的URL到页面控制器的映射； </p>
+
+
+
+            </p>
+            </section>
+                <section>
+                  7、非常容易与其他视图技术集成，如Velocity、FreeMarker等等，因为模型数据不放在特定的API里，而是放在一个Model里（Map数据结构实现，因此很容易被其他框架使用）；
+                    <p>    8、非常灵活的数据验证、格式化和数据绑定机制，能使用任何对象进行数据绑定，不必实现特定框架的API；</p>
+                    <p>      9、提供一套强大的JSP标签库，简化JSP开发； </p>
+                    <p>    10、支持灵活的本地化、主题等解析； </p>
+                    <p>   11、更加简单的异常处理； </p>
+                    <p>   12、对静态资源的支持； </p>
+                    <p>   13、支持Restful风格。 </p>
+                </section>
+
+
+
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>
+
+                https://www.cnblogs.com/aspwebchh/p/6652855.html
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>
+
+            </p>
+        </section>
+            <section>
+                <h4>鸣谢</h4>
+                <p>感谢观看,如有出错,恳请指正</p>
+                <p><small>BY : 西安分院 赵立鼐</small></p>
+            </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
