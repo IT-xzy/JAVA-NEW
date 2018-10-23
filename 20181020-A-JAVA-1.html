@@ -1,0 +1,168 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+           <section>
+            <h1><p>SpringAOP</p></h1>
+            <h3>java小课堂</h3>
+            <p>分享人：郭杰</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section> 
+                <p align="left">AOP(Aspect Oriented Programming),面向切面编程，是OOP（Object Oriented Programming，面向对象编程）的<br/>补充和完善。</p>
+                <p align="left">OOP是开发者定义纵向关系，但是并不允许开发者定义横向关系，所以有部分代码是横向的分布在所有对象层次中，例如日志功能等而与它对应的对象的核心功能毫无关系对于其他类型的代码，这种散布在各处的无关的代码被称为横切（cross cutting），在OOP设计中，它导致了大量代码的重复，而不利于各个模块的重用。</p>
+                
+        </section>
+        
+        <section>
+            <p align="left">AOP技术恰恰相反，它利用一种称为"横切"的技术，剖解开封装的对象内部，并将那些影响了多个类的公共行为封装到一个可重用模块，并将其命名为"Aspect"，即切面。所谓"切面"，简单说就是那些与业务无关，却为业务模块所共同调用的逻辑或责任封装起来，便于减少系统的重复代码，降低模块之间的耦合度，并有利于未来的可操作性和可维护性。</p>
+        </section>
+    
+        <section>
+            <h3>2.知识剖析</h3> 
+        </section>
+        <section>
+                <p align="center">Spring AOP的一些基本概念</p>
+                <p align="left">(1)Aspect(切面):通常是一个类，里面可以定义切入点和通知</p>
+                <p align="left">(2)JointPoint(连接点):程序执行过程中明确的点，一般是方法的调用</p>
+                <p align="left">(3)Advice(通知):AOP在特定的切入点上执行的增强处理</p>
+                <p align="left">(4)Pointcut(切入点):就是带有通知的连接点，在程序中主要体现为书写切入点表达式</p>
+                <p align="left">(5)AOP代理：AOP框架创建的对象，代理就是目标对象的加强。Spring中的AOP代理可以使JDK动态代理，也可以是CGLIB代理，前者基于接口，后者基于子类</p>
+        </section>
+        <section>
+            <p align="left">有五种类型的通知：<br/>
+                Before（前置）：在方法被调用之前调用通知；<br/>
+                After（后置）：在方法调用之后调用通知；（不管该方法是否执行成功）<br/>
+                After-returning（返回结果通知）：在方法返回结果后；<br/>
+                After-throwing（异常通知）：在方法抛出异常后；<br/>
+                Around（环绕）：在方法调用之前和之后都会调用通知；<br/></p>
+        </section>
+
+         <section>
+            <h3 align="center">3.常见问题</h3>
+        </section>
+ 
+         <section>
+                <p >(1)SpringAOP使用方法</p>
+                <p >(2)使用XML方法和使用注解</p>
+         </section>
+        
+            
+
+        <section>
+            <h3>4.解决方案</h3>
+            
+        </section>
+        <section><p>见代码</p></section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>基于注解与基于配置文件的优缺点：</p>
+            <p align="left">注解:</p>
+            <p align="left">1.更加简洁,不需要配置xml文件</p>
+            <p align="left">2.更加方便，不需要从java代码在转到xml</p>
+            <p align="left">3.更加语义化</p>
+            <p align="left">缺点就是耦合度较大，依赖关系不如xml配置文件表达的清晰</p>
+        
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p align="left">https://www.zhihu.com/question/278435266<br/>知乎id：wayshall</p>
+            <p align="left">https://www.cnblogs.com/liuruowang/p/5711563.html</p>
+            <p align="left">http://www.cnblogs.com/zs234/p/3267623.html</p>
+        </section>
+        <section>
+             <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 郭杰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
