@@ -1,0 +1,277 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>shiro框架</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：王庸之</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+
+            <h3>什么是权限管理？</h3>
+            <p>只要有用户参与的系统一般都要有权限管理，权限管理实现对用户访问系统的控制，按照安全规则或者安全策略控制用户可以访问而且只能访问自己被授权的资源。</p>
+			<p>对权限的管理又分为两大类别：用户认证和用户授权。</p>
+
+        </section>
+		
+		<section>
+
+            <h3>什么是用户认证？</h3>
+            <p>用户认证，用户去访问系统，系统要验证用户身份的合法性。</p>
+			<p>最常用的用户身份验证的方法：1、用户名密码方式、2、指纹打卡机、3、基于证书验证方法等。。。系统验证用户身份合法，用户方可访问系统的资源。</p>
+
+            
+        </section>
+		
+		<section>
+
+            <h3>用户认证的流程</h3>
+            <p>判断该资源能否不认证就能访问【登陆页面、首页】</p>
+			<p>如果该资源需要认证后才能访问，那么判断该访问者是否认证了</p>
+			<p>如果还没有认证，那么需要返回到【登陆页面】进行认证</p>
+			<p>认证通过后才能访问资源</p>
+
+            
+        </section>
+		
+		<section>
+
+            <h3>什么是用户授权？</h3>
+            <p>用户授权，简单理解为访问控制，在用户认证通过后，系统对用户访问资源进行控制，用户具有资源的访问权限方可访问。</p>
+
+            
+        </section>
+		
+		<section>
+
+            <h3>用户授权的流程</h3>
+            <p>用户认证之后才会有用户授权</p>
+			<p>用户访问资源，系统判断该用户是否有权限去操作该资源</p>
+			<p>如果该用户有权限才能够访问，如果没有权限就拒绝访问</p>
+
+            
+        </section>
+		
+		
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+				
+		<section>
+
+            <h3>什么是shiro？</h3>
+            <p>Apache Shiro（发音为shee-roh，日语堡垒（Castle）的意思）是一个强大易用的Java安全框架，提供了认证、授权、加密和会话管理功能，可为任何应用提供安全保障 - 从命令行应用、移动应用到大型网络及企业应用。相较于Spring Security来说较为简单，易于上手。</p>
+	        <p>Apache Shiro有三个核心的概念Subject，SecurityManager和Realms。</p>
+        </section>
+		
+		<section>
+
+            <h3>subject</h3>
+            <p>Subject：即“当前操作用户”。但是，在Shiro中，Subject这一概念并不仅仅指人，也可以是第三方进程、后台帐户（Daemon Account）或其他类似事物。它仅仅意味着“当前跟软件交互的东西”。但考虑到大多数目的和用途，你可以把它认为是Shiro的“用户”概念。</p>
+
+
+        </section>
+		
+		<section>
+
+            <h3>SecurityManager</h3>
+            <p>它是Shiro框架的核心，典型的Facade模式，Shiro通过SecurityManager来管理内部组件实例，并通过它来提供安全管理的各种服务。 </p>
+
+
+        </section>
+		
+		<section>
+
+            <h3>Realm</h3>
+			<p> Realm充当了Shiro与应用安全数据间的“桥梁”或者“连接器”。也就是说，当对用户执行认证（登录）和授权（访问控制）验证时，Shiro会从应用配置的Realm中查找用户及其权限信息。 </p>
+	        <p> Realm实质上是一个安全相关的DAO：它封装了数据源的连接细节，并在需要时将相关数据提供给Shiro。当配置Shiro时，你必须至少指定一个Realm，用于认证和（或）授权。配置多个Realm是可以的，但是至少需要一个。 </p>    		
+            
+        </section>
+		
+	    <section>
+
+            <h3>Shiro其他主要组件:Authenticator </h3>
+			<p>认证就是核实用户身份的过程。这个过程的常见例子是大家都熟悉的“用户/密码”组合。多数用户在登录软件系统时，通常提供自己的用户名（当事人）和支持他们的密码（证书）。如果存储在系统中的密码（或密码表示）与用户提供的匹配，他们就被认为通过认证。 </p>
+			
+			
+        </section>
+		
+		<section>
+
+            <h3>Shiro其他主要组件:Authorizer</h3>
+			<p>授权实质上就是访问控制 - 控制用户能够访问应用中的哪些内容，比如资源、Web页面等等。</p>
+			
+        </section>
+		
+		<section>
+
+            <h3>Shiro其他主要组件:SessionManager</h3>
+			<p>在安全框架领域，Apache Shiro提供了一些独特的东西：可在任何应用或架构层一致地使用Session API。即，Shiro为任何应用提供了一个会话编程范式 - 从小型后台独立应用到大型集群Web应用。这意味着，那些希望使用会话的应用开发者，不必被迫使用Servlet或EJB容器了。或者，如果正在使用这些容器，开发者现在也可以选择使用在任何层统一一致的会话API，取代Servlet或EJB机制。</p>
+			
+        </section>
+		
+		<section>
+
+            <h3>Shiro其他主要组件:CacheManager</h3>
+			<p>对Shiro的其他组件提供缓存支持。</p>
+			
+        </section>
+		
+		
+        <section>
+		
+            <h3>3.编码实战</h3>
+			
+        </section>
+
+        <section>
+		
+            <h3>4.常见问题</h3>
+			
+        </section>		
+
+        <section>		
+		
+           <h3></h3>		   
+		   <p>1.什么是权限的粗粒度和细粒度管理？</p>
+           <p>2.如何实现粗粒度和细粒度管理？</p> 
+		   <p>3.除了shiro还有哪些其他安全管理框架？</p> 
+		   
+        </section>
+		
+		<section>
+		
+            <h3>5.解决方案</h3>
+			
+        </section>		
+
+         <section>		
+		
+           <h3>1.什么是权限的粗粒度和细粒度管理？</h3>		   
+		   <p>粗粒度管理一般只模块层面的管理。</p>
+		   <p>细粒度权限管理就是数据级别的权限管理。</p>
+		   
+        </section>
+		
+		<section>		
+		
+           <h3>2.如何实现粗粒度和细粒度管理？</h3>		   
+		   <p>粗粒度权限管理比较容易将权限管理的代码抽取出来在系统架构级别统一处理。比如：通过springmvc的拦截器实现授权。</p> 
+	       <p>细粒度权限管理在数据级别是没有共性可言，针对细粒度权限管理就是系统业务逻辑的一部分，在业务层去处理相对比较简单。</p>
+		   
+        </section>
+		
+		<section>		
+		
+           <h3>3.除了shiro还有哪些其他安全管理框架？</h3>		
+           <p>Spring Security</p>		   
+		   <p>Shiro比Spring更容易使用，实现和最重要的理解 Spring Security更加知名的唯一原因是因为品牌名称 “Spring”以简单而闻名，但讽刺的是很多人发现安装Spring Security很难 然而，Spring Security却有更好的社区支持 Apache Shiro在Spring Security处理密码学方面有一个额外的模块 Spring-security 对spring 结合较好，如果项目用的springmvc ，使用起来很方便。但是如果项目中没有用到spring，那就不要考虑它了。 Shiro 功能强大、且 简单、灵活。是Apache 下的项目比较可靠，且不跟任何的框架或者容器绑定，可以独立运行</p>
+
+		   
+        </section>
+		
+		
+
+        <section>
+		
+            <h3>5.参考资料</h3>
+            
+            <p>http://www.cnblogs.com/xdp-gacl/category/574705.html</p>
+
+
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+		
+            <h3>鸣谢</h3>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
