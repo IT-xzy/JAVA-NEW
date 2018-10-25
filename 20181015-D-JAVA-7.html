@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>如何调用第三方API实现图片上传</h2>
+            <p>分享人：何爽</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>	       
+		<section>
+			<h3>1.背景介绍</h3>
+		
+			<p>在开发过程中，不论是做网页还是APP，基本上都会有图片上传的业务需求，最典型的就是注册账号之后需要用户上传头像或者
+			用户验证的时候上传身份证照片。</p>
+			<p>而java中实现图片上传大概有两种形式：</p>
+			<p>一种是使用jsp+controller实现图片上传。</p>
+			<p>一种是使用jsp+servlet实现图片上传；</p>
+			<p>存储基本上也有两种形式</p>
+			<p>在数据库中直接存储blob类型的图片或者图片存储在服务器上并在数据库中存储箱对应的路径。</p>
+			</section>
+		<section>
+			<p>现在主流的项目开发都是用的后者方式，这时就需要我们使用第三方API</p>
+			<p>那么什么是API？</p>
+			<p>API 是用于构建应用程序软件的一组子程序定义，协议和工具。一般来说，这是一套明确定义的各种软件组件之间的通信方法。</p>
+			<p></p>
+			<p></p>
+			<p></p>
+			<p></p>
+			<p></p>			
+			</section>
+		<section>
+			<h3>2.知识剖析</h3>
+			<p>第三方对外通常会有API和SDK以便我们使用，那么什么是SDK？</p>
+			<p>SDK (Software Development Kit)中文是"软体开发工具组"，用来帮一个 产品、平台开发应用程式的工具组，
+			由产品的厂商提供给开发者使用的。辅助开发某一类软件的相关文档、范例和工具的集合都可以叫做“SDK”。</p>
+			<p>任务中使用的阿里云的对象存储OSS，讲一下什么是OSS。</p>
+			<p>阿里云对象存储服务（Object Storage Service，简称 OSS），是阿里云提供的海量、安全、低成本、高可靠的云存储服务。
+			可以通过调用 API，在任何应用、任何时间、任何地点上传和下载数据，也可以通过Web控制台对数据进行</p>
+			</section>
+		<section>			
+			<p>简单的管理。OSS适合存放任意类型的文件，适合各种网站、开发企业及开发者使用。</p>
+			<p>在springmvc中，使用jsp+controller实现图片上传的基本思路是：</p>
+			<p>（1）使用MultipartFile类接收上传的图片；</p>
+			<p>（2）将图片存储在服务器（阿里云OSS），返回一个图片路径；</p>
+			<p>（3）图片路径存储在用户信息中以供调用。</p>
+			<p></p>
+			<p></p>
+			<p></p>
+			<p></p>
+		</section>
+		<section>
+		<h3>3.常见问题 </h3>	
+		<p>1、form表单提交的是MultipartFile类型的文件，而第三方api需要的是file类型的文件，如何进行转换？</p>		
+		<p>第一种方法：</p>
+		<p>MultipartFile file = xxx; </p>
+		<p>CommonsMultipartFile cf= (CommonsMultipartFile)file; </p>
+		<p>DiskFileItem fi = (DiskFileItem)cf.getFileItem(); </p>
+		<p>File f = fi.getStoreLocation();</p>
+			<p>会在项目的根目录的临时文件夹下生成一个文件。</p>
+			</section>
+		<section>
+			<p>第二种方法：</p>
+			<p>transferTo(File dest)；</p>
+			<p>会在项目中生成一个新文件；</p>
+			<p>第三种方法：　  </p>
+			<p>File f = (File) xxx 强转即可。前提是要配置multipartResolver，要不然会报类型转换失败的异常。</p>
+			<p><bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></p>
+			<p><property name="maxUploadSize" value="104857600"/></p>
+			<p><property name="maxInMemorySize" value="4096"/></p>
+			<p></bean></p>
+			<p>第四种方法：</p>
+			<p>Workbook wb = Workbook.getWorkbook(xxx .getInputStream());</p>
+			<p>转换为输入流，直接读取；</p>
+			</section>
+		<section>
+			<p>第五种方法：</p>
+			<p>byte[] buffer = myfile.getBytes();</p>
+			<p>先转换为字节数组。</p>
+			<p></p>
+			<p></p>
+		<p>2.如何通过调用阿里云API完成图片的上传</p>
+			<p>详见第四个模块编码实战</p>
+			<p></p>
+		</section>
+		<section>
+			<h3>4.编码实战</h3>
+			<p></p>	   			
+		</section>
+		<section>
+			<h3>5.扩展思考</h3>
+			<p>集成第三方接口的技巧总结：</p>
+			<p>调用接口其实也差不多是这样：</p>
+			<p>发送请求（向第三方发送请求，传递参数）——收到数据（收到第三方的返回数据）——数据处理（数据解析）——返回前端——前端处理
+			（前端展示封装数据）。</p>
+			<p>1）api文档阅读：主要看请求参数和返回数据，有些文档有很多demo，这些demo会帮助我们很多。</p>
+			<p>参考这个内容：http://www.pmcaff.com/discuss/index/480006465919040?pmc_param=1</p>
+			</section>
+		<section>
+			<p>2）json数据解析：net.fs.json还是阿里的fastjson还是jacksondegnd</p>
+			<p>具体参考：https://www.cnblogs.com/huoer33/p/6638378.html</p>
+			<p>3）调用第三方使用的工具：Httpclient、urlConnection还是RestTemplate</p>
+			<p>具体内容参考：http://blog.csdn.net/lmb55/article/details/70247018</p>
+			<p></p>
+			<p></p>
+			<p></p>
+			</section>
+		<section>				
+			<h3>6.参考文献</h3>
+			<p>https://www.cnblogs.com/fengli9998/p/8058197.html</p>
+			<p>https://blog.csdn.net/qq_41802128/article/details/82918811</p>
+			<p>https://blog.csdn.net/qq_41810013/article/details/80729700</p>
+		</section>        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>谢谢大家！</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>使用spring cloud搭建一个简单的分布式demo</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：岳晓鹏</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+
+            <h3>微服务</h3>
+            <p>微服务架构风格就像是把小的服务开发成单一应用的形式， 运行在其自己的进程中，并采用轻量级的机制进行通信（一般是 HTTP 资源 API）。
+			这些服务都是围绕业务能力来构建，通过全自动部署工具来实现独立部署。这些服务，其可以使用不同的编程语言和不同的数据存储技术，并保持最小化集中管理。
+
+        </section>
+
+        <section>
+
+            <h3>Spring Cloud</h3>
+            <p>Spring Cloud是一系列框架的有序集合。它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，
+			如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用Spring Boot的开发风格做到一键启动和部署。
+			Spring并没有重复制造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，
+			通过Spring Boot风格进行再封装屏蔽掉了复杂的配置和实现原理，最终给开发者留出了一套简单易懂、易部署和易维护的分布式系统开发工具包。
+
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+                <h3>服务注册中心</h3>
+            
+使用微服务，微服务的本质还是各种API接口的调用。服务中心是统一管理我们的服务的，
+使用Spring Cloud Eureka，我们可以将自己定义的API接口注册到Spring Cloud Eureka上，Eureka负责服务的注册与发现，构成Eureka体系的包括：服务注册中心、服务提供者、服务消费者。
+
+
+        </section>		
+        <section>
+                <h3>路由网关zuul</h3>       
+服务网关是微服务架构中一个不可或缺的部分。通过服务网关统一向外系统提供REST API的过程中，
+除了具备服务路由、均衡负载功能之外，它还具备了权限控制等功能。Spring Cloud Netflix中的Zuul就担任了这样的一个角色，
+为微服务架构提供了前门保护的作用，同时将权限控制这些较重的非业务逻辑内容迁移到服务路由层面，使得服务集群主体能够具备更高的可复用性和可测试性。
+        </section>
+
+        <section>
+                <h3>熔断器Hystric</h3>
+<p>微服务系统是一个分布式架构，服务之间是彼此调用的，当有一个服务出现了故障，而服务的调用方不知道服务出现故障，
+此时调用方的请求不断的增加，最后就会调用方形成任务的积压，最终导致自身服务的瘫痪。</p>
+<p>熔断器的熔断机制类似电路中的短路，当我们某个服务不可用时，直接快速切断该服务的连接，
+返回一个错误的页面，这样做好处是仅仅是依赖该服务的业务无法正常运作，而其他的不依赖于这个服务的其他服务可以正常运作。</p>
+
+        </section>
+		<section>		
+                <h3>负载均衡组件ribbon</h3>
+为了提高服务的可用性，我们一般会将相同的服务部署多个实例，负载均衡的作用就是使获取服务的请求被均衡的分配到各个实例中。
+我们在之前的任务里学了nginx实现了负载均衡，springCloud里提供了ribbon组件给我们，配合springCloud封装好的RestTemlate只需要简单的配置即可实现负载均衡。
+
+Feign跟rebbin一样都是实现负载均衡的组件，不同的是feign里面封装了ribbon和hystric，不用像ribbon那样必须结合RestTemplate即可使用。
+        </section>	
+        <section>
+                <h3>服务配置中心config</h3>
+<p>对于微服务还不是很多的时候，各种服务的配置管理起来还相对简单，但是当成百上千的微服务节点起来的时候，服务配置的管理变得会复杂起来。
+<p>分布式系统中，由于服务数量巨多，为了方便服务配置文件统一管理，实时更新，所以需要分布式配置中心组件。在Spring Cloud中，有分布式配置中心组件Spring Cloud Config ，
+它支持配置服务放在配置服务的内存中（即本地），也支持放在远程Git仓库中。
+
+        </section>		
+
+        <section>
+                <h3>消息中心bus</h3>
+Spring Cloud Config中，我们知道的配置文件可以通过Config Server存储到Git等地方，通过Config Client进行读取，
+但是我们的配置文件不可能是一直不变的，当我们的配置文件放生变化的时候如何进行更新哪？
+
+一种最简单的方式重新一下Config Client进行重新获取，但Spring Cloud绝对不会让你这样做的，
+Spring Cloud Bus正是提供一种操作使得我们在不关闭服务的情况下更新我们的配置。
+
+        </section>		
+	        <section>
+
+		
+            <h3>3.编码实战</h3>
+            <p>介绍下使用spring cloud eureka的服务发现注册和spring cloud feign</p>
+        </section>
+
+        <section>
+
+            <p>4.常见问题</p>
+            <p>spring cloud和dubbo的区别</p>
+            <p>在微服务相关的这几个方面，服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等来比较下的话，
+			Dubbo 只是实现了服务治理，而 Spring Cloud 子项目分别覆盖了微服务架构下的众多部件，服务治理只是其中的一个方面。
+			</p>
+        </section>
+        <section>
+		
+            <h3>5.参考资料</h3>
+            <p>http://www.ityouknow.com/springcloud/2017/05/01/simple-springcloud.html
+            <p>https://www.cnblogs.com/xiaojunbo/p/7090742.html
+            
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+		
+            <h3>鸣谢</h3>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

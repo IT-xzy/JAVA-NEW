@@ -7,34 +7,36 @@
 
     <title>葡萄藤PPT</title>
 
-    <link rel="stylesheet" href="./css/reveal/reveal.css">
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
 
     <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
-    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
 
     <!-- syntax highlighting 代码高亮主题 -->
-    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
 
     <!-- 打印和PDF输出样式 -->
     <script>
         var link = document.createElement( 'link' );
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
         document.getElementsByTagName( 'head' )[0].appendChild( link );
     </script>
 </head>
 <body>
-<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
 <map name="pttmap">
     <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
 </map>
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>interface（接口）和implement（实现）</h2>
-            <h3>小课堂</h3>
-            <p>分享人：陈昊</p>
+            <h3>
+为什么要使用Interface，而不是直接使用一个实体类来完成任务？Interface和Impl这种方式的好处是什么？</h3>
+			<p></p>
+            <h3></h3>
+            <p>-深圳-Java-张高愿-</p>
         </section>
         <section>
             <p>1.背景介绍</p>
@@ -47,81 +49,59 @@
             <p>8.更多讨论</p>
         </section>
         <section>
-            <h3>1.背景介绍	</h3>
+            <h3>1.背景介绍</h3>
         </section>
-        <section>
-            <p>
-                接口的定义：接口是一种约束形式或者规范，其中只包括成员定义，不包含成员实现的内容。
-            </p>
-            <p> 也有人将接口（interface）叫做协议（protocol）就是需要满足一定协议的条件才可以使用。
-            </p>
+		<section>
+            <p>接口是以统一标准的目的，让大家都知道这个是做什么的，但是具体不用知道具体怎么做。
+可以理解为一个规范。<br>
+接口体现的是一种规范和实现分离的设计哲学，充分利用接口可以极好地降低程序各模块之间的耦合，从而提高系统的可扩展性和可维护性。
+</p>
         </section>
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
-            <p>
-                为什么要使用接口呢？
-            </p>
-            <p>1.便于多人同时开发。</p>
-            <p>2.同一个接口可以有多个实现类（多态）。</p>
-            <p>3.代码整洁，易读易改。</p>
-
-        </section>
-         <section>
+            <p>接口（interface）是一种用来定义程序的协议，它描述可属于任何类或结构的一组相关行为。
+			接口是一组规则的集合，它规定了实现本接口的类或接口必须拥有的一组规则。体现了自然界“如果你是……则必须能……”的理念。
+			接口是一种100%纯抽象的类，是无法被初始化的类。</p>
+			 </section>
+        <section>
             <h3>3.常见问题</h3>
         </section>
         <section>
-            <p>1.使用接口的好处？</p>
-			<p>2:是不是所有情况都使用接口？</p>
-
-        </section>
+            <h3>为什么要使用Interface，而不是直接使用一个实体类来完成任务？Interface和Impl这种方式的好处是什么？</h3>
+            <p>使用Interface是为了实现接口和实现类分离，对接口进行封装，这样一个接口可以对应多个实现类，而且同一个方法也可能不止一个类调用。<br>
+			这个时候用接口实现分离的方法可以减少代码重复率，耦合度更低。<br>
+			Impl是interface的实例，使用了Impl可以减少代码的重复率。</p>
+			 </section>
         <section>
             <h3>4.解决方案</h3>
         </section>
-        <section>
-
-            <p>
-                1.前面已经提到过了。
-            </p>
-            <p> 2.不是所有情况都使用接口。
-            </p>
-
-        </section>
-
+		
         <section>
             <h3>5.编码实战</h3>
         </section>
-
         <section>
             <h3>6.扩展思考</h3>
-        </section>
-
-        <section>
-            <p>在实际项目中代码需要哪些改动的时候可以体现出接口的优势？</p>
-            <P></P>
-        </section>
-        
+			 </section>
         <section>
             <h3>7.参考文献</h3>
-            <p>参考一：百度</p>
-            <p>参考二：<a href="http://how2j.cn/" target="_blank">http://how2j.cn/</a></p>
+            <p>CSDN、百度百科</p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
-            <p>欢迎大家交流和讨论</p>
         </section>
         <section>
-            <h4>鸣谢</h4>
-            <p>感谢大家观看</p>
-            <p><small>BY : 陈昊</small></p>
+      
+            <p>谢谢大家观看，如有问题，恳请批评指正</p>
+			      <p>by：深圳分院 -张高愿-</p>
         </section>
 
     </div>
 </div>
 
-<script src="./lib/reveal/js/head.min.js"></script>
-<script src="./lib/reveal/reveal.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
 
 <script>
 
@@ -148,10 +128,10 @@
     Reveal.initialize({
         history: true,
         dependencies: [
-            { src: './plugin/markdown/marked.js' },
-            { src: './plugin/markdown/markdown.js' },
-            { src: './plugin/notes/notes.js', async: true },
-            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+            { src: 'https://blog.csdn.net/USTC_Zn/article/details/54912367' },
+            { src: 'https://blog.csdn.net/luomingkui1109/article/details/72820232' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
         ]
     });
 </script>
