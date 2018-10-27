@@ -1,0 +1,287 @@
+<!doctype html>
+
+<head xmlns="http://www.w3.org/1999/html">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题,可以在/css/reveal/theme/中选择其他主题,目前暂时只能使用该模板 -->
+     <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+     <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .text-l {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>反射的基本使用</h2>
+            <p>分享人：郭靖</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section style="text-align: left;">
+                <br style="text-align: left">
+                <h4>什么是反射？反射可以做什么？</h4>
+                Java反射就是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意方法和属性；并且能改变它的属性。而这也是Java被视为动态语言的一个关键性质。<br>
+				反射机制允许程序在运行时取得任何一个已知名称的class的内部信息，包括包括其modifiers(修饰符)，fields(属性)，methods(方法)等，并可于运行时改变fields内容或调用methods。那么我们便可以更灵活的编写代码，代码可以在运行时装配，无需在组件之间进行源代码链接，降低代码的耦合度；还有动态代理的实现等等；但是需要注意的是反射使用不当会造成很高的资源消耗
+                </p>
+            </section>
+
+        </section>
+
+
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+
+            <section style="text-align: left;">
+                <h3><strong>反射机制提供的功能</strong></h3>
+                <p c><br>
+                    Java 反射机制主要提供以下功能：<br>
+                    1、在运行时判断任意一个对象所属的类<br>
+                    2、在运行时构造任意一个类的对象<br>
+                    3、在运行时判断任意一个类所具有成员变量和方法<br>
+                    4、在运行时调用任意一个对象的方法<br>
+                    5、生成动态代理<br>
+                    </p>
+            </section>
+
+
+           <section style="text-align: left;">
+                <h3><strong>java中反射由什么实现：</strong></h3>
+                <p c><br>
+                  有以下类实现Java反射机制。这些类都位于 java.lang.reflect 包中。java.lang.reflect包提供了用于获取类和对象的反射信息的类和接口。反射API允许对程序访问有关加载类的字段，方法和构造函数的信息进行编程访问。它允许在安全限制内使用反射的字段，方法和构造函数对其底层对等进行操作。<br>
+                   1、Class类：代表一个类<br>
+                   2、Field类：代表类的成员变量（成员变量也称为类的属性）<br>
+                   3、Method类：代表类的方法<br>
+                   4、Constructor类：代表类的构造方法<br>
+                   5、Array类：提供了动态创建数组，以及访问数组元素的静态方法<br>                  
+                   </p>
+            </section>
+
+
+
+            <section style="text-align: left;">
+                <h3><strong></strong></h3>
+                <p c><br>                    
+           Class 类是 Reflection API 的核心，它的方法：<br>
+           getName():获得类的完整名称<br>
+           getFields():获得类的 public 类型的属性<br>
+           getDeclaredFields():获得类的所有属性<br>
+           getMethods():获得类的 public 类型的方法<br>
+           getDeclaredMethods():获得类的所有方法<br>
+           getMethod(String name,Class[] parameterTypes):获得类的特定方法，name 参数指定方法的名字，parameterTypes 参数指定方法的参数类型<br>
+           getConstructor()：获得类的 public 类型的构造方法<br>
+           getConstructor(Class[] parameterTypes):获得类的特定构造方法，parameterTypes 参数指定构造方法的参数类型<br>
+           newInstance():通过类的不带参数的构造方法创建这个类的一个对象<br>
+                </p>
+             </section>
+
+
+
+            <section style="text-align: left;">
+                <h3><strong>METHOD类：</strong></h3>
+                <p c><br>
+                    Method 提供关于类或接口上单独某个方法（以及如何访问该方法）的信息。所反映的方法可能是类方法或实例方法（包括抽象方法）。 <br>      
+                    Method 允许在匹配要调用的实参与底层方法的形参时进行扩展转换；但如果要进行收缩转换，则会抛出 IllegalArgumentException。 <br>                 
+                  </p>
+             </section>
+
+
+             <section style="text-align: left;">
+                <h3><strong>FIELD类：</strong></h3>
+                <p c><br>
+                    Field 提供有关类或接口的单个字段的信息，以及对它的动态访问权限。反射的字段可能是一个类（静态）字段或实例字段。 <br> 
+                    Array 允许在执行 get 或 set 访问操作期间进行扩展转换，但如果将发生收缩转换，则抛出一个 IllegalArgumentException。 <br>                 
+                  </p>
+             </section>
+
+			  <section style="text-align: left;">
+                <h3><strong>CONSTRUCTOR类：</strong></h3>
+                <p c><br>
+                   Constructor 提供关于类的单个构造方法的信息以及对它的访问权限。 <br>     
+                   Constructor 允许在将实参与带有底层构造方法的形参的 newInstance() 匹配时进行扩展转换，但是如果发生收缩转换，则抛出 IllegalArgumentException。<br>                 
+                  </p>
+             </section>
+
+
+        </section>
+
+
+
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+
+
+            <section style="text-align: left;">
+                <h3><strong></strong></h3>
+                <p c><br>
+                    1、为什么使用反射？<br>
+                    2、使用反射和new来创建对象有什么区别？
+                   </p>
+            </section>         
+		        
+        </section>
+
+
+
+
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section style="text-align: left;">
+                <h3><strong>为什么使用反射？</strong></h3>
+                <p c><br>
+                  java中编译类型有两种：<br>
+                  1、静态编译：在编译时确定类型，绑定对象即通过。<br>
+                  2、动态编译：运行时确定类型，绑定对象。动态编译最大限度地发挥了Java的灵活性，体现了多态的应用，可以减低类之间的耦合性。<br>
+                  一句话概括就是使用反射可以赋予jvm动态编译的能力，否则类的元数据信息只能用静态编译的方式实现，例如热加载，Tomcat的classloader等等都没法支持。<br>                  
+					</p>
+             </section>
+
+           
+            <section style="text-align: left;">
+                <h3><strong>使用反射和new来创建对象有什么区别？</strong></h3>
+                <p c><br>
+                   反射对象是直到程序运行期间才知道类的名字的实例，这时才获取对象的成员，并设置属性。此时要用到类的全路径 ，用类的全路径来加载类，并返回该类的对象。以后就可以遍历类中的各个方法，各个属性。 new是给类直接在内存中创建一个实例，并且可以直接初始化等。不需要类的全路径。<br>
+                   只是生成的途径不一样，对象本身是一模一样的。<br>		   
+				         
+                    </p>
+             </section>  
+		</section>   
+
+		
+		<section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+            
+        </section>
+
+
+
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+
+            <section class="text-l">
+			  <h3><strong>反射的应用场景：</strong></h3>
+                <h4></h4>               
+             
+                <p>                  
+                   逆向代码 ，例如反编译<br>
+                   与注解相结合的框架 <br>
+                   单纯的反射机制应用框架 <br>
+                   动态生成类框架 <br>	
+				   项目完成后，需要修改其中的属性或者是方法名时使用<br>	
+                   
+                </p>
+               
+            </section>      
+ 
+        </section>
+
+
+
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p style="text-align: left">参考：<br>
+                    <br>
+                    互联网
+                </p>
+
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+        </section>
+        <section>
+            <!--<h4>鸣谢</h4>-->
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 郭靖</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js "></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js "></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc "或"o "键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+
+</html>
