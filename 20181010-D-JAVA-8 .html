@@ -1,0 +1,230 @@
+﻿
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>RMI的简单介绍</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：朱明星</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>	
+		
+        <section>
+			<section>
+                <p>1.背景介绍</p>
+				<br>
+				<p style="text-align:left">　　我们之前的demo方法的调用都是在相同的Java虚拟机上进行的，调用方与被调用方都是在同一个堆上，有些时候，程序
+				的某些部分就得在服务器上运行，客户端在不同的计算机执行。怎样调用不同机器上的对象的方法呢？</p>
+            </section>
+			
+			<section>
+				<p style="text-align:center">RMI（Remote Method Invocation，远程方法调用）</p>
+            </section>
+			<section>
+				<p style="text-align:left">　　JDK提供的一个完善的、简单易用的远程调用框架，它要求客户端和服务器端都是Java程序。</p>
+            </section>
+		</section>
+
+			
+
+
+        <section>
+			<section>
+				<h3>2.知识剖析</h3>
+			</section>
+			<section>
+                <p></p>
+                <p style="text-align:center">远程方法调用的设计</p>
+                <br>
+                <p style="text-align:center">服务器</p>
+                <p style="text-align:center">客户端</p>
+				<p style="text-align:center">服务器辅助设施</p>
+				<p style="text-align:center">客户端辅助设施</p>
+            </section>
+			<section>
+                <p></p>
+                <p style="text-align:center">调用方法的过程</p>
+                <br>
+                <p style="text-align:left">　　客户端对象对辅助设施对象调用方法</p>
+                <p style="text-align:left">　　客户端辅助设施把调用信息打包通过网络送到服务器的辅助设施</p>
+				<p style="text-align:left">　　服务器的辅助设施解开来自客户端辅助设施的信息，并调用真正的服务。</p>
+				<p style="text-align:left"></p>
+            </section>
+	
+		
+		</section>
+		
+
+ 
+        <section>
+            <h3>3.常见问题</h3>
+			<br>
+            <p style="text-align:center">一般调用和RMI调用有什么不同？</p>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+			<br>
+			<p style="text-align:left">　　对客户端来说，虽然RMI方法调用看起来像是在本地的，但是客户端辅助设施会通过网络发出调用是有风险的，是会抛出异常的。
+			客户端一开始本机调用，代理会把它转成远程的，中间的信息是从Java虚拟机送到Java虚拟机要看辅助设施所采用的的协议。</p>
+			<p style="text-align:left">　　我们只需要Java对Java的部分，所以使用简单的RMI就好</p>
+        </section>
+
+		<section>
+			<section>
+				<h3>5.编码实战</h3>
+			</section>
+			<section>
+				<p style="text-align:left">（1）创建远程接口，继承java.rmi.Remote接口；</p>
+				<p style="text-align:left">（2）创建远程类，实现远程接口；</p>
+				<p style="text-align:left">（3）创建服务器程序，在rmiregistry注册表中注册远程对象；</p>
+				<p style="text-align:left">（4）创建客户端程序，负责定位远程对象，并且调用远程方法。</p>
+			</section>
+		</section>
+	
+		
+
+		
+        <section>
+			<section>
+				<h3>6.扩展思考</h3>
+			</section>
+			
+			<section>
+				<p>通过RMI来进行集群的好处</p>
+				<p style="text-align:left">　　1.RMI是java默认的远程调用机制。</p>
+				<p style="text-align:left">　　2.可以对TCP套接字进行优化设置。</p>
+				<p style="text-align:left">　　3.Ehcache元素的key和value如果要
+				存在磁盘上都需要实现Serializable接口，于是缓存可以直接通过R
+				MI进行传输而不需要转成其他格式，比如转为XML。</p>
+				<p style="text-align:left">　　4.RMI可以通过配置来穿越防火墙。</p>
+			</section>
+        </section>
+
+        
+        
+        <section>
+            <h3>7.参考文献</h3>
+			<br>
+			<p style="text-align:center">Head First Java</p>
+        </section>
+        <section>
+			<section><p>q1：RPC与RMI的区别</p>
+				<p style="text-align:left">　　1：方法调用方式不同：</p>
+				<p style="text-align:left">　　RMI中是通过在客户端的Stub对象作为远程接口进行远程方法的调用。每个远程方法都具有方法签名。
+				如果一个方法在服务器上执行，但是没有相匹配的签名被添加到这个远程接口(stub)上，那么这个新方法就不能被RMI客户方所调用。</p>
+				<p style="text-align:left">　　RPC中是通过网络服务协议向远程主机发送请求，请求包含了一个参数集和一个文本值，通常形成“classname.methodname(参数集)”的形式。
+				RPC远程主机就去搜索与之相匹配的类和方法，找到后就执行方法并把结果编码，通过网络协议发回。</p>
+			</section>
+			
+            <section>
+				<p style="text-align:left">　　2：适用语言范围不同：</p>
+				<p style="text-align:left">　　RMI只用于Java， RPC是网络服务协议，与操作系统和语言无关</p>
+			</section>
+			
+			<section>
+				<p style="text-align:left">　　3：调用结果的返回形式不同：</p>
+				<p style="text-align:left">　　Java是面向对象的，所以RMI的调用结果可以是对象类型或者基本数据类型；</p>
+				<p style="text-align:left">　　RMI的结果统一由外部数据表示 (External Data Representation, XDR) 语言表示，这种语言抽象了字节序类和数据类型结构之间的差异。</p>
+				<p style="text-align:left">RPC中是通过网络服务协议向远程主机发送请求，请求包含了一个参数集和一个文本值，通常形成“classname.methodname(参数集)”的形式。
+				RPC远程主机就去搜索与之相匹配的类和方法，找到后就执行方法并把结果编码，通过网络协议发回。</p>
+			</section>
+			
+			<section>
+				<p>q2：分布式的优点</p>
+				<p style="text-align:left">　　1.降低耦合度，增删一个功能，不会影响其它功能模块</p>
+				<p style="text-align:left">　　2.因为优点1的存在，对于团队来说，可以更好的分配开发
+				任务，比如各个团队负责一个独立的模块，开发完成后，只需要利用webservice服务的形式将模块的功能以API的形式开放出来</p>
+			</section>
+			<section>
+				<p>q3：RMI的劣势</p>
+				<p style="text-align:left">　　RMI对服务器的IP地址和端口依赖很紧密，但是在开发的时候不知道将来的服务器IP和端口如何，但是客户端程序依赖这个IP和端口。这也是RMI的局限性之一。这个问题有两种解决途径：一是通过DNS来解决，二是通过封装将IP暴露到程序代码之外。
+RMI的局限性之二是RMI是Java语言的远程调用，两端的程序语言必须是Java实现，对于不同语言间的通讯可以考虑用Web Service或者公用对象请求代理体系（CORBA）来实现。</p>
+			</section>
+        </section>
+        <section>
+            <h4 align="center">鸣谢</h4>
+            <p align="center">感谢观看,如有出错,恳请指正</p>
+            <p align="center"><small>BY : 朱明星</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

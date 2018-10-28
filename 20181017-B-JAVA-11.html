@@ -1,0 +1,216 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>mybatis生成策略</h2>
+            <p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：铁木儿</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方法</p>
+            <p>5.编码实战</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+
+            <h3>mybatis</h3>
+            <p>MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以使用简单的 XML 或注解来配置和映射原生信息，将接口和 Java 的 POJOs(Plain Old Java Objects,普通的 Java对象)映射成数据库中的记录。
+			</p>
+
+			
+            
+        </section>
+       
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+
+		<!--<section>-->
+
+            <!--<h3>Memcache与Memcache</h3>-->
+			<!--<ol>-->
+			<!--<li>Tomcat简介</li>-->
+			<!--<li>Post与Put请求</li>-->
+			<!--<li>Ajax</li>-->
+			<!--<li>为什么会收不到put请求</li>-->
+			<!--<li>解决方法</li>-->
+			<!--</ol>-->
+
+        <!--</section>-->
+		
+		<section>
+
+            <h3>第一阶段：JDBCTemplate</h3>
+            <p>Spring提供的一个操作数据库的技术JdbcTemplate，是对Jdbc的封装。语法风格非常接近DBUtils。 
+				JdbcTemplate可以直接操作数据库，加快效率，而且学这个JdbcTemplate也是为声明式事务做准备，毕竟要对数据库中的数据进行操纵！ 
+			</p>
+
+
+        </section>
+		
+	    <section>
+
+            <h3> 第二阶段：Mybatis</h3>
+            <p>每个基于 MyBatis 的应用都是以一个 SqlSessionFactory 的实例为中心的。SqlSessionFactory 的实例可以通过 SqlSessionFactoryBuilder 获得。而 SqlSessionFactoryBuilder 则可以从 XML 配置文件或一个预先定制的 Configuration 的实例构建出 SqlSessionFactory 的实例。
+            </p>
+ <!--            <ol>
+                <li>访问频繁的数据库数据</li>
+                <li>访问频繁的查询条件和结果</li>
+                <li>作为Session的存储方式（提升Session存取性能）</li>
+                <li>页面缓存</li>
+                <li>更新频繁的非重要数据（访客量、点击次数）</li>
+                <li>大量的hot数据</li>
+            </ol> -->
+
+
+            
+        </section>
+		
+		<section>
+
+            <h3>第三阶段：MybatisGenerator</h3>
+			<p>MyBatis Generator (MBG) 是一个Mybatis的代码生成器，它可以帮助我们根据数据库中表的设计生成对应的实体类，xml Mapper文件，接口以及帮助类(也就是我们可以借助该类来进行简单的CRUD操作)，这样就避免了我们每使用到一张表的数据就需要手动去创建对应的类和xml文件，这就帮我们节约了大量的时间去开发和业务逻辑有关的功能，但是如果对联合查询和存储过程您仍然需要手写SQL和对象。</p>
+            
+        </section>
+		
+		<section>
+
+            <h3>第四阶段：MybatisGenerator+TKMapper</h3>
+            <p>MyBatis 代码生成器（简称为 MBG）的基础上，如果数据库字段变化很频繁，就需要反复重新生成代码，并且由于 MBG 覆盖生成代码和追加方式生成XML，导致每次重新生成都需要大量的比对修改。另外，仅仅基础的增删改查等方法，就已经产生了大量的 XML 内容，内容多，看着比较碍事。为了解决前面提到的问题，也为了兼容 MBG 的方法避免项目重构太多，在 MBG 的基础上结合了部分JPA注解产生了通用Mapper。通用Mapper可以很简单的让你获取基础的单表方法，也很方便扩展通用方法。使用通用 Mapper 可以极大的提高你的工作效率。</p>
+
+        </section>
+        		<section>
+
+            <h3>第五阶段：MybatisPlus</h3>
+            <p>MyBatis-Plus（简称 MP）是一个 MyBatis 的增强工具，在 MyBatis 的基础上只做增强不做改变，为简化开发、提高效率而生。</p>
+        </section>
+
+        <section>
+
+            <h3>3.常见问题</h3>
+            <p>1.工具越来越强大，我还有必要学习前面的内容吗</p>
+            <p>2.连表查询怎么处理</p>
+
+        </section>
+
+        <section>
+		
+             <h3>4.解决方法</h3>
+            <ol>
+                <p>1.工具越来越强大，我还有必要学习前面的内容吗</p>
+                <li>任何进步都不是一蹴而就的，通过学习技术的发展过程可以把握进步的脉络</li>
+                <li>学习越接近底层越可以了解程序具体的运行过程，在追求编程效率的同时，不应该舍弃对于执行内容了解</li>
+                <li>对于自身而言，提高对细节的掌握程度，既可以增加代码的简洁性和正确性，也可以发挥出更多的功能</li>
+            </ol>
+             <p>2.连表查询怎么处理</p>
+		        <li>生产的代码是基于表的，连表部分需要后续在mybatis的配置文件中补充</li>
+
+        </section>
+
+		
+        <section>
+		
+            <h3>5.编码实战</h3>
+			
+        </section>
+		
+
+        <section>
+		
+            <h3>6.参考资料</h3>
+            
+            <p>http://mbg.cndocs.ml/</p>
+            <p>https://blog.csdn.net/isea533/article/details/83045335</p>
+            <p>http://mp.baomidou.com/</p>
+        </section>
+
+        <section>
+            <h3>7.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+		
+            <h3>鸣谢</h3>
+            <p>感谢观看,如有出错,恳请指正</p>
+           
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
