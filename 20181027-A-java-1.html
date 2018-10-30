@@ -1,0 +1,289 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+
+   <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+     <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    
+</head>
+
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>springIOC注解</h2>
+            <p>分享人：鲁伯良</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section style="text-align: left;">
+                <br style="text-align: left">
+                <h4>什么是注解?</h4>
+        注解(Annotation),也叫元数据.一种代码级别的说明.它是jdk1.5及以后版本引入的一个特性<br>
+		与类,接口,枚举是在同一个层次.它可以声明在包、类、字段、方法、局部变量、方法参数等<br>
+		的前面，用来对元素说明注释。注解是以“@注解名”在代码中存在的。<br>
+
+               </p>
+            </section>
+      
+
+
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section style="text-align: left;">
+                <h3><strong>四大元注解
+@Retention、@Inherited、@Documented、@Target</strong></h3>
+                <p><br>
+				元注解就是注解的注解,当我们要自定义注解时用<br>
+        1.@Retention: 定义注解的保留策略
+         @Retention(RetentionPolicy.SOURCE)   //注解仅存在于源码中，在class字节码文件中不包含<br>
+         @Retention(RetentionPolicy.CLASS)     // 默认的保留策略，注解会在class字节码文件中存在，但运行时无法获得<br>
+         @Retention(RetentionPolicy.RUNTIME)  // 注解会在class字节码文件中存在，在运行时可以通过反射获取到 </p>
+	    </section>
+		  <section style="text-align: left;">
+		  <p>
+       2.@Target用来声明注解范围（枚举ElementType），ElementType可选值：<br>
+     源码为：
+   @Documented  <br>
+   @Retention(RetentionPolicy.RUNTIME)  <br>
+   @Target(ElementType.ANNOTATION_TYPE)  <br>
+    public @interface Target {  <br>
+    ElementType[] value();  <br>
+}  
+<br>
+            </section>
+			
+				 <section style="text-align: left;">
+		  <p>
+@Target(ElementType.TYPE)   //接口、类、枚举、注解<br>
+@Target(ElementType.FIELD) //字段、枚举的常量<br>
+@Target(ElementType.METHOD) //方法<br>
+@Target(ElementType.PARAMETER) //方法参数<br>
+@Target(ElementType.CONSTRUCTOR)  //构造函数<br>
+@Target(ElementType.LOCAL_VARIABLE)//局部变量<br>
+@Target(ElementType.ANNOTATION_TYPE)//注解<br>
+@Target(ElementType.PACKAGE) ///包   <br>
+}  <br>
+3.@Inherited
+声明子类可以继承此注解，如果一个类A使用此注解，则类A的子类也继承此注解<br>
+4.@声明注解能够被javadoc等识别<br>
+
+            </section>
+            
+
+
+            <section style="text-align: left;">
+                <h3><strong>自定义注解</strong></h3>
+                <p>
+                    定义自定义注解使用@interface 关键字 <br>
+public @interface 注解名 {定义体}<br>
+一旦在自定义注解里面定义了成员变量之后,在使用该注解是就应该为该注解的成员变量指定值<br>
+如果只有一个参数成员,最好把参数名称设为"value",后加小括号。<br>
+
+也可以在自定义注解的成员变量的时候为其制定初始值,.(默认值)<br>
+            </section>
+           
+        </section>
+
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+          <section style="text-align: left;">
+                <p>注解的使用场景<br>
+                  </h4>
+                <!--<p style=" text-align:left"><br>-->
+              </p>
+
+        </section>
+          </section>
+
+
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+		
+            </section>
+
+            <section>
+
+                <p class="text-l">
+                			1.类属性自动赋值。<br>
+2验证对象属性完整性。<br>
+3代替配置文件功能，像spring基于注解的配置。<br>
+4可以生成文档，像java代码注释中的@see,@param等<br>
+				   
+  
+  </p>
+    </section>
+	
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+          
+
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+
+            </section>
+
+            <section class="text-l">
+                <h4>spring注解</h4>
+				   </section>
+				    <section style="text-align: left;">
+                <p>
+传统的Spring做法是使用.xml文件来对bean进行注入或者是配置aop、事物，这么做有两个缺点：<br>
+1、如果所有的内容都配置在.xml文件中，那么.xml文件将会十分庞大；如果按需求分开.xml文件，那么.xml文件又会非常多<br>
+2、在开发中在.java文件和.xml文件之间不断切换，是一件麻烦的事，同时这种思维上的不连贯也会降低开发的效率<br>
+为了解决这两个问题，Spring引入了注解，通过”@XXX”的方式，让注解与Java Bean紧密结合，既大大减少了配置文件的体积，又增加了Java Bean的可读性与内聚性。<br>
+                </p>
+</section>
+            
+            <section>
+                <p style="text-align: left"><br>
+                    <h4>如何使用</h4><br>
+                   再上下文文件中加入如下代码和相应的jar包
+扫描
+ context:component-scan base-package="包" <br>
+多个包逗号隔开。
+                </p>
+            </section>
+
+  <section>
+                <p style="text-align: left"><br>
+                    <h4>常用注解</h4><br>
+    1、@Component<br>
+通用一般不推荐使用<br>
+2、@Controller<br>
+@Controller对应表现层的Bean<br>
+3、@ Service<br>
+@Service对应的是业务层Bean<br>
+4、@ Repository<br>
+@Repository对应数据访问层Bean<br>
+                </p>
+            </section>
+     <section>
+                <p style="text-align: left"><br>
+                    <br>
+                    @Controller, @Service, @Component, @Repository
+刨析<br>
+其中@Component是一种通用名称，泛指任意可以通过Spring来管理的组件，@Controller, @Service, @Repository则是一种特定的组件，通常用来表示某种特定场合下的组件，比如@Repository用来表示仓库（数据层，DAO），并且Spring 框架会根据这种应用场景做些定制，比如@Repository同时具备了自动化的异常转换。类似的， @Service则用来表示服务层相关的类， @Controller则用来表示展示层（presentation）的类。
+
+                </p>
+
+
+            </section>
+			 <section>
+                <p style="text-align: left"><br>
+                    <br>
+                   为什么要分层
+				   所有这些分层方式都是为了解决应用从小项目成长为大项目时可能遇到的隐患，代价是在项目还小时，增加了项目的复杂度，往往一句代码就能搞定的事情，却要拆到三个类中去。但是太多的实际例子表明，如果没有好的架构，当小项目膨胀到一定程度时，往往是无法维护的，只能全部推倒重写。
+				   
+                </p>
+
+
+            </section>
+			
+			
+			</section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p style="text-align: left">参考：<br>
+                    <br>
+                    互联网
+                </p>
+
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+        </section>
+        <section>
+            <!--<h4>鸣谢</h4>-->
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 鲁伯良</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js "></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js "></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc "或"o "键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+
+</html>

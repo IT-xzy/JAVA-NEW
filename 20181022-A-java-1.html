@@ -1,0 +1,262 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2> 反射的基本使用</h2>
+            <p></p>
+            <h3>java 分享会</h3>
+            <p>分享人：赵立鼐</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+           <h2> 射反是么什</h2>
+
+        </section>
+<section>
+    反射，从这个反字可以看出与我们平时正常的使用逻辑肯定不一样，那么到底什么地方不一样了？想要了解“反”，就得先了解一下正的概念。
+</section>
+
+
+        <section>
+            <p>    在正常情况下，如果要使用一个类，必须要经过以下几个步骤：</p>
+
+        <p> （1）使用important导入类所在的包（类：java.lang.Class）</p>
+
+            <p>    （2）通过关键字new进行类对象实例化（构造方法:java.lang.reflect.Constructor）</p>
+
+            <p>    （3）产生对象可以使用“对象.属性”进行类中属性的调用(属性：java.lang.reflect.Field)</p>
+
+            <p>       （4）通过“对象.方法()”调用类中的方法（方法：java.lang.reflect.Method）</p>
+
+        </section>
+        <section>
+            在反射中，使用一个类并不需要导入类的所在包，只要知道类的完整路径就可以知道该类中的所有信息。
+
+            反射不需要有明确的类型对象，所有的对象都使用Object表示。可以直接用Object的与反射机制的混合调用类中的方法
+        </section>
+        <section>
+            <p> Java反射就是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意方法和属性；并且能改变它的属性。而这也是Java被视为动态（或准动态，为啥要说是准动态，因为一般而言的动态语言定义是程序运行时，允许改变程序结构或变量类型，这种语言称为动态语言。从这个观点看，Perl，Python，Ruby是动态语言，C++，Java，C#不是动态语言。）语言的一个关键性质。</p>
+
+        </section>
+
+         <!--<section>-->
+          <!--<p> 表述性状态是对资源数据在某个瞬间状态的快照,</p>-->
+             <!--<p> 资源的某个瞬时状态被定义为一种表述（representation），</p>-->
+             <!--<p>  这种描述性的状态包括资源数据的内容、表述格式（比如XML、JSON）等信息，</p>-->
+             <!--<p> 一种资源可以对应多种表述。</p>-->
+          <!--</section>-->
+        <!--<section>-->
+             <!--REST的资源是可寻址的，通过HTTP协议（RFC 2616）定义的通用动词方法（比如GET、PUT、DELETE、POST），-->
+             <!--并使用URI协议（RFC 3305）来唯一标识某个资源公布出来的接口。-->
+         <!--<p>    请求一个资源的过程可以理解为，访问一个具有指定性和描述性的URI，-->
+             <!--经由 HTTP，将资源的表述从服务器转移到客户端，或者相反方向。</p>-->
+
+         <!--</section>-->
+
+        <section>
+            <h3>2.知识剖析</h3>
+
+        </section>
+        <section>
+        <p>　
+            <h3>用使的射反<h3>
+        </p>
+        </section>
+       <section> 获取Class对象的三种方式</section>
+        <section>
+          <p>   1. Object ——> getClass();
+              通过getClass()方法：（通过对象）</p>
+            <p>   2、通过对象实例方法获取对象：（通过对象） </p>
+            <p>    3、类的全路径：（通过类名） </p>
+
+
+        </section>
+
+
+<section>
+
+</section>
+
+<section>
+
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>
+              反射的优缺点
+            </p>
+        </section>
+
+
+        <section>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+        </section>
+
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            反射的优点当然是体现在它的动态性上面，能运行时确定类型，绑定对象。动态编译最大限度发挥了java的灵活性，体现了多态的应用，降低类之间的藕合性。 一句话，反射机制的优点就是可以实现动态创建对象和编译，特别是在J2EE的开发中，它的灵活性就表现的十分明显。比如，一个大型的软件，不可能一次就把 它设计的很完美，当这个程序编译后，发布了，当发现需要更新某些功能时，我们不可能要用户把以前的卸载，再重新安装新的版本，假如这样的话，这个软件肯定是没有多少人用的。采用静态的话，需要把整个程序重新编译一次才可以实现功能的更新，而采用反射机制的话，它就可以不用卸载，只需要在运行时才动态的创建 和编译，就可以实现该功能。 
+               
+
+
+        </section>
+        <section>
+            它的缺点是对性能有影响。使用反射基本上是一种解释操作，我们可以告诉JVM，我们希望做什么并且它满足我们的要求。这类操作总是慢于只直接执行相同的操作。 
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+
+        </section>
+        <section>
+         JAVA反射的应用场合
+        </section>
+            <section>
+
+
+                <p>    在Java程序中许多对象在运行时都会出现两种类型：</p>
+                <p>    编译时类型和运行时类型</p>
+            </section>
+        <section>
+          <p>    编译时的类型由声明该对象时使用的类型决定，
+          </p>
+            <p>
+                运行时的类型由实际赋给对象的类型决定</p>
+              如：
+            <code>  Person p =new Student();</code>
+          <p>  编译时类型为Person，而运行时为Student</p>
+        </section>
+             <section>
+              除此之外，程序在运行时还可能接收到外部传入的一个对象，该对象的编译时类型为Object，
+              但程序又需要调用该对象运行时类型的方法。为了这些问题程序需要在运行时发现对象和类的真实信息。
+              然而，如果编译时根本无法预知该对象和类可能属于哪些类，程序只依靠运行时信息来发现该对象和类的真实信息，
+              此时就必须使用反射</section>
+
+
+            </p>
+
+            </section>
+                <section>
+                   最后总结一哈
+                </section>
+
+<section>
+ <h3>反射简单来说，就是动态加载对象，并对对象进行剖析。</h3>
+</section>
+        <section>
+  <p> Java的反射机制是指在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法;</p>
+
+     对于任意一个对象，都能够调用它的任意一个方法，这种动态获取信息的功能称为Java语言的反射机制
+</section>
+
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>
+
+                https://www.cnblogs.com/aspwebchh/p/6652855.html
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>
+
+            </p>
+        </section>
+            <section>
+                <h4>鸣谢</h4>
+                <p>感谢观看,如有出错,恳请指正</p>
+                <p><small>BY : 西安分院 赵立鼐</small></p>
+            </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

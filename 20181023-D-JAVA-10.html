@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet"
+          href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '/css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt=""
+     usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt=""
+          target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>
+如何使用分布式配置中心？</h3>
+            <h3></h3>
+            
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">	1.1	SpringCloud简介</p>
+            <p style="text-align:left">springCloud是基于SpringBoot的一整套实现微服务的框架。他提供了微服务开发所需的配置管理、服务发现、断路器、智能路由、微代理、控制总线、全局锁、决策竞选、分布式会话和集群状态管理等组件。
+            </p>
+            <p style="text-align:left"></p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <h3> 2.1	什么是分布式配置中心？</h3>
+            <p style="text-align:left">在微服务架构的系统中，使用一个统一的微服务进行配置文件的加载，由这个微服务向其他服务提供配置文件，这个微服务就是配置中心。</p>
+				  </section>
+
+        <section>
+            <h3>2.2	什么是SpringCloudBus？</h3>
+            <p style="text-align:left">
+				Spring cloud bus即SpringCloud框架的消息总线。其本质是利用了MQ的广播机制在分布式的系统中传播消息，目前常用的有Kafka和RabbitMQ。利用bus的机制可以做很多的事情，其中配置中心客户端刷新就是典型的应用场景之一。  </p> 
+        </section>
+
+        <section>
+            <h3>2.3	使用SpringCloudBus实现自动更新配置的步骤有哪些？</h3>
+            <p style="text-align:left"> 1）	设置配置中心，config-server，从git获取配置信息；
+            </p>
+			<p style="text-align:left">
+				2）	在service中调用config-server中的相关配置； </p> <p style="text-align:left">
+			3）	在service中导入SpringCloudBus相关依赖，配置RabbitMq；</p> 
+        </section>
+           
+     <section>
+            <h3>2.3	SpringCloudBus实现自动更新配置的步骤有哪些？</h3>
+         <p style="text-align:left">
+				4）	在需要刷新配置的Controller上添加@RefreshScope注解 </p> <p style="text-align:left">
+				5）	在GitHub上配置WebHook，设置更新properties文件后向config-server发送post请求；
+            </p><p style="text-align:left">
+				6）	config-server接收到POST请求后，发起刷新配置的指令，并将其通过消息总线分发到所有的service；
+            </p><p style="text-align:left">
+				7）	service中有@RefreshScope的类在接收到消息后，重新从config-server加载配置。
+            </p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p>1、	如何配置SpringCloudBus实现自动更新配置</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+            <p>见编码实战</p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <h3>6.1	@RefreshScope的作用是什么？</h3>
+          		
+                 <p style="text-align:left">该注解用来标注需要刷新的类，只有加上了这个注解，才会对这个类所引用的配置进行刷新。</p>
+        </section>
+
+        <section>
+            <h3>6.2	服务注册中心、服务配置中心和具体的服务模块是不是必须要放在同一个服务器上？</h3>
+            <p style="text-align:left">
+              不需要，只需要在yml文件中指定地、开放相关的端口即可。
+                </p>
+        </section>
+
+        <section>
+            <h3>6.3	GitHub的webHook功能如何配置？</h3>
+            <p style="text-align:left">
+            1）	找到连接的库，打开Setting页面；</p> <p style="text-align:left">
+2）	选择webHook，新增webhook；</p> <p style="text-align:left">
+3）	填写发送POST请求的地址及何时发送POST请求
+</p> 
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>CSDN</p>
+            <p>百度百科</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js',
+                async: true
+            },
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
