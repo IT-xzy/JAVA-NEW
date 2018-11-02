@@ -1,0 +1,517 @@
+<!doctype html>
+
+<head xmlns="http://www.w3.org/1999/html">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题,可以在/css/reveal/theme/中选择其他主题,目前暂时只能使用该模板 -->
+     <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+     <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .text-l {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Http协议</h2>
+            <p>分享人：郭靖</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section style="text-align: left;">
+                <br style="text-align: left">
+                <h4>什么是HTTP协议？</h4>
+                HTTP协议，超文本传输协议（HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。是用于从万维网服务器传输超文本到本地浏览器的传送协议。HTTP是一个基于TCP/IP通信协议来传递数据（HTML文件、图片文件、查询结果）的。HTTP是一个属于应用层的面向对象的协议，由于其简单、快捷的方式，适用于分布式超媒体信息系统。HTTP协议工作于客户端-服务端架构之上，浏览器作为HTTP客户端通过URL向HTTP服务端即web服务器发送请求，web服务器根据接收到的请求，向客户端发送响应信息。
+                </p>
+            </section>
+
+        </section>
+
+
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+
+            <section style="text-align: left;">
+                <h3><strong>HTTP的工作原理</strong></h3>
+                <p c><br>
+                   HTTP协议定义Web客户端如何从Web服务器请求Web页面，以及服务器如何把Web页面传送给客户端。HTTP协议采用了请求/响应模型。客户端向服务器发送一个请求报文，请求报文包含请求的方法、URL、协议版本、请求头部和请求数据。服务器以一个状态行作为响应，响应的内容包括协议的版本、成功或者错误代码、服务器信息、响应头部和响应数据。<br>
+                   HTTP请求/响应步骤：<br>
+				   1、客户端连接到web服务器<br>
+                   一个HTTP客户端，通常是浏览器，与Web服务器的HTTP端口（默认为80）建立一个TCP套接字连接。例如，http://www.baidu.com。<br>				  
+				  
+                    </p>
+            </section>
+
+
+           <section style="text-align: left;">
+                <h3><strong></strong></h3>
+                <p c><br>
+				 2、发送HTTP请求<br>
+                  通过TCP套接字，客户端向Web服务器发送一个文本的请求报文，一个请求报文由请求行、请求头部、空行和请求数据4部分组成。<br>
+                  3、服务器接受请求并返回HTTP响应<br>
+                  Web服务器解析请求，定位请求资源。服务器将资源复本写到TCP套接字，由客户端读取。一个响应由状态行、响应头部、空行和响应数据4部分组成。<br>
+                  4、释放连接TCP连接<br>
+                  若connection 模式为close，则服务器主动关闭TCP连接，客户端被动关闭连接，释放TCP连接;若connection 模式为keepalive，则该连接会保持一段时间，在该时间内可以继续接收请求。<br>             
+                   </p>
+            </section>
+
+
+            <section style="text-align: left;">
+                <h3><strong></strong></h3>
+                <p c><br>                    
+                   5、客户端浏览器解析HTML内容<br> 
+                    客户端浏览器首先解析状态行，查看表明请求是否成功的状态代码。然后解析每一个响应头，响应头告知以下为若干字节的HTML文档和文档的字符集。客户端浏览器读取响应数据HTML，根据HTML的语法对其进行格式化，并在浏览器窗口中显示。<br> 
+                   例如：在浏览器地址栏键入URL，按下回车之后会经历以下流程：<br> 
+                   1、浏览器向 DNS 服务器请求解析该 URL 中的域名所对应的 IP 地址;<br> 
+                   2、解析出 IP 地址后，根据该 IP 地址和默认端口 80，和服务器建立TCP连接;<br>                  
+                  
+                </p>
+             </section>
+
+
+             <section style="text-align: left;">
+                <h3><strong></strong></h3>
+                <p c><br>                    
+                   3、浏览器发出读取文件(URL 中域名后面部分对应的文件)的HTTP 请求，该请求报文作为 TCP 三次握手的第三个报文的数据发送给服务器;<br>
+                   4、服务器对浏览器请求作出响应，并把对应的 html 文本发送给浏览器;<br> 
+                   5、释放 TCP连接;<br> 
+                   6、浏览器将该 html 文本并显示内容;		  
+		              <br>
+                </p>
+             </section>
+
+
+
+
+            <section style="text-align: left;">
+                <h3><strong>HTTP协议的请求方法：</strong></h3>
+                <p c><br>
+                    根据HTTP标准，HTTP请求可以使用多种请求方法。<br>  
+                    HTTP1.0定义了三种请求方法： GET, POST 和 HEAD方法。<br>  
+                    HTTP1.1新增了五种请求方法：OPTIONS, PUT, DELETE, TRACE 和 CONNECT 方法。<br>  
+                    GET       请求指定的页面信息，并返回实体主体。<br>  
+                    HEAD      类似于get请求，只不过返回的响应中没有具体的内容，用于获取报头<br>  
+                    POST      向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导           致新的资源的建立和/或已有资源的修改。<br>                                 
+                  </p>
+             </section>
+
+
+             <section style="text-align: left;">
+                <h3><strong><em></em></strong></h3>
+                <p c><br>
+				
+                    PUT       从客户端向服务器传送的数据取代指定的文档的内容。<br>  
+                    DELETE    请求服务器删除指定的页面。<br>  
+                    CONNECT   HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。<br>  
+                    OPTIONS   允许客户端查看服务器的性能。<br>  
+                    TRACE     回显服务器收到的请求，主要用于测试或诊断。<br>                 
+                  </p>
+             </section>
+
+
+
+             <section style="text-align: left;">
+                <h3><strong>http请求的状态码：</strong></h3>
+                <p c><br>
+                   Response 消息中的第一行叫做状态行，由HTTP协议版本号， 状态码， 状态消息 三部分组成。<br>
+
+                    状态码用来告诉HTTP客户端,HTTP服务器是否产生了预期的Response. <br>
+
+                    HTTP/1.1中定义了5类状态码， 状态码由三位数字组成，第一个数字定义了响应的类别			
+					
+					<br>                 
+                  </p>
+             </section>
+
+			 <section>
+                <p class="text-l">
+
+                    1开头（信息提示）这些状态代码表示临时的响应。客户端在收到常规响应之前，应准备接收一个或多个 1xx 响应<br>
+                    100 （继续）初始的请求已经接受，客户应当继续发送请求的其余部分。（HTTP 1.1新） <br>
+                    101 （切换协议）服务器将遵从客户的请求转换到另外一种协议（HTTP 1.1新） <br>
+
+                </p>
+            </section>
+
+            <section>
+                <p class="text-l">
+                    2开头 （请求成功）表示成功处理了请求的状态代码 <br>
+                    200 （成功） 服务器已成功处理了请求。 通常，这表示服务器提供了请求的网页。 <br>
+                    201 （已创建） 请求成功并且服务器创建了新的资源。<br>
+                    202 （已接受） 服务器已接受请求，但尚未处理。<br>
+                    203 （非授权信息） 服务器已成功处理了请求，但返回的信息可能来自另一来源。<br>
+                    204 （无内容） 服务器成功处理了请求，但没有返回任何内容。<br>
+                    205 （重置内容） 服务器成功处理了请求，但没有返回任何内容。<br>
+                    206 （部分内容） 服务器成功处理了部分 GET 请求。<br>
+                </p>
+            </section>
+            <section>
+
+                <p class="text-l">
+                    3开头 (请求被重定向)表示要完成请求，需要进一步操作 <br>
+                    300 （多种选择） 针对请求，服务器可执行多种操作。 服务器可根据请求者 (user agent) 选择一项操作，或提供操作列表供请求者选择。<br>
+                    301 （永久移动） 请求的网页已永久移动到新位置。 服务器返回此响应（对 GET 或 HEAD 请求的响应）时，会自动将请求者转到新位置。<br>
+                    302 （临时移动） 服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来进行以后的请求。<br>
+                    303 （查看其他位置） 请求者应当对不同的位置使用单独的 GET 请求来检索响应时，服务器返回此代码。<br>
+                    304 （未修改） 自从上次请求后，请求的网页未修改过。 服务器返回此响应时，不会返回网页内容。<br>
+                    305 （使用代理） 请求者只能使用代理访问请求的网页。 如果服务器返回此响应，还表示请求者应使用代理。<br>
+                </p>
+
+
+            </section>
+
+            <section>
+
+                <p class="text-l">
+                    4开头 （请求错误）这些状态代码表示请求可能出错，妨碍了服务器的处理。 <br>
+                    400 （错误请求） 服务器不理解请求的语法。 <br>
+                    401 （未授权） 请求要求身份验证。 对于需要登录的网页，服务器可能返回此响应。<br>
+                    403 （禁止） 服务器拒绝请求。<br>
+                    404 （未找到） 服务器找不到请求的网页。<br>
+                    405 （方法禁用） 禁用请求中指定的方法。<br>
+                    406 （不接受） 无法使用请求的内容特性响应请求的网页。<br>
+                    407 （需要代理授权） 此状态代码与 401（未授权）类似，但指定请求者应当授权使用代理。<br>
+                    408 （请求超时） 服务器等候请求时发生超时。 <br>
+                </p>
+
+
+            </section>
+            <section>
+
+                <p class="text-l">
+                    5开头（服务器错误）这些状态代码表示服务器在尝试处理请求时发生内部错误。 这些错误可能是服务器本身的错误，而不是请求出错。<br>
+                    500 （服务器内部错误） 服务器遇到错误，无法完成请求。<br>
+                    501 （尚未实施） 服务器不具备完成请求的功能。 例如，服务器无法识别请求方法时可能会返回此代码。<br>
+                    502 （错误网关） 服务器作为网关或代理，从上游服务器收到无效响应。<br>
+                    503 （服务不可用） 服务器目前无法使用（由于超载或停机维护）。 通常，这只是暂时状态。<br>
+                    504 （网关超时） 服务器作为网关或代理，但是没有及时从上游服务器收到请求。<br>
+                    505 （HTTP 版本不受支持） 服务器不支持请求中所用的 HTTP 协议版本。<br>
+                </p>
+            </section>
+
+
+
+            <section class="text-l">
+                <h3>HTTP之主要的三种Content-Type</h3>
+                <p>
+                    1. application/x-www-form-urlencoded：在最开始的请求方式中，请求参数都是放在url中，表单提交的时候，
+                    都是以key=&value=的方式写在url后面。这也是浏览器表单提交的默认方式。 。 <br>
+                    2. multipart/form-data： 此种方式多用于文件上传，表单数据都保存在http的正文部分，各个表单项之间用boundary分开。 <br>
+                    3. application/json： 它用来告诉服务端消息主体是序列化后的 JSON 字符串。 <br>
+                </p>
+            </section>
+
+
+
+
+
+
+
+
+
+        </section>
+
+
+
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+
+            <section style="text-align: left;">
+                <h3><strong></strong></h3>
+                <p c><br>
+                    1、URI和URl的区别？<br>
+                    2、get和post请求的区别？<br>
+                   </p>
+            </section>         
+		        
+        </section>
+
+
+
+
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section style="text-align: left;">
+                <h3><strong>URI和URl的区别？</strong></h3>
+                <p><br>
+                 URI，是uniform resource identifier，统一资源标识符，用来唯一的标识一个资源。
+                 Web上可用的每种资源如HTML文档、图像、视频片段、程序等都是一个来URI来定位的
+                 URI一般由三部组成：<br>
+                 ①访问资源的命名机制<br>
+                 ②存放资源的主机名<br>
+                 ③资源自身的名称，由路径表示，着重强调于资源。<br>                                 
+					</p>
+           </section>
+   
+
+
+
+           
+		
+            <section style="text-align: left;">
+                <h3><strong>URI和URl的区别？</strong></h3>
+                <p><br>                
+                 URL是uniform resource locator，统一资源定位器，它是一种具体的URI，即URL可以用来标识一个资源，而且还指明了如何locate这个资源。<br>
+                 URL是Internet上用来描述信息资源的字符串，主要用在各种WWW客户程序和服务器程序上，特别是著名的Mosaic。<br>
+                 采用URL可以用一种统一的格式来描述各种信息资源，包括文件、服务器的地址和目录等。URL一般由三部组成：<br>
+                 ①协议(或称为服务方式)<br>
+                 ②存有该资源的主机IP地址(有时也包括端口号)<br>
+                 ③主机资源的具体地址。如目录和文件名等<br>                               
+					</p>
+           </section>
+      
+         
+            <section style="text-align: left;">
+                <h3><strong>URI和URl的区别？</strong></h3>
+                <p><br>             
+              URN，uniform resource name，统一资源命名，是通过名字来标识资源，比如mailto:java-net@java.sun.com。URI是以一种抽象的，高层次概念定义统一资源标识，而URL和URN则是具体的资源标识的方式。URL和URN都是一种URI。笼统地说，每个 URL 都是 URI，但不一定每个 URI 都是 URL。这是因为 URI 还包括一个子类，即统一资源名称 (URN)，它命名资源但不指定如何定位资源。在Java的URI中，一个URI实例可以代表绝对的，也可以是相对的，只要它符合URI的语法规则。而URL类则不仅符合语义，还包含了定位该资源的信息，因此它不能是相对的。在Java类库中，URI类不包含任何访问资源的方法，它唯一的作用就是解析。相反的是，URL类可以打开一个到达资源的流。<br>                  
+			</p>
+           </section>
+
+          
+            <section style="text-align: left;">
+                <h3><strong>get和post请求的区别？</strong></h3>
+                <p>GET请求<br>	
+             GET /books/?sex=man&name=Professional HTTP/1.1<br>	
+             Host: www.wrox.com<br>	
+             User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.6)<br>	
+             Gecko/20050225 Firefox/1.0.1<br>	
+             Connection: Keep-Alive<br>	
+             注意最后一行是空行<br>	                  
+                    </p>
+            </section>  
+	 
+
+
+            <section style="text-align: left;">
+                <h3><strong>get和post请求的区别？</strong></h3>
+                <p>
+             POST请求<br>	
+             POST / HTTP/1.1<br>	
+             Host: www.wrox.com<br>	
+             User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.6)<br>	
+             Gecko/20050225 Firefox/1.0.1<br>	
+             Content-Type: application/x-www-form-urlencoded<br>	
+             Content-Length: 40<br>	
+             Connection: Keep-Alive<br>	
+             name=Professional%20Ajax&publisher=Wiley<br>	       
+                    </p>
+            </section>  
+
+
+
+             <section style="text-align: left;">
+                <h3><strong>get和post请求的区别？</strong></h3>
+                <p>
+               1、GET提交，请求的数据会附在URL之后（就是把数据放置在HTTP协议头中），以?分割URL和传输数据，多个参数用&连接；例 如：login.action?name=hyddd&password=idontknow&verify=%E4%BD%A0 %E5%A5%BD。如果数据是英文字母/数字，原样发送，如果是空格，转换为+，如果是中文/其他字符，则直接把字符串用BASE64加密，得出如： %E4%BD%A0%E5%A5%BD，其中％XX中的XX为该符号以16进制表示的ASCII。<br>	
+               POST提交：把提交的数据放置在是HTTP包的包体中。上文示例中红色字体标明的就是实际的传输数据
+               因此，GET提交的数据会在地址栏中显示出来，而POST提交，地址栏不会改变   <br>	                     
+                </p>
+             </section>  
+	
+
+
+             <section style="text-align: left;">
+                <h3><strong>get和post请求的区别？</strong></h3>
+                <p>             
+               2、传输数据的大小：首先声明：HTTP协议没有对传输的数据大小进行限制，HTTP协议规范也没有对URL长度进行限制。
+               而在实际开发中存在的限制主要有：<br>	
+               GET:特定浏览器和服务器对URL长度有限制，例如 IE对URL长度的限制是2083字节(2K+35)。对于其他浏览器，如Netscape、FireFox等，理论上没有长度限制，其限制取决于操作系 统的支持。
+               因此对于GET提交时，传输数据就会受到URL长度的 限制。<br>	
+               POST:由于不是通过URL传值，理论上数据不受 限。但实际各个WEB服务器会规定对post提交数据大小进行限制，Apache、IIS6都有各自的配置。   <br>	                              
+                    </p>
+             </section>  
+	
+
+
+             <section style="text-align: left;">
+                <h3><strong>get和post请求的区别？</strong></h3>
+                <p>          
+            
+               3、安全性 <br>	
+               POST的安全性要比GET的安全性高。比如：通过GET提交数据，用户名和密码将明文出现在URL上，因为(1)登录页面有可能被浏览器缓存；(2)其他人查看浏览器的历史纪录，那么别人就可以拿到你的账号和密码了，除此之外，使用GET提交数据还可能会造成Cross-site request forgery攻击 <br>	
+			    4、Http get,post,soap协议都是在http上运行的<br>	
+              （1）get：请求参数是作为一个key/value对的序列（查询字符串）附加到URL上的
+               查询字符串的长度受到web浏览器和web服务器的限制（如IE最多支持2048个字符），不适合传输大型数据集同时，它很不安全<br>	
+              （2）post：请求参数是在http标题的一个不同部分（名为entity body）传输的，这一部分用来传输表单信息，因此必须将
+                    </p>
+             </section>  
+
+
+       
+             <section style="text-align: left;">
+                <h3><strong>get和post请求的区别？</strong></h3>
+                Content-type设置为:application/x-www-form- urlencoded。post设计用来支持web窗体上的用户字段，其参数也是作为      key/value对传输。
+               但是：它不支持复杂数据类型，因为post没有定义传输数据结构的语义和规则。<br>	
+              （3）soap：是http post的一个专用版本，遵循一种特殊的xml消息格式
+               Content-type设置为: text/xml 任何数据都可以xml化。
+               Http协议定义了很多与服务器交互的方法，最基本的有4种，分别是GET,POST,PUT,DELETE. 一个URL地址用于描述一个网络上的资源，而HTTP中的GET, POST, PUT, DELETE就对应着对这个资源的查，改，增，删4个操作。 我们最常见的就是GET和POST了。GET一般用于获取/查询资源信息，而POST一般用于更新资源信息.      
+                    </p>
+             </section>  
+	 
+      
+             <section style="text-align: left;">
+                <h3><strong>get和post请求的区别？</strong></h3>             
+              我们看看GET和POST的区别<br>	
+              GET提交的数据会放在URL之后，以?分割URL和传输数据，参数之间以&相连，如EditPosts.aspx?name=test1&id=123456. POST方法是把提交的数据放在HTTP包的Body中.<br>	
+              GET提交的数据大小有限制（因为浏览器对URL的长度有限制），而POST方法提交的数据没有限制.<br>	
+              GET方式需要使用Request.QueryString来取得变量的值，而POST方式通过Request.Form来获取变量的值。<br>	
+              GET方式提交数据，会带来安全问题，比如一个登录页面，通过GET方式提交数据时，用户名和密码将出现在URL上，如果页面可以被缓存或者其他人可以访问这台机器，就可以从历史记录获得该用户的账号和密码.<br>	            
+                    </p>
+             </section>  
+	 
+
+
+    </section>
+
+		
+		<section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+            
+        </section>
+
+
+
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+
+            <section class="text-l">
+			  <h3><strong>HTTP的特点：</strong></h3>
+                <h4></h4>            
+             
+                <p>                  
+                  1、简单快速：客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。<br>	
+                  2、灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。<br>	
+                  3.无连接：无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。<br>	                
+                   
+                </p>
+               
+            </section>      
+ 
+         <section class="text-l">
+			  <h3><strong>HTTP的特点：</strong></h3>
+                <h4></h4>            
+             
+                <p>                  
+                 
+                  4.无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。<br>	
+				  5、支持B/S及C/S模式。<br>	
+                   
+                </p>
+               
+            </section>  
+
+
+
+        </section>
+
+
+
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p style="text-align: left">参考：<br>
+                    <br>
+                    互联网
+                </p>
+
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+        </section>
+        <section>
+            <!--<h4>鸣谢</h4>-->
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 郭靖</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js "></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js "></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc "或"o "键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+
+</html>
