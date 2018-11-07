@@ -1,0 +1,474 @@
+<!doctype html>
+
+<head xmlns="http://www.w3.org/1999/html">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+
+    <!-- PPT主题,可以在/css/reveal/theme/中选择其他主题,目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="css/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .text-l {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>http协议</h2>
+            <p>分享人：秦永辉</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section style="text-align: left;">
+                <br style="text-align: left">
+                <h4>HTTP简介</h4>
+				<p>HTTP（HyperText Transfer Protocol，超文本传输协议）是一种详细规定了浏览器和万维网(WWW = World Wide Web)
+				服务器之间互相通信的规则，通过因特网传送万维网文档的数据传送协议。它是Web系统最核心的内容，它是Web服务器和
+				客户端直接进行数据传输的规则。它可以使浏览器更加高效，使网络传输减少。它不仅保证计算机正确快速地传输
+				超文本文档，还确定传输文档中的哪一部分，以及哪部分内容首先显示(如文本先于图形)等。
+				</p>
+				<p>HTTP是一个应用层协议，有请求和响应构成，是一个标准的客户端服务器模型。Web服务器就是平时所说的网站，
+				是信息内容的发布者。
+				</p>	
+            </section>
+			<section style="text-align:left;">
+			<p>浏览网页是HTTP的主要应用，但是这并不代表HTTP就只能应用于网页的浏览。HTTP是一种协议，只要通信的双方
+				都遵守这个协议，HTTP就能有用武之地。比如咱们常用的QQ，迅雷这些软件，都会使用HTTP协议(还包括其他的协议)。
+			</p>
+			</section>
+        </section>
+		
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+			 <section style="text-align: left;">
+			 <h4>一、HTTP工作原理</h4>
+                <p>
+                 HTTP协议定义Web客户端如何从Web服务器请求Web页面，以及服务器如何把Web页面传送给客户端。
+				 HTTP协议采用了请求/响应模型。客户端向服务器发送一个请求报文，请求报文包含请求的方法、
+				 URL、协议版本、请求头部和请求数据。服务器以一个状态行作为响应，响应的内容包括协议的版本、
+				 成功或者错误代码、服务器信息、响应头部和响应数据。
+				</p>
+            </section>
+			 <section style="text-align:left;">
+                <h4>二、HTTP请求/响应步骤</h4>
+				<p>一次HTTP操作称为一个事务，其工作过程可分为四步：</p>
+				<p>1.客户端连接到Web服务器。首先客户机与服务器需要建立连接。一个HTTP客户端，通常是浏览器，与Web服务器的HTTP端口
+				（默认为80）建立一个TCP套接字连接。例如，http://www.oakcms.cn。只要单击某个超级链接，HTTP的工作开始。<br>
+                   2.建立连接后，发送HTTP请求。客户机发送一个请求给服务器，请求方式的格式为：统一资源标识符（URL）、协议版本号，
+				   后边是MIME信息包括请求修饰符、客户机信息和可能的内容。<br>
+				   3.服务器接受请求并返回HTTP响应。Web服务器解析请求，定位请求资源。服务器将资源复本写到TCP套接字，由客户端读取。其格式为一个状态行，包括信息的协议版本号、
+				一个成功或错误的代码，后边是MIME信息包括服务器信息、实体信息和可能的内容。<br>
+				</p>
+            </section>
+			<section style="text-align:left;">
+			<p>
+			4、释放连接TCP连接<br>
+			若connection 模式为close，则服务器主动关闭TCP连接，客户端被动关闭连接，释放TCP连接;
+			若connection 模式为keepalive，则该连接会保持一段时间，在该时间内可以继续接收请求;<br>
+			5、客户端浏览器解析HTML内容<br>
+			客户端浏览器首先解析状态行，查看表明请求是否成功的状态代码。然后解析每一个响应头，
+			响应头告知以下为若干字节的HTML文档和文档的字符集。客户端浏览器读取响应数据HTML，
+			根据HTML的语法对其进行格式化，并在浏览器窗口中显示。
+			</p>
+			</section>
+			<section style="text-align:left;">
+			<h4>三、HTTP之请求消息Request </h4>
+				<p>客户端发送一个HTTP请求到服务器的请求消息包括以下格式：请求行、请求头部、空行和请求数据四个部分组成。<br>
+				<br>
+				<img src="D:\HTTP-PPT简介\img\GET请求示例.png"  alt="GET请求示例" /><br>
+				第一部分：请求行，用来说明请求类型,要访问的资源以及所使用的HTTP版本.<br>
+				GET说明请求类型为GET,[/562f25980001b1b106000338.jpg]为要访问的资源,该行的最后一部分说明使用的是HTTP1.1版本。
+				</p>
+			</section>
+			<section style="text-align:left;">
+				<p>第二部分：请求头部，紧接着请求行（即第一行）之后的部分，用来说明服务器要使用的附加信息<br>
+				从第二行起为请求头部，HOST将指出请求的目的地.User-Agent,服务器端和客户端脚本都能访问它,
+				它是浏览器类型检测逻辑的重要基础.该信息由你的浏览器来定义,并且在每个请求中自动发送等等<br>
+				第三部分：空行，请求头部后面的空行是必须的<br>
+				即使第四部分的请求数据为空，也必须有空行。<br>
+				第四部分：请求数据也叫主体，可以添加任意的其他数据。<br>
+				这个例子的请求数据为空。
+				</p>	
+			</section>
+			<section style="text-align:left;">
+				<h4>POST请求的例子<h4><br>
+				<p>
+				<img src="D:\HTTP-PPT简介\img\POST请求示例.png"  alt="POST请求示例" />
+				第一部分：请求行，第一行明了是post请求，以及http1.1版本。<br>
+				第二部分：请求头部，第二行至第六行。<br>
+				第三部分：空行，第七行的空行。<br>
+				第四部分：请求数据，第八行。<br>
+				</p>
+			</section>
+			<section style="text-align:left;">
+				<h4>四、HTTP之响应消息Response<h4>
+				<p>一般情况下，服务器接收并处理客户端发过来的请求后会返回一个HTTP的响应消息。
+				HTTP响应也由四个部分组成，分别是：状态行、消息报头、空行和响应正文<br>
+				<img src="D:\HTTP-PPT简介\img\response.png"  alt="response" />
+				</p>
+			</section>
+			<section style="text-align:left;">
+				<p>
+				第二部分：消息报头，用来说明客户端要使用的一些附加信息<br>
+				第二行和第三行和第四行为消息报头，Date:生成响应的日期和时间；Content-Type:
+				指定了MIME类型的HTML(text/html),编码类型是ISO-8859-1<br>
+				第三部分：空行，消息报头后面的空行是必须的<br>
+				第四部分：响应正文，服务器返回给客户端的文本信息。<br>
+				空行后面的html部分为响应正文。<br>
+				</p>
+			</section>
+            <section style="text-align:left;">
+                <h3>URL详解</h3>
+                <p>
+                    URL(Uniform Resource Locator) 地址用于描述一个网络上的资源, 基本格式如下 <br>
+                    <code>
+                        schema://host[:port#]/path/.../[?query-string][#anchor]
+                    </code>
+                    <br>
+                    scheme 指定低层使用的协议(例如：http, https, ftp)<br>
+                    host HTTP服务器的IP地址或者域名 <br>
+                    port# HTTP服务器的默认端口是80，这种情况下端口号可以省略。如果使用了别的端口，必须指明 <br>
+                    path 访问资源的路径 <br>
+                    query-string 发送给http服务器的数据 <br>
+                    anchor- 锚 <br>
+            </section>
+            <section>
+                <img src="img/URI.png" alt="">
+            </section>
+
+            <section class="text-l">
+                <h3>HTTP之主要的三种Content-Type</h3>
+                <p>
+                    1. application/x-www-form-urlencoded：在最开始的请求方式中，请求参数都是放在url中，表单提交的时候，
+                    都是以key=&value=的方式写在url后面。这也是浏览器表单提交的默认方式。 。 <br>
+                    2. multipart/form-data： 此种方式多用于文件上传，表单数据都保存在http的正文部分，各个表单项之间用boundary分开。 <br>
+                    3. application/json： 它用来告诉服务端消息主体是序列化后的 JSON 字符串。 <br>
+                </p>
+            </section>
+            <section style="text-align:left;">
+                    <p>状态码<br>
+					状态码用来告诉HTTP客户端,HTTP服务器是否产生了预期的Response.<br>
+					状态代码有三位数字组成，第一个数字定义了响应的类别，共分五种类别:<br>
+					1xx：指示信息--表示请求已接收，继续处理<br>
+					2xx：成功--表示请求已被成功接收、理解、接受<br>
+					3xx：重定向--要完成请求必须进行更进一步的操作<br>
+					4xx：客户端错误--请求有语法错误或请求无法实现<br>
+					5xx：服务器端错误--服务器未能实现合法的请求<br>
+                </p>
+            </section>
+			
+            <section style="text-align: justify;word-break: break-all">
+                <p style="text-align:left">
+                   <p>常见状态码<br>
+                    <img src="D:\HTTP-PPT简介\img\常见状态码.png"  alt="常见状态码" />
+                </p>
+            </section>        
+        </section>
+
+        <section>
+            <section style="text-align:left;">
+                <h3>3.常见问题</h3>
+            </section>
+            <section style="text-align:left;">
+                <h4>1、HTTP的请求方法有哪些？</h4>
+				<h4>2、GET请求和POST的区别？<h4>
+				<h4>3、HTTP有什么特点？</h4>
+                <!--<p style=" text-align:left"><br>-->
+            </section>
+        </section>
+
+
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+			 <section style="text-align:left;">
+                <h4>1、HTTP的请求方法有哪些？</h4>
+                <!--<p style=" text-align:left"><br>-->
+				<p>根据HTTP标准，HTTP请求可以使用多种请求方法。</br>
+				HTTP1.0定义了三种请求方法： GET, POST 和 HEAD方法。</br>
+				HTTP1.1新增了五种请求方法：OPTIONS, PUT, DELETE, TRACE 和 CONNECT 方法。</br>
+
+                <p class="text-l">1. OPTIONS：询问支持的方法
+                    <br>
+                    返回服务器针对特定资源所支持的HTTP请求方法，也可以利用向Web服务器发送"*"的请求来测试服务器的功能性。
+                </p>
+                <p class="text-l">2. HEAD：获得报文首部 2.POST：
+                    <br>
+                    向服务器索要与GET请求相一致的响应，只不过响应体将不会被返回。这一方法可以在不必传输整个响应内容的情况下，就可以获取包含在响应消息头中的元信息。
+                </p>
+                <p class="text-l">3.GET：获取资源 PUT：
+                    <br>
+                    向特定的资源发出请求。注意：get方法不应当被用于产生“副作用”的操作中。例如在Web APP中，其中一个原因是GET可能会被网站蜘蛛等随意访问。
+                </p>
+            </section>
+            <section style="text-align:left;">
+                <p class="text-l">4. POST：传输实体主体 4.HEAD：获得报文首部
+                    <br>
+                    向指定资源提交数据进行处理请求（比如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的建立或已有资源的修改。
+                </p>
+                <p class="text-l">5. PUT：传输文件 5.DELETE：删除文件
+                    <br>
+                    向指定资源位置上传其最新内容。
+                </p>
+                <p class="text-l">6. DELETE：删除文件 6.OPTIONS：询问支持的方法
+                    <br>
+                    请求服务器删除Request-URI所标识的资源。
+            </section>
+            <section style="text-align:left;">
+
+                <p class="text-l">7.TRACE：追踪路径
+                    <br>
+                    回显服务器收到的请求，主要用于测试或者诊断。
+                </p>
+                <p class="text-l">8.CONNECT：要求用隧道协议连接代理
+                    <br>
+                    HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。
+                    CONNECT方法要求在与代理服务器通信时建立隧道，实现用隧道协议进行TCP通信。主要使用SSL/TLS协议对通信内容加密后传输。
+                </p>
+
+            </section>
+
+			 <section style="text-align:left;">
+                <p class="text-l">
+                    <br>
+                    我们看看GET请求和POST的区别
+                    <br>
+                    1. GET提交的数据会放在URL之后，以?分割URL和传输数据，参数之间以&相连，如EditPosts.aspx?name=test1&id=123456.<br>
+                    POST方法是把提交的数据放在HTTP包的Body中. <br>
+
+                    2. GET提交的数据大小有限制（因为浏览器对URL的长度有限制），而POST方法提交的数据没有限制. <br>
+
+                    3. GET方式需要使用Request.QueryString来取得变量的值，而POST方式通过Request.Form来获取变量的值。 <br>
+
+                    4.GET方式提交数据，会带来安全问题，比如一个登录页面，通过GET方式提交数据时，用户名和密码将出现在URL上，
+					如果页面可以被缓存或者其他人可以访问这台机器，就可以从历史记录获得该用户的账号和密码.
+                    <br>
+                </p>
+            </section>
+			 <section style="text-align: left;">
+                <h3>HTTP特点</h3>
+                <p><br>
+                    1、简单快速：客户向服务器请求服务时，只	需传送请求方法和路径。请求方法常用的有GET、HEAD、POST等。每种方
+                    法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。<br>
+                    2、灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。</p>
+
+            </section>
+            <section style="text-align: left;">
+                <p>
+                    3.HTTP 0.9和1.0使用非持续连接：限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连
+                    接。HTTP 1.1使用持续连接：不必为每个web对象创建一个新的连接，一个连接可以传送多个对象，采用这种方式可以节省传输时间。<br>
+                    4.无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前
+                    面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。<br>
+					5、支持B/S(Browser/Server,浏览器/服务器方式的网络结构。)及C/S(Client/Server,客户/服务器方式的网络计算模式)模式。
+				</p>
+            </section>	
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+            <section>
+                <img src="img/RequestHeader.jpg" alt="">
+            </section>
+
+            <section>
+                <img src="img/ResponseHeader.jpg" alt="">
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+
+            </section>
+
+            <section class="text-l">
+                <h4>http适合什么场景？</h4>
+                <p>
+                    http连接优缺点 <br>
+
+                </p>
+                <p>
+                    优点：<br>
+                </p>
+                <p>
+                    1.基于应用级的接口使用方便 <br>
+                    2.要求的开发水平不高，容错性强 <br>
+                </p>
+                <p>
+                    缺点： <br>
+                </p>
+                <p>
+                    1.传输速度慢，数据包大。<br>
+                    2.如实现实时交互，服务器性能压力大<br>
+                    3.数据传输安全性差
+                </p>
+
+            </section>
+            <section class="text-l">
+                <h4>对比socket</h4>
+                <p>
+                    优点：<br>
+                </p>
+                <p>
+                    1.传输数据为字节级，传输数据可自定义，数据量小。相应的移动端开发，手机费用低 <br>
+                    2.传输数据时间短，性能高 <br>
+                    3.适合C/S之间信息实时交互 <br>
+
+                </p>
+                <p>
+                    缺点： <br>
+                </p>
+                <p>
+                    1.需要对传输的数据进行解析，转化为应用级的数据 <br>
+                    2.对开发人员的开发水平要求高<br>
+                    3.相对于Http协议传输，增加了开发量
+                </p>
+
+            </section>
+
+            <section class="text-l">
+                <h4>总结</h4>
+                <br>
+                <br>
+                <p>Socket适用场景：网络游戏，银行交互，支付。 <br>
+                </p>
+                <br>
+                <br>
+                <p>http适用场景：公司OA服务，互联网服务。 <br>
+                </p>
+            </section>
+			
+			<section class="text-l">
+                <h4>URI和URl的区别？</h4>   
+                <p>URI，是uniform resource identifier，统一资源标识符，用来唯一的标识一个资源。
+				Web上可用的每种资源如HTML文档、图像、视频片段、程序等都是一个来URI来定位的。</br>
+				URI一般由三部组成：<br>
+				①访问资源的命名机制<br>
+				②存放资源的主机名<br>
+				③资源自身的名称，由路径表示，着重强调于资源。<br>
+	URL是uniform resource locator，统一资源定位器，它是一种具体的URI，即URL可以用来标识一个资源，而且还指明了如何locate这个资源。
+
+	URL是Internet上用来描述信息资源的字符串，主要用在各种WWW客户程序和服务器程序上，特别是著名的Mosaic。<br>
+
+	采用URL可以用一种统一的格式来描述各种信息资源，包括文件、服务器的地址和目录等。URL一般由三部组成：<br>
+
+	①协议(或称为服务方式)<br>
+
+	②存有该资源的主机IP地址(有时也包括端口号)<br>
+
+	③主机资源的具体地址。如目录和文件名等<br></p>
+	</section>
+	<section>
+	<p>
+	URN，uniform resource name，统一资源命名，是通过名字来标识资源，比如mailto:java-net@java.sun.com。<br>
+	URI是以一种抽象的，高层次概念定义统一资源标识，而URL和URN则是具体的资源标识的方式。
+	URL和URN都是一种URI。笼统地说，每个 URL 都是 URI，但不一定每个 URI 都是 URL。
+	这是因为 URI 还包括一个子类，即统一资源名称 (URN)，它命名资源但不指定如何定位资源。
+	上面的 mailto、news 和 isbn URI 都是 URN 的示例。</br>
+	在Java的URI中，一个URI实例可以代表绝对的，也可以是相对的，只要它符合URI的语法规则。
+	而URL类则不仅符合语义，还包含了定位该资源的信息，因此它不能是相对的。
+	在Java类库中，URI类不包含任何访问资源的方法，它唯一的作用就是解析。
+	相反的是，URL类可以打开一个到达资源的流。 <br>
+    </p>
+     </section>
+   </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p style="text-align: left">参考：<br>
+                    <br>
+                    https://www.cnblogs.com/qdhxhz/p/8468913.html
+                </p>
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+        </section>
+        <section>
+            <!--<h4>鸣谢</h4>-->
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 秦永辉</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js "></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js "></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc "或"o "键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+
+</html>
