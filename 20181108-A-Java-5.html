@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : './css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="./img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>Https是什么？怎么配置Https证书，哪些请求需要Https，登录是否需要Https？</h3>
+            <h4>小课堂</h4>
+            <p>分享人：赵君钊</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+
+            <section>
+                <h3>1.背景介绍</h3>
+                <p style="text-align: left">
+
+                </p>
+            </section>
+            <section>
+                <p>HTTP</p>
+                <p style="text-align: left">
+                    HTTP：是互联网上应用最为广泛的一种网络协议，是一个客户端和服务器端请求和应答的标准（TCP），用于从WWW服务器传输超文本到本地浏览器的传输协议，它可以使浏览器更加高效，使网络传输减少。
+                </p>
+                <p style="text-align: left">
+                    HTTP协议以明文方式发送内容，不提供任何方式的数据加密，如果攻击者截取了Web浏览器和网站服务器之间的传输报文，就可以直接读懂其中的信息，因此，HTTP协议不适合传输一些敏感信息，比如：信用卡号、密码等支付信息。
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                   为了解决HTTP协议的这一缺陷，需要使用另一种协议：安全套接字层超文本传输协议HTTPS，为了数据传输的安全，HTTPS在HTTP的基础上加入了SSL协议，SSL依靠证书来验证服务器的身份，并为浏览器和服务器之间的通信加密。
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <p>HTTP和HTTPS的区别</p>
+                <img src="https://pic2.zhimg.com/v2-a95d803cae91eae2fed40cdff867d735_r.jpg">
+            </section>
+            <section>            
+                <p>HTTPS连接过程</p>
+                <p style="text-align: left">
+                   <ul>
+                   	<li>通过DNS域名解析服务器，得到主机IP地址</li>
+                   	<li>通过Socket(套接字)，建立TCP连接</li>
+                   	<li>建立SSL连接，身份验证、交换秘钥等过程</li>
+                   	<li>SSL连接成功之后，进行HTTP通信，通信的内容都将被加密</li>
+                   </ul>
+                </p>
+            </section>
+            <section>
+                <p>SSL证书</p>
+                <p style="text-align: left">
+                	CA，Catificate Authority，它的作用就是提供证书,加强服务端和客户端之间信息交互的安全性，以及证书运维相关服务。任何个体/组织都可以扮演 CA 的角色，只不过难以得到客户端的信任，一般浏览器都有默认信任的CA厂商
+                </p>
+                <p style="text-align: left">
+                   如果未使用证书、使用的证书没有签证，或者未在浏览器受信的 CA 签证，浏览器会提示你连接不安全。
+                </p>
+                <p style="text-align: left">
+                	证书由域名、公司信息、序列号和签名信息组成，当我们通过 HTTPS 访问页面时，浏览器会主动验证证书信息是否匹配，也会验证证书是否有效。
+                </p>
+            </section>
+            <section>
+            	<p style="text-align: left">
+                   通常来说，SSL 证书分为三大类，他们的安全性是递增的，当然价格和安全系数成正比。
+                </p>
+                <p style="text-align: left">
+                	<ul>
+                		<li>DV （Domain Validation Certificate） DV 证书适合个人网站使用，申请证书时，CA 只验证域名信息。几分钟之内就能签发。</li>
+                		<li>OV （ Organization Validation Certificate） OV 证书需要认证公司的信息。1-2天签发。</li>
+                		<li>EV （ Extended Validation Certificate） EV 证书的认证最为严格，一般会要求提供纸质材料。签发时间也较久。</li>
+                	</ul>                   			
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+            	<p>为Nginx配置SSL证书</p>
+            	<p style="text-align: left">
+                   默认安装的nginx缺少SSL模块，需要重新编译nginx添加SSL模块
+                </p>
+            	<p style="text-align: left">
+                   ./configure --prefix=/usr/local/nginx --with-http_ssl_module
+                </p>
+            </section>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY：赵君钊</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="./lib/reveal/js/head.min.js"></script>
+<script src="./lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
