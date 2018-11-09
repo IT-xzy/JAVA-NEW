@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>RMI简介</h2>
+            <p>分享人：何爽</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>	       
+		<section>
+			<h3>1.背景介绍</h3>
+		
+			<p>什么是RMI</p>
+			<p>RMI是Java的一组拥护开发分布式应用程序的API。RMI使用Java语言接口定义了远程对象，它集合了Java序列化和Java远程方法协议(Java Remote Method Protocol)。
+			简单地说，这样使原先的程序在同一操作系统的方法调用，变成了不同操作系统之间程序的方法调用，由于J2EE是分布式程序平台，它以RMI机制实现程序组件在不同操作系统之间的通信。</p>
+			<p></p>
+			<p></p>
+			<p></p>
+			<p></p>			
+			</section>
+		<section>
+			<h3>2.知识剖析</h3>
+			<p>Java RMI与RPC的区别</p>
+			<p>一：RPC 远程过程调用</p>
+			
+			<p> RPC（Remote Procedure Call Protocol）远程过程调用协议，通过网络从远程计算机上请求调用某种服务。</p>
+			<p> 一次RPC调用的过程大概有10步：</p>
+			<p>　1.执行客户端调用语句，传送参数</p>
+			<p>　2.调用本地系统发送网络消息</p>
+			<p>  3.消息传送到远程主机</p>			
+			</section>
+		<section>
+			<p>4.服务器得到消息并取得参数 </p>
+			<p>　5.根据调用请求以及参数执行远程过程（服务）</p>
+			<p>6.执行过程完毕，将结果返回服务器句柄</p>
+			<p>　7.服务器句柄返回结果，调用远程主机的系统网络服务发送结果</p>	
+			<p>　8.消息传回本地主机 </p>
+			<p>　9.客户端句柄由本地主机的网络服务接收消息</p>
+			<p>　10.客户端接收到调用语句返回的结果数据</p>			
+			</section>
+		<section>			
+			<p> 二：RMI 远程方法调用</p>
+			<p> RMI:远程方法调用(Remote Method Invocation)。能够让在客户端Java虚拟机上的对象像调用本地对象一样调用服务端java 虚拟机中的对象上的方法。</p>
+			<img src="1018541-20170313144957104-526097819.png"/>
+			<p>RMI远程调用步骤：</p>
+			<p>1，客户调用客户端辅助对象stub上的方法</p>
+			</section>
+		<section>	
+			<p>2，客户端辅助对象stub打包调用信息（变量，方法名），通过网络发送给服务端辅助对象skeleton</p>
+			<p>3，服务端辅助对象skeleton将客户端辅助对象发送来的信息解包，找出真正被调用的方法以及该方法所在对象</p>
+			<p>4，调用真正服务对象上的真正方法，并将结果返回给服务端辅助对象skeleton</p>
+			<p>5，服务端辅助对象将结果打包，发送给客户端辅助对象stub</p>
+			<p>6，客户端辅助对象将返回值解包，返回给调用者</p>
+			<p>7，客户获得返回值</p>
+			<p></p>
+			</section>
+		<section>	
+			<p> 三：RPC与RMI的区别</p>
+			<p> 1：方法调用方式不同：</p>
+			<p> RMI中是通过在客户端的Stub对象作为远程接口进行远程方法的调用。每个远程方法都具有方法签名。如果一个方法在服务器上执行，
+			但是没有相匹配的签名被添加到这个远程接口(stub)上，那么这个新方法就不能被RMI客户方所调用。</p>
+			<p>RPC中是通过网络服务协议向远程主机发送请求，请求包含了一个参数集和一个文本值，通常形成“classname.methodname(参数集)”的形式。
+			RPC远程主机就去搜索与之相匹配的类和方法，找到后就执行方法并把结果编码，通过网络协议发回。</p>
+			</section>
+		<section>	
+			<p> 2：适用语言范围不同：</p>
+			<p>RMI只用于Java；</p>
+			<p>RPC是网络服务协议，与操作系统和语言无关。</p>
+			<p> 3：调用结果的返回形式不同：</p>
+			<p>Java是面向对象的，所以RMI的调用结果可以是对象类型或者基本数据类型；</p>	
+			<p>RMI的结果统一由外部数据表示 (External Data Representation, XDR) 语言表示，这种语言抽象了字节序类和数据类型结构之间的差异。</p>
+			<p></p>
+			<p></p>
+			<p></p>	
+		</section>
+		<section>
+			<p>RMI有什么优点:</p>
+			<p>1、面向对象:</p>
+			<p>RMI可将完整的对象作为参数和返回值进行传递,而不仅仅是预定义的数据类型。
+				也就是说,可以将类似Java哈西表这样的复杂类型作为一个参数进行传递。</p>	
+			<p>2、可移动属性:</p>
+			<p>RMI可将属性从客户机移动到服务器,或者从服务器移动到客户机。</p>
+				</section>
+		<section>
+			<p>3、设计方式:</p>	
+			<p>对象传递功能使您可以在分布式计算中充分利用面向对象技术的强大功能,如二层和三层结构系统。
+				如果用户能够传递属性,那么就可以在自己的解决方案中使用面向对象的设计方式。所有面向对象的设计方式无不依靠不同的属性来发挥功能,
+				如果不能传递完整的对象——包括实现和类型——就会失去设计方式上所提供的优点。</p>
+			<p>4、安全性:</p>
+			<p>RMI使用Java内置的安全机制保证下载执行程序时用户系统的安全。</p>	
+			<p>RMI使用专门为保护系统免遭恶意小程序侵害而设计的安全管理程序。</p>
+				</section>
+		<section>
+			<p>5、便于编写和使用</p>
+			<p>RMI使得Java远程服务程序和访问这些服务程序的Java客户程序的编写工作变得轻松、简单。远程接口实际上就是Java接口。</p>	
+			<p></p>
+			<p>RMI有什么劣势:</p>
+			<p>(1). RMI的局限性之一是RMI是Java语言的远程调用，两端的程序语言必须是Java实现，对于不同语言间的通讯可以考虑用Web Service或者公用对象请求代理体系（CORBA）来实现。</p>	
+				</section>
+		<section>
+			<p>(2). 对服务器的IP地址和端口依赖很紧密，但是在开发的时候不知道将来的服务器IP和端口如何，但是客户端程序依赖这个IP和端口。这也是RMI的局限性之一。
+				这个问题有两种解决途径：一是通过DNS来解决，二是通过封装将IP暴露到程序代码之外。</p>
+			<p></p>
+			<p></p>	
+			<p></p>
+		</section>
+		<section>
+		<h3>3.常见问题 </h3>	
+			<p>1. springRMI指定的两个端口是什么？</p>
+			<p>注册端口：registryPort   注册端口是RMI注册远程服务的端口。</p>	
+			<p>服务端口：servicePort    RMI的通讯需要的传送数据的端口。如果没有设置servicePort,则使用随机端口。</p>
+			<p>2. rmi为什么要抛RemoteException</p>
+			<p>由于远程方法的本质还是网络通信,只不过隐藏了底层实现,网络通信是经常会出现异常的,所以接口的所有方法都要抛出RemoteException来说明此方法是有风险的。</p>	
+			<p></p>
+		</section>
+		<section>
+			<h3>4.编码实战</h3>
+			<p></p>	   			
+		</section>
+		<section>
+			<h3>5.扩展思考</h3>
+			<p>Tuscany RMI端口问题：</p>
+			<p>RMI之所以使用的范围受限制主要有两方面原因，其一：必须要是java，平台的异构性受到限制；其二：穿越防火墙不方便。这里主要谈谈RMI如何通过固定分配端口来穿越防火墙。</p>
+			<p>RMI穿越防火墙不方便主要是因为除了RMI服务注册的端口(默认1099)外，与RMI的通讯还需要另外的端口来传送数据，而另外的端口是随机分配的，所以要想RMI的客户能通过防火墙来与RMI服务通讯。</p>	
+			</section>
+		<section>
+			<p>第一种方法：</p>
+			<p>需要能让随机分配的端口固定下来，具体做法如下：</p>
+			<p>如果是spring+rmi,可以通过spring bean方式来指定两个端口，但是tuscany不行，需要自己写类来完成。 </p>	
+			<p>通过比对spring 的指定端口的源码发现</p>
+			<p><bean id = "rmiService" class = "org.springframework.remoting.rmi.RmiRegistryFactoryBean" ></p>
+			<p>在这个类里：</p>	
+			<img src="QQ图片20181027190622.png"/>
+			</section>
+		<section>
+			<p>通过这个接口配置服务器相关配置</p>
+			<p>在RMIServerSocketFactory里 发现设置端口的接口，百度发现就是这个东西</p>
+			<p></p>
+			<img src="20181027190658.png"/>
+			</section>
+		<section>
+			<p>继承它的实现，并重写</p>
+			<img src="320181027190727.png"/>
+			</section>
+		<section>
+			<p>在main里调用：</p>
+			<p>RMISocketFactory.setSocketFactory(new SMRMISocket());</p>
+			<p>这样的话RMI分配的端口就被固定了，防火墙只需要打开1099和8089端口即可。</p>
+			<p>第二种方法：</p>
+			<p>在阿里云中开放所有的端口，这样不管rmi传送数据的是哪个端口都可以通过。</p>
+			<p></p>
+			</section>
+		<section>				
+			<h3>6.参考文献</h3>
+			<p>https://www.cnblogs.com/fengli9998/p/8058197.html</p>
+			<p>https://blog.csdn.net/qq_41802128/article/details/82918811</p>
+			<p>https://blog.csdn.net/qq_41810013/article/details/80729700</p>
+		</section>        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>谢谢大家！</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
