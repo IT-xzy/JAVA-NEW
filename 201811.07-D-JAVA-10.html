@@ -1,0 +1,221 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是SpringCloudBus？</h2>
+            <p>分享人：何爽</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>	       
+		<section>
+			<h3>1.背景介绍</h3>
+		
+			<p>一、简介</p>
+			<p>在微服务架构的系统中，我们通常会使用轻量级的消息代理来构建一个共用的消息主题让系统中所有微服务实例都连接上来，
+				由于该主题中产生的消息会被所有实例监听和消费，所以我们称它为消息总线。Spring Cloud Bus就像一个分布式执行器，
+				用于扩展的Spring Boot应用程序，但也可以用作应用程序之间的通信通道。那么这里就涉及到了消息代理，目前流行的消息代理中间件有不少，
+				Spring Cloud Bus支持RabbitMQ和Kafka，本文我们主要来看看RabbitMQ的基本使用。</p>
+		</section>
+		<section> 
+				<p>二、消息代理</p>
+			<p>消息代理(Message Broker)是一种消息验证、传输、路由的架构模式。它在应用程序之间起到通信调度并最小化应用之间的依赖的作用，
+				使得应用程序可以高效地解耦通信过程。消息代理是一个中间件产品，它的核心是一个消息的路由程序，用来实现接收和分发消息，
+				 并根据设定好的消息处理流来转发给正确的应用。</p>
+			 <p>它包括独立的通信和消息传递协议，能够实现组织内部和组织间的网络通信。</p>
+			</section>
+			<section>
+				<p> 设计代理的目的就是为了能够从应用程序中传入消息，并执行一些特别的操作，下面这些是在企业应用中，我们经常需要使用消息代理的场景：</p>
+			<p>将消息路由到一个或多个目的地。</p>
+			<p>消息转化为其他的表现方式。</p>		
+			<p>执行消息的聚集、消息的分解，并将结果发送到它们的目的地，然后重新组合响应返回给消息用户。</p>	
+			<p>调用Web服务来检索数据。</p>	
+			<p>响应事件或错误。</p>	
+			<p>使用发布－订阅模式来提供内容或基千主题的消息路由。</p>	
+			<p></p>	
+			<p></p>	
+			<p></p>		
+			</section>
+		<section>
+			<h3>2.知识剖析</h3>
+			<p>RabbitMQ的基础知识和使用方法</p>
+			<p>1、简介</p>
+			
+			<p> MQ（Message Queue）消息队列，用于应用系统解耦、消息异步分发。 RabbitMQ是一个在AMQP基础上完整的，可复用的企业消息系统。其优点如下：</p>
+			<p>  1)Reliability-可靠性高。</p>
+			<p>　2)Flexible Routing-路由灵活。</p>
+			<p>　3)Clustering-支持集群。</p>
+			<p>  4)Federation-支持互联。</p>
+			<p>  5)Tracing-便于追踪。</p>	
+			<p></p>				
+			</section>
+		<section>
+			<p>2、安装 </p>
+			<p>　RabbitMQ是用Erlang语言编写的，因此安装RabbitMQ之前我们要先安装Erlang环境，首先去http://www.erlang.org/downloads地址下载erlang，
+				下载到的是一个exe文件，直接双击安装即可，然后去http://www.rabbitmq.com/downl...地址下载RabbitMQ，下载成功之后，也是一个exe，双击安装即可(</p>
+			<p>RabbitMQ安装成功之后，默认会创建系统服务，将和Windows系统一起启动。所以安装成功之后，打开系统服务，我们如果看到如下结果表示安装成功了：</p>
+			<img src="20181107183341.png"/>
+		</section>
+		<section>	
+			<p>安装成功之后，我们可以使用web来管理我们的RabbitMQ，管理之前需要我们先开启web管理功能，开启方式：进入到安装目录的sbin目录下，
+				然后执行 .rabbitmq-plugins enable rabbitmq_management命令，如下：</p>	
+				<img src="14x.png"/>
+			</section>
+			<section>	
+			<p>执行成功之后，打开浏览器，输入http://localhost:15672进入到web管理页面，需要先登录，默认用户名密码都是guest，页面如下：</p>	
+			<img src="0181107183750.png"/>
+			<p>进入里面之后我们可以新建一个用户，用户的级别分别为：management、none、policymaker、monitoring和administrator，不同取值所对应的权限区别如下：</p>		
+		</section>
+		<section>	
+			<p>none：不能访问 management plugin</p>	
+			<p>management：用户可以通过AMQP做的任何事外加：</p>	
+			<p>1.列出自己可以通过AMQP登入的virtual hosts </p>		
+			<p>2.查看自己的virtual hosts中的queues, exchanges 和 bindings </p>	
+			<p>3.查看和关闭自己的channels 和 connections </p>	
+			<p>4.查看有关自己的virtual hosts的“全局”的统计信息，包含其他用户在这些virtual hosts中的活动</p>	
+			<p>policymaker：management可以做的任何事外加：查看、创建和删除自己的virtual hosts所属的policies和parameters</p>	
+		</section>
+		<section>
+			<p>monitoring：management可以做的任何事外加：</p>	
+			<p>1.列出所有virtual hosts，包括他们不能登录的virtual hosts </p>	
+			<p>2.查看其他用户的connections和channels </p>	
+			<p>3.查看节点级别的数据如clustering和memory使用情况 </p>
+			<p>4.查看真正的关于所有virtual hosts的全局的统计信息</p>	
+			<p>administrator：policymaker和monitoring可以做的任何事外加:</p>	
+			<p>1.创建和删除virtual hosts </p>	
+			<p>2.查看、创建和删除users </p>	
+			<p>3.查看创建和删除permissions </p>	
+			<p>4.关闭其他用户的connections</p>	
+		</section>
+		<section>
+			<p>这里我创建一个root用户，创建好之后，给用户设置virtual hosts，否则一会使用这个用户的时候会报错。设置如下：</p>
+			<img src="2592230910-59f055cf0c2cd_articlex.png"/>	
+		</section>
+		<section>
+			<p>OK，配置完成后，接下来我们来看一个Spring Boot和RabbitMQ整合的案例，来对RabbitMQ做进一步的了解，具体的见编码实战。</p>	
+			<p></p>	
+			<p></p>	
+			<p></p>	
+			<p></p>		
+			</section>
+		<section>			
+		<h3>3.常见问题 </h3>	
+			<p>什么时候用cloud bus</p>
+			<p>spring cloud bus在整个后端服务中起到联通的作用，联通后端的多台服务器。我们为什么需要他做联通呢？</p>	
+			<p>后端服务器一般都做了集群化，很多台服务器，而且在大促活动期经常发生服务的扩容、缩容、上线、下线。这样，后端服务器的数量、IP就会变来变去，如果我们想进行一些线上的管理和维护工作，就需要维护服务器的IP。</p>
+			<p>比如我们需要更新配置、比如我们需要同时失效所有服务器上的某个缓存，都需要向所有的相关服务器发送命令，也就是调用一个接口。</p>
+		</section>
+		<section>
+			<p>你可能会说，我们一般会采用zookeeper的方式，统一存储服务器的ip地址，需要的时候，向对应服务器发送命令。这是一个方案，但是他的解耦性、灵活性、实时性相比消息总线都差那么一点。</p>	
+			<p>总的来说，就是在我们需要把一个操作散发到所有后端相关服务器的时候，就可以选择使用cloud bus了。</p>
+		</section>
+		<section>
+			<h3>4.编码实战</h3>
+			<p></p>	   			
+		</section>
+		<section>
+			<h3>5.扩展思考</h3>
+			<p>利用Spring Cloud Bus做配置更新：</p>
+			<img src="QQ图片20181107191914.png"/>
+		</section>
+		<section>
+			<p>这时Spring Cloud Bus做配置更新步骤如下:</p>
+			<p>1、提交代码触发post请求给bus/refresh</p>	
+			<p>2、server端接收到请求并发送给Spring Cloud Bus</p>	
+			<p>3、Spring Cloud bus接到消息并通知给其它客户端</p>	
+			<p>4、其它客户端接收到通知，请求Server端获取最新配置</p>		
+			<p>5、全部客户端均获取到最新的配置</p>	
+			<p>具体的实现过程和步骤可参考下面的网址：</p>	
+			<p>https://www.cnblogs.com/ityouknow/p/6931958.html</p>	
+			<p></p>		
+			</section>
+		<section>				
+			<h3>6.参考文献</h3>
+			<p>https://www.cnblogs.com/ityouknow/p/6931958.html</p>
+			<p>https://www.jb51.net/article/137875.htm</p>
+			<p>https://segmentfault.com/a/1190000011827203</p>
+		</section>        
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>分享到此结束</h4>
+            <p>谢谢大家！</p>            
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
