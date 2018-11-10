@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	<style>
+		.left{ text-align: left; }
+	</style>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是Filter，什么是Interceptor,他们的区别是什么，和AOP又是什么关系？</h2>
+            <p>分享人：张泉良</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+        <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>1.背景介绍</h3>
+			</section>
+			
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>Filter是什么</p>
+			    过滤器:依赖于servlet容器。在实现上，基于函数回调，它可以对几乎所有请求进行过滤，一个过滤器实例只能在容器初始化时调用一次
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>Interceptor是什么</p>
+				依赖于web框架，在SpringMVC中就是依赖于SpringMVC框架。在实现上,基于Java的反射机制，属于面向切面编程（AOP）的一种运用,
+				就是在一个方法前，调用一个方法，或者在方法后，调用一个方法
+			</section>
+
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>AOP是什么</p>
+				<p>AOP（Aspect-Oriented Programming）是一种编程思想，对OOP的补充</p>
+				<p>常见实现:Filter和拦截器（代理模式）</p>
+				<p>OOP: 对于所有对象中都存在的一些公共行为，无能为力</p>
+			    <p>为减少重复代码，AOP（面向切面）技术诞生</p>
+            </section>
+			
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+				<h3>2.知识剖析</h3>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>Filter 的使用：</p>
+				<p>1.在HttpServletRequest 到达Servlet 之前，拦截客户的HttpServletRequest </p>
+				<p>2.根据需要检查HttpServletRequest ，也可以修改HttpServletRequest 头和数据</p>
+				<p>3.根据需要检查HttpServletResponse ，可以修改HttpServletResponse 头和数据</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">			 
+				<p>创建一个Filter</p>
+				<p>(1)创建Filter 处理类</P>
+				<p>init方法、destory方法、doFilter方法</p>
+				<p>(2)在web.xml 文件中配置Filter</p>				
+			</section>				
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>interceptor 使用</p>
+				通过实现HandlerInterceptor接口或者继承HandlerInterceptorAdapter抽象类，
+				复写preHandle()、postHandle()和afterCompletion()这 3 个方法来对用户的请求进行拦截处理的
+				
+			</section>
+							
+		</section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+				<h3>3.常见问题</h3>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>1.Filter与interceptor的区别</p>
+				<p>(1) 接口定义不同</p>
+				<p>Filter 接口定义在 javax.servlet 包中,接口 HandlerInterceptor 定义在org.springframework.web.servlet 包中</p>
+				<p>(2) 规范不同</P>
+				<p>Filter 是在 Servlet 规范中定义的，是 Servlet 容器支持的；拦截器是在 Spring容器内的，是Spring框架支持的</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">	
+				<p>(3) 使用资源不同</p>
+				<p>拦截器是一个Spring的组件，归Spring管理，因此能使用Spring里的任何资源、对象；Filter 不能够使用 Spring 容器资源。</p>
+				<p>(4) 深度不同</p>
+				<p>Filter在只在 Servlet 前后起作用；拦截器能够深入到方法前后、异常抛出前后等。</p>
+				<p>(5) 调用者不同</p>
+				<p>Filter 是被 Server 调用；Interceptor 是被 Spring 调用。</p>
+				<p>因此 Filter 总是优先于 Interceptor 执行</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>2.多个过滤器执行顺序</p>
+				<p>(1): 执行 第一个Filter中chain.doFilter()之前的部分</p>
+				<p>(2): 执行 第二个Filter中chain.doFilter()之前的部分</p>
+				<p>(3): 业务逻辑</p>
+				<p>(4): 执行 第二个Filter中chain.doFilter()之后的部分</p>
+				<p>(5): 执行 第一个Filter中chain.doFilter()之后的部分</p>
+			</section>	
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>3.面向切面编程</p>
+				<p>（1）通知（增强）Advice：你想要的功能</p>
+				<p>（2）连接点 Join point：spring允许你是通知（Advice）的地方</p>
+				<p> spring 方法 ,AspectJ支持构造器或属性注入时 </p>
+                <p>（3）切点 Pointcut:连接点的基础上，来定义切入点</p>
+                <p>（4）切面 Aspect:通知和切入点的结合 </p>
+			    <p>（5）引入 Introduction: 向现有的类添加新方法属性 </p>
+			    <p>（6）织入 Weaving : 切面应用到目标对象来创建新的代理对象的过程 </p>
+			</section>	
+		</section>
+
+		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>4.编码实战</h3>
+			</section>			
+		</section>
+		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>5.扩展思考</h3>				
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>1.多个过滤器与拦截器的代码执行顺序</p>
+				<p>过滤器在servlet启动后开始执行，进入页面访问开始执行拦截器</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>2.AOP实现，统一异常</p>
+				<p>重点在切点的定义，异常可以为预期异常和非预期异常，处理方式不同</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>3.监听器</p>
+				<p>以监听Web应用的上下文信息、Servlet请求信息和Servlet会话信息，即ServletContext、ServletRequest、HttpSession</p>
+				<p>执行顺序：监听器>过滤器>拦截器</p>
+			</section>
+		</section>
+		<section>
+			<h3>6.参考文献</h3>
+			<p>https://blog.csdn.net/zhaozheng7758/article/details/6105749</p>
+			<p>https://www.cnblogs.com/dudududu/p/8507735.html</p>
+			<p>https://blog.csdn.net/FU250/article/details/80292293</p>
+		</section>
+        <section>
+            <h3>7.更多讨论</h3>	
+        </section>
+    
+        <section>
+            <h4>分享到此结束</h4>
+            <p>欢迎大家讨论</p>            
+        </section>
+        <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">				
+			</section>
+		</section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
