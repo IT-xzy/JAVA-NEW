@@ -1,0 +1,423 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+    <map name="pttmap">
+        <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank" />
+    </map>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h2>ArrayList 简单介绍</h2>
+                <h3>小课堂</h3>
+                <p>分享人：李浩</p>
+            </section>
+            <section>
+                <p>1.背景介绍</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
+                <p>4.解决方案</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+                <p>8.更多讨论</p>
+            </section>
+
+            <!-- **************************************************** -->
+            <section>
+
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+
+            <section>
+                <img src="https://segmentfault.com/img/remote/1460000014240709?w=987&h=527" alt="">
+                <p>首先，我们来讲解的是ArrayList集合，它是我们用得非常非常多的一个集合~</p>
+            </section>
+            
+            <section>
+                <h4>我们来看一下ArrayList的属性：</h4>
+                <img src="https://segmentfault.com/img/remote/1460000014240710?w=1323&h=748" alt="">
+                <p>ArrayList底层其实就是一个数组，ArrayList中有扩容这么一个概念，正因为它扩容，所以它能够实现“动态”增长</p>
+                
+            </section>
+            
+            <section>
+                <p style="font-size: 20px; margin: 0">构造方法</p>
+                <p style="margin-top:0">
+                    <img src="https://segmentfault.com/img/remote/1460000014240711?w=874&h=717" alt="">  
+                </p>
+                </section>
+                
+
+                
+            </section>
+            
+            <!-- **************************************************** -->
+            
+            
+            <section>
+                <section>
+                    <h3>2.知识剖析</h3>
+                </section>
+                
+                <section>
+                    <h4>Add方法</h4>
+                    <img src="https://segmentfault.com/img/remote/1460000014240712?w=957&h=642" alt="">
+                <p> 
+                    
+                </p>
+            </section>
+
+            <section>
+                <h4>add(E e)</h4>
+                <p>
+                    <br>
+                    步骤：
+                    
+                    检查是否需要扩容
+                    插入元素
+                    首先，我们来看看这个方法：
+                    
+                    <br>
+                </p>
+        <pre>
+        <code class="hljs actionscript">
+            public boolean add(E e) {
+                ensureCapacityInternal(size + 1); // Increments modCount!!
+                elementData[size++] = e;
+                return true;
+            }
+        </code>
+                </pre>
+
+                <p>
+                    该方法很短，我们可以根据方法名就猜到他是干了什么：
+                    
+                    确认list容量，尝试容量加1，看看有无必要
+                    添加元素
+                </p>
+
+
+            </section>
+
+            <section>
+                <h4>我们来看看这个小容量(+1)是否满足我们的需求：</h4>
+                <p>
+                
+                    <img src="https://segmentfault.com/img/remote/1460000014240713?w=1048&h=237" alt="">
+                </p>
+                <h4>随后调用ensureExplicitCapacity()来确定明确的容量，我们也来看看这个方法是怎么实现的：</h4>
+                <img src="https://segmentfault.com/img/remote/1460000014240714?w=1111&h=260" alt="">
+            </section>
+
+            <section>
+                <h4>接下来看看grow()是怎么实现的~</h4>
+                <p>
+                    <img src="https://segmentfault.com/img/remote/1460000014240715?w=1235&h=793" alt="">
+                </p>
+            </section>
+
+            
+                <section>
+                    <h4>进去看copyOf()方法：</h4>
+                    <p>
+                        <img src="https://segmentfault.com/img/remote/1460000014240716?w=1260&h=290" alt="">
+                    </p>
+
+                    <p>
+                        到目前为止，我们就可以知道add(E e)的基本实现了：
+                        
+                        首先去检查一下数组的容量是否足够
+                        
+                        足够：直接添加
+                        不足够：扩容
+                        
+                        扩容到原来的1.5倍
+                        第一次扩容后，如果容量还是小于minCapacity，就将容量扩充为minCapacity。
+                    </p>
+                </section>
+                
+                
+                <section>
+                    <h4>add(int index, E element)</h4>
+                    <p>
+                        步骤：
+                        
+                        检查角标
+                        空间检查，如果有需要进行扩容
+                        插入元素
+                        我们来看看插入的实现：。
+                    </p>
+                    <img src="https://segmentfault.com/img/remote/1460000014240717?w=1099&h=499" alt="">
+                </section>
+
+
+                <section>
+                    <h4></h4>
+                    <p>
+                        我们发现，与扩容相关ArrayList的add方法底层其实都是arraycopy()来实现的
+                        
+                        看到arraycopy()，我们可以发现：该方法是由C/C++来编写的，并不是由Java实现：
+                    </p>
+                    <img src="https://segmentfault.com/img/remote/1460000014240718?w=1024&h=126" alt="">
+                    <p>
+                        总的来说：arraycopy()还是比较可靠高效的一个方法。
+                    </p>
+                </section>
+
+                <section>
+                    <h4>get方法</h4>
+                    <p>
+                        检查角标
+                        返回元素
+                    </p>
+                    <img src="https://segmentfault.com/img/remote/1460000014240719?w=963&h=337" alt="">
+                </section>
+                <section>
+                    <pre>
+                <code class="hljs actionscript">
+                // 检查角标
+                private void rangeCheck(int index) {
+                    if (index >= size)
+                        throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+                    }
+                
+                // 返回元素
+                E elementData(int index) {
+                    return (E) elementData[index];
+                }
+                </code>
+                        </pre>
+                </section>
+
+                <section>
+                    <h4>set方法</h4>
+                    <p>
+                        步骤：
+                        
+                        检查角标
+                        替代元素
+                        返回旧值
+                    </p>
+                    <img src="https://segmentfault.com/img/remote/1460000014240720?w=1013&h=453" alt="">
+                </section>
+            
+                
+                <section>
+                    <h4>remove方法</h4>
+                    <p>
+                        步骤：
+                        
+                        检查角标
+                        删除元素
+                        计算出需要移动的个数，并移动
+                        设置为null，让Gc回收
+
+                    </p>
+                    <img src="https://segmentfault.com/img/remote/1460000014240721?w=1163&h=638" alt="">
+                </section>
+                
+                <section>
+                    <h4>总结</h4>
+                    <p>
+                        ArrayList是基于动态数组实现的，在增删时候，需要数组的拷贝复制。
+                        ArrayList的默认初始化容量是10，每次扩容时候增加原先容量的一半，也就是变为原来的1.5倍
+                        删除元素时不会减少容量，若希望减少容量则调用trimToSize()
+                        它不是线程安全的。它能存放null值。
+                    </p>
+                    <img src="https://segmentfault.com/img/remote/1460000014240722?w=1060&h=378" alt="">
+                </section>
+
+            </section>
+
+
+
+            <!-- **************************************************** -->
+            <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+
+            <section>
+                <p>Vector与ArrayList区别</p>
+            
+                <p>
+                    Vector是jdk1.2的类了，比较老旧的一个集合类。
+                </p>
+                <img src="https://segmentfault.com/img/remote/1460000014240723?w=1264&h=714" alt="">
+
+            </section>
+
+            <section>
+                <p>
+                    Vector底层也是数组，与ArrayList最大的区别就是：同步(线程安全)
+                    
+                    Vector是同步的，我们可以从方法上就可以看得出来~
+                </p>
+                <img src="https://segmentfault.com/img/remote/1460000014240724?w=1768&h=829" alt="">
+            </section>
+
+            <section>
+                <p>
+                    那么问题来了，如果非要实现同步呢？
+                </p>
+            </section>
+
+            </section>
+
+
+
+            <!-- **************************************************** -->
+        
+            <section>
+                
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <p style="font-size: 1.5rem;">
+                    在要求非同步的情况下，我们一般都是使用ArrayList来替代Vector的了~
+                    如果想要ArrayList实现同步，可以使用Collections的方法：List list = Collections.synchronizedList(new ArrayList(...));，就可以实现同步了~
+                    ArrayList在底层数组不够用时在原来的基础上扩展0.5倍，Vector是扩展1倍。、
+                </p>
+                <img src="https://segmentfault.com/img/remote/1460000014240725" alt="">
+                <img src="https://segmentfault.com/img/remote/1460000014240726?w=1184&h=378" alt="">
+            </section>
+
+
+            </section>
+            <!-- **************************************************** -->
+
+            <section>
+                <h3>5.编码实战</h3>
+                <h2>Show Me The Code</h2>
+            </section>
+
+            <!-- **************************************************** -->
+
+            <section>
+
+            <section>
+                <h3>6.拓展思考</h3>
+            </section>
+            
+            <section>
+                <h4>ArrayList集合加入1万条数据，应该怎么提高效率</h4>
+            </section>
+
+            <section>
+                <p>
+                ArrayList的默认初始容量为10，要插入大量数据的时候需要不断扩容，而扩容是非常影响性能的。
+                因此，现在明确了10万条数据了，我们可以直接在初始化的时候就设置ArrayList的容量！
+                这样就可以提高效率了~233
+                </p>
+            </section>
+
+            </section>
+            <!-- **************************************************** -->
+
+
+            <section>
+                <h3>7.参考文献</h3>
+                <p>List集合就这么简单【源码剖析】： https://segmentfault.com/a/1190000014240704</p>
+
+            </section>
+
+
+            <!-- **************************************************** -->
+
+            <section>
+            <section>
+                <h3>8.更多讨论</h3>
+                <p>欢迎师兄加入讨论</p>
+            
+            
+            </section>
+            <section>
+                <p>说出ArrayList,LinkedList的存储性能和特性</p>
+                <p>ArrayList的底层是数组，LinkedList的底层是双向链表。
+            
+                    ArrayList它支持以角标位置进行索引出对应的元素(随机访问)，而LinkedList则需要遍历整个链表来获取对应的元素。
+                    因此一般来说ArrayList的访问速度是要比LinkedList要快的
+                    ArrayList由于是数组，对于删除和修改而言消耗是比较大(复制和移动数组实现)，LinkedList是双向链表删除和修改只需要修改对应的指针即可，消耗是很小的。
+                    因此一般来说LinkedList的增删速度是要比ArrayList要快的
+                </p>
+            
+            </section>
+
+            </section>
+
+            <!-- **************************************************** -->
+
+            <section>
+                <p>感谢大家观看</p>
+                <p>BY : 李浩</p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+    <script>
+
+        // 以下为常见配置属性的默认值
+        // {
+        // 	controls: true, // 是否在右下角展示控制条
+        // 	progress: true, // 是否显示演示的进度条
+        // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+        // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+        // 	keyboard: true, // 是否启用键盘快捷键来导航
+        // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+        // 	center: true, // 是否将幻灯片垂直居中
+        // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+        // 	loop: false, // 是否循环演示
+        // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+        // 	fragments: true, // 全局开启和关闭碎片。
+        // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+        // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+        // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+        // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+        // }
+
+        // 初始化幻灯片
+        Reveal.initialize({
+            history: true,
+            dependencies: [
+                { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+                { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+                { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+                { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+            ]
+        });
+    </script>
+</body>
+
+</html>

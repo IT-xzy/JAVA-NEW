@@ -1,0 +1,317 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+
+   <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+     <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    
+</head>
+
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>http协议</h2>
+            <p>分享人：鲁伯良</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section style="text-align: left;">
+                <br style="text-align: left">
+                <h4>什么事http协议</h4>
+           HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写,是用于从万维网（WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议。<br>
+HTTP是一个基于TCP/IP通信协议来传递数据（HTML 文件, 图片文件, 查询结果等）。<br>
+
+            </section>
+ <section style="text-align: left;">
+               HTTP是一个属于应用层的面向对象的协议，由于其简捷、快速的方式，适用于分布式超媒体信息系统。它于1990年提出，经过几年的使用与发展，得到不断地完善和扩展。目前在WWW中使用的是HTTP/1.0的第六版，HTTP/1.1的规范化工作正在进行之中，而且HTTP-NG(Next Generation of HTTP)的建议已经提出。<br>
+HTTP协议工作于客户端-服务端架构为上。浏览器作为HTTP客户端通过URL向HTTP服务端即WEB服务器发送所有请求。Web服务器根据接收到的请求后，向客户端发送响应信息。<br>
+                </p>
+            </section>
+        </section>
+        <section>
+
+
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section style="text-align: left;">
+                <h3><strong>主要特点</strong></h3>
+                <p><br>
+        1、简单快速：客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。
+            </section>
+            <section style="text-align: left;">
+			2、灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。
+              </p>
+            </section>
+<section style="text-align: left;">
+			3.无连接：无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。</p>
+            </section>
+<section style="text-align: left;">
+			4.无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。<br>
+			5、支持B/S及C/S模式。
+			</section>
+            <section style="text-align: left;">
+                <h3><strong>URL</strong></h3>
+                <p>HTTP使用统一资源标识符（Uniform Resource Identifiers, URI）来传输数据和建立连接。URL是一种特殊类型的URI，包含了用于查找某个资源的足够的信息<br>
+URL,全称是UniformResourceLocator, 中文叫统一资源定位符,是互联网上用来标识某一处资源的地址。以下面这个URL为例，介绍下普通URL的各部分组成：<br>
+http://www.aspxfans.com:8080/news/index.asp?boardID=5&ID=24618&page=1#name<br>
+            </section>
+           <section style="text-align: left;">
+			从上面的URL可以看出，一个完整的URL包括以下几部分：<br>
+1.协议部分：该URL的协议部分为“http：”，这代表网页使用的是HTTP协议。在Internet中可以使用多种协议，如HTTP，FTP等等本例中使用的是HTTP协议。在"HTTP"后面的“//”为分隔符<br>
+2.域名部分：该URL的域名部分为“www.aspxfans.com”。一个URL中，也可以使用IP地址作为域名使用<br>
+3.端口部分：跟在域名后面的是端口，域名和端口之间使用“:”作为分隔符。端口不是一个URL必须的部分，如果省略端口部分，将采用默认端口<br>
+4.虚拟目录部分：从域名后的第一个“/”开始到最后一个“/”为止，是虚拟目录部分。虚拟目录也不是一个URL必须的部分。本例中的虚拟目录是“/news/”<br>
+			</section>
+			<section style="text-align: left;">
+			5.文件名部分：从域名后的最后一个“/”开始到“？”为止，是文件名部分，如果没有“?”,则是从域名后的最后一个“/”开始到“#”为止，是文件部分，如果没有“？”和“#”，那么从域名后的最后一个“/”开始到结束，都是文件名部分。本例中的文件名是“index.asp”。文件名部分也不是一个URL必须的部分，如果省略该部分，则使用默认的文件名<br>
+6.锚部分：从“#”开始到最后，都是锚部分。本例中的锚部分是“name”。锚部分也不是一个URL必须的部分<br>
+7.参数部分：从“？”开始到“#”为止之间的部分为参数部分，又称搜索部分、查询部分。本例中的参数部分为“boardID=5&ID=24618&page=1”。参数可以允许有多个参数，参数与参数之间用“&”作为分隔符。<br>
+			</section>
+			 <section style="text-align: left;">
+                <h3><strong>URI和URL的区别</strong></h3>
+                <p>URI，是uniform resource identifier，统一资源标识符，用来唯一的标识一个资源。<br>
+Web上可用的每种资源如HTML文档、图像、视频片段、程序等都是一个来URI来定位的<br>
+URI一般由三部组成：<br>
+①访问资源的命名机制<br>
+②存放资源的主机名<br>
+③资源自身的名称，由路径表示，着重强调于资源。<br>
+            </section>
+			<section style="text-align: left;">
+			URL是uniform resource locator，统一资源定位器，它是一种具体的URI，即URL可以用来标识一个资源，而且还指明了如何locate这个资源。<br>
+URL是Internet上用来描述信息资源的字符串<br>
+采用URL可以用一种统一的格式来描述各种信息资源，包括文件、服务器的地址和目录等。URL一般由三部组成：<br>
+①协议(或称为服务方式)<br>
+②存有该资源的主机IP地址(有时也包括端口号)<br>
+③主机资源的具体地址。如目录和文件名等<br>
+			</section>
+			 <section style="text-align: left;">
+                <h3><strong>请求</strong></h3>
+                <p>  http请求由三部分组成，分别是：请求行、消息报头、请求正文<br>
+1、请求行以一个方法符号开头，以空格分开，后面跟着请求的URI和协议的版本，格式如下：<br>
+Method Request-URI HTTP-Version CRLF <br> 
+其中 Method表示请求方法；Request-URI是一个统一资源标识符；HTTP-Version表示请求的HTTP协议版本；CRLF表示回车和换行（除了作为结尾的CRLF外，不允许出现单独的CR或LF字符）。<br>
+            </section>
+			
+			<section style="text-align: left;">
+			请求方法（所有方法全为大写）有多种，各个方法的解释如下：<br>
+GET     请求获取Request-URI所标识的资源<br>
+POST    在Request-URI所标识的资源后附加新的数据<br>
+HEAD    请求获取由Request-URI所标识的资源的响应消息报头<br>
+PUT     请求服务器存储一个资源，并用Request-URI作为其标识<br>
+DELETE  请求服务器删除Request-URI所标识的资源<br>
+TRACE   请求服务器回送收到的请求信息，主要用于测试或诊断<br>
+CONNECT 保留将来使用<br>
+OPTIONS 请求查询服务器的性能，或者查询与资源相关的选项和需求<br>
+			</section>
+			<section style="text-align: left;">
+			举例<br>
+			GET方法：在浏览器的地址栏中输入网址的方式访问网页时，浏览器采用GET方法向服务器获取资源，eg:GET /form.html HTTP/1.1 (CRLF)
+POST方法要求被请求服务器接受附在请求后面的数据，常用于提交表单。
+eg：POST /reg.jsp HTTP/ (CRLF)<br>
+Accept:image/gif,image/x-xbit,... (CRLF)<br>
+...<br>
+HOST:www.guet.edu.cn (CRLF)<br>
+Content-Length:22 (CRLF)<br>
+Connection:Keep-Alive (CRLF)<br>
+Cache-Control:no-cache (CRLF)<br>
+(CRLF)         //该CRLF表示消息报头已经结束，在此之前为消息报头<br>
+user=jeffrey&pwd=1234  //此行以下为提交的数据<br>
+
+			</section>
+			<section style="text-align: left;">
+			HEAD方法与GET方法几乎是一样的，对于HEAD请求的回应部分来说，它的HTTP头部中包含的信息与通过GET请求所得到的信息是相同的。利用这个方法，不必传输整个资源内容，就可以得到Request-URI所标识的资源的信息。该方法常用于测试超链接的有效性，是否可以访问，以及最近是否更新。
+			</section>
+			<section style="text-align: left;">
+			 <h3><strong>响应</strong></h3>
+			在接收和解释请求消息后，服务器返回一个HTTP响应消息。<br>
+HTTP响应也是由三个部分组成，分别是：状态行、消息报头、响应正文<br>
+1、状态行格式如下：<br>
+HTTP-Version Status-Code Reason-Phrase CRLF<br>
+其中，HTTP-Version表示服务器HTTP协议的版本；Status-Code表示服务器发回的响应状态代码；Reason-Phrase表示状态代码的文本描述。
+状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：<br>
+			</section>
+			<section style="text-align: left;">
+			1xx：指示信息--表示请求已接收，继续处理<br>
+2xx：成功--表示请求已被成功接收、理解、接受<br>
+3xx：重定向--要完成请求必须进行更进一步的操作<br>
+4xx：客户端错误--请求有语法错误或请求无法实现<br>
+5xx：服务器端错误--服务器未能实现合法的请求<br>
+			</section>
+			
+			<section style="text-align: left;">
+			常见状态代码、状态描述、说明：<br>
+200 OK      //客户端请求成功
+400 Bad Request  //客户端请求有语法错误，不能被服务器所理解
+401 Unauthorized //请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用 
+403 Forbidden  //服务器收到请求，但是拒绝提供服务
+404 Not Found  //请求资源不存在，eg：输入了错误的URL
+500 Internal Server Error //服务器发生不可预期的错误
+503 Server Unavailable  //服务器当前不能处理客户端的请求，一段时间后可能恢复正常
+eg：HTTP/1.1 200 OK （CRLF）
+			</section>
+		
+			
+        </section>
+
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+          <section style="text-align: left;">
+                <p>get请求和post请求的区别<br>
+              </p>
+        </section>
+          </section>
+
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section style="text-align: left" >
+       1.GET提交的数据会放在URL之后，以?分割URL和传输数据，参数之间以&相连，如EditPosts.aspx?name=test1&id=123456. POST方法是把提交的数据放在HTTP包的Body中.<br>
+2.GET提交的数据大小有限制（因为浏览器对URL的长度有限制），而POST方法提交的数据没有限制.<br>
+3.GET方式提交数据，会带来安全问题，比如一个登录页面，通过GET方式提交数据时，用户名和密码将出现在URL上，如果页面可以被缓存或者其他人可以访问这台机器，就可以从历史记录获得该用户的账号和密码.<br>
+    </section>
+	
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+          
+
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+
+            </section>
+
+            <section class="text-l">
+                <h4>HTTP协议相关技术补充</h4>
+				   </section>
+				    <section style="text-align: left;">
+                高层协议有：文件传输协议FTP、电子邮件传输协议SMTP、域名系统服务DNS、网络新闻传输协议NNTP和HTTP协议等<br>
+中介由三种：代理(Proxy)、网关(Gateway)和通道(Tunnel)，一个代理根据URI的绝对格式来接受请求，重写全部或部分消息，通过 URI的标识把已格式化过的请求发送到服务器。网关是一个接收代理，作为一些其它服务器的上层，并且如果必须的话，可以把请求翻译给下层的服务器协议。一 个通道作为不改变消息的两个连接之间的中继点。当通讯需要通过一个中介(例如：防火墙等)或者是中介不能识别消息的内容时，通道经常被使用。<br>
+</section>
+ <section style="text-align: left;">
+                <p>
+               代理(Proxy)：<br>
+  一个中间程序，它可以充当一个服务器，也可以充当一个客户机，为其它客户机建立请求。请求是通过可能的翻译在内部或经过传递到其它的 服务器中。一个代理在发送请求信息之前，必须解释并且如果可能重写它。代理经常作为通过防火墙的客户机端的门户，代理还可以作为一个帮助应用来通过协议处 理没有被用户代理完成的请求。<br>    </p>
+</section>
+ <section style="text-align: left;">
+                <p>
+               网关(Gateway)：<br>
+  一个作为其它服务器中间媒介的服务器。与代理不同的是，网关接受请求就好象对被请求的资源来说它就是源服务器；发出请求的客户机并没有意识到它在同网关打交道。<br> 
+  服务器中。一个代理在发送请求信息之前，必须解释并且如果可能重写它。代理经常作为通过防火墙的客户机端的门户，代理还可以作为一个帮助应用来通过协议处 理没有被用户代理完成的请求。<br> 
+网关经常作为通过防火墙的服务器端的门户，网关还可以作为一个协议翻译器以便存取那些存储在非HTTP系统中的资源。<br>  </p>
+</section>
+ <section style="text-align: left;">
+                <p>
+               通道(Tunnel)<br>
+ 是作为两个连接中继的中介程序。一旦激活，通道便被认为不属于HTTP通讯，尽管通道可能是被一个HTTP请求初始化的。当被中继 的连接两端关闭时，通道便消失。当一个门户(Portal)必须存在或中介(Intermediary)不能解释中继的通讯时通道被经常使用   </p>
+</section>
+
+            </section>
+           
+
+
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p style="text-align: left">参考：<br>
+                    <br>
+                    互联网
+                </p>
+
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+        </section>
+        <section>
+            <!--<h4>鸣谢</h4>-->
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 鲁伯良</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js "></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js "></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc "或"o "键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+
+</html>

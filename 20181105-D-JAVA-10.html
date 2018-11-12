@@ -34,8 +34,8 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>Spring中的IOC是什么意思，为什么要用IOC而不是New来创建实例？</h2>
-            <p>分享人：李雨航</p>	
+            <h2>如何使用shiro认证授权？</h2>
+            <p>分享人：周宏浩</p>	
         </section>
         <section>
             <p>1.背景介绍</p>
@@ -50,16 +50,10 @@
             <section style="top: 267px; display: block;" class="" aria-hidden="true">
                 <h3>1.背景介绍</h3>
             </section>
-            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
-				<p>传统方式</p>
-				<p>对象和对象之间发生严重的依赖关系，耦合度非常高而且依赖关系都写死在了实现代码里，项目不易修改和维护，必须要改代码。</p>
-				<p>有了IoC容器后，把创建和查找依赖对象的控制权交给了容器，由容器进行注入组合对象，所以对象与对象之间是 松散耦合，这样也方便测试，利于功能复用，更重要的是使得程序的整个体系结构变得非常灵活。</p>
-				<p></p>
-            </section>
 			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
-				<p></p>
-				<p></p>
-				<p></p>
+				<p>什么是shiro？</p>
+				<p>Apache Shiro是一个强大且易用的Java安全框架,执行身份验证、授权、密码学和会话管理。Shiro的主要功能是管理应用程序中与安全相关的全部，同时尽可能支持多种实现方法。</p>
+				<p>Shiro是建立在完善的接口驱动设计和面向对象原则之上的，支持各种自定义行为。Shiro提供的默认实现，使其能完成与其他安全框架同样的功能。</p>
             </section>
         </section>
 		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
@@ -67,48 +61,42 @@
 				<h3>2.知识剖析</h3>
 			</section>
 			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
-				<p>1.IoC是什么</p>
-				<p>Ioc—Inversion of Control，即“控制反转”，不是什么技术，而是一种设计思想。在Java开发中，Ioc意味着将你设计好的对象交给容器控制，而不是传统的在你的对象内部直接控制。</p>
-				<p>谁控制谁？控制什么:传统Java SE程序设计，我们直接在对象内部通过new进行创建对象，是程序主动去创建依赖对象；而IoC是有专门一个容器来创建这些对象，即由Ioc容器来控制对 象的创建；当然是IoC 容器控制了对象；控制什么？那就是主要控制了外部资源获取（不只是对象包括比如文件等）</p>
-				<p></p>
-				<p></p>
+				<p>shiro三个核心组件-subject</p>
+				<p>Subject：主体，代表了当前“用户”，这个用户不一定是一个具体的人，与当前应用交互的任何东西都是Subject，如网络爬虫，机器人等；即一个抽象概念；所有Subject都绑定到SecurityManager，与Subject的所有交互都会委托给SecurityManager；可以把Subject认为是一个门面；SecurityManager才是实际的执行者；</p>
+				<p>主体要访问系统，系统需要对主体进行认证、授权。Subject的生命周期：每一次访问时都会创建一个新的subject，然后创建shiro封装后的session，然后通过securityUtils中在程序的任何地方调用getSubject时都会返回同一个subject，也就是本次请求创建的那个。</p>
 			</section>
 			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
-				<p></p>
-				<p>有反转就有正转，传统应用程序是由我们自己在对象中主动控制去直接获取依赖对象，也就是正转；而反转则是由容器来帮忙创建及注入依赖对象；</p>
-				<p>为何是反转？因为由容器帮我们查找及注入依赖对象，对象只是被动的接受依赖对象，所以是反转；哪些方面反转了？依赖对象的获取被反转了。</p>
-				<p></p>
+				<p>shiro三个核心组件-SecurityManager</p>
+				<p>安全管理器；即所有与安全有关的操作都会与SecurityManager交互；且它管理着所有Subject；可以看出它是Shiro的核心，它负责与后边介绍的其他组件进行交互，协调管理的组件，保证组件之间的关联配合，同时也管理shiro视角的每一个用户，保证每一个用户的安全操作执行正确。</p>
+				<p>学习过SpringMVC，你可以把它看成DispatcherServlet前端控制器；</p>
 			</section>
 			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
-				<p>DI是什么</p>
-				<p>DI—Dependency Injection，即“依赖注入”：组件之间依赖关系由容器在运行期决定，形象的说，即由容器动态的将某个依赖关系注入到组件之中。</p>
-				<p>依赖注入的目的并非为软件系统带来更多功能，而是为了提升组件重用的频率，并为系统搭建一个灵活、可扩展的平台。</p>
-				<p>通过依赖注入机制，我们只需要通过简单的配置，而无需任何代码就可指定目标需要的资源，完成自身的业务逻辑，而不需要关心具体的资源来自何处，由谁实现。</p>
-				<p></p>
+				<p>shiro三个核心组件-Realm</p>
+				<p>域，Shiro从Realm获取安全数据（如用户、角色、权限），就是说SecurityManager要验证用户身份，那么它需要从Realm获取相应的用户进行比较以确定用户身份是否合法；也需要从Realm得到用户相应的角色/权限进行验证用户是否能进行操作；可以把Realm看成DataSource，即安全数据源</p>
+				<p>Realm在Shiro和你应用的安全数据间扮演着桥梁或者连接器的角色。当发生一次真实的安全数据交互，比如用户登录和鉴权，Shiro会从程序配置好的一或多个Realm中查询很多次数据。你可以配置你所需要的任意数量的Realm，Shrio在授权和鉴权的时候会去协调使用他们。</p>
 			</section>
 			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
-				<p>“谁依赖谁，为什么需要依赖，谁注入谁，注入了什么”</p>
-				<p>●谁依赖于谁：当然是应用程序依赖于IoC容器；</p>
-				<p>●为什么需要依赖：应用程序需要IoC容器来提供对象需要的外部资源；</p>
-				<p>●谁注入谁：很明显是IoC容器注入应用程序某个对象，应用程序依赖的对象；</p>
-				<p>●注入了什么：就是注入某个对象所需要的外部资源（包括对象、资源、常量数据）。</p>
+				<p>四大基石----身份验证，授权，会话管理，加密</p>
+				<p>Authentication：身份认证/登录，验证用户是不是拥有相应的身份；</p>
+				<p>Authorization：授权，即权限验证，验证某个已认证的用户是否拥有某个权限；即判断用户是否能做事情，常见的如：验证某个用户是否拥有某个角色。或者细粒度的验证某个用户对某个资源是否具有某个权限；</p>
+				<p>Session Manager：会话管理，即用户登录后就是一次会话，在没有退出之前，它的所有信息都在会话中；会话可以是普通JavaSE环境的，也可以是如Web环境的；</p>
+				<p>Cryptography：加密，保护数据的安全性，如密码加密存储到数据库，而不是明文存储；</p>
 			</section>
-			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
-				<p></p>
-				<p></p>
-				<p></p>
-				<p></p>
-			</section>					
 		</section>
 		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
 			<section style="top: 267px; display: block;" class="" aria-hidden="true">
 				<h3>3.常见问题</h3>
 			</section>	
 			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
-				<p>控制反转和依赖注入是同一个概念吗？</p>
-				<p>IOC有哪些缺点？<p/>
-				<p><p/>
-			</section>					
+				<p>1.shiro权限控制有哪几张数据表</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>根据Shiro的设计思路，用户与角色之前的关系为多对多，角色与权限之间的关系也是多对多。</p>
+				<p>在数据库中需要因此建立5张表，分别是用户表（存储用户名，密码，盐等）、角色表（角色名称，相关描述等）、权限表（权限名称，相关描述等）、用户-角色对应中间表（以用户ID和角色ID作为联合主键）、角色-权限对应中间表（以角色ID和权限ID作为联合主键）。</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>2.shrio认证和授权的过程</p>
+			</section>
 		</section>
 		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
 			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
@@ -120,39 +108,28 @@
 				<h3>5.扩展思考</h3>				
 			</section>
 			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
-				<p>Bean作用域</p>
-				<p> bean 的对象是构成应用程序的支柱也是由 Spring IoC 容器管理的。bean 是一个被实例化，组装，并通过 Spring IoC 容器所管理的对象。</p>
-				<p>singleton：单例模式，在整个Spring IoC容器中，使用singleton定义的Bean将只有一个实例</p>
-				<p>prototype：原型模式，每次通过容器的getBean方法获取prototype定义的Bean时，都将产生一个新的Bean实例</p>
-				<p>request：对于每次HTTP请求，使用request定义的Bean都将产生一个新实例，即每次HTTP请求将会产生不同的Bean实例。只有在Web应用中使用Spring时，该作用域才有效</p>
-				<p></p>
-				<p></p>
-				<p></p>
-				<p></p>
+				<p>1.缓存利用Cache防止同一帐号重复登录</p>
+				<p>Cache与Session这二个状态对像的其中有一个不同之处，Cache是一个全局对象，作用的范围是整个应用程序，所有用户；而Session是一个用户会话对象，是局部对象，用于保存单个用户的信息。</p>
+				<p>我们只要把每次用户登录后的用户信息存储在Cache中，把Cache的Key名设为用户的登录名，Cache的过期时间设置为Session的超时时间，在用户每次登录的时候去判断一下Cache[用户名]是否有值，如果没有值，证明该用户没有登录，否则该用户已登录。</p>
 			</section>
 			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
-				<p>session：对于每次HTTP Session，使用session定义的Bean都将产生一个新实例。同样只有在Web应用中使用Spring时，该作用域才有效</p>
-				<p>globalsession：每个全局的HTTP Session，使用session定义的Bean都将产生一个新实例。典型情况下，仅在使用portlet context的时候有效。同样只有在Web应用中使用Spring时，该作用域才有效</p>
-			</section>
-			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
-				<p>其中比较常用的是singleton和prototype两种作用域。对于singleton作用域的Bean，每次请求该Bean都将获得相同的实例。
-				容器负责跟踪Bean实例的状态，负责维护Bean实例的生命周期行为；如果一个Bean被设置成prototype作用域，程序每次请求该id的Bean，Spring都会新建一个Bean实例，
-				然后返回给程序。在这种情况下，Spring容器仅仅使用new 关键字创建Bean实例，一旦创建成功，容器不在跟踪实例，也不会维护Bean实例的状态。</p>
-				<p></p>
+				<p>2.安全框架Shiro和Spring Security比较</p>
+				<p>Shiro是一个强大而灵活的开源安全框架，能够非常清晰的处理认证、授权、管理会话以及密码加密。</p>
+				<p>Spring Security除了不能脱离Spring，shiro的功能它都有。而且Spring Security对Oauth、OpenID也有支持,Shiro则需要自己手动实现。Spring Security的权限细粒度更高</p>
+				<p>shiro有很多地方都比spring security方便简单直接，比起spring security的庞大模式更容易理解和切入一些，而spring security比shiro功能上要多一点，再就是和spring框架的无缝对接</p>
 			</section>
 		</section>
 		<section>
 			<h3>6.参考文献</h3>
-			<p>http://www.cnblogs.com/xdp-gacl/p/4249939.html</p>
-			<p>https://blog.csdn.net/zhushuai1221/article/details/51246470</p>
+			<p>https://blog.csdn.net/u011781521/article/details/55094751</p>
 		</section>
         <section>
             <h3>7.更多讨论</h3>	
         </section>
         
         <section>
-            <h3>分享到此结束</h3>
-            <p></p>            
+            <h4>分享到此结束</h4>
+            <p>欢迎大家讨论</p>            
         </section>
         <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
 			<section style="top: 267px; display: block;" class="" aria-hidden="true">
