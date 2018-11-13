@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	<style>
+		.left{ text-align: left; }
+	</style>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>为什么要使用Interface，而不是直接使用一个实体类来完成任务？Interface和Impl这种方式的好处是什么？</h2>
+            <p>分享人：李雨航</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+         <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>1.背景介绍</h3>
+            </section>
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>类是属性和方法容器，但是这些属性和方法没有任何区别的堆积在一起，当开发人员要寻找某个方法时，将很不方便，而且直接使用实现类导致父类-子类间出现强耦合，很容易导致软件复杂度失控</p>
+				<p>这个时候，接口出现了，接口的出现就是为了解决这个问题。</p>
+				<p></p>
+				<p></p>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p></p>
+				<p></p>
+				<p></p>
+            </section>
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+				<h3>2.知识剖析</h3>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>接口的基本概念</p>
+				<p>接口是一种特殊的抽象类，是一个比抽象类还抽象的类，这种抽象类中只包含常量与方法的定义，而没有变量和方法的实现，接口，接口里所有的方法全是抽象方法，</p>
+				<p></p>
+				<p></p>
+				<p></p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+			
+				<p>接口的作用</p>
+				<p>1.重要性。在java中，abstract class和interface是支持抽象类定义的两种机制。赋予了Java面向对象的能力。</p>
+				<p>2.简单、规范性。大型项目，通过定义接口可以告诉开发人员需要实现的业务，同时限制了命名规范。</p>
+				<p>3.维护、扩展性。接口定义了功能，然后通过定义类来实现功能。这样需要使用接口的功能时就是使用这个接口去引用实现它的类。这样当接口功能需要更新时，对应功能上来讲，只需要更换引用的实现类。</p>
+				<p>4.安全、严密性。接口是实现软件松耦合的重要手段，它描述了系统对外的所有服务，而不涉及任何具体的实现细节。</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+			<p> 接口中成员的特点</p>
+				<p>1、接口的所有方法访问权限自动被声明为 public</p>
+				<p>2、接口中可以定义“成员变量”，会自动变为 public static final 修饰的静态常量 
+				,可以通过类命名直接访问：ImplementClass.name,不推荐使用接口创建常量类</p>
+				<p>3、实现接口的非抽象类必须实现接口中所有方法，抽象类可以不用全部实现</p>
+				<p>4、接口不能创建对象，但可以申明一个接口变量，方便调用</p>
+				<p>5完全解耦，可以编写可复用性更好的代码</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+			<p>抽象类</p>
+				<p>一个类含有抽象方法则称这个类为抽象类,用abstract修饰,抽象类中并不能只有抽象方法,它和普通类一样，同样可以拥有成员变量和普通的成员方法。</p>
+				<p>不过抽象类也不完全和普通类相同</p>
+				<p>1.抽象方法必须为 public 或者 protected（因为如果为 private，则不能被子类继承，子类便无法实现该方法），缺省情况下默认为 public</p>
+				<p>2.抽象类不能用来创建对象；</p>
+				<p>3.如果一个类继承于一个抽象类，则子类必须实现父类的抽象方法。</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>实现类</p>
+				<p>实现类是针对接口来讲的</p>
+				<p>是实现接口中约定的内容，意思是说，接口中定义规范，实现类来确定规范如何运行的。</p>
+				<p></p>
+				<p></p>
+			</section>					
+		</section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+				<h3>3.常见问题</h3>
+			</section>	
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>接口和抽象类的共性</p>
+				<p>接口和抽象类的区别<p/>
+				<p><p/>
+			</section>					
+		</section>
+		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>4.编码实战</h3>
+			</section>			
+		</section>
+		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>5.扩展思考</h3>				
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p> 多态概述</p>
+				<p> 多态是继封装、继承之后，面向对象的第三大特性。</p>
+				<p> 现实事物经常会体现出多种形态</p>
+				<p> Java作为面向对象的语言，同样可以描述一个事物的多种形态。</p>
+				<p>最终多态体现为父类引用变量可以指向子类对象。多态的前提是必须有子父类关系或者类实现接口关系，否则无法完成多态。在使用多态后的父类引用变量调用方法时，会调用子类重写后的方法。</p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p></p>
+				<p></p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p></p>
+				<p></p>
+			</section>
+		</section>
+		<section>
+			<h3>6.参考文献</h3>
+			<p></p>
+			<p></p>
+		</section>
+        <section>
+            <h3>7.更多讨论</h3>	
+        </section>
+        
+        <section>
+            <h3>分享到此结束</h3>
+            <p></p>            
+        </section>
+        <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">				
+			</section>
+		</section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
