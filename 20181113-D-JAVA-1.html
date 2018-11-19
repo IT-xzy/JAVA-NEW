@@ -1,19 +1,18 @@
-<!DOCTYPE html>
-<!-- saved from url=(0062)https://it-xzy.github.io/JAVA-NEW/20181002-A-JAVA-1%20.html#/5 -->
-<html class=" js no-mobile desktop no-ie chrome chrome69 java-new-section gradient rgba opacity textshadow multiplebgs boxshadow borderimage borderradius cssreflections csstransforms csstransitions no-touch retina fontface domloaded w-1536 gt-240 gt-320 gt-480 gt-640 gt-768 gt-800 gt-1024 gt-1280 gt-1440 lt-1680 lt-1920 no-portrait landscape" id="20181002-a-java-1%20-page"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <title>葡萄藤PPT</title>
 
-    <link rel="stylesheet" href="./PPT_files/reveal.css">
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
 
     <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
-    <link rel="stylesheet" href="./PPT_files/ptt.css">
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
 
     <!-- syntax highlighting 代码高亮主题 -->
-    <link rel="stylesheet" href="./PPT_files/zenburn.css">
-
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
     <!-- 打印和PDF输出样式 -->
     <script>
         var link = document.createElement( 'link' );
@@ -21,20 +20,21 @@
         link.type = 'text/css';
         link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
         document.getElementsByTagName( 'head' )[0].appendChild( link );
-    </script><link rel="stylesheet" type="text/css" href="./PPT_files/paper.css"><script type="text/javascript" src="./PPT_files/54912367"></script><script type="text/javascript" src="./PPT_files/72820232"></script><script type="text/javascript" src="./PPT_files/notes.js.下载"></script><script type="text/javascript" src="./PPT_files/highlight.js.下载"></script>
+    </script>
 </head>
 <body>
-<img src="./PPT_files/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
 <map name="pttmap">
-    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com/" alt="" target="_blank">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
 </map>
-<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
-    <div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.929571);">
-        <section class="past" style="top: 200.5px; display: block;" hidden="" aria-hidden="true">
-            <h3>SPRING中的IOC是什么意思，为什么要用IOC而不是NEW来创建实例？</h3>
-               <p>分享人:王志雄</p>
+<div class="reveal">
+    <div class="slides">
+          <section class="present" style="top: 178.5px; display: block;">
+            <h2>SPRING中的IOC是什么意思，为什么要用IOC而不是NEW来创建实例？</h2>
+            <h3>小课堂</h3>
+            <p>分享人：王志雄</p>
         </section>
-        <section class="past" style="top: 34.5px; display: none;" hidden="" aria-hidden="true">
+        <section class="future" style="top: 34.5px; display: block;" hidden="" aria-hidden="true">
             <p>1.背景介绍</p>
             <p>2.知识剖析</p>
             <p>3.常见问题</p>
@@ -44,16 +44,13 @@
             <p>7.参考文献</p>
             <p>8.更多讨论</p>
         </section>
-        <section class="past" style="top: 267px; display: none;" hidden="" aria-hidden="true">
+        <section class="future" style="top: 267px; display: block;" hidden="" aria-hidden="true">
             <h3>1.背景介绍</h3>
         </section>
-
-	<section class="past" style="top: 151px; display: block;" hidden="" aria-hidden="true">
-            <h3> </h3>
-            <p align="left"> spring是一种多层的J2EE应用程序框架，是以Rod Johson编写的《Expert one to one J2EE design and development》一书的代码为基础发展而来的。它是为了解决企业应用开发的复杂性而创建的。从简单性、可测试性和松耦合的角度而言，任何Java应用都可以从Spring中受益。spring的两个核心思想就是IOC和AOP。</p>
-<p> </p>
-        </section>
-
+        <section class="future" style="top: 141px; display: none;" hidden="" aria-hidden="true">
+            <p>spring是一种多层的J2EE应用程序框架，是以Rod Johson编写的《Expert one to one J2EE design and development》一书的代码为基础发展而来的。它是为了解决企业应用开发的复杂性而创建的。
+			从简单性、可测试性和松耦合的角度而言，任何Java应用都可以从Spring中受益。spring的两个核心思想就是IOC和AOP。</p>
+		</section>
         <section class="past" style="top: 267px; display: block;" hidden="" aria-hidden="true">
             <h3>2.知识剖析</h3>
         </section>
@@ -62,23 +59,22 @@
         <p>2. IOC:控制反转</p>
 	    <p>3. DI：依赖注入</p>           
         </section>
-
-	<section class="future" style="top: 0px; display: block;" hidden="" aria-hidden="true">
+		
+        <section class="future" style="top: 0px; display: block;" hidden="" aria-hidden="true">
 <p align="left">Spring容器</p>
 <p align="left">spring容器是 Spring 框架的核心。容器将创建对象，把它们连接在一起，配置它们，并管理他们的整个生命周期从创建到销毁。 Spring 提供了以下两种不同类型的容器；</p>
 <p align="left">1.Spring BeanFactory 容器：它是最简单的容器，给 DI 提供了基本的支持。在 Spring 中，有大量对 BeanFactory 接口的实现</p>
 <p align="left">2.Spring ApplicationContext 容器：该容器包括 BeanFactory 容器的所有功能，并且该添加了更多的企业特定的功能，例如从一个属性文件中解析文本信息的能力，发布应用程序事件给事件监听器的能力。</p>
 <p align="left">所以通常建议使用ApplicationContext。</p>
-	</section>
-
-
+	    </section>
+		
         <section hidden="" aria-hidden="true" class="future" style="top: 64.5px; display: block;">
             <h3>IOC：控制反转</h3>
             <p align="left">IOC—Inversion of Control，即“控制反转”，不是什么技术，而是一种设计思想</p>
             <p align="left"> 传统JavaSE程序设计，我们在对象内部直接通过new进行创建对象，是程序主动去创建依赖对象，而IoC有一个专门的容器来创建这些对象，即由IoC容器来创建这些对象的创建。</p>
          <p align="left"> 理解好IoC的关键是：</p>
          <p align="left"> 谁控制谁，控制了什么，为何是反转，在哪些方面反转了。</p>
-         </section>
+        </section>
 	
 	<section hidden="" aria-hidden="true" class="future" style="top: 117.5px; display: none;">
          <p align="left"> 1、谁控制谁？由IoC容器控制了对象；控制了什么？控制了外部资源获取（包括对象、文件等）
@@ -97,18 +93,18 @@
 	<p align="left">3.谁注入谁？IoC容器注入应用程序某个对象，应用程序依赖的对象。</p>
 <p align="left">4.注入了什么？注入某个对象所需要的外部资源（包括对象、资源、变量数据）</p>
 <p align="left"></p>
-
 	</section>
-
- 
-        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+	
+	
+	<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
             <h3>3.常见问题</h3>
         </section>     
 	<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
 <p align="left">1、ApplicationContext 容器和BeanFactory的区别</p>
 <p align="left">2、ApplicationContext 接口的实现</p>
 	</section> 
-        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+	
+       <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
             <h3>4.解决方案</h3>
         </section>
 		
@@ -131,8 +127,7 @@
 </p>
 <p align="left"></p>
 	</section>
-       
-        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+        <section class="future" style="top: 267px; display: none;" hidden="" aria-hidden="true">
             <h3>5.编码实战</h3>
         </section>
         <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
@@ -152,43 +147,33 @@
 	<p align="left">   </p>
 	<p align="left">   </p>
     <p align="left">注：此PPT是在王东东师兄的PPT基础上完善的，感谢！</p>
-	</section>
-
-        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+	</section>  
+        <section class="future" style="top: 64.5px; display: none;" hidden="" aria-hidden="true">
             <h3>7.参考文献</h3>
-	<p align="left"> http://jacobcookie.iteye.com/blog/1892553 </p>
-	<p align="left"> https://www.w3cschool.cn/wkspring/ </p>
-	<p align="left"> https://www.cnblogs.com/Wolfmanlq/p/5728668.html </p>
-	<p align="left">https://www.cnblogs.com/NancyStartOnce/p/6813162.html </p>
-	<p align="left"> </p>
-	<p align="left"></p>
-            <p></p>
-	<p align="left">  </p>
-	<p align="left"> </p>
+            <p>https://zhidao.baidu.com/question/168096244.html</p>
+			<p>https://www.cnblogs.com/geningchao/p/6649907.html</p>
+			<p>https://blog.csdn.net/weixin_41267342/article/details/79151098</p>
         </section>
-
-        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+        <section class="future" style="top: 233.5px; display: none;" hidden="" aria-hidden="true">
             <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
         </section>
-
-        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+        <section class="future" style="top: 212px; display: none;" hidden="" aria-hidden="true">
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 王志雄</small></p>
+        </section>
       
-            <p>谢谢大家观看，如有问题，恳请批评指正</p>
-			      <p>by：武汉分院 -王志雄-</p>
-        </section>
+      
 
     </div>
-<div class="backgrounds"><div class="slide-background past" data-loaded="true" style="display: none;"></div><div class="slide-background past" data-loaded="true" style="display: none;"></div><div class="slide-background past" data-loaded="true" style="display: none;"></div><div class="slide-background past" data-loaded="true" style="display: block;"></div><div class="slide-background past" data-loaded="true" style="display: block;"></div><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div><div class="progress" style="display: block;"><span style="width: 365.714px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left enabled" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px);">
-	    1.spring容器  	    
-        2.IOC:控制反转
-	    3.DI：依赖注入           
-        </div></div>
+</div>
 
-<script src="./PPT_files/head.min.js.下载"></script>
-<script src="./PPT_files/reveal.js.下载"></script>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
 
 <script>
-
     // 以下为常见配置属性的默认值
     // {
     // 	controls: true, // 是否在右下角展示控制条
@@ -207,18 +192,20 @@
     // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
     // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
     // }
-
     // 初始化幻灯片
     Reveal.initialize({
         history: true,
         dependencies: [
-            { src: 'https://blog.csdn.net/USTC_Zn/article/details/54912367' },
-            { src: 'https://blog.csdn.net/luomingkui1109/article/details/72820232' },
-            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
-            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
         ]
     });
 </script>
-
-
-</body></html>
+</body>
+</html>
