@@ -1,0 +1,386 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3> 什么是http协议？get和post请求有什么区别？http请求content-Type有几种，有什么区别？http适合什么场景？http状态码有哪些？ </h3>
+            <p></p>
+            <h3>java 分享会</h3>
+            <p>分享人：赵立鼐</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+           <h2> HTTP的诞生</h2>
+
+        </section>
+<section>
+   为知识共享而规划Web
+</section>
+
+        <section>
+    1989年3月，互联网还只是属于少数人。在这一互联网的黎明期，HTTP诞生了。
+            CERN(欧洲核子研究组织)的蒂姆·博纳斯-李（Tim BernersLee）博士提出了一种能让远隔两地的研究者们共享知识的设想。
+
+            最初设想的理念是：借助多文档之间相互关联形成的超文本（HyperText），连成可以相互参阅的WWW(World Wide Web,万维网)
+
+            现在已经提出了3项WWW构建技术，分别是：把SGML(标准通用标记语言)作为页面的文本标记语言的HTML(HyperText Markup Language,超文本标记语言)；
+            作为文档传递协议的HTTP;指定文档所在地址的URL(Uniform Resource Locator,统一资源定位符)。
+
+            WWW 这一名称，是Web浏览器当年用来浏览超文本的客户端应用程序时的名称。现在则用来表示这一系列的合集，也可简称为Web.
+        </section>
+    <section>
+   驻足不前的HTTP
+    </section>
+        <section>
+        <br>
+ <p> <br> <h3>HTTP/0.9</h3></br>
+            HTTP于1990年问世。那时的HTTP并没有作为正式的标准被建立。现在的HTTP其实含有HTTP1.0之前版本的意思，
+            因此被称为HTTP/0.9</p>
+        </section>
+        <section>
+            <p>      <br> <h3>   HTTP/1.0</h3></br>
+            HTTP正式作为标准被公布是在1996年的5月，版本被命名为HTTP/1.0,并记载于RFC1945。虽说是初期标准，但该协议标准至今仍被广泛使用在服务器端。
+   </p>
+</section>
+        <section>
+                <br> <h3> HTTP/1.1 </h3></p>
+            1997年1月公布的HTTP/1.1是目前主流的HTTP协议版本。当初的标准是RFC2068,之后发布的修订版RFC2616就是当前最新的版本。
+            </p>
+        </section>
+<section>
+    可见，作为web文档传输协议的HTTP，它的版本几乎没有更新。新一代HTTP/2.0正在制定中，但要达到较高的使用覆用率，仍需加以时日。
+    当年的HTTP协议的出现主要是为了解决文本传输的难题。由于协议本身非常简单，于是在此基础上设想了很多应用方法并投入了实际应用。现在的HTTP协议已经超出了
+    Web这个框架的局限，被运用到了各种场景里。
+        </section>
+
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+
+        </section>
+        <section>
+        <p>　
+            <h3> 什么是HTTP协议？<h3>
+        </p>
+        </section>
+
+        <section>
+            HTTP协议用于客户端和服务端之间的通信。
+            HTTP协议和TCP/IP协议族内的其他众多协议相同，用于客户端和服务端之间的通信。
+
+            请求访问文本或图像等资源的一端称为客户端，而提供资源响应的一端称为服务器端。
+
+            肯定是先从客户端开始建立通信的，服务器端在没有接受到请求之前不会发送响应。
+
+
+        </section>
+        <section>
+            <h3>请求报文</h3>
+        </section>
+        <section>
+            请求报文是由请求方法、请求URI、协议版本、可选的请求首部字段和内容实体构成。
+
+        </section>
+       <section><h3> 响应报文</h3></section>
+        <section>
+            响应报文基本是由协议版本、状态码（表示请求成功或失败的数字代码）、用以解释状态码的原因短语、可选的响应首部字段以及实体主体构成。
+
+        </section>
+
+<section><h3> HTTP是不保存状态的协议</h3></section>
+<section>
+
+    HTTP是一种不保存状态，既无状态协议。
+
+    HTT协议本身不对请求和响应之间的通信状态进行保存。也就是说HTTP这个级别，协议对于发送过的请求或响应都不做持久化处理。
+
+    使用HTTP协议，每当有新的请求发送过来时，就会有对应的新响应产生。协议本身并不保留之前一切的请求或响应报文信息。这是为了更快地处理大量事务，确保协议的可伸缩性，而特意把HTTP协议设计成如此简单的。</section>
+<section>
+  <h3>告知服务器意图的HTTP方法</h3>
+</section>
+        <section>
+            GET:获取资源
+        </section>
+        <section>
+            GET请求用来请求访问已被URI识别的资源。指定的资源经服务器端解析后返回响应内容。
+
+            也就是说，如果请求资源是文本，那就保持原样返回；如果是像CGI（Common Gateway Interface,通用网关接口）那样的程序，则返回经过执行后的输出结果。
+
+
+        </section>
+        <section>
+            POST:传输实体主体
+        </section>
+        <section>
+            POST方法用来传输实体的主体
+
+            虽然用GET方法也可以传输实体的主体，但一般不用GET方法进行传输，而是用POST方法。
+
+            虽说POST的功能与GET很相似，但POST的主要目的并不是获得响应的主体内容。
+
+            HTTP只是行为准则，而TCP才是GET和POST怎么实现的基准。
+        </section>
+        <section>
+            区别：GET产生一个TCP数据包，POST请求产生两个TCP数据包
+        </section>
+        <section>
+            对于GET方式的请求，浏览器会把HTTP Header和data一并发送出去，服务器响应200（返回数据）
+
+            而对于POST，浏览器先发送header，服务器响应100 continue,浏览器再发送data，服务器响应200 ok(返回数据)
+        </section>
+        <section>
+            持久连接节省通信量
+        </section>
+        <section>
+            HTTP协议的初始版本中，没进行一次HTTP通信就要断开一次TCP连接，以当年的通信情况来说，因为都是些容量很小的文本传输，所以即使这样也没有多大问题。可随着HTTP的普及，文档中包含大量图片的情况多了起来。
+
+            比如，使用浏览器浏览一个包含很多张图片的HTML页面时，在发送请求访问HTML页面资源的同时，也会请求该HTML页面包含的其他资源。因此，每次的请求都会造成无畏的TCP连接建立和断开，增加通信量的开销。
+        </section>
+        <section>
+            持久连接：
+
+            为解决上述TCP连接问题，HTTP/1.1和部分HTTP/1.0想出了持久连接（HTTP  Persistent Connections,也称为HTTP keep-alive 或 HTTP connection reuse）的方法。持久连接的特定是：只要任意一端没有明确提出断开连接，则保持TCP连接状态。
+
+            持久连接旨在建立一次TCP连接后进行多次请求和响应的交互。
+
+
+        </section>
+        <section>
+            管线化：  持久连接使得多数请求以管线化方式发送成为可能。从前发送请求后需等待并收到响应，才能发送下一个请求。管线化技术出现后，不用等待响应亦可直接发送下一个请求。这样就能够做到同时并行发送多个请求，而不需要一个接一个的等待响应了。
+
+
+        </section>
+        <section>
+            状态码告知从服务器端返回的请求结果
+        </section>
+        <section>
+            状态码的职责是当客户端向服务器端发请求时，描述返回的请求结果。借助状态码，用户可以知道服务器是正常处理了请求，还是出现了错误。
+        </section>
+        <section>
+            状态码如  200 OK,以3位数字和原因短语组成。
+
+            数字中的第一位指定了响应类别，后两位无分类。响应类别有以下5种：
+
+
+
+<p>    1××     Informational(信息性状态码)      接受的请求正在处理</p>
+
+            <p>           2××     Success (成功状态码)       请求正常处理完毕</p>
+
+            <p>      3××     Redirection(重定向状态码)  需要进行附加操作以完成请求</p>
+
+            <p>         4××    Client  Error(客户端错误状态码)  服务器无法处理请求</p>
+
+            <p>     5××    Server Error(服务器错误状态码)  服务器处理请求出错</p>
+        </section>
+        <section>
+            Content-Type 说明了实体主体内对象的媒体类型。
+        </section>
+        <section>
+            常见的媒体格式类型如下：
+
+        <p> text/html:  HTML格式</p>
+
+            <p>     text/plain:纯文本格式</p>
+
+            <p>      text/xml: xml格式</p>
+
+            <p>     image/gif: gif图片格式</p>
+
+            <p>       image/jpeg: jpg图片格式</p>
+
+            <p>     image/png:png图片格式</p>
+        </section>
+    <section>
+
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>
+               都有哪些常见的HTTP错误码？
+            </p>
+        </section>
+
+
+        <section>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+        </section>
+
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            4开头的响应结果表明客户端是发生错误的原因所在
+        </section>
+        <section>
+       <p>    400 Bad Request</p>
+            该状态码表示请求报文中存在语法错误。当错误发生时，需要修改请求内容后再次发送请求。</section>
+<section>
+         <p>   401  Unauthorized</p>
+            该状态码表示发送的请求需要有通过HTTP认证（BASIC认证、DIGEST认证）的认证信息。另外若之前已进行过
+            1次请求，则表示用户认证失败。
+        </section>
+        <section>
+
+         <p> 403  Forbidden</p>
+            该状态码表明对请求资源的访问被服务器拒绝了。服务器端没有必要给出拒绝的详细理由，但如果想做说明的话，可以
+            在实体部分对原因进行描述，这样就能让用户看到了。
+            未获得文件系统的访问授权，访问权限出现某些问题（从未授权的发送源IP地址试图访问）等列举的情况都可能是发生403的原因。
+        </section>
+        <section>
+       <p>    404  Not Found</p>
+            该状态码表明服务器上无法找到请求的资源。除此之外，也可以在服务器端拒绝请求且不想说明理由时使用。
+</section>
+        <section>
+
+            5开头的响应结果表明服务器本身发生错误。</section>
+        <section>
+         <p> 500 Internal Server Error</p>
+            该状态码表明服务器端在执行请求时发生了错误。也有可能是Web应用存在BUG或某些临时的故障。</section>
+        <section>
+         <p>  503 Service  Unavailable</p>
+            该状态码表明服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。
+        </section>
+        <section>
+        <p>   状态码和状况的不一致</p>
+            不少返回的状态码响应都是错误的，但是用可能察觉不到这点。比如Web应用程序内部发生错误，状态码依然返回200 OK ，这种情况也经常遇到。
+
+        </section>
+
+
+
+        <section>
+            <h3>5.编码实战</h3>
+
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+
+        </section>
+        <section>
+           各种协议与HTTP协议的关系
+        </section>
+            <section>
+                我们可以通过下面这张图来了解下IP协议、TCP协议和DNS服务在使用HTTP协议的通信过程中各自发挥了那些作用。
+            </section>
+        <section>
+           <img src="img/HTTP.jpg" width="800" >
+        </section>
+        <section>
+            <img src="img/http4.png">
+        </section>
+
+
+            </p>
+
+            </section>
+
+
+
+
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>
+             书籍：   图解HTTP <br>
+                作者： [日]上野宣
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>
+
+            </p>
+        </section>
+            <section>
+                <h4>鸣谢</h4>
+                <p>感谢观看,如有出错,恳请指正</p>
+                <p><small>BY : 西安分院 赵立鼐</small></p>
+            </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
