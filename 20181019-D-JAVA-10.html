@@ -1,0 +1,206 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>mysql多表查询</h3>
+			<p></P>
+            <h4>Java小课堂</h4>
+            <p>分享人：方广辉</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+               <section>
+            <p>在任务一里，我们已经对mysql数据库的基本sql有了一定了解，也能使用基于单表的sql操作来完成修真院的Java任务，然而实际项目中，我们所需要的数据往往存在于多张表中，那么基本的单表查询语句就显得力不从心了（当然也可以选择单表多次查，但开发效率大打折扣）</p>
+            
+        </section>
+        <section>
+        	<p>什么是多表查询</p>
+            <p style="text-align:left">多表查询就是从多张表中查找出所需的数据，并且按照自己设定的约束条件将两表中查出的数据整合在一起获取出来</p>
+        </section>
+                    <section>
+            <p>表之间的关系到底是怎样确立的？</p>
+            <p style="text-align:left">表的关联，只是一种逻辑概念，mysql并没有强大到可以帮我们完美实现物理上的“硬绑定”，这种关联的逻辑实际上只是表中某些数据存在一定的联系而已（比如设公共字段，建关联表等），而这种数据上的联系是我们在设计表的时候定好的逻辑</p>
+        </section>
+             <section>
+            <p>如何只用一条sql语句就查出几张不同表中的数据呢？</p>
+            </section>
+              <section>
+            <p style="text-align:left">交叉连接</p>
+            <p style="text-align:left">交叉连接是把任意两个表连接起来。假设2张表，笛卡尔积就是2张表的所有记录的排列组合，比如: select * from 表1，表2——这就是 表1，表2的笛卡尔积。但是，实际情况中，真正使用的绝大部分都是它的子集(即2表是有关联条件的)，只有在极特殊应用场景下才会用笛卡尔积作为最终结果</p>
+        </section>
+           
+
+<section>
+            <h3>2.知识剖析</h3>
+        </section>
+            <section>
+            <p>多表连接有哪些分类?针对这些分类有哪些连接方法?</p>
+            <p style="text-align:left">A）内连接：inner join</p>
+            <p style="text-align:left">B）外连接：left outer join，right outer join，union</p>
+            <p style="text-align:left">C）交叉连接：cross join</p>
+
+        </section>
+		<section>
+			<p>内连接</p>
+			<p style="text-align:left">语法：select 列from 表1 别名 inner join 表2 别名 on 表1.列=表2.列，...</p>
+			<p style="text-align:left">from开始，表1与表2进行笛卡尔积，每匹配一行的数据，就会通过on后条件判断
+                是否成立，就将该行匹配的信息存放到临时表，否则不存放</p>
+      
+		</section>
+        <section>
+            <p>外连接</p>
+            <p style="text-align:left">左外连接：左表中所有的记录都会被放到结果集中，无论是否在右表是否存在匹配记录</p>
+            <p style="text-align:left">语法：select 列
+                from 表1 left outer join 表2 on 表1.列=表2.列</p>
+            <br>
+            <p style="text-align:left">右外连接：不管是否成功匹配连接条件都会返回右表中的所有记录</p>
+            <p style="text-align:left">语法： select 列
+            from 表1 right outer join 表2 on 表1.列=表2.列</p>
+            <!-- <p style="text-align:left"></p> -->
+        </section>
+                <section>
+                    
+            <p>子查询</p>
+            <p style="text-align:left">把内层查询结果当作外层查询的比较条件，一个select...From...Where查询语句块可以嵌套在另一个select...From...Where查询块的Where子句中，又称为嵌套查询。外层查询称为父查询，主查询。内层查询称为子查询，从查询。子查询可以嵌套多层，子查询查询到的结果又成为父查询的条件，先处理子查询，再处理父查询。</p>
+           
+        </section>
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p>约束</p>
+             <p style="text-align:left">数据库中的完整性约束用来防止对数据的意外破坏，来保证数据的安全性和一致性。
+                    通常我们都需要对数据库的某些列加上合适的约束来防止程序bug等导致的数据不一致,因为这类数据不一致的问题排查起来很困难</p><br>
+                     </section>
+
+        <section>
+             <p>表中的约束</p>
+            <p >主键约束、唯一约束、非空约束等</p><br>
+                 <p>表间的约束</p>
+            <p >外键约束（又名参照完整性约束）</p>
+            <p >作用：保持数据的一致性、完整性</p>
+        </section>
+		  <section>
+            <h3>5.编码实战</h3>
+        </section>
+		 <section>
+            <h3>6.扩展思考</h3>
+              </section>
+                             <section>
+             <p>对于单表多次查询和多表联查（join）的各自优势</p>
+             <p style="text-align:left">在业务逻辑不是十分复杂的情况下，绝大多数join是可以使用多次查询替代的。它们的区别在我看来其实就是：使用join偏向于使用sql语句来处理数据间的逻辑问题，多次查询偏向于使用程序代码来解决数据间的逻辑问题  迫使人使用程序代码代替SQL语句来处理问题</p>
+             
+
+        </section>
+               <section>
+            
+             <p style="text-align:left">单表多次查询的优势</p>
+             <p style="text-align:left">1、高并发场景下的资源消耗低</p>
+             <p style="text-align:left">2、降低了业务之间的耦合度</p>
+             <p style="text-align:left">3、可扩展性强</p>
+             <!-- <p style="text-align:left">单表</p> -->
+
+        </section>
+                      <section>
+            
+             <p style="text-align:left">多表联查（join）的优势</p>
+             <p style="text-align:left">1、低并发场景下开发效率高</p>
+             <p style="text-align:left">2、频繁复杂数据读写的一致性和完整性高</p>
+             <p style="text-align:left">3、对开发人员的能力要求相对低些</p>
+
+        </section>
+
+        
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:center">1.知乎：https://zhuanlan.zhihu.com/p/24659011</p>
+			<p style="text-align:center">2.CSDN博客：https://blog.csdn.net/jintao_ma/article/details/51260458</p>
+			<p style="text-align:center"></p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
