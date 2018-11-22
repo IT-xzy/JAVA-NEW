@@ -1,0 +1,152 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>redis集群介绍，redis-cluster</h2>
+            <p>-深圳-java-唐海清-</p>
+        </section>	
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		<section>
+            <h3>业务场景</h3>
+            <p align="left">随着企业数据量的增多，Redis不论作为数据存储或是缓存，它的数据量也会逐渐增多，虽然Redis的速度非常可观，但随着其中的数据量的庞大，并且仅仅在一个设备或是一个Redis实例中，其存取速度也会大打折扣，所以我们需要在不同的设备或服务器上，搭建多个Redis实例仓库，将原来的Redis的所有的keys分发到各个服务器的Redis上，这就是现在所谓的Redis集群（Redis Cluster）</p> 
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3>2.1Redis-Cluster原理</h3>
+            <p align="left">  Redis-Cluster中的节点是可以相互通信的，客户端可以通过访问任意节点都可以访问集群内的数据</p>
+            <p align="left">1、Redis-Cluster所有节点之间通过PING-PONG机制进行关联，内部使用二进制协议优化传输速度和带宽，所以Redis的传输特别快。</p>
+            <p align="left"> 2、Redis-Cluster检测节点是否宕机有它独特的机制。</p>
+        </section>
+        <section>
+            <p align="left">3、客户端可以直接连接Redis节点，不需要连接所有节点，连接集群中任何一个可用节点即可。</p>
+            <p align="left">4、Redis-Cluster把所有的节点映射到slot上，Cluster主要负责维护node<->slot<->value</p>
+            <p align="left">5.Redis集群中内置了16384个哈希槽，Cluster会给不同的节点分配哈希槽，不同的节点分配编号在0-16383之间的哈希槽，也就是将哈希槽映射到redis集群的节点。Cluster主要负责维护节点-哈希槽-值之间的关系。</p>
+		</section>
+		<section>
+            <h3>2.2Redis-Cluster容错机制</h3>
+			<p align="left">Redis-Cluster检测节点是否宕机时采用投票的方式。节点之间通过PING-PONG机制联系，如果有一半以上的master节点在默认的回应时间内联系某个节点失败，则会认为该节点已经宕机了。主节点宕机后，从节点会暂时作为主节点来接替主节点的工作，但并不总是能顶替。当出现以下两种情况时，可以认为Redis-Cluster已经宕掉了：
+			</p>
+			<p align="left"> 1、如果集群中的主节点宕机后，当前master节点没有slave节点，则集群进入宕机状态，也就是集群的slot映射不成功。</p>
+			<p align="left">2、如果集群中的master节点超过一半以上宕机，无论是否有slave节点，集群都会处于宕机状态
+			</p>
+		</section> 
+        <section>
+            <h3>2.3概括</h3>
+			<p align="left"> Redis集群采用哈希槽进行节点映射，映射时会采用一定的算法。Cluster会根据节点的数量来分配映射的哈希槽，每个节点占据一定个数的哈希槽。Redis-Cluster的节点采用主备模式，当客户端向Redis的某个master节点存储数据时，master节点也会把数据同步到slave节点，保持master节点和slave节点的数据一致。</p>
+			
+		</section> 
+        <section>
+            <p>3.常见问题</p>
+            <p align="left"></p> 
+            <p align="left"></p>
+            <p align="left"></p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+            <p align="left">在一台机器上用多个端口启动多个redis服务来模拟集群</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <p align="left">redis集群有很多中方案，而且redis集群在企业中运用也比较广</p>
+            <p align="left">注：本人初学java者，如有不对敬请指出，谢谢！</p>
+	    </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>CSDN、百度百科</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+      
+            <p>谢谢大家观看，如有问题，恳请批评指正</p>
+			      <p>by：深圳分院 -唐海清-</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://blog.csdn.net/USTC_Zn/article/details/54912367' },
+            { src: 'https://blog.csdn.net/luomingkui1109/article/details/72820232' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
