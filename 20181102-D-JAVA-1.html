@@ -1,0 +1,278 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+         <section class="present" style="top: 221.5px; display: block;">
+            <h2>生成json的几种方式</h2>
+            <p>分享人：汪天驰</p>	
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 69px; display: block;">
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>	       
+		<section hidden="" aria-hidden="true" class="future" style="top: 267px; display: block;">
+			<h3>1.背景介绍</h3>
+			
+		</section>	     
+
+		<section class="future" style="top: 119px; display: none;" hidden="" aria-hidden="true">
+		    
+            <p style="text-align:left; ">
+			  JSON（JavaScript Object Notation)是一种轻量级的数据交换格式，易于阅读和编写，同时也易于机器解析和生成。</br>
+			  
+			  
+			  JSON是由道格拉斯·克罗克福特在2001年开始推广使用的数据格式，在2005年-2006年正式成为主流的数据格式，雅虎和谷歌就在那时候开始广泛地使用JSON格式。</br>
+			 
+			
+			</p>
+
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>2.知识剖析</h3>
+			<p></p>
+		</section>
+		
+		<section class="future" style="top: 119px; display: none;" hidden="" aria-hidden="true">
+		    <h3>为什么要用json？</h3>
+            <p style="text-align:left; ">
+            JSON类似于XML、比XML更小、更快、更容易解析。但同时XML也有它不可替代性，应根据使用场景进行更合适的选择</br>
+			 两者不同的是，json没有结束标签，读写速度更快，使用数组，不使用保留字，能够使用内建的JavaScript eval()方法解析。</br>
+			JSON语法简单，很容易理解，并且对象信息自描述，数据传输量小不占用宽带</br>
+			JSON支持的语言包括C、C#、Java、JavaScript，PHP，Python、Ruby等等</br>
+			对于Ajax应用程序来说，JSON比XML更快捷，更易用</br>
+    
+			</p>
+		</section>
+
+		
+		
+		
+		<section class="future" style="top: 119px; display: none;" hidden="" aria-hidden="true">
+		    <h3>JSON的基本语法</h3>
+            <p style="text-align:left; ">
+	   <p style="text-align:left; ">1.并列的数据之间用逗号(,)分隔</p>
+
+<p style="text-align:left; ">2.映射用冒号(:)表示</p>
+
+<p style="text-align:left; ">3.映射的集合用大括号({})表示</p>
+
+<p style="text-align:left; ">4.并列数据的集合用方括号表示([])表示</p>
+			</p>
+		</section>
+		
+		
+		<section class="future" style="top: 69px; display: none;" hidden="" aria-hidden="true">
+		    <h3>下面是一个json格式的例子：</h3>
+			<p style="text-align:left; ">
+			{ "studentList": [{</br>
+
+"id": 187,</br>
+
+"studentName": "王",</br>
+
+"stuNum": 666,</br>
+
+"phone": 123456,</br>
+
+
+"wish": "天天向上"} ] }</br>
+可以看到它们是以键值对的形式表现，这里有个规定键值对中： 键必须用双引号括起来，值可以是数字、字符串(需要在双引号中)，布尔值、数组、对象、null，共6种类型。</br>
+			
+				   </p>
+		</section>
+			 
+			 
+		<section class="future" style="top: 69px; display: none;" hidden="" aria-hidden="true">
+		    <h3>为什么推荐使用JSONTAGLIB来处理JSON</h3>
+			<p style="text-align:left; ">
+			gson它提供了toJason()方法将对象转换成Json字符串</br>
+			gson也可以反序列化，提供了fromJson()方法来实现从Json相关对象到Java实体的方法。</br>
+
+在使用@ResponseBody注解的方式时,</br>
+
+ 如果在控制器方法上标注该注解,那么方法返回的对象不会经过视图解析器的渲染,而是根据HTTP Request Header的Accept字段的内容,转换为指定的格式,写入到Response对象的body数据区中,如果没有额外的配置,那么就会返回json格式的数据
+</br>
+
+所以json-taglib的好处就体现出来了：</br>
+
+1.使用json-taglib,在控制器中的代码更加简洁,易读</br>
+
+2.使用json-taglib更加灵活,如果以后需要更改json数据格式,只需要更改jsp页面即可,不需要改动控制器代码</br>
+				   
+		</section>	 
+		
+		
+		
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>3.常见问题</h3>
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">			
+			<h3> Json运用 </h3>
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">			
+			<p style="text-align:left; ">
+			在RPC远程调用时,或者提供给外部访问接口，一般数据交互格式通常为JSON</br>
+			<img src="https://upload-images.jianshu.io/upload_images/4689931-70334b7e139aa66e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp">
+			</p>
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">			
+			<p style="text-align:left; ">
+			例如提供移动APP接口</br>
+			<img src="https://upload-images.jianshu.io/upload_images/4689931-be0e9e80bb030200.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/715/format/webp">
+			</p>
+		</section>
+	
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>4.编码实战</h3>   			
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>5.扩展思考</h3>
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>json和xml的区别</h3>
+			<p style="text-align:left; ">
+		
+			XML的优点</br>
+
+A.格式统一，符合标准；</br>
+
+B.容易与其他系统进行远程交互，数据共享比较方便。</br>
+
+XML的缺点</br>
+
+A.XML文件庞大，文件格式复杂，传输占带宽；</br>
+
+B.服务器端和客户端都需要花费大量代码来解析XML，导致服务器端和客户端代码变得异常复杂且不易维护；</br>
+
+C.客户端不同浏览器之间解析XML的方式不一致，需要重复编写很多代码；</br>
+
+D.服务器端和客户端解析XML花费较多的资源和时间。</br>
+</p>
+			
+		</section>
+
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+		<h3>json的优缺点<h3>
+		
+
+		</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+		<p style="text-align:left; ">
+			A.数据格式比较简单，易于读写，格式都是压缩的，占用带宽小；</br>
+
+B.易于解析，客户端JavaScript可以简单的通过eval()进行JSON数据的读取；</br>
+
+C.支持多种语言，包括ActionScript, C, C#, ColdFusion, Java, JavaScript, Perl, PHP, Python, Ruby等服务器端语言，便于服务器端的解析；</br>
+
+D.在PHP世界，已经有PHP-JSON和JSON-PHP出现了，偏于PHP序列化后的程序直接调用，PHP服务器端的对象、数组等能直接生成JSON格式，便于客户端的访问提取；</br>
+
+E.因为JSON格式能直接为服务器端代码使用，大大简化了服务器端和客户端的代码开发量，且完成任务不变，并且易于维护。</br>
+
+
+		</p>
+</section>
+
+<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+<p style="text-align:left; ">
+JSON的缺点</br>
+
+A.没有XML格式这么推广的深入人心和喜用广泛，没有XML那么通用性 JSON格式目前在Web Service中推广还属于初级阶段。</br>
+</p>
+</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>6.参考文献</h3>
+			<p>https://blog.csdn.net/android_zhengyongbo/article/details/67634565</p>
+		</section>        
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h4>分享到此结束</h4>
+            <p>谢谢大家！</p>            
+        </section>
+      
+      
+
+    </div>
+</div>
+
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
