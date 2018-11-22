@@ -1,0 +1,232 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css"> 
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	<style>
+		.left{ text-align: left; }
+	</style>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Validation 参数校验</h2>
+            <p>分享人：张泉良</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+        <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+				<h3>1.背景介绍</h3>
+				参数验证是一个常见的问题，无论是前端还是后台，都需对用户输入进行验证，以此来保证系统数据的正确性。
+				对于web来说，有些人可能理所当然的想在前端验证就行了，但这样是非常错误的做法，前端代码对于用户来说是透明的，
+				稍微有点技术的人就可以绕过这个验证，直接提交数据到后台。参数验证随处可见，也是必不可少的。
+				前端做验证只是为了用户体验，后端才是最终的保障。
+			</section>	
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+				<h3>2.知识剖析</h3>
+			</section>
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+                <p>常见的参数检验方式：</p>
+                <p>1、表现层验证：SpringMVC提供对JSR-303的表现层验证</p>
+                 <p>或者直接将拿到的参数在controller层里面用if判断</p>
+                <p>2、业务逻辑层验证：Spring3.1提供对业务逻辑层的方法验证</p> 
+                <p>3、DAO层验证：Hibernate提供DAO层的模型数据的验证</p>
+                <p>4、数据库端的验证：通过数据库约束来进行 </p>
+
+                <p>原理都是基于javax validation</p>
+			</section>
+						
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>JSR 303（Java Specification Requests 规范提案）是JAVA EE 6中的一项子规范，一套JavaBean参数校验的标准，叫做Bean Validation。
+                JSR 303用于对Java Bean中的字段的值进行验证，Spring MVC 3.x之后之中也大力支持 JSR303</p>
+            </section>
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+                <p>JSR303提供的校验注解</p>
+                可以注解在javabean的field和properties上，也可以注解在map、list上，注解很灵活
+                <p style="text-align: left">@Null 被注释的元素必须为 null </p>
+                <p style="text-align: left">@NotNull 被注释的元素必须不为 null </p>
+                <p style="text-align: left"> @AssertTrue 被注释的元素必须为 true </p>
+                <p style="text-align: left">@AssertFalse 被注释的元素必须为 false </p>
+                <p style="text-align: left"> @Min(value) 被注释的元素必须是一个数字，其值必须大于等于指定的最小值 </p>
+                <p style="text-align: left"> @Max(value) 被注释的元素必须是一个数字，其值必须小于等于指定的最大值 </p>
+            </section>
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+                <p style="text-align: left"> @DecimalMin(value) 被注释的元素必须是一个数字，其值必须大于等于指定的最小值 </p>
+                <p style="text-align: left">@DecimalMax(value) 被注释的元素必须是一个数字，其值必须小于等于指定的最大值 </p>
+                <p style="text-align: left">@Size(max=, min=) 被注释的元素的大小必须在指定的范围内 </p>
+                <p style="text-align: left">@Digits (integer, fraction) 被注释的元素必须是一个数字，其值必须在可接受的范围内 </p>
+                <p style="text-align: left">@Past 被注释的元素必须是一个过去的日期 </p>
+                <p style="text-align: left">@Future 被注释的元素必须是一个将来的日期 </p>
+                <p style="text-align: left">@Pattern(regex=,flag=) 被注释的元素必须符合指定的正则表达式</p>
+               
+            </section>
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+                <p>Hibernate Validator是JSR-303的一个参考实现，它除了支持所有标准的校验注解外，还支持如下扩展注解</p>
+                <br>
+                <p style="text-align: left">
+                    @Email 被注解的元素必须是电子邮箱地址
+                </p>
+                <p style="text-align: left">
+                    @Length(min=,max=) 被注解的字符串的大小必须在指定的范围内
+                </p>
+                <p style="text-align: left">
+                    @NotBlank 验证字符串非null，且长度必须大于0
+                </p>
+                <p style="text-align: left">
+                    @NotEmpty 被注释的字符串的必须非空 
+                </p>
+                <p style="text-align: left">
+                    @Range(min=,max=)  被注解的元素必须在合适的范围内
+                </p>
+            </section>
+            
+            <section>
+                <p>Spring校验框架</p>
+                <p style="text-align: left">
+                    Spring的org.springframework.validation是校验框架所在的包。LocalValidatorFactoryBean既实现了
+                    Spring的Validator接口，又实现了JSR-303的Validator接口。只要在Spring容器中定义一个LocalValidatorFactoryBean
+                    即可将其注入需要数据校验的Bean中。
+                </p>
+            </section>            
+				
+		</section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+				<h3>3.常见问题</h3>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+                <p>1.SpringValidation和javax validation的区别</p>
+                <p>JSR303是一项标准,他们规定一些校验规范即校验注解，位于javax.validation.constraints包下,.只提供规范不提供实现</p>
+                Hibernate validation,他提供了相应的实现，并增加了一些其他校验注解
+                <p>spring validation其在springmvc模块中添加了自动校验，并将校验信息封装进了特定的类中</p>
+                
+			</section>
+			
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+                <p>2.参数校验的基本使用</p>
+                <p>(1) 多个属性的校验</p>
+                <p>(2) 在日志或者控制台输出校验的信息</p>
+                <p>(3) 部分注解仅能用于部分数据类型</p>
+                如@notblank注解仅用于字符串，使用时需注意
+            </section>
+            
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+                <p>3.自定义消息错误消息</p>
+                通过国际化资源显示错误信息，Spring中定义了一个MessageSource接口，以用于支持信息的国际化和包含参数的信息的替换。
+                ApplicationContext接口继承了MessageSource接口，所以我们所有的ApplicationContext实现类都实现了MessageSource接口，
+                也就是我们我们可以通过ApplicationContext来调用MessageSource接口方法以实现信息的国际化和替换信息中包含的参数。
+            </section>
+		</section>
+
+		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>4.编码实战</h3>
+			</section>			
+		</section>
+		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>5.扩展思考</h3>				
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+                <p>(1)分组校验</p>
+                    定义标识接口
+            </section>
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+                <p>(2)自定义校验</p>
+			</section>  
+		</section>
+		<section>
+            <h3>6.参考文献</h3>
+            <p>https://blog.csdn.net/u013815546/article/details/77248003</p>
+            <p></p>
+			
+		</section>
+        <section>
+            <h3>7.更多讨论</h3>	
+        </section>
+    
+        <section>
+            <h4>分享到此结束</h4>
+            <p>欢迎大家讨论</p>            
+        </section>
+        <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">				
+			</section>
+		</section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
