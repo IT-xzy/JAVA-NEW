@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? './css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	<style>
+		.left{ text-align: left; }
+	</style>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>JDBC和JDBCTemplate</h2>
+            <p>分享人：李雨航</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+         <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: block;" class="" aria-hidden="true">
+                <h3>1.背景介绍</h3>
+            </section>
+            <section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>在开发业务系统时，经常需要对数据进行持久化操作，将数据保存到硬盘中比如对数据进行新增、查询、更新和删除。</p>
+				<p>这时候就需要使用数据库，通常使用第三方数据库中间件来进行数据操作，应用程序只需要调用数据库中间件提供的api即可。</p>
+				<p>由于市面上有很多数据库，如果提供的api不同，那么应用程序在使用不同的数据库时需要写不同的代码，带来维护的复杂性。</p>
+				<p>这时候就需要一套标准，由不同的数据库厂家来共同这套遵守标准来提供实现给应用程序调用</p>
+            </section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p></p>
+				<p></p>
+				<p></p>
+            </section>
+        </section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+				<h3>2.知识剖析</h3>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>JDBC</p>
+				<p>JDBC API是一个Java API，可以访问任何类型表列数据，特别是存储在关系数据库中的数据。</p>
+				<p>JDBC代表Java数据库连接。JDBC库中所包含的API通常与数据库使用于：</p>
+				<p>连接到数据库创建SQL,</p>
+				<p>MySQL语句在数据库中执行SQL命令</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">			
+				<p>JDBC常用（重要）类/接口</p>				
+				<p>在程序中不需要直接去访问实现了Driver接口的类，而是由驱动程序管理器类(java.sql.DriverManager)去调用这些Driver实现。</p>
+				<p>DriverManager类，用来创建连接，它本身就是一个创建Connection的工厂，设计的时候使用的就是Factory模式，给各数据库厂商提供接口，各数据库厂商需要实现它；</p>
+				<p>Connection接口，根据提供的不同驱动产生不同的连接；</p>
+				<p>Statement接口，用来发送SQL语句；</p>
+				<p>Resultset接口，用来接收查询语句返回的查询结果。</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+			    <p>JdbcTemplate就是Spring对JDBC的封装，目的是使JDBC更加易于使用。JdbcTemplate是Spring的一部分。​ JdbcTemplate处理了资源的建立和释放。他帮助我们避免一些常见的错误，比如忘了总要关闭连接。</p>
+				<p>他运行核心的JDBC工作流，如Statement的建立和执行，而我们只需要提供SQL语句和提取结果。</p>
+				<p> 在JdbcTemplate中执行SQL语句的方法大致分为3类：</p>
+				<p>execute：没有返回值，可以执行所有的SQL语句，一般用于执行DDL语句。</p>
+				<p>update：返回一个int值，影响的行数，用于执行INSERT、UPDATE、DELETE等DML语句。</p>
+				<p>queryXxx:用于DQL数据查询语句。</p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+			</section>					
+		</section>
+		<section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+				<h3>3.常见问题</h3>
+			</section>	
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>如何来控制jdbc数据库的打开关闭</p>
+				<p><p/>
+				<p><p/>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>JDBC和JDBCTemplate的优缺点</p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+			</section>			
+		</section>
+		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>4.编码实战</h3>
+			</section>			
+		</section>
+		<section  class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<h3>5.扩展思考</h3>				
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>JDBC和JDBCTemplate链接数据库的不同方式</p>
+				<p>jdbc数据库驱动</p>
+				<p>我们安装好数据库之后，我们的应用程序也是不能直接使用数据库的，必须要通过相应的数据库驱动程序，通过驱动程序去和数据库打交道。</p>
+				<p>其实也就是数据库厂商的JDBC接口实现，即对Connection等接口的实现类的jar文件。</p>
+				<p></p>
+				<p></p>
+				<p></p>			
+				<p></p>
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>JDBCTemplate连接池</p>
+			    <p>数据库连接池的基本思想就是为数据库连接建立一个“缓冲池”。预先在缓冲池中放入一定数量的连接，当需要建立数据库连接时，只需从“缓冲池”中取出一个，使用完毕之后再放回去。</p>
+				<p>数据库连接池负责分配、管理和释放数据库连接，它允许应用程序重复使用一个现有的数据库连接，而不是重新建立一个。</p>								
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">
+				<p>使用数据库连接池的优点</p>
+				<p>(1)资源重用；</p>
+				<p>(2)更快的系统反应速度 </p>
+				<p>(3)新的资源分配手段 </p>
+				<p>(4)统一的连接管理，避免数据库连接泄露 </p>
+			</section>
+		</section>
+		<section>
+			<h3>6.参考文献</h3>
+			<p>https://blog.csdn.net/weixin_42166907/article/details/81277265</p>
+			<p>https://blog.csdn.net/Huangyuhua068/article/details/82142044</p>
+		</section>
+        <section>
+            <h3>7.更多讨论</h3>	
+        </section>
+        
+        <section>
+            <h3>分享到此结束</h3>
+            <p></p>            
+        </section>
+        <section class="stack past" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+			<section style="top: 267px; display: block;" class="" aria-hidden="true">
+			</section>
+			<section class="future" aria-hidden="true" style="top: 198px; display: none;" hidden="">				
+			</section>
+		</section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: './plugin/markdown/marked.js' },
+            { src: './plugin/markdown/markdown.js' },
+            { src: './plugin/notes/notes.js', async: true },
+            { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
