@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+         <section class="present" style="top: 221.5px; display: block;">
+            <h2> mybatis generator代码生成</h2>
+            <p>分享人：汪天驰</p>	
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 69px; display: block;">
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>            
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>	       
+		<section hidden="" aria-hidden="true" class="future" style="top: 267px; display: block;">
+			<h3>1.背景介绍</h3>
+			
+		</section>	     
+
+		<section class="future" style="top: 119px; display: none;" hidden="" aria-hidden="true">
+		    
+            <p style="text-align:left; ">
+			 MyBatis代码生成器——MyBatis Generator</br>
+MyBatis Generator能够根据配置生成不同类型的代码，代码包含了数据库表对应的实体类、mapper接口类、mapperXML文件和Example对象等。</br>
+这些代码中几乎包含了全部的表单操作方法，可以极大程度上方便我们使用MyBatis。</br>
+自动生成pojo和mapper.xml文件，提高开发效率，作为一个优秀的程序员，“懒”是很重要的优点。</br>
+当然，自动生成的都是固定的，对于CRUD操作自然是省事，但是对于一些特殊的业务和表操作，还是需要写的。</br>
+他可以内省数据库的表（或多个表）然后生成可以用来访问（多个）表的基础对象。</br>
+这样和数据库表进行交互时不需要创建对象和配置文件。</br>
+ MBG的解决了对数据库操作有最大影响的一些简单的CRUD（插入，查询，更新，删除）操作。</br>
+			 
+			
+			</p>
+
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>2.知识剖析</h3>
+			<p></p>
+		</section>
+		
+		<section class="future" style="top: 119px; display: none;" hidden="" aria-hidden="true">
+		    <h3>如何实现MBG</h3>
+            <p style="text-align:left; ">
+            1.做好你需要的数据库和表</br>
+			2.添加插件</br>
+			mybatis.jar</br>
+mybatis-generator-core.jar</br>
+mysql-connector-java.jar</br>
+mybatis-generator-maven-plugin</br>
+3.编写配置文件generatorConfig.xml</br>
+
+			</p>
+		</section>
+
+		
+		
+		
+		<section class="future" style="top: 119px; display: none;" hidden="" aria-hidden="true">
+		    <h3>MBG插件的优缺点</h3>
+            <p style="text-align:left; ">
+	   <p style="text-align:left; ">优点</p>
+
+<p style="text-align:left; ">1.方便 快速 节省重复代码时间</p>
+
+<p style="text-align:left; ">2.使用简单</p>
+
+			</p>
+		</section>
+		
+		
+		<section class="future" style="top: 69px; display: none;" hidden="" aria-hidden="true">
+		    <h3>缺点</h3>
+			<p style="text-align:left; ">
+			
+只能生成简单的crud 一些特殊的业务和表需要修改</br>
+			
+				   </p>
+		</section>
+			 
+		
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>3.常见问题</h3>
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">			
+			<h3> 联表查询如何操作 </h3>
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">			
+			<p style="text-align:left; ">
+			在生成简单的crud之后 你可以自己在mapper.xml补充 也就是自行补充</br>
+			</p>
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">			
+			<p style="text-align:left; ">
+			是否就这一种方法？</br>
+			MYBATISGENERATOR+TKMAPPER</br>
+			MyBatis 代码生成器（简称为 MBG）的基础上，如果数据库字段变化很频繁，就需要反复重新生成代码，并且由于 MBG 覆盖生成代码和追加方式生成XML</br>
+			导致每次重新生成都需要大量的比对修改。</br>
+			另外，仅仅基础的增删改查等方法，就已经产生了大量的 XML 内容，内容多，看着比较碍事。</br>
+			为了解决前面提到的问题，也为了兼容 MBG 的方法避免项目重构太多，在 MBG 的基础上结合了部分JPA注解产生了通用Mapper。</br>
+			通用Mapper可以很简单的让你获取基础的单表方法，也很方便扩展通用方法。使用通用 Mapper 可以极大的提高你的工作效率。</br>
+			
+			</p>
+		</section>
+	<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">			
+			<p style="text-align:left; ">
+	MYBATISPLUS</br>
+			MyBatis-Plus（简称 MP）是一个 MyBatis 的增强工具，在 MyBatis 的基础上只做增强不做改变，为简化开发、提高效率而生。</br>
+			</p>
+			</section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>4.编码实战</h3>   			
+		</section>
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>5.扩展思考</h3>
+		</section>
+		
+		
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			<h3>6.参考文献</h3>
+			<p>http://mbg.cndocs.ml/quickstart.html</p>
+		</section>        
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>7.更多讨论</h3>
+        </section>
+        
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h4>分享到此结束</h4>
+            <p>谢谢大家！</p>            
+        </section>
+      
+      
+
+    </div>
+</div>
+
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
