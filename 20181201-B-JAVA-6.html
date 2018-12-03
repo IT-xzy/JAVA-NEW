@@ -1,0 +1,209 @@
+﻿
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是脏数据，缓存中是否可能产生脏数据，如果出现脏数据该怎么处理?</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：许东杰</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>	
+		
+        <section>
+			<section>
+                <p>1.背景介绍</p>
+				<br>
+				<p style="text-align:left">脏数据：从目标中取出的数据已经过期、错误或者没有意义，这种数据就叫做脏数据。</p>
+				<p style="text-align:left">脏读：读取出来脏数据就叫脏读。</p>
+            </section>
+			
+		</section>
+
+			
+
+
+        <section>
+			<section>
+				<h3>2.知识剖析</h3>
+			</section>
+			<section>
+                <p></p>
+                <p style="text-align:center">数据库中的并发事务处理问题：</p>
+                <p style="text-align:center">脏读：在并发访问的情况下，不同的事务对相同的数据进行操作，在事务A修改数据还未提交的时候，事务B对该数据进行读取，读出了事物A修改过后的数据，但是事物A最终没有提交，这种情况就是数据库中的脏读情况</p>
+                <p style="text-align:center">更新丢失：对于同一行数据不同事务进行更新，结果覆盖</p>
+				<p style="text-align:center">幻读：事务A前后两次读取，后一次读取的数据变多了，事物B在两次读取中间已经进行数据插入</p>
+				<p style="text-align:center">不可重复读：事务A读取了事务B修改前后的两次数据，不符合隔离型</p>
+				<p style="text-align:center">隔离等级：可以解决上述问题，mysql默认可重复读的隔离等级，只会存在读取的数据和数据库不一致的问题</p>
+            </section>
+
+
+			<section>
+                <p></p>
+                <p style="text-align:center">mybati一级缓存中的脏数据：</p>
+                <p style="text-align:left">mybatis的一级缓存：默认是SqlSession级别,只要通过session查过的数据，都会放在session上，下一次再查询相同id的数据，都直接冲缓存中取出来，而不用到数据库里去取了。</p>
+                <p style="text-align:left">mybatis一级缓存脏数据：当有不同的sqlSession在对数据库进行操作，一级缓存只能保证当前sqlSession中的增删改在一级缓存中自动更新，就会产生脏数据。</p>
+				
+            </section>
+
+			<section>
+			   <p></p>
+                <p style="text-align:center">mybati二级缓存中的脏数据：</p>
+<p style="text-align:left">mybatis二级缓存：是SessionFactory级别，和namespace绑定，同一个namespace放到一个缓存对象中，当这个namaspace中执行了非sselect语句的时候，整个namespace中的缓存全部清除掉。</p>
+				<p style="text-align:left">mybatis二级缓存脏数据：引起脏读的操作通常发生在多表关联操作中，比如在两个不同的mapper中都涉及到同一个表的增删改查操作，当其中一个mapper对这张表进行查询操作，此时另一个mapper进行了更新操作刷新缓存，然后第一个mapper又查询了一次，那么这次查询出的数据是脏数据。出现脏读的原因是他们的操作的缓存并不是同一个。</p>
+				<p style="text-align:left">所以不推荐使用mybatis的自带一二级缓存，推荐使用第三方缓存：memcached或者redis。</p>
+
+			</section>
+		
+		</section>
+		
+
+ 
+        <section>
+            <h3>3.常见问题</h3>
+			<br>
+            <p style="text-align:center">redis中怎么更新缓存避免脏读？</p>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+			<br>
+			<p style="text-align:left">读写部分：
+if(redis存在数据){
+    读取redis数据
+}else{
+    数据库读取，同时存redis+设置超时时间
+</p>
+			<p style="text-align:left">更新部分：
+			if(数据库update){
+    更新redis+设置超时时间
+
+</p>
+        </section>
+
+		<section>
+			<section>
+				<h3>5.编码实战</h3>
+			</section>
+			<section>
+				<p style="text-align:left">演示读写部分和更新部分</p>
+
+			</section>
+		</section>
+	
+		
+
+		
+        <section>
+			<section>
+				<h3>6.扩展思考</h3>
+			</section>		
+			<section>
+				<p>还有哪些其他方式进行redis数据更新</p>
+				<p style="text-align:left">1、主动更新：后台点击更新缓存按钮，从DB查找最新数据集合，删除原缓存数据，存储新数据到缓存（或者用定时任务来做）</p>
+				<p style="text-align:left">问题：更新过程中删除掉缓存后刚好有业务在查询，那么这个时候返回的数据会是空，会影响用户体验，如果高并发穿透DB，可能导致服务器崩溃</p>
+				<p style="text-align:left">2、由用户触发更新：前台获取数据时发现没有缓存数据就会去数据库同步数据到缓存</p>
+				<p style="text-align:left">问题：当并发请求获取缓存数据不存在的时候，就会产生并发的查询数据的操作</p>
+				
+			</section>
+
+	<section>
+				<p style="text-align:left">3、提前加载好数据：后台点击更新缓存按钮，从DB查找最新数据集合，这里不删除缓存，通过遍历数据覆盖和删除掉无效的数据</p>
+				<p style="text-align:left">问题：逻辑相对麻烦，而且更新机制无法通用</p>
+			</section>
+
+        </section>
+
+        
+        
+        <section>
+            <h3>7.参考文献</h3>
+			<br>
+			<p style="text-align:center">百度、谷歌</p>
+        </section>
+
+
+        <section>
+            <h4 align="center">鸣谢</h4>
+            <p align="center">感谢观看,如有出错,恳请指正</p>
+            <p align="center"><small>BY :许东杰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
