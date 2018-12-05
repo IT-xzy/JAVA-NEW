@@ -1,0 +1,894 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3> 什么是tcp/ip协议？TCP的三次握手指的是什么，为什么一定要三次握手，而不是四次或者是两次？ </h3>
+            <p></p>
+            <h3>java 分享会</h3>
+            <p>分享人：赵立鼐</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <h2> TCP/IP协议体系结构</h2>
+
+        </section>
+        <SECTION>
+            <IMG src="img/TCP.png">
+        <section>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
+            TCP/IP协议体系结构（又称TCP/IP协议参考模型）是专门针对使用TCP/IP协议簇的广域计算机网络而开发的，可以说是OSI/RM的改进版。
+            但绝不能简单地认为是改进版，因为它与OSI/RM所针对的网络类型存在较大区别，所以这两种体系结构中各层所采用的通信协议，以及功能
+            实现原理上都存在巨大的差异。
+        </section>
+<SECTION>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    现在我们常用的通信协议，绝大多数都不是很适合于OSI/RM，而是适用于TCP/IP协议体系结构，因为它们都是
+    应用于TCP/IP网络中。虽然只有四层，但他却包含了OSI/RM中的所有七层的功能，同样包括了局域网和广域通信网所需要的全部功能。
+</SECTION>
+        <section>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            TCP/IP协议体系结构只划分了四层，从高到底分别是：应用层（Application Layer）、传输层（Transport Layer）、
+            网际互联层（Internet Layer,又称互联网层）和网络访问层（Network Access Layer,又称网络接入层、网络接口层或者主机网络层）。
+
+        </section>
+        </SECTION>
+        <section>
+            <h3>2.知识剖析</h3>
+
+
+        </section>
+        <section>
+            <p>　
+            <h3> TCP的主要特性<h3>
+            </p>
+        </section>
+
+        <section>
+            TCP是TCP/IP体系结构中最主要的传输层协议，它只提供面向连接的传输层服务。
+        </section>
+        <section>
+            TCP具有以下特性：
+            （1）面向连接的传输协议
+            也就是说，应用程序在使用TCP之前，必须先建立TCP传输连接，在传输数据完毕之后，必须释放已建立的TCP传输连接。
+        </section>
+        <section>
+            （2）仅支持单播传输
+            每天TCP传输连接只能有两个端点，只能进行点对点的数据传输，不支持多播和广播传输方式。
+
+            这里所说的TCP传输连接的“端点”不是主机、主机的IP地址、应用进程、传输层协议端口，而是套接字（socket）。
+            套接字是IP地址和端口号的组合，中间用冒号或逗号分隔，如（192.168.10,80）。每个TCP传输连接还有两个端点，也就是有两个套接字，
+            即“源IP地址和端口号”组合和“目标IP地址和端口号”，可表示为{socket1,socket2},或者{(IP1,Port1),(IP,Port1)}。
+
+        </section>
+        <section>
+            （3）提供可靠的交付服务
+            也就是说，通过TCP连接传送的数据可以无差错，不丢失、不重复、且按照时序到达对端。
+        </section>
+        <section>
+            （4）传输单位为数据段
+            TCP仍采用了传统的“数据段”作为数据传输单元。由于数据段大小受应用层传送给的报文大小和所途径网络中的MYU值大小决定，所以每次发送的
+            TCP数据段大小是不固定的。在一个具体的网络中，有一个MSS（Maximum Segment Size,最大数据段大小），最小的和数据段可能仅有21字节
+            （其中20字节属于TCP数据段头部，数据不封仅1字节）。
+
+        </section>
+
+        <section>
+            （5）支持全双工传输
+            TCP允许通信双方的应用程序在任何时候第一能发送数据，因为TCP连接的两端都设有发送和缓存，用来临时存放双向通信的数据。当然，TCP可以立即
+            发送给一个数据段。当然，TCP可以立即发送一个数据段，也可以缓存一段时间以便一次发送更多的数据段（最大的数据段大小取决于MSS）
+        </section>
+        <section>
+            （6）TCP连接是基于字节流的，而非报文流
+
+            TCP不像UDP那样以一个个报文独立地进行传输，而是在不保留报文边界的情况下以字节流方式进行传输。
+        </section>
+        <section>
+            <h3>TCP数据段格式</h3>
+        </section>
+        <section>
+            <img src="img/session.png">
+
+        <section>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
+            (1) <b>  源端口</b>和<b>目的端口</b>
+            分别代表呼叫方和被呼叫方的TCP端口号，各占16位。
+            一个端口与其主机的IP地址就可以完整地标识一个端点了，也就是前面所说的套接字（Socket）。
+        </section>
+        <section>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+             （2） <b>  序号</b>
+             指TCP数据段中的“数据”部分（不包含“数据段头”部分）的第一个字节的编号，占32位。在一个TCP连接中，
+            传送的数据字节流中的每一个数据字节都要按顺序进行编号，在“数据段头”中标识的只是每个数据段的第一个数据字节的编号。
+            整个要传送的字节流的起始序号必须在连接建立时设置。
+        </section>
+            <SECTION>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            举个例子：一个数据段的“序号”字段值是101，而该数据段中共有100字节，表明本数据段的最后一个字节的编号是200。这样
+            一来，下一个数据段的“序号”字段值应该是201，而不是102，这点要特别注意。
+        </section>
+        <section>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+           （3） <b>   确认号</b>（Acknowlegment Number）
+            确认号指期望接受到对方下一个数据段中"数据"部分的第一个字节序号，占32位。
+            注意，“确认号”不是 代表已经正确接受到最后一个字节的序号。
+        </section>
+            <SECTION>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                例如，主机B已经收到主机A发来的一个数据段，其序号值是101，
+                而该数据段的长度是100字节。这表明主机B已经收到主机A前200个字节，下一个期望要收到的数据段的第一个字节的序号应该是
+                201，于是主机B在给主机A发送确认数据段时要把“确认号”设置为201
+            </SECTION>
+        <section>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            “序号”和“确认号”两个字段共同用于TCP服务的差错控制，确保TCP数据传输的可靠性。
+        </section>
+            <section>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                   (4) <b>数据偏移</b>
+                指数据段中的“数据”部分起始处距离TCP数据段起始处的字节偏移量，占4位。其实这里的“数据偏移”也是在确定TCP数据段
+                头部分的长度，因为“数据”部分是紧接着数据段头的。因为TCP数据段头中有不确定的“可选项”字段，所以数据偏移字段是非常有
+                必要的。
+            </section>
+            <section>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                  (5)<b> 保留</b>（Reserved）
+                这是为将来应用而保留的6个比特位，目前应用全设置为0
+            </section>
+            <section>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                    (6) <b> URG</b>
+                Urgent Pointer(紧急指针)控制位，指出当前数据段中是否有紧急数据，占1位，置1时表示有紧急数据。紧急数据会优先安排
+                传送，而不会按照原来的排队顺序进行发送。仅当本字段置1，后面的“紧急指针”字段才有意义。
+            </section>
+
+        <section>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+                （7）<b> ACK</b>
+            Acknowledgement(确认)控制位，指示TCP数据端中的“确认号”字段是否有效，占1位。
+            仅当ACK位置为1时才表示“确认号”字段有效，否则表示“确认号”字段无效，应用层实体在读取数据时可以不管“确认号”字段。
+        </section>
+            <section>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+               (8) <b>    PSH</b>
+                Push(推)控制位，指示是否需要立即把收到的该数据段提交给应用进程，占1位。当PSH位置1时要求接受端尽快把该数据段提交
+                给应用进程，而置0时没有这个要求，可以先缓存起来。
+            </section>
+            <section>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                  (9) <b>RST</b>
+                Rest(重置)控制位，用于重置释放一个已经混乱的传输连接，然后重建新的传输连接，占1位。当RST位置1时，释放当前传输连接，
+                然后可以重新建立新的传输连接。
+            </section>
+            <section>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                 (10)   <b>
+                    SYN</b>
+                Synchronization(同步)控制位，用来在传输连接建立时同步传输连接序号，占1位。当SYN位置1时，表示这是一个连接请求或连接
+                确认报文。当SYN=1,而ACK=0，表明这是一个连接请求数据段。如果对方同意建立连接，则双发会返回一个SYN=1、ACK=1的确认。
+            </section>
+            <section>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+               (11)  <b> Final </b>(最后)控制位，用来释放一个传输连接，占1位。当FIN位置1时，表示数据已全部传输完成，发送端没有数据要传输了，
+                要求释放当前连接，但是接收端仍然可以继续接收还没有接收完的数据。在正常传输时，该位置为0.
+            </section>
+            <SECTION>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+             (12)<b>窗口大小 </b>
+                指示发送此TCP数据段的主机上用来存储传入数据段的窗口大小，也即发送者当前还可以接受的最大字节数。“窗口大小”字段的值
+                告诉我们接受本数据段的主机，从本数据段中所设置的“确认号”值算起，本端目前允许对端发送的字节数，是作为让对方设置其
+                发送窗口大小的依据。
+            </SECTION>
+            <section>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                假设本次所发送的数据段的“确认号”字段值501，而“窗口大小”字段值是100，则从501算起，本端还可以接受100字节（字节序号
+                是501~600）
+            </section>
+            <section>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+              (13) <b> 校验和</b>（Checksum）
+                是指对“数据段头”、“数据”和“伪头部”这三部分进行校验，占16位。“伪头部”包括源主机和目的主机的32位IP地址、TCP
+                协议号（6），以及TCP数据段长度。
+            </section>
+            <section>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                 (14)  <b>紧急指针</b>（Urgent Pointer）
+                仅当前面的URG控制位置1时才有意义，它指出本数据段中为紧急数据的字节数，占16位。
+                “紧急指针”字段指明了紧急数据的末尾在数据段中的位置。当所有紧急数据处理完后，TCP就会告诉应用程序恢复到正常操作。
+                要注意的一点是，即使当前窗口大小为0，也是可以发送紧急数据的，因为紧急数据无须缓存。
+
+            </section>
+            <section>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+             (15) <b> 数据</b>（Data）
+                这是由应用层的应用进程提交的数据，作为TCP数据段的“数据”（有效载荷）部分。
+            </section>
+        </section>
+
+        <section>
+            <h3>TCP套接字</h3>
+            在OSI/RM 的传输层服务中，传输通信两端的端点就是TSAP地址，对应的就是传输层协议端口。在TCP/IP网络中，同样有端点的概念，
+            但它并不是直接采用OSI/RM中的TSAP叫法，而是称为“套接字”（Socket）,就像在TCP中仍然把所传输的数据称为“数据段”，而没有采用
+            OSI/RM中的TPDU叫法一样。当然，需要说明的是，Socket并不能直接等同于TSAP，它们只是类似，实际上Socket只是利用了TSAP地址，
+            因为在它所包括的一组参数中就有TSAP地址——端口。“套接字”最早使用于UNIX操作系统中，后来被广泛地应用于Windows和Linux系统中，
+            成为了事实上的TCP标准。
+        </section>
+        <section>
+            1.套接字概述：
+            在TCP/IP网络中，区分不同应用程序进程间的网络通信和连接时主要有以下三个参数：通信的目的IP地址、使用的传输层协议（TCP和UDP）
+            和使用的端口号（Socket不仅在TCP中有，在UDP中也同样有）。通过将这3个参数结合起来，与一个Socket进行绑定，应用层就可以与
+            传输层一起通过套接字接口区分来自不同应用程序进程或网络连接的通信，实现数据传输的并发服务。为了区分不同的应用程序进程和连接，
+            许多计算机操作系统为应用程序与TCP/IP交互提供了称为套接字（Socket）的接口。
+        </section>
+        <section>
+            <img src="img/socket.png">
+
+        <section>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            Socket可以看成是在两个网络应用程序进行通信连接是的一个端点（或者称为“逻辑接口”），它是连接应用程序和网络驱动程序的桥梁。
+        </section>
+            <section>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                Socket是完全位于应用层的，但它调用了传输层的端口。Socket包括了TSAP地址，同样它还包括了服务原语。
+            </section>
+        </section>
+      <section>
+          <img src="img/Socket2.png">
+        <section>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+
+                 在TCP/IP通信中，应用程序把数据传送给Socket，然后由Socket通过传输层向下提交给网络驱动程序并向网络上发送出去。
+            计算机从网络上收到与该Socket绑定IP地址和端口号相关的数据后，由网络驱动程序通过传输层向上提交给应用层的Socket,最后
+            应用程序从Socket中提取所要接受的数据。通信双方计算机上的网络应用程序就是这样通过Socket进行数据的发送与接受。
+            </section>
+          <section>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              在应用层上，针对每个应用进程都有一个Socket，用来调用传输层中一个特定端口（当然，这个端口对于常规服务是固定的，而对于
+              非常规服务来说不是固定的）。也就是说，应用层的Socket和传输层的端口有很多，但位于网络层，对于一台具体的主机和具体的网络
+              来说，它的IP地址却是唯一的，也只有Socket和端口与IP地址之间是“多对一”的关系。
+          </section>
+             </section>
+        <section>
+            <h3>
+             2   Socket原语：
+            </h3>
+            <img src="img/原语png.png">
+            在TCP Socket中，包括了如图所示的一组（共8个）TCP数据传输服务原语。表中的前四个原语由服务器按顺序执行。（但并不是说服务器
+            仅调用这4个原语）
+        </section>
+        <SECTION>
+            <img src="img/原语png.png">
+            <section>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                SOCKET原语用来创建一个新的端点，并且在传输实体中为他们分配相应的空间。SOCKET原语调用成功后，返回一个普通文件描述符，
+                以便在后续其他的原语调用中使用。但由于新创建的套接字并没有网络地址，需要通过BIND原语为它进行分配，所以BIND原语的用途
+                就是为新建的套接字绑定一个本地网络地址。
+            </section>
+            <section>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                 BIND原语执行后需要调用LISTEN原语，它为新建的套接字分配一定的缓存空间，以便让后面要进来的连接进行排队，这样就可以同时对
+                一个服务器进行访问。但此时服务器还不是阻塞状态，也就是服务器仍没有进入等待连接状态，这里需要调用一个ACCEPT原语。
+            </section>
+            <section>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                当一个
+                请求连接的TCP数据段到来时，传输实体会通过调用ACCEPT原语创建一个新的套接字，并返回一个与其关联的文件描述符。这个新的套接字与
+                原来由SOCKET原语创建的套接字具有相同的属性。这时，服务器就可以调用一个进程来处理这个套接字上新的连接，而服务器本身又回去继续等待
+                原套接字上的下一个连接。
+            </section>
+            <section>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                而在客户端使用的原语主要包括 SOCKET、CONNECT、SEND、RECV。        首先，由SOCKET原语创建一个新的套接字，但由于服务器并不关心它所用的网络地址，所以客户端不必调用BIND原语。
+            </section>
+            <section>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+        然后，通过CONNECT原语阻塞客户端，并主动发起一个TCP传输连接。
+                当CONNECT原语调用完成，即收到服务器端发来的确认数据段后，客户端接触阻塞状态，建立传输连接。到此为止，双方都可以
+                使用SEND和RECV原语在建立起来的全双工连接上进行数据的接受和发送。
+            </section>
+            <section>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+               服务端和客户端都可以调用CLOSE原语，用来释放当前的TCP传输连接。当双发都执行了CLOSE原语后，连接才会真正释放。
+            </section>
+        </SECTION>
+        <section>
+        <h3>TCP传输的建立</h3>
+        TCP是一个面向连接的传输层协议，因此，无论哪一方向另一方发送数据，都必须先在双方之间建立一条传输连接。</section>
+        <section>
+            <img src="img/xiaoketang1.png">
+        <section>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
+            (1)首先是服务器初始化的过程，从CLOSED（关闭）状态开始通过顺序调用SOCKET、BIND、LISTEN和ACCEPT原语创建Socket套接字，
+            进入LISTEN（监听）状态，等待客户端的TCP传输连接请求。
+
+        </section>
+            <section>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                （2）客户端最开始也是从CLOSED状态开始调用SOCKET原语创建新的Socket套接字，然后在需要在调用CONNECT原语时，向服务器发送
+                一个将SYN字段置1（表示此为同步数据)的数据段（假设初始序号为i）,主动打开端口，进入SYN SENT(已发送连接请求，等待对方确认)
+                状态。
+            </section>
+        <section>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            (3)服务器在收到来自客户端的SYN数据段后，返回一个SYN字段置1（表示此为同步数据段）、ACK字段置1（表示此为确认数据段）、
+            ack(确认号)=i+1的应答数据段（假设初始序号为j）,被动打开端口，进入到SYN RCVD(已收到一个连接请求，但未进行确认)状态。
+            这里注意的是，确认号是i+1，而不是i,表示服务器希望接受的下一数据段序号为i+1.
+        </section>
+        <SECTION>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            (4)客户端在收到来自服务器的SYN+ACK数据段后，向服务器发送一个ACK=1（表示此为确认数据段）、序号为i+1、ack=j+1的确认数据段，
+            同时进入ESTABLISHED(连接建立)状态，建立单向连接。要注意的是，此时序号为i+1,确认号为i+1，表示客户端希望收到服务器的下一个数据段
+            的序号为j+1
+        </SECTION>
+        <section>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            (5)服务器在收到客户端的ACK数据段后，进入ESTABLISHED状态，完成双向连接的建立。
+        </section>
+        </section>
+
+        <section>
+            连接可以由任意一方或双方发起，一旦连接建立，数据就可以双方向对等的流动，而没有所谓的主从关系。
+            三次握手是连接两端正确同步的充分必要条件，因为TCP建立在不可靠的分组传输服务之上，报文可能丢失、延迟、重复和乱序，因此
+            协议必须使用超时和重传机制。如果重传的连接请求和原先的连接请求在连接正在建立时到达，或者当一个连接已经建立、使用和结束之后
+            ，某个延迟的连接请求才到达，就会出现问题。采用三次握手协议可以解决上述这些问题。如客户端发送的ACK数据段就是为了避免因网络
+            延迟而导致的重复连接，因为这时客户端通过检查ACK数据段中的确认号就可得知该连接请求是否已失效。
+        </section>
+        <section>
+            <h3>TCP传输连接的释放</h3>
+        当TCP连接建立起来后，就可以在两个方向传送数据流。当TCP的网络应用进程再没有数据需要发送，就可以发送关闭连接命令，释放连接。TCP
+            是通过发送FIN字段置1的数据段来作为关闭传输连接的命令，从而关闭本端数据流的，但是本端仍然可以继续接收来自对端的数据，直到对
+            端也使用同样的方法关闭那个方向的数据流为止，这时整个双方传输连接就彻底关闭了。
+
+        </section>
+        <section>
+        相对于TCP传输连接的建立的三次握手过程来说，TCP传输连接的释放过程要复杂一点，需要经过四次握手过程。这是由于TCP的半关闭特性造成的，
+        因为这一个TCP连接是全双工的（即数据在两个方向上能同时传递），每个方向必须单独进行关闭。TCP传输连接关闭的原则如下：当一端完成它的数据
+        发送任务后就可以发送一个FIN字段置1的数据段来终止这个方向的数据发送；当另一端收到这个FIN数据段后，必须通知它的应用层“对端已经终止了这个方向
+        的数据发送”。而FIN数据段的发送是由应用层调用CLOSE服务原语的结果。</section>
+
+
+<section>            <img src="img/xiaoketang2.png">
+
+    <section>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        (1)一开始，通信双方都处于ESTABLISHED(连接建立)状态。如果客户端认为数据全部发送完了，想结束本次传输连接，则由应用层的对应
+            应用进程调用CLOSE服务原语，然后向服务器发出一个FIN字段置1的数据段（假设此数据段的序号为m），客户端进入FIN WAIT 1状态，等待服务器
+            的确认。
+        </section>
+        <section>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
+            (2)服务器在收到客户端发来的FIN数据段后，确认客户端没有新的数据要发送了，向客户端发送一个ACK字段置1、确认号为m+1的数据
+            段（假设此数据段序号为w,服务器与客户端的数据端序号可以不一样），表示前面的数据已全部收到了，然后进入CLOSE WAIT（关闭等待）状态。
+        </section>
+        <section>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
+            与此同时，服务器的TCP实体通知对应的应用层进程，释放从客户端到服务器方向的传输连接，进入半关闭状态。但此时服务器仍可以向客户端
+            发送数据段，客户端也可以接受来自服务器的数据，而且这可能要持续一段时间，直到服务器的数据也全部发送完为止。
+        </section>
+        <section>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            (3)当客户端收到服务器的ACK数据段后，进入到FIN WAIT2状态，进一步等待服务器发出连接释放的数据段。
+        </section>
+        <section>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            (4)当服务器发送完全部数据后，其对应的应用进程也会通知TCP实体释放此方向的TCP传输连接，向客户端发送FIN字段置1、ACK字段置1、ack=m+1(假设
+            此时的数据段序号已变为w)的确认数据段。这是服务器进入LAST ACK （最后确认）状态，等待客户端确认。
+        </section>
+        <SECTION>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            (5)客户端在收到服务器的FIN+ACK数据段后，向服务器发送一个ACK字段置1、ack=W+1、序号为m+1的数据段，进入到TIME WAIT状态。
+            但此时TCP连接还没用释放，必须等待2MSL时间（RFC793建议设置MSL为2分钟）后，客户端才进入到CLOSED状态，彻底释放了TCP连接。
+        </SECTION>
+        <section>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            (6)服务器在收到客户端发来的ACK数据段后，也进入CLOSED状态，彻底释放连接。此时，已经完成整个TCP传输连接释放过程。
+        </section>
+</section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>
+                为什么一定要三次握手，而不是四次或者是两次？
+            </p>
+        </section>
+
+
+        <section>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+        </section>
+
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+        如果不考虑网络中的额外因素，如果我们可以保证每次请求都可以按时准确的送达目的地的话，那么两次握手就可以建立连接了。
+        </section>
+        <section>
+            已失效的连接请求报文段”的产生在这样一种情况下：client发出的第一个连接请求报文段并没有丢失，而是在某个网络结点长时间的滞留了，以致延误到连接释放以后的某个时间才到达server。本来这是一个早已失效的报文段。但server收到此失效的连接请求报文段后，就误认为是client再次发出的一个新的连接请求。于是就向client发出确认报文段，同意建立连接。假设不采用“三次握手”，那么只要server发出确认，新的连接就建立了。由于现在client并没有发出建立连接的请求，因此不会理睬server的确认，也不会向server发送数据。但server却以为新的运输连接已经建立，并一直等待client发来数据。这样，server的很多资源就白白浪费掉了。采用“三次握手”的办法可以防止上述现象发生。例如刚才那种情况，client不会向server的确认发出确认。server由于收不到确认，就知道client并没有要求建立连接。
+
+        </section>
+
+
+        <!--<section>-->
+            <!--<h3>5.编码实战</h3>-->
+
+        <!--</section>-->
+
+        <!--<section>-->
+            <!--<h3>6.扩展思考</h3>-->
+
+        <!--</section>-->
+        <!--<section>-->
+            <!--各种协议与HTTP协议的关系-->
+        <!--</section>-->
+        <!--<section>-->
+            <!--我们可以通过下面这张图来了解下IP协议、TCP协议和DNS服务在使用HTTP协议的通信过程中各自发挥了那些作用。-->
+        <!--</section>-->
+        <!--<section>-->
+            <!--<img src="img/HTTP.jpg" width="800">-->
+        <!--</section>-->
+        <!--<section>-->
+            <!--<img src="img/http4.png">-->
+        <!--</section>-->
+
+
+        <!--</p>-->
+
+        <!--</section>-->
+
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>
+                书籍： 深入理解计算机网络 <br>
+                作者： 王达
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>
+
+            </p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p>
+                <small>BY : 西安分院 赵立鼐</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
