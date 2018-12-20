@@ -1,0 +1,199 @@
+﻿
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>如何使用springCloud搭建一个简单的分布式demo?</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：朱明星</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        	
+		
+        <section>
+			<section>
+				<h3>1.背景介绍</h3>
+			</section>
+			<section>
+				<p style="text-align:center">什么是微服务？</p>
+				<br>
+				<p style="text-align:left">　　微服务是一个概念，一个项目开发的架构思想</p>
+                <p style="text-align:left">　　微服务架构模式的目的是将大型的、复杂的、长期运行的应用程序构建为一组相互配合的服务，每个服务都可以很容易得局部改良。</p>
+            </section>
+			
+			<section>
+				<p style="text-align:center">为什么微服务架构需要 Spring Cloud？</p>
+				<br>
+				<p style="text-align:left">　　服务化的核心就是将传统的一站式应用根据业务拆分成一个一个的服务，而微服务在这个基础上要更彻底地去耦合，并且强调 DevOps 和快速演化。这就要求我们必须采用与一站式时代、泛 SOA 时代不同的技术栈，而 Spring Cloud 就是其中的佼佼者。</p>
+				<p style="text-align:left">　　最初的服务化解决方案是给提供相同服务提供一个统一的域名，然后服务调用者向这个域名发送 HTTP 请求，由 Nginx 负责请求的分发和跳转。</p>
+            </section>
+			
+			<section>
+				<p style="text-align:center">架构问题:</p>
+				<p style="text-align:left">　　１.nginx 作为中间层，在配置文件中耦合了服务调用的逻辑，这削弱了微服务的完整性。</p>
+				<p style="text-align:left">　　２.服务的信息分散在各个系统，无法统一管理和维护。</p>
+				<p style="text-align:left">　　３.无法直观的看到服务提供者和服务消费者当前的运行状况和通信频率。</p>
+				<p style="text-align:left">　　４.消费者的失败重发，负载均衡等都没有统一策略，这加大了开发每个服务的难度，不利于快速演化。</p>
+				<p style="text-align:left">　　为了解决上面的问题，我们需要一个现成的中心组件对服务进行整合，将每个服务的信息汇总，包括服务的组件名称、地址、数量等。</p>
+            </section>
+			
+			<section>
+				<p style="text-align:center">基于 Dubbo 实现微服务</p>
+				<p style="text-align:left">　　Dubbo 是阿里开源的一个 SOA 服务治理解决方案，文档丰富，在国内的使用度非常高。</p>
+				<p style="text-align:left">　　对于微服务架构而言，Dubbo 也并不是十全十美的：</p>
+				<p style="text-align:left">　　３.无法直观的看到服务提供者和服务消费者当前的运行状况和通信频率。</p>
+				<p style="text-align:left">　　４.消费者的失败重发，负载均衡等都没有统一策略，这加大了开发每个服务的难度，不利于快速演化。</p>
+				<p style="text-align:left">　　为了解决上面的问题，我们需要一个现成的中心组件对服务进行整合，将每个服务的信息汇总，包括服务的组件名称、地址、数量等。</p>
+            </section>
+			
+			<section>
+				<p style="text-align:center">Spring Cloud</p>
+				<p style="text-align:left">　　Spring Cloud 提出的口号是开发 “面向云环境的应用程序”，它为微服务架构提供了更加全面的技术支持。</p>
+				<p style="text-align:left">　　Dubbo 只是实现了服务治理，而 Spring Cloud 下面有 23 个子项目分别覆盖了微服务架构下的方方面面，服务治理只是其中的一个方面，一定程度来说，Dubbo 只是 Spring Cloud Netflix 中的一个子集。</p>
+            </section>
+			
+		</section>
+
+        <section>
+			<section>
+				<h3>2.知识剖析</h3>
+			</section>
+			<section>
+                <p style="text-align:left">　　服务治理：Spring Cloud 的核心。目前 Spring Cloud 主要通过整合 Netflix 的相关产品来实现这方面的功能（Spring Cloud Netflix），包括用于服务注册和发现的 Eureka，调用断路器 Hystrix，调用端负载均衡 Ribbon，Rest 客户端 Feign，智能服务路由 Zuul，用于监控数据收集和展示的 Spectator、Servo、Atlas，用于配置读取的 Archaius 和提供 Controller 层 Reactive 封装的 RxJava。</p>
+				<p style="text-align:left">　　分布式链路监控：Spring Cloud Sleuth 提供了全自动、可配置的数据埋点，以收集微服务调用链路上的性能数据，并发送给 Zipkin 进行存储、统计和展示。</p>
+				<p style="text-align:left">　　消息组件：Spring Cloud Stream 对于分布式消息的各种需求进行了抽象，包括发布订阅、分组消费、消息分片等功能，实现了微服务之间的异步通信。</p>
+            </section>
+			<section>
+				<p style="text-align:left">　　配置中心：基于 Spring Cloud Netflix 和 Spring Cloud Bus，Spring 又提供了 Spring Cloud Config，实现了配置集中管理、动态刷新的配置中心概念。配置通过 Git 或者简单文件来存储，支持加解密。</p>
+				<p style="text-align:left">　　安全控制：Spring Cloud Security 基于 OAuth2 这个开放网络的安全标准，提供了微服务环境下的单点登录、资源授权、令牌管理等功能。</p>
+				<p style="text-align:left">　　命令行工具：Spring Cloud Cli 提供了以命令行和脚本的方式来管理微服务及 Spring Cloud 组件的方式。</p>
+				<p style="text-align:left">　　集群工具：Spring Cloud Cluster 提供了集群选主、分布式锁、一次性令牌等分布式集群需要的技术组件。</p>
+            </section>
+		
+		</section>
+		
+ 
+        <section>
+            <h3>3.常见问题</h3>
+			<br>
+            <p style="text-align:center">SpringCloud必须使用springboot吗？他们之间有什么关系？</p>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+			<br>
+			<p style="text-align:left">　　Spring boot 是 Spring 的一套快速配置脚手架，可以基于spring boot 快速开发单个微服务。Spring Cloud是一个基于Spring Boot实现的云应用开发工具。Spring boot可以离开Spring Cloud独立使用开发项目，但是Spring Cloud离不开Spring boot，属于依赖的关系。</p>
+        </section>
+
+		<section>
+			<section>
+				<h3>5.编码实战</h3>
+			</section>
+		</section>
+	
+		
+        <section>
+			<section>
+				<h3>6.扩展思考</h3>
+			</section>
+			
+			<section>
+				<p></p>
+				<p style="text-align:left">　　</p>
+				<p style="text-align:left">　　</p>
+				<p style="text-align:left">　　</p>
+				<p style="text-align:left">　　</p>
+			</section>
+        </section>
+
+        
+        
+        <section>
+            <h3>7.参考文献</h3>
+			<br>
+			<p style="text-align:center">Java 8系列之重新认识HashMap 美团技术团队</p>
+        </section>
+        
+        <section>
+            <h4 align="center">鸣谢</h4>
+            <p align="center">感谢观看,如有出错,恳请指正</p>
+            <p align="center"><small>BY : 朱明星</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
